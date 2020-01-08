@@ -563,12 +563,24 @@ namespace IceBlink2
                 creatureToAnimate.Clear();
                 playerToAnimate = null;
                 Creature crt = new Creature();
+                int highestLivingCrtMoveOrderfound = 0;
                 foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                 {
-                    if (c.moveOrder == currentMoveOrderIndex -1)
+                    if (currentMoveOrderIndex == 0)
                     {
-                        crt = c;
-                        break;
+                        if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                        {
+                            highestLivingCrtMoveOrderfound = c.moveOrder;
+                            crt = c;
+                        }
+                    }
+                    else
+                    {
+                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                        {
+                            crt = c;
+                            break;
+                        }
                     }
                 }
                 //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -597,6 +609,7 @@ namespace IceBlink2
 
         public void doCombatSetup()
         {
+            gv.cc.addLogText("<font color='yellow'>" + "Encounter setup" + "</font><BR><BR>");
             //surprise round system
             creaturesHaveUpperHand = false;
             partyHasUpperHand = false;
@@ -730,7 +743,7 @@ namespace IceBlink2
                     if (gv.sf.ThisProp.isStealthed)
                     {
                         creaturesHaveUpperHand = true;
-                        gv.cc.addLogText("<font color='red'>" + "Ambush! The enemy has caught the party flat-footed. Free first round for the enemy." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Ambush - party is flat-footed" + "</font><BR><BR>");
                     }
                     else if ((advantageCreatures && advantageParty) || (!advantageCreatures && !advantageParty))
                     {
@@ -739,12 +752,12 @@ namespace IceBlink2
                     else if (advantageCreatures && !advantageParty)
                     {
                         creaturesHaveUpperHand = true;
-                        gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Party is flat-footed" + "</font><BR><BR>");
                     }
                     else if (!advantageCreatures && advantageParty)
                     {
                         partyHasUpperHand = true;
-                        gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Enemy is flat-footed" + "</font><BR><BR>");
                     }
                 }
                 //not called from prop
@@ -757,12 +770,12 @@ namespace IceBlink2
                     else if (advantageCreatures && !advantageParty)
                     {
                         creaturesHaveUpperHand = true;
-                        gv.cc.addLogText("<font color='red'>" + "The enemy has caught the party flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the enemy." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Party is flat-footed" + "</font><BR><BR>");
                     }
                     else if (!advantageCreatures && advantageParty)
                     {
                         partyHasUpperHand = true;
-                        gv.cc.addLogText("<font color='blue'>" + "The party has caught the enemy flat-footed (based on rolls in " + gv.mod.tagOfStealthMainTrait + " and " + gv.mod.tagOfSpotEnemyTrait + ")! Free first round for the party." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Enemy is flat-footed" + "</font><BR><BR>");
                     }
                 }
             }
@@ -865,11 +878,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank1;
                                                     if (f.accumulatedBuffStrengthRank1 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank1 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank1.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     //birthday
                                                     //let's limit the faction buff effect a bit for starters
@@ -884,11 +897,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank2;
                                                     if (f.accumulatedBuffStrengthRank2 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank2 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank2.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank2.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 3)
@@ -900,11 +913,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank3;
                                                     if (f.accumulatedBuffStrengthRank3 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank3 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank3.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank3.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 4)
@@ -916,11 +929,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank4;
                                                     if (f.accumulatedBuffStrengthRank4 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank4 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank4.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank4.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 5)
@@ -932,11 +945,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank5;
                                                     if (f.accumulatedBuffStrengthRank5 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank5 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank5.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank5.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 6)
@@ -948,11 +961,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank6;
                                                     if (f.accumulatedBuffStrengthRank6 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank6 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 7)
@@ -964,11 +977,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank7;
                                                     if (f.accumulatedBuffStrengthRank7 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank7 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank7.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank7.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 8)
@@ -980,11 +993,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank8;
                                                     if (f.accumulatedBuffStrengthRank8 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank8 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank8.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank8.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 9)
@@ -996,11 +1009,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank9;
                                                     if (f.accumulatedBuffStrengthRank9 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank9 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank9.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank9.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 10)
@@ -1012,11 +1025,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank10;
                                                     if (f.accumulatedBuffStrengthRank10 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank10 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='blue'>" + copy.cr_name + " belongs to " + f.name + " and gets a -" + f.accumulatedBuffStrengthRank10.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank10.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
 
@@ -1096,7 +1109,7 @@ namespace IceBlink2
                 if (gv.mod.nightFightModifier != 0)
                 {
                     gv.mod.poorVisionModifier = gv.mod.nightFightModifier;
-                    gv.cc.addLogText("<font color='yellow'>Night debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party." + "<BR></font>");
+                    gv.cc.addLogText("<font color='white'>Low light debuff of " + gv.mod.nightFightModifier.ToString() + " applied on party." + "<BR><BR></font>");
                     for (int index = 0; index < gv.mod.playerList.Count; index++)
                     {
                         gv.sf.UpdateStats(gv.mod.playerList[index]);
@@ -1122,7 +1135,7 @@ namespace IceBlink2
                 if (gv.mod.darkFightModifier != 0)
                 {
                     gv.mod.poorVisionModifier = gv.mod.darkFightModifier;
-                    gv.cc.addLogText("<font color='yellow'>Darkness debuff of " + gv.mod.darkFightModifier.ToString() + " applied on party" + ".<BR></font>");
+                    gv.cc.addLogText("<font color='white'>Darkness debuff of " + gv.mod.darkFightModifier.ToString() + " applied on party" + ".<BR><BR></font>");
                     for (int index = 0; index < gv.mod.playerList.Count; index++)
                     {
                         gv.sf.UpdateStats(gv.mod.playerList[index]);
@@ -1523,7 +1536,7 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='yellow'>" + "Win this battle by defeating all enemies." + "<BR></font>");
                 }
                 */
-                gv.cc.addLogText("<font color='yellow'>" + battleStartMessage + "<BR></font>");
+                gv.cc.addLogText("<font color='white'>" + battleStartMessage + "<BR></font>");
             }
 
             //IBScript Setup Combat Hook (run only once)
@@ -1542,21 +1555,21 @@ namespace IceBlink2
             }
             else if (partyHasUpperHand)
             {
-                gv.cc.addFloatyText(new Coordinate(0, 0), "Enemy is caught flat-footed, Round " + roundCounter, "green");
-                gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+                gv.cc.addFloatyText(new Coordinate(0, 0), "Enemy is caught flat-footed, Round " + roundCounter, "yellow");
+                gv.cc.addLogText("<font color='yellow'>" + "Round " + roundCounter + "</font><BR>");
             }
             else if (creaturesHaveUpperHand)
             {
-                gv.cc.addFloatyText(new Coordinate(0, 0), "Party is caught flat-footed, Round " + roundCounter, "red");
-                gv.cc.addLogText("<font color='red'>" + "Round " + roundCounter + "</font><BR>");
+                gv.cc.addFloatyText(new Coordinate(0, 0), "Party is caught flat-footed, Round " + roundCounter, "yellow");
+                gv.cc.addLogText("<font color='yellow'>" + "Round " + roundCounter + "</font><BR>");
             }
             if (gv.mod.currentEncounter.standGroundVictory) 
             {
-                gv.cc.addLogText("<font color='lime'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "Survive " + gv.mod.currentEncounter.standGroundInternalTimer + " more round(s).</font><BR>");
             }
             if (gv.mod.currentEncounter.timeLimitDefeat)
             {
-                gv.cc.addLogText("<font color='red'>" + "You have to win within " + gv.mod.currentEncounter.timeLimitInternalTimer + " round(s) or this battle is lost.</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "You have to win within " + gv.mod.currentEncounter.timeLimitInternalTimer + " round(s) or this battle is lost.</font><BR>");
             }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
@@ -1756,20 +1769,23 @@ namespace IceBlink2
                     if (pc.moveOrder == currentMoveOrderIndex)
                     {
                         //tiereimpark
+                        //nastybug
+                        gv.screenCombat.animationSeqStack.Clear();
                         checkEndEncounter();
                         if (!allDone)
                         {
                             //deathAnimationLocations.Clear();
                             //write the pc's name to log whsoe turn it is
-                            if (pc.hp > 0)
-                            {
-                                gv.cc.addLogText("<font color='blue'>It's the turn of " + pc.name + ". </font><BR>");
-                            }
+                            //if (pc.hp > 0)
+                            //{
+                                //gv.cc.addLogText("<font color='blue'>Turn of " + pc.name + ". </font><BR>");
+                                gv.cc.addLogText("Turn of " + "<font color='lime'>" + pc.name + "</font><BR>");
+                            //}
 
                         if ((pc.hp <= 0) && (pc.hp > -20) && !pc.hasDelayedAlready)
                         {
                             pc.hp -= 1;
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " bleeds 1 HP, dead at -20 HP!" + "</font><BR>");
+                            gv.cc.addLogText("Unconscious and bleeding, <font color='red'> -1 <font color='white'>HP</font><BR>");
                             pc.charStatus = "Dead";
                             if (pc.hp <= -20)
                             {
@@ -1937,7 +1953,13 @@ namespace IceBlink2
                         currentMoveOrderIndex++;
                         tagsOfTriggersAndPropTriggersCalledThisTurn.Clear();
                         triggerIndexCombat = 0;
-                        CalculateUpperLeft();
+
+                            //flackern
+                            if (pc.hp > 0)
+                            {
+                                //CalculateUpperLeft();
+                            }
+
                         if (!pc.hasDelayedAlready)
                         {
                            doPropTriggers();
@@ -1955,7 +1977,7 @@ namespace IceBlink2
                             bool partySkipDueToSurprise = false;
                             if (roundCounter <= 2 && creaturesHaveUpperHand)
                             {
-                                gv.cc.addLogText("<font color='red'>" + pc.name + " skips this turn (flat-footed)." + "</font><BR>");
+                                gv.cc.addLogText("Flat-footed" + "<BR>");
                                 partySkipDueToSurprise = true;
                             }
                             if (roundCounter > 2)
@@ -1963,7 +1985,7 @@ namespace IceBlink2
                                 partySkipDueToSurprise = false;
                             }
                             //partySkipDueToSurprise = true;
-                            if ((pc.isHeld()) || (pc.isDead()) || partySkipDueToSurprise)
+                            if ((pc.isDead()) || partySkipDueToSurprise)
                         {
                             pc.thisCastIsFreeOfCost = false;
                             pc.isPreparingSpell = false;
@@ -2096,11 +2118,11 @@ namespace IceBlink2
 
                                         if (saveChk >= DC)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + ") and " + pc.playerClass.labelForCastAction + " still despite damage during last turn." + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>makes will save(" + saveChkRoll + "+" + saveChkAdder + " >= " + DC + ") and " + pc.playerClass.labelForCastAction + " still despite damage during last turn." + "</font><BR>");
                                         }
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + ") - " + pc.playerClass.spellLabelSingular + " cancelled due to damage during last turn." + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>fails will save(" + saveChkRoll + "+" + saveChkAdder + " <= " + DC + ") - " + pc.playerClass.spellLabelSingular + " cancelled due to damage during last turn." + "</font><BR>");
 
                                             //reset all relevant values to default
                                             pc.isPreparingSpell = false;
@@ -2123,7 +2145,7 @@ namespace IceBlink2
                                     pc.doCastActionInXFullTurns--;
 
                                     //log
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " prepares a " + pc.playerClass.spellLabelSingular + " that takes still " + pc.doCastActionInXFullTurns + " full turn(s)..." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> prepares a " + pc.playerClass.spellLabelSingular + " that takes still " + pc.doCastActionInXFullTurns + " full turn(s)..." + " </font><BR>");
 
                                     //end turn
                                     endPcTurn(true);
@@ -2163,6 +2185,7 @@ namespace IceBlink2
                     if (crt.moveOrder == currentMoveOrderIndex)
                     {
                         //tiereimpark
+                        gv.screenCombat.animationSeqStack.Clear();
                         checkEndEncounter();
                         spriteList.Clear();
                         if (!floatyTextEnlargerOn)
@@ -2173,7 +2196,7 @@ namespace IceBlink2
                         coordinatesOfPcTheCreatureMovesTowards.Y = -1;
                         storedPathOfCurrentCreature.Clear();
                         //deathAnimationLocations.Clear();
-                        gv.cc.addLogText("<font color='blue'>It's the turn of " + crt.cr_name + ". </font><BR>");
+                        gv.cc.addLogText("Turn of " + "<font color='red'>" + crt.cr_name + "</font> <BR>");
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
                         applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
                         applyEffectsCombat(crt, false);
@@ -2194,7 +2217,8 @@ namespace IceBlink2
                         currentMoveOrderIndex++;
                         tagsOfTriggersAndPropTriggersCalledThisTurn.Clear();
                         triggerIndexCombat = 0;
-                        CalculateUpperLeft();
+                        CalculateUpperLeftCreature(crt);
+                        //CalculateUpperLeft();
                         doPropTriggers();
                         //tiereimpark
                         checkEndEncounter();
@@ -2205,7 +2229,7 @@ namespace IceBlink2
                         bool skipDueToSurprise = false;
                         if (roundCounter <= 2 && partyHasUpperHand)
                         {
-                            gv.cc.addLogText("<font color='blue'>" + crt.cr_name + " skips this turn (flat-footed)." + "</font><BR>");
+                            gv.cc.addLogText("Flat-footed" + "<BR>");
                             skipDueToSurprise = true;
                         }
                         if (roundCounter > 2)
@@ -2217,6 +2241,7 @@ namespace IceBlink2
                         {
                             //upperLeftInFastForwardX = -100;
                             //upperLeftInFastForwardY = -100;
+                            blockAnimationBridge = false;
                             doCreatureTurn();
                         }
                         else
@@ -3442,7 +3467,7 @@ namespace IceBlink2
                                             if (s.Value.Equals(ls))
                                             {
                                                 skip = true;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + ef.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + ef.name + "</font><BR>");
                                                 break;
                                             }
                                         }
@@ -3513,7 +3538,7 @@ namespace IceBlink2
                                             //}
                                             //else
                                             //{
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
                                             //}
                                         }
                                         else//failed save roll or no roll allowed
@@ -3527,7 +3552,7 @@ namespace IceBlink2
                                                 //}
                                                 //else
                                                 //{
-                                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                                 //}
                                                 //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
                                                 //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
@@ -3934,7 +3959,7 @@ namespace IceBlink2
                         {
                             pc.charStatus = "Alive";
                         }
-                        gv.cc.addLogText("<font color='lime'>" + pc.name + " gains 1 HPs (BattleRegen Trait)" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> gains 1 HPs (BattleRegen Trait)" + "</font><BR>");
                     }
                 }
             }
@@ -3955,7 +3980,7 @@ namespace IceBlink2
                             pc.charStatus = "Alive";
                             pc.hp = pc.hpMax / 10;
                             //do damage to all
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " jumps back up (Hard to Kill trait).</font><br>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> jumps back up (Hard to Kill trait).</font><br>");
                             if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " > 50)</font><BR>");
@@ -3963,7 +3988,7 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " stays down (Hard to Kill trait).</font><br>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> stays down (Hard to Kill trait).</font><br>");
                             if (gv.mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " < 51)</font><BR>");
@@ -4082,7 +4107,7 @@ namespace IceBlink2
             }
             if (increment > 0)
             {
-                gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "sp</font><br>");
+                gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> regens <font color='lime'>" + increment + "<font color='white'> sp</font><br>");
             }
 
         }
@@ -4096,7 +4121,7 @@ namespace IceBlink2
             }
             if (increment > 0)
             {
-                gv.cc.addLogText("<font color='lime'>" + pc.name + " regens " + increment + "hp</font><br>");
+                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>regens <font color='lime'>" + increment + " <font color='white'>hp</font><br>");
             }
         }
 
@@ -4337,7 +4362,7 @@ namespace IceBlink2
                     {
                         if (pc.effectsList[i].endEffectWhenCarrierTakesDamage)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + "took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'>took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
                             pc.effectsList.Remove(pc.effectsList[i]);
                         }
                     }
@@ -4379,12 +4404,12 @@ namespace IceBlink2
 
                         if (saveChk >= DC)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has been shrugged off." + " </font><BR>");
+                            gv.cc.addLogText("<font color='whitw'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has been shrugged off." + " </font><BR>");
                             pc.effectsList.RemoveAt(i);
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " fails to shrug off " + pc.effectsList[i].name + "." + " </font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>fails to shrug off " + pc.effectsList[i].name + "." + " </font><BR>");
                         }
                     }
                 }
@@ -4404,7 +4429,7 @@ namespace IceBlink2
                             {
                                 if (!pc.effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended." + " </font><BR>");
                                     pc.effectsList.RemoveAt(i);
                                 }
                             }
@@ -4415,7 +4440,7 @@ namespace IceBlink2
                             {
                                 if (!pc.effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + "The " + pc.effectsList[i].name + " effect on " + pc.name + " has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended." + " </font><BR>");
                                     pc.effectsList.RemoveAt(i);
                                 }
                             }
@@ -4565,7 +4590,7 @@ namespace IceBlink2
                         if (pc.hp > -20)
                         {
                             pc.hp -= gv.mod.currentEncounter.hpDamageEachRound;
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.hpDamageEachRound + " hp.</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>lost <font color='red'>" + gv.mod.currentEncounter.hpDamageEachRound + " <font color='white'>hp.</font><BR>");
                         }
                     }
 
@@ -4574,7 +4599,7 @@ namespace IceBlink2
                         if (pc.sp > 0)
                         {
                             pc.sp -= gv.mod.currentEncounter.spDamageEachRound;
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " lost " + gv.mod.currentEncounter.spDamageEachRound + " sp.</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>lost <font color='red'>" + gv.mod.currentEncounter.spDamageEachRound + " <font color='white'>sp.</font><BR>");
                             if (pc.sp < 0)
                             {
                                 pc.sp = 0;
@@ -4793,32 +4818,39 @@ namespace IceBlink2
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
             }
+
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
                 crt.hp = crt.hp - damage;
                 if (paidHpCost)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
                 }
                 if (paidSpCost)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
                 }
                 if (attackPenaltyForCostNotPaid)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
                 }
                
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='silver'>" + crt.cr_name + "</font>");
-                    gv.cc.addLogText("<font color='white'> and HITS (</font><font color='lime'>" + damage + "</font><font color='white'> damage)</font><BR>");
+                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + "</font>");
                 if (!automaticallyHits)
                 {
-                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
+                    if (attackMod >= 0)
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "<font color='white'>hp</font>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "<font color='white'>hp</font>");
+                    }
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='white'>" + "(Automatic hit)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Automatic hit for <font color='red'>" + damage + "<font color='white'>hp</font><BR> ");
                 }
 
                 Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
@@ -4860,7 +4892,7 @@ namespace IceBlink2
                         deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
                         //gv.screenCombat.blockCreatureDrawLocations.Add();
                     }
-                    gv.cc.addLogText("<font color='lime'>You killed the " + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>has been killed</font><BR>");
                     return 2; //killed
                 }
                 else
@@ -4877,19 +4909,25 @@ namespace IceBlink2
                 }
                 if (paidHpCost)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
                 }
                 if (paidSpCost)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> is drained for " + itChk.spCostPerAttack + " SP by attacking." + "</font><BR>");
                 }
                 if (attackPenaltyForCostNotPaid)
                 {
-                    gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
                 }
-                gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font><font color='white'> attacks </font><font color='gray'>" + crt.cr_name + "</font>");
-                gv.cc.addLogText("<font color='white'> and MISSES</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
+                gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + "</font>");
+                if (attackMod >= 0)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
                 return 0; //missed
             }
         }
@@ -4920,6 +4958,7 @@ namespace IceBlink2
                 }
             }
             */
+           
             updateStatsAllCreatures();
             currentMoves = 0;
             creatureMoves = 0;
@@ -4973,7 +5012,7 @@ namespace IceBlink2
                 //if (!continueTurn)
                 //{
                 deathAnimationLocations.Clear();
-                
+                gv.cc.addLogText("<font color='blue'> </font><BR>");
                 turnController();
                 //}
                 //else
@@ -5027,12 +5066,12 @@ namespace IceBlink2
             if (roll + attMod + skillMod >= DC)
             {
                 pc.steathModeOn = true;
-                gv.cc.addLogText("<font color='lime'> stealth ON: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "</font><BR>");
+                gv.cc.addLogText("Stealthed: " + roll + "+" + attMod + "+" + skillMod + ">=" + DC + "<BR>");
             }
             else
             {
                 pc.steathModeOn = false;
-                gv.cc.addLogText("<font color='lime'> stealth OFF: " + roll + "+" + attMod + "+" + skillMod + " < " + DC + "</font><BR>");
+                gv.cc.addLogText("<Unstealthed: " + roll + "+" + attMod + "+" + skillMod + " < " + DC + "<BR>");
             }
         }
         public void doPlayerCombatFacing(Player pc, int tarX, int tarY)
@@ -5053,12 +5092,24 @@ namespace IceBlink2
         {
             canMove = true;
             Creature crt = new Creature();
+            int highestLivingCrtMoveOrderfound = 0;
             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
             {
-                if (c.moveOrder == currentMoveOrderIndex -1)
+                if (currentMoveOrderIndex == 0)
                 {
-                    crt = c;
-                    break;
+                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                    {
+                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                        crt = c;
+                    }
+                }
+                else
+                {
+                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                    {
+                        crt = c;
+                        break;
+                    }
                 }
             }
             //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -5077,12 +5128,24 @@ namespace IceBlink2
         public void doCreatureNextAction()
         {
             Creature crt = new Creature();
+            int highestLivingCrtMoveOrderfound = 0;
             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
             {
-                if (c.moveOrder == currentMoveOrderIndex - 1)
+                if (currentMoveOrderIndex == 0)
                 {
-                    crt = c;
-                    break;
+                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                    {
+                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                        crt = c;
+                    }
+                }
+                else
+                {
+                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                    {
+                        crt = c;
+                        break;
+                    }
                 }
             }
             //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -5126,12 +5189,24 @@ namespace IceBlink2
         public void doCreatureTurnAfterDelay()
         {
             Creature crt = new Creature();
+            int highestLivingCrtMoveOrderfound = 0;
             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
             {
-                if (c.moveOrder == currentMoveOrderIndex - 1)
+                if (currentMoveOrderIndex == 0)
                 {
-                    crt = c;
-                    break;
+                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                    {
+                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                        crt = c;
+                    }
+                }
+                else
+                {
+                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                    {
+                        crt = c;
+                        break;
+                    }
                 }
             }
             //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -5194,12 +5269,24 @@ namespace IceBlink2
         public void CreatureMoves()
         {
             Creature crt = new Creature();
+            int highestLivingCrtMoveOrderfound = 0;
             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
             {
-                if (c.moveOrder == currentMoveOrderIndex - 1)
+                if (currentMoveOrderIndex == 0)
                 {
-                    crt = c;
-                    break;
+                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                    {
+                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                        crt = c;
+                    }
+                }
+                else
+                {
+                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                    {
+                        crt = c;
+                        break;
+                    }
                 }
             }
             //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -6394,7 +6481,180 @@ namespace IceBlink2
         }
 
 
-        //AoO overload
+        //leavethretaned overload
+        public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation, Player pc, int futurePosX, int futurePosY)
+        {
+            if (pc != null)
+            {
+                //Player pc = (Player)gv.sf.CombatTarget;
+                //Uses Map Pixel Locations
+                int startX = pc.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int startY = pc.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                int endX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                int endY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                // determine if ranged or melee
+                if ((crt.cr_category.Equals("Ranged"))
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange)
+                        && (isVisibleLineOfSight(new Coordinate(startX, startY), new Coordinate(endX, endY))))
+                {
+                    //play attack sound for ranged
+                    gv.PlaySound(crt.cr_attackSound);
+                    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+                    {
+                        crt.combatFacingLeft = true;
+                    }
+                    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+                    {
+                        crt.combatFacingLeft = false;
+                    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
+
+                    if (crt.hp > 0)
+                    {
+
+                        //bali1
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            adjustCamToRangedCreature = true;
+                            //CenterScreenOnPC();
+                            //CalculateUpperLeftCreature(crt);
+                            adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                //ATTACKI
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate.Add(crt);
+                        playerToAnimate = null;
+                        creatureTargetLocation = new Coordinate(pc.combatLocX, pc.combatLocY);
+                        //set attack animation and do a delay
+                        attackAnimationTimeElapsed = 0;
+                        //attackAnimationLengthInMilliseconds = (int) ( (5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f) );
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+
+                        //add projectile animation
+                        startX = getPixelLocX(crt.combatLocX);
+                        startY = getPixelLocY(crt.combatLocY);
+                        endX = getPixelLocX(pc.combatLocX);
+                        endY = getPixelLocY(pc.combatLocY);
+                        string filename = crt.cr_projSpriteFilename;
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        newSeq.AnimationSeq.Add(newGroup);
+                        launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                        //add ending projectile animation  
+                        //onthewater
+                        doStandardCreatureAttack(crt, pc, futurePosX, futurePosY);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
+                        }
+                        animationsOn = true;
+                    }
+                    else
+                    {
+                        //skip this guys turn
+                    }
+                }
+                else if ((crt.cr_category.Equals("Melee"))
+                        && (CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY) <= crt.cr_attRange))
+                {
+                    if ((pc.combatLocX < crt.combatLocX) && (!crt.combatFacingLeft)) //attack left
+                    {
+                        crt.combatFacingLeft = true;
+                    }
+                    else if ((pc.combatLocX > crt.combatLocX) && (crt.combatFacingLeft)) //attack right
+                    {
+                        crt.combatFacingLeft = false;
+                    }
+                    //CHANGE FACING BASED ON ATTACK
+                    doCreatureCombatFacing(crt, pc.combatLocX, pc.combatLocY);
+                    if (crt.hp > 0)
+                    {
+
+                        if (gv.mod.useManualCombatCam)
+                        {
+                            //adjustCamToRangedCreature = true;
+                            //CenterScreenOnPC();
+                            //CalculateUpperLeftCreature(crt);
+                            //adjustCamToRangedCreature = false;
+
+                            if (IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY))
+                            {
+                                //ATTACKI
+                                gv.touchEnabled = false;
+                            }
+                        }
+
+                        creatureToAnimate.Add(crt);
+                        playerToAnimate = null;
+
+                        attackAnimationTimeElapsed = 0;
+                        attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)crt.token.PixelSize.Height / 100f));
+                        //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)crt.token.PixelSize.Height / 100f) * 100);
+
+                        //do melee attack stuff and animations  
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        doStandardCreatureAttack(crt, pc, futurePosX, futurePosY);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+
+                        if (!allowAnimationActivation)
+                        {
+                            //AoO situation
+                            isPlayerTurn = true;
+                        }
+                        animationsOn = true;
+                    }
+                    else
+                    {
+                        //skip this guys turn
+                    }
+                }
+                else //not in range for attack so MOVE
+                {
+                    CreatureMoves();
+                }
+            }
+            else //no target so move instead
+            {
+                CreatureMoves();
+            }
+        }
+        //AoO overload (for non-moving situarions, like casting)
         public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation, Player pc)
         {
             if (pc != null)
@@ -7366,7 +7626,7 @@ namespace IceBlink2
 
         public void endCreatureTurn(Creature crt)
         {
-            //gv.cc.addLogText("<font color='silver'>" + "Reached end turn routine" + "</font><BR>");
+            //gv.cc.addLogText("<font color='red'>" + "Reached end turn routine" + "</font><BR>");
             /*
             //if remaining duration <= 0, remove from list
             for (int i = crt.cr_effectsList.Count - 1; i >= 0; i--)
@@ -7381,10 +7641,11 @@ namespace IceBlink2
                 }
             }
             */
+            gv.cc.addLogText("<font color='blue'> </font><BR>");
             crt.maxTurnTimeCounter = 0;
             crt.targetPcTag = "none";
             updateStatsAllCreatures();
-            //gv.cc.addLogText("<font color='silver'>" + "Updated stats" + "</font><BR>");
+            //gv.cc.addLogText("<font color='red'>" + "Updated stats" + "</font><BR>");
             creatureMoves = 0;
             currentMoves = 0;
             //store current hp of cretaure, use it at start of creature next turn to see whether damage occured in the meantime
@@ -7486,9 +7747,114 @@ namespace IceBlink2
             //}
                 crt.glideAdderX = 0;
             crt.glideAdderY = 0;
-            //gv.cc.addLogText("<font color='silver'>" + "Right before calling truncontroller" + "</font><BR>");
+            //gv.cc.addLogText("<font color='red'>" + "Right before calling truncontroller" + "</font><BR>");
             turnController();
         }
+
+        public void doStandardCreatureAttack(Creature crt, Player pc, int futureX, int futureY)
+        {
+            //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+            //Player pc = (Player)gv.sf.CombatTarget;
+
+            upperLeftInFastForwardX = pc.combatLocX - gv.playerOffsetX;
+            upperLeftInFastForwardY = pc.combatLocY - gv.playerOffsetY;
+
+            bool hit = false;
+            for (int i = 0; i < crt.getNumberOfAttacks(); i++)
+            {
+                //this reduces the to hit bonus for each further creature attack by an additional -5
+                //creatureMultAttackPenalty = 5 * i;            
+                bool hitreturn = doActualCreatureAttack(pc, crt, i, futureX, futureY);
+                if (hitreturn) { hit = true; }
+                if (pc.hp <= 0)
+                {
+                    break; //do not try and attack same PC that was just killed
+                }
+            }
+
+            //play attack sound for melee
+            if (!crt.cr_category.Equals("Ranged"))
+            {
+                gv.PlaySound(crt.cr_attackSound);
+            }
+
+            if (hit)
+            {
+                //hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
+                //reversecodeneeded
+                if (pc.hp > 0)
+                {
+                    hitAnimationLocation = new Coordinate(getPixelLocX(futureX), getPixelLocY(futureY));
+                }
+                
+                else
+                {
+                    spriteList.Clear();
+                    /*
+                    int passX = pc.combatLocX;
+                    int passY = pc.combatLocY;
+
+                    if (pc.combatLocX > futureX)
+                    {
+                        passX = pc.combatLocX - 1;
+                    }
+                    else if (pc.combatLocX < futureX)
+                    {
+                        passX = pc.combatLocX + 1;
+                    }
+
+                    if (pc.combatLocY > futureY)
+                    {
+                        passY = pc.combatLocY - 1;
+                    }
+                    else if (pc.combatLocY < futureY)
+                    {
+                        passY = pc.combatLocY + 1;
+                    }
+                    hitAnimationLocation = new Coordinate(getPixelLocX(passX), getPixelLocY(passY));
+                    */
+                }
+
+                //new system
+                //AnimationStackGroup newGroup = new AnimationStackGroup();
+                //animationSeqStack[0].AnimationSeq.Add(newGroup);
+                //addHitAnimation(newGroup);
+                //attackAnimationTimeElapsed = 100000;
+                //if (gv.mod.AoOHitSymbolHasBeenDrawn == false)
+                //{
+
+                if (pc.hp > 0)
+                {
+                    int ttl = 8 * gv.mod.attackAnimationSpeed;
+                    Sprite spr = new Sprite(gv, "hit_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
+                    int testX = UpperLeftSquare.X;
+                    int testY = UpperLeftSquare.Y;
+                    spriteList.Add(spr);
+                }
+                
+                    //gv.mod.AoOHitSymbolHasBeenDrawn = true;
+                //}
+            }
+            else
+            {
+                //hitAnimationLocation = new Coordinate(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY));
+                hitAnimationLocation = new Coordinate(getPixelLocX(futureX), getPixelLocY(futureY));
+                //new system
+                //AnimationStackGroup newGroup = new AnimationStackGroup();
+                //animationSeqStack[0].AnimationSeq.Add(newGroup);
+                //addMissAnimation(newGroup);
+                //attackAnimationTimeElapsed = 100000;
+                //if (gv.mod.numberOfAoOAttackers > 1)
+                //{
+                    int ttl = 8 * gv.mod.attackAnimationSpeed;
+                    Sprite spr = new Sprite(gv, "miss_symbol", hitAnimationLocation.X, hitAnimationLocation.Y, 0, 0, 0, 0, 1.0f, ttl, false, ttl / 4);
+                int testX = UpperLeftSquare.X;
+                int testY = UpperLeftSquare.Y;
+                spriteList.Add(spr);
+                //}
+            }
+        }
+
 
         public void doStandardCreatureAttack(Creature crt, Player pc)
         {
@@ -7605,14 +7971,19 @@ namespace IceBlink2
             if ((attack >= defense) || (attackRoll == 20))
             {
                 pc.hp = pc.hp - damage;
-                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
-                        "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + " and HITS (" + "</font>" +
-                        "<font color='red'>" + damage + "</font>" +
-                        "<font color='white'>" + " damage)" + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + "</font><BR>");
-
+                gv.cc.addLogText("Attacks " +
+                        "<font color='lime'>" + pc.name + "</font><BR>");
+                if (attackMod >= 0)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
+                            "<font color='white'>" + "hp" + "</font>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
+                            "<font color='white'>" + "hp" + "</font>");
+                }
+            
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
                 if (!crt.onScoringHitCastSpellTag.Equals("none"))
                 {
@@ -7626,7 +7997,94 @@ namespace IceBlink2
 
                 if (pc.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " is unconscious!" + "</font><BR>");
+                    //gv.cc.addLogText("<font color='red'>" + pc.name + " is unconscious!" + "</font><BR>");
+                    pc.charStatus = "Dead";
+                }
+                if (pc.hp <= -20)
+                {
+                    // deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
+                }
+                return true;
+            }
+            else
+            {
+                gv.cc.addLogText("Attacks " +
+                        "<font color='lime'>" + pc.name + "</font><BR>");
+                if (attackMod >= 0)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
+                return false;
+            }
+        }
+
+        //overload for AoO
+        public bool doActualCreatureAttack(Player pc, Creature crt, int attackNumber, int futureX, int futureY)
+        {
+            int attackRoll = gv.sf.RandInt(20);
+            int attackMod = CalcCreatureAttackModifier(crt, pc);
+            int defense = CalcPcDefense(pc, crt);
+            int damage = CalcCreatureDamageToPc(pc, crt);
+            int attack = attackRoll + attackMod;
+
+            if ((attack >= defense) || (attackRoll == 20))
+            {
+                pc.hp = pc.hp - damage;
+                gv.cc.addLogText("Attacks " +
+                        "<font color='lime'>" + pc.name + "</font><BR>");
+                if (attackMod >= 0)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
+                            "<font color='white'>" + "hp</font>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
+                            "<font color='white'>" + "hp</font>");
+                }
+
+                doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
+                if (!crt.onScoringHitCastSpellTag.Equals("none"))
+                {
+                    doCreatureOnHitCastSpell(crt, pc);
+                }
+
+                //Draw floaty text showing damage above PC
+                int txtH = (int)gv.drawFontRegHeight;
+                int shiftUp = 0 - (attackNumber * txtH);
+
+
+                int passX = pc.combatLocX;
+                int passY = pc.combatLocY;
+
+                if (pc.combatLocX > futureX)
+                {
+                    passX = pc.combatLocX + 1;
+                }
+                else if (pc.combatLocX < futureX)
+                {
+                    passX = pc.combatLocX - 1;
+                }
+
+                if (pc.combatLocY > futureY)
+                {
+                    passY = pc.combatLocY + 1;
+                }
+                else if (pc.combatLocY < futureY)
+                {
+                    passY = pc.combatLocY - 1;
+                }
+                //passX
+                gv.cc.addFloatyText(new Coordinate(passX, passY), damage + "", shiftUp);
+                //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), damage + "", shiftUp);
+
+                if (pc.hp <= 0)
+                {
+                    //gv.cc.addLogText("<font color='red'>" + pc.name + " is unconscious!" + "</font><BR>");
                     pc.charStatus = "Dead";
                 }
                 if (pc.hp <= -20)
@@ -7637,14 +8095,20 @@ namespace IceBlink2
             }
             else
             {
-                gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" +
-                        "<font color='white'>" + " attacks " + "</font>" +
-                        "<font color='aqua'>" + pc.name + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + " and MISSES" + "</font><BR>");
-                gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + "</font><BR>");
+                gv.cc.addLogText("Attacks " +
+                        "<font color='lime'>" + pc.name + "</font><BR>");
+                if (attackMod >= 0)
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss</font><BR>");
+                }
                 return false;
             }
         }
+
         public void doCreatureCombatFacing(Creature crt, int tarX, int tarY)
         {
             if ((tarX == crt.combatLocX) && (tarY > crt.combatLocY)) { crt.combatFacing = 2; }
@@ -7676,7 +8140,7 @@ namespace IceBlink2
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font>" +
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -7718,7 +8182,7 @@ namespace IceBlink2
                                     + " acidDam = " + acidDam + "</font>" +
                                     "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + pc.name + "</font>" +
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='lime'>" + acidDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -7753,7 +8217,7 @@ namespace IceBlink2
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -7772,7 +8236,7 @@ namespace IceBlink2
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -7791,7 +8255,7 @@ namespace IceBlink2
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='aqua'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -8399,12 +8863,24 @@ namespace IceBlink2
             else
             {
                 Creature crt = new Creature();
+                int highestLivingCrtMoveOrderfound = 0;
                 foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                 {
-                    if (c.moveOrder == currentMoveOrderIndex -1)
+                    if (currentMoveOrderIndex == 0)
                     {
-                        crt = c;
-                        break;
+                        if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                        {
+                            highestLivingCrtMoveOrderfound = c.moveOrder;
+                            crt = c;
+                        }
+                    }
+                    else
+                    {
+                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                        {
+                            crt = c;
+                            break;
+                        }
                     }
                 }
                 //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -8469,12 +8945,24 @@ namespace IceBlink2
                 {
                     //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
                     Creature crt = new Creature();
+                    int highestLivingCrtMoveOrderfound = 0;
                     foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                     {
-                        if (c.moveOrder == currentMoveOrderIndex -1)
+                        if (currentMoveOrderIndex == 0)
                         {
-                            crt = c;
-                            break;
+                            if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                            {
+                                highestLivingCrtMoveOrderfound = c.moveOrder;
+                                crt = c;
+                            }
+                        }
+                        else
+                        {
+                            if (c.moveOrder == currentMoveOrderIndex - 1)
+                            {
+                                crt = c;
+                                break;
+                            }
                         }
                     }
                     prp = gv.mod.currentEncounter.getPropByLocation(crt.combatLocX, crt.combatLocY);
@@ -8602,12 +9090,24 @@ namespace IceBlink2
                 else
                 {
                     Creature crt = new Creature();
+                    int highestLivingCrtMoveOrderfound = 0;
                     foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                     {
-                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                        if (currentMoveOrderIndex == 0)
                         {
-                            crt = c;
-                            break;
+                            if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                            {
+                                highestLivingCrtMoveOrderfound = c.moveOrder;
+                                crt = c;
+                            }
+                        }
+                        else
+                        {
+                            if (c.moveOrder == currentMoveOrderIndex - 1)
+                            {
+                                crt = c;
+                                break;
+                            }
                         }
                     }
                     //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
@@ -9340,44 +9840,56 @@ namespace IceBlink2
                         else
                         {
                             animationState = AnimationState.None;
-                            
-                            //if (idx >= gv.mod.currentEncounter.encounterCreatureList.Count)
-                            //{
-                            //idx = gv.mod.currentEncounter.encounterCreatureList.Count - 1;
-                            //}
-                            //if (dontEndCreatureTurn && gv.mod.currentEncounter.encounterCreatureList[idx].hp > 0 && !gv.mod.currentEncounter.encounterCreatureList[idx].isHeld())
-                            //{
-                            //dontEndCreatureTurn = false;
-                            //animationsOn = false;
-                            //}
-                            //else
-                            //{
-                            /*
-                            for (int i = gv.mod.currentEncounter.encounterCreatureList.Count-1; i >= 0; i--)
+
+                        //if (idx >= gv.mod.currentEncounter.encounterCreatureList.Count)
+                        //{
+                        //idx = gv.mod.currentEncounter.encounterCreatureList.Count - 1;
+                        //}
+                        //if (dontEndCreatureTurn && gv.mod.currentEncounter.encounterCreatureList[idx].hp > 0 && !gv.mod.currentEncounter.encounterCreatureList[idx].isHeld())
+                        //{
+                        //dontEndCreatureTurn = false;
+                        //animationsOn = false;
+                        //}
+                        //else
+                        //{
+                        /*
+                        for (int i = gv.mod.currentEncounter.encounterCreatureList.Count-1; i >= 0; i--)
+                        {
+                            if (gv.mod.currentEncounter.encounterCreatureList[i].moveOrder == currentMoveOrderIndex)
                             {
-                                if (gv.mod.currentEncounter.encounterCreatureList[i].moveOrder == currentMoveOrderIndex)
+                                endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[i]);
+                            }
+                        }
+                        */
+                        /*
+                        if (idx >= gv.mod.currentEncounter.encounterCreatureList.Count)
+                        {
+                            idx = gv.mod.currentEncounter.encounterCreatureList.Count - 1;
+                        }
+                        endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[idx]);
+                        */
+                        Creature crt = new Creature();
+                        int highestLivingCrtMoveOrderfound = 0;
+                        foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            if (currentMoveOrderIndex == 0)
+                            {
+                                if (c.moveOrder >= highestLivingCrtMoveOrderfound)
                                 {
-                                    endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[i]);
+                                    highestLivingCrtMoveOrderfound = c.moveOrder;
+                                    crt = c;
                                 }
                             }
-                            */
-                            /*
-                            if (idx >= gv.mod.currentEncounter.encounterCreatureList.Count)
+                            else
                             {
-                                idx = gv.mod.currentEncounter.encounterCreatureList.Count - 1;
-                            }
-                            endCreatureTurn(gv.mod.currentEncounter.encounterCreatureList[idx]);
-                            */
-                            Creature crt = new Creature();
-                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
-                            {
-                                if (c.moveOrder == currentMoveOrderIndex -1)
+                                if (c.moveOrder == currentMoveOrderIndex - 1)
                                 {
                                     crt = c;
                                     break;
                                 }
                             }
-                            endCreatureTurn(crt);
+                        }
+                        endCreatureTurn(crt);
 
                             //}
                         }
@@ -9587,12 +10099,24 @@ namespace IceBlink2
                         {
                             //alarmknopf
                             Creature cr = new Creature();
+                            int highestLivingCrtMoveOrderfound = 0;
                             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                             {
-                                if (c.moveOrder == currentMoveOrderIndex - 1)
+                                if (currentMoveOrderIndex == 0)
                                 {
-                                    cr = c;
-                                    break;
+                                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                                    {
+                                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                                        cr = c;
+                                    }
+                                }
+                                else
+                                {
+                                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                                    {
+                                        cr = c;
+                                        break;
+                                    }
                                 }
                             }
 
@@ -9700,7 +10224,7 @@ namespace IceBlink2
                         }
                     }   
                 }
-                if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0))
+                if ((gv.mod.useManualCombatCam) && (animationSeqStack.Count == 0) && (spriteList.Count == 0))
                 {
                     gv.touchEnabled = true;
                 }
@@ -12357,7 +12881,8 @@ namespace IceBlink2
                         IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                        if (!animationsOn)
+                        //always show effects
+                        //if (!animationsOn)
                         {
                             foreach (Effect ef in pc.effectsList)
                             {
@@ -12432,7 +12957,8 @@ namespace IceBlink2
                         IbRect dst = new IbRect(getPixelLocX(pc.combatLocX), getPixelLocY(pc.combatLocY), gv.squareSize, gv.squareSize);
                         gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                        if (!animationsOn)
+                        //show effects always
+                        //if (!animationsOn)
                         {
                             foreach (Effect ef in pc.effectsList)
                             {
@@ -14348,7 +14874,9 @@ namespace IceBlink2
                 //end
                 */
 
-                if (!animationsOn && drawCreature)
+                //if (!animationsOn && drawCreature)
+                //always show efects
+                if (drawCreature)
                 {
                     foreach (Effect ef in crt.cr_effectsList)
                     {
@@ -14390,16 +14918,28 @@ namespace IceBlink2
                     //if (creatureIndex < gv.mod.currentEncounter.encounterCreatureList.Count)
                     //{
                     Creature cr = new Creature();
+                    int highestLivingCrtMoveOrderfound = 0;
                     foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                     {
-                        if (c.moveOrder == currentMoveOrderIndex -1)
+                        if (currentMoveOrderIndex == 0)
                         {
-                            cr = c;
-                            break;
+                            if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                            {
+                                highestLivingCrtMoveOrderfound = c.moveOrder;
+                                cr = c;
+                            }
+                        }
+                        else
+                        {
+                            if (c.moveOrder == currentMoveOrderIndex - 1)
+                            {
+                                cr = c;
+                                break;
+                            }
                         }
                     }
                     //Creature cr = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-                        if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
+                    if (IsInVisibleCombatWindow(cr.combatLocX, cr.combatLocY))
                         {
                             IbRect src = new IbRect(0, 0, gv.cc.turn_marker.PixelSize.Width, gv.cc.turn_marker.PixelSize.Height);
                             //IbRect dst = new IbRect(getPixelLocX(cr.combatLocX), getPixelLocY(cr.combatLocY), gv.squareSize, gv.squareSize);
@@ -14849,9 +15389,11 @@ namespace IceBlink2
             if (floatyTextOn)
             {
                 int txtH = (int)gv.drawFontRegHeight;
-
-                foreach (FloatyText ft in gv.cc.floatyTextList)
+                int rightShift = 0;
+                //foreach (FloatyText ft in gv.cc.floatyTextList)
+                for (int i = 0; i < gv.cc.floatyTextList.Count; i++)
                 {
+                    
                     /*
                     for (int x = -1; x <= 1; x++)
                     {
@@ -14868,15 +15410,19 @@ namespace IceBlink2
                     }
                     */
                     Color colr = Color.Yellow;
-                    if (ft.color.Equals("yellow"))
+                    if (gv.cc.floatyTextList[i].color.Equals("yellow"))
                     {
                         colr = Color.Yellow;
                     }
-                    else if (ft.color.Equals("blue"))
+                    else if (gv.cc.floatyTextList[i].color.Equals("blue"))
                     {
                         colr = Color.Blue;
                     }
-                    else if (ft.color.Equals("green"))
+                    else if (gv.cc.floatyTextList[i].color.Equals("orange"))
+                    {
+                        colr = Color.Orange;
+                    }
+                    else if (gv.cc.floatyTextList[i].color.Equals("green"))
                     {
                         colr = Color.Lime;
                     }
@@ -14884,11 +15430,48 @@ namespace IceBlink2
                     {
                         colr = Color.Red;
                     }
-                    if (!ft.value.Contains("Round"))
+
+                    if (i < gv.cc.floatyTextList.Count - 1)
                     {
-                        gv.DrawTextOutlined(ft.value, ft.location.X - (UpperLeftSquare.X * gv.squareSize) + mapStartLocXinPixels, ft.location.Y - (UpperLeftSquare.Y * gv.squareSize), 1.0f, colr);
+                        if (gv.cc.floatyTextList[i].z == gv.cc.floatyTextList[i+1].z)
+                        {
+                            /*
+                            string text = gv.cc.floatyTextList[i].value.ToString();
+                            if (!text.Contains(" /"))
+                            {
+                                text += " /";
+                                gv.cc.floatyTextList[i].value = text;
+                            }
+                            */
+                        }
                     }
+
+                    if (!gv.cc.floatyTextList[i].value.Contains("Round"))
+                    {
+                        gv.DrawTextOutlined(gv.cc.floatyTextList[i].value, gv.cc.floatyTextList[i].location.X - (UpperLeftSquare.X * gv.squareSize) + mapStartLocXinPixels + rightShift, gv.cc.floatyTextList[i].location.Y - (UpperLeftSquare.Y * gv.squareSize), 1.0f, colr);
+                    }
+
+                    if (i < gv.cc.floatyTextList.Count - 1)
+                    {
+                        //if (gv.cc.floatyTextList[i].location.X < gv.cc.floatyTextList[i + 1].location.X - 15)
+                        {
+                            rightShift += (gv.squareSize/3);
+                        }
+                    }
+                    if (rightShift > 2f *gv.squareSize)
+                    {
+                        rightShift = 0;
+                    }
+                    if (i < gv.cc.floatyTextList.Count - 1)
+                    {
+                        if (gv.cc.floatyTextList[i+1].location.X - (gv.squareSize / 2) > gv.cc.floatyTextList[i].location.X)
+                        {
+                            rightShift = 0;
+                        }
+                    }
+
                 }
+                rightShift = 0;
             }
             if (floatyTextEnlargerOn)
             {
@@ -16983,12 +17566,24 @@ namespace IceBlink2
                         if (gv.mod.fastMode)
                         {
                             Creature crt = new Creature();
+                            int highestLivingCrtMoveOrderfound = 0;
                             foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                             {
-                                if (c.moveOrder == currentMoveOrderIndex -1)
+                                if (currentMoveOrderIndex == 0)
                                 {
-                                    crt = c;
-                                    break;
+                                    if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                                    {
+                                        highestLivingCrtMoveOrderfound = c.moveOrder;
+                                        crt = c;
+                                    }
+                                }
+                                else
+                                {
+                                    if (c.moveOrder == currentMoveOrderIndex - 1)
+                                    {
+                                        crt = c;
+                                        break;
+                                    }
                                 }
                             }
                             UpperLeftSquare.X = crt.combatLocX - gv.playerOffsetX;
@@ -17395,7 +17990,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17460,7 +18055,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17525,7 +18120,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17590,7 +18185,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17655,7 +18250,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17720,7 +18315,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17785,7 +18380,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17851,7 +18446,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17917,7 +18512,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -17983,7 +18578,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18049,7 +18644,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18115,7 +18710,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18181,7 +18776,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18247,7 +18842,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18313,7 +18908,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18379,7 +18974,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18445,7 +19040,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18511,7 +19106,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18577,7 +19172,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18643,7 +19238,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18709,7 +19304,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18775,7 +19370,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18841,7 +19436,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18907,7 +19502,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -18973,7 +19568,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19039,7 +19634,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19056,7 +19651,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19105,7 +19700,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19171,7 +19766,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19237,7 +19832,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19303,7 +19898,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19369,7 +19964,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19435,7 +20030,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19501,7 +20096,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19567,7 +20162,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19633,7 +20228,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -19688,7 +20283,7 @@ namespace IceBlink2
                         int buttonThreshold = 36 - gv.mod.creatureCounterSubstractor;
                         int buttonCounter = 0;
                         int index1 = 0;
-
+                       
                         for (int i = 0; i < moveOrderList.Count; i++)
                         {
                             if (moveOrderList[i].PcOrCreature is Player)
@@ -19699,7 +20294,7 @@ namespace IceBlink2
                                     buttonCounter++;
                                     if (crt.token.PixelSize.Width > 100)
                                     {
-                                        buttonCounter++;
+                                        //buttonCounter++;
                                     }
                                     if (buttonCounter >= buttonThreshold)
                                     {
@@ -20758,10 +21353,13 @@ namespace IceBlink2
         }
 
         //Helper Methods
+        //projectcombatscrollling
         public void CalculateUpperLeft()
         {
-            
-            //if (animationSeqStack.Count == 0)
+            Player pc2 = gv.mod.playerList[currentPlayerIndex];
+            if (pc2.hp > 0)
+            { 
+                //if (animationSeqStack.Count == 0)
             //{
                 if (gv.mod.useManualCombatCam)
                 {
@@ -20769,6 +21367,7 @@ namespace IceBlink2
                 FormerUpperLeftSquare.Y = UpperLeftSquare.Y;
                 CenterScreenOnPC();
                 }
+
                 else
                 {
                     Player pc = gv.mod.playerList[currentPlayerIndex];
@@ -20794,9 +21393,20 @@ namespace IceBlink2
                         spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                         spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
                     }
+                        foreach (AnimationSequence aS in animationSeqStack)
+                        {
+                            for (int i = 0; i < aS.AnimationSeq.Count; i++)
+                            {
+                                for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                                {
+                                    aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X + (deltaX * gv.squareSize);
+                                    aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y + (deltaY * gv.squareSize);
+                                }
+                            }
+                        }
+                    }
                 }
-                }
-            //}
+            }
            
         }
 
@@ -20804,11 +21414,22 @@ namespace IceBlink2
         {
             FormerUpperLeftSquare.X = UpperLeftSquare.X;
             FormerUpperLeftSquare.Y = UpperLeftSquare.Y;
-            
+
             //if (animationSeqStack.Count == 0)
             //{
-                //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-                int minX = crt.combatLocX - gv.playerOffsetX;
+            //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
+            //Player pc = gv.mod.playerList[currentPlayerIndex];
+
+            if (crt.combatLocX == 0 && crt.combatLocY == 0)
+            {
+                int hgjh = 0;
+            }
+
+            if (crt.cr_tag == "newTag")
+            {
+                return;
+            }
+            int minX = crt.combatLocX - gv.playerOffsetX;
                 if (!gv.mod.useManualCombatCam)
                 {
                     if (minX < 0) { minX = 0; }
@@ -20837,7 +21458,7 @@ namespace IceBlink2
             }
                 if (((crt.combatLocX + 2 + oversizeMargin) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 2 - oversizeMargin) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 2 + oversizeMargin) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 2 - oversizeMargin) >= (UpperLeftSquare.Y)))
                 {
-                    return;
+                    //return;
                 }
 
                 else
@@ -20850,6 +21471,7 @@ namespace IceBlink2
                         {
                             relevantRange = crt.cr_attRange;
                         }
+                    relevantRange = 100;
                         //Melee or AoO situation
                         foreach (Player p in gv.mod.playerList)
                         {
@@ -20859,12 +21481,23 @@ namespace IceBlink2
                                 UpperLeftSquare.Y = minY;
                             int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                             int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-                            deltaX = 0;
-                            deltaY = 0;
+                            //deltaX = 0;
+                            //deltaY = 0;
                             foreach (Sprite spr in spriteList)
                             {
                                 spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                                 spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                            }
+                            foreach (AnimationSequence aS in animationSeqStack)
+                            {
+                                for (int i = 0; i < aS.AnimationSeq.Count; i++)
+                                {
+                                    for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                                    {
+                                        aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X - (deltaX * gv.squareSize);
+                                        aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y - (deltaY * gv.squareSize);
+                                    }
+                                }
                             }
 
                             break;
@@ -20878,12 +21511,23 @@ namespace IceBlink2
                                 UpperLeftSquare.Y = minY;
                             int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                             int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-                            deltaX = 0;
-                            deltaY = 0;
+                            //deltaX = 0;
+                            //deltaY = 0;
                             foreach (Sprite spr in spriteList)
                             {
                                 spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                                 spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                            }
+                            foreach (AnimationSequence aS in animationSeqStack)
+                            {
+                                for (int i = 0; i < aS.AnimationSeq.Count; i++)
+                                {
+                                    for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                                    {
+                                        aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X - (deltaX * gv.squareSize);
+                                        aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y - (deltaY * gv.squareSize);
+                                    }
+                                }
                             }
                             break;
                                 //cut out fo bugfixing
@@ -20921,12 +21565,23 @@ namespace IceBlink2
                     UpperLeftSquare.Y = minY;
                     int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                     int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-                    deltaX = 0;
-                    deltaY = 0;
+                    //deltaX = 0;
+                    //deltaY = 0;
                     foreach (Sprite spr in spriteList)
                     {
                         spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                         spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                    }
+                    foreach (AnimationSequence aS in animationSeqStack)
+                    {
+                        for (int i = 0; i < aS.AnimationSeq.Count; i++)
+                        {
+                            for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                            {
+                                aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X - (deltaX * gv.squareSize);
+                                aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y - (deltaY * gv.squareSize);
+                            }
+                        }
                     }
                 }
                 }
@@ -20934,11 +21589,19 @@ namespace IceBlink2
         }
         public void CenterScreenOnPC()
         {
+
+
             if (currentPlayerIndex < gv.mod.playerList.Count && currentPlayerIndex > -1)
             {
                 if (gv.mod.playerList[currentPlayerIndex] != null)
                 {
                     Player pc = gv.mod.playerList[currentPlayerIndex];
+
+                    if (pc.combatLocX == 0 && pc.combatLocY == 0)
+                    {
+                        int hgjh = 0;
+                    }
+
                     int minX = pc.combatLocX - gv.playerOffsetX;
                     if (!gv.mod.useManualCombatCam)
                     {
@@ -20958,19 +21621,32 @@ namespace IceBlink2
                     {
                         if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
                     }
-
+                    //gv.screenCombat.animationSeqStack.Clear();
                     UpperLeftSquare.X = minX;
                     UpperLeftSquare.Y = minY;
                     //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
                     int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                     int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-                    deltaX = 0;
-                    deltaY = 0;
+                    //deltaX = 0;
+                    //deltaY = 0;
                     foreach (Sprite spr in spriteList)
                     {
                         spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                         spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
                     }
+                    
+                    foreach (AnimationSequence aS in animationSeqStack)
+                    {
+                        for (int i = 0; i < aS.AnimationSeq.Count; i++)
+                        {
+                            for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                            {
+                                aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X - (deltaX * gv.squareSize);
+                                aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y - (deltaY * gv.squareSize);
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -20979,6 +21655,12 @@ namespace IceBlink2
         {
             if (pc != null)
             {
+              
+
+                if (pc.combatLocX == 0 && pc.combatLocY == 0)
+                {
+                    int hgjh = 0;
+                }
                 //Player pc = gv.mod.playerList[currentPlayerIndex];
                 int minX = pc.combatLocX - gv.playerOffsetX;
                 if (!gv.mod.useManualCombatCam)
@@ -20999,18 +21681,29 @@ namespace IceBlink2
                 {
                     if (minY < -gv.playerOffsetY) { minY = -gv.playerOffsetY; }
                 }
-
+                //gv.screenCombat.animationSeqStack.Clear();
                 UpperLeftSquare.X = minX;
                 UpperLeftSquare.Y = minY;
                 //TODO: transform sprite position here, based on delta between current and older upper left, also for creatue
                 int deltaX = UpperLeftSquare.X - FormerUpperLeftSquare.X;
                 int deltaY = UpperLeftSquare.Y - FormerUpperLeftSquare.Y;
-                deltaX = 0;
-                deltaY = 0;
+                //deltaX = 0;
+                //deltaY = 0;
                 foreach (Sprite spr in spriteList)
                 {
                     spr.position.X = spr.position.X + (deltaX * gv.squareSize);
                     spr.position.Y = spr.position.Y + (deltaY * gv.squareSize);
+                }
+                foreach (AnimationSequence aS in animationSeqStack)
+                {
+                    for (int  i = 0; i < aS.AnimationSeq.Count; i++)
+                    {
+                        for (int j = 0; j < aS.AnimationSeq[i].SpriteGroup.Count; j++)
+                        {
+                            aS.AnimationSeq[i].SpriteGroup[j].position.X = aS.AnimationSeq[i].SpriteGroup[j].position.X - (deltaX * gv.squareSize);
+                            aS.AnimationSeq[i].SpriteGroup[j].position.Y = aS.AnimationSeq[i].SpriteGroup[j].position.Y - (deltaY * gv.squareSize);
+                        }
+                    }
                 }
             }
         }
@@ -21066,7 +21759,7 @@ namespace IceBlink2
         {
             return ((sqrX - UpperLeftSquare.X) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
         }
-        public int getPixelLocY(int sqrY)
+        public int getPixelLocY(int sqrY) 
         {
             return (sqrY - UpperLeftSquare.Y) * gv.squareSize;
         }
@@ -21650,7 +22343,28 @@ namespace IceBlink2
         }
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
-            
+
+            int passX = pc.combatLocX;
+            int passY = pc.combatLocY;
+
+            if (pc.combatLocX > futurePlayerLocationX)
+            {
+                passX = pc.combatLocX + 1;
+            }
+            else if (pc.combatLocX < futurePlayerLocationX)
+            {
+                passX = pc.combatLocX - 1;
+            }
+
+            if (pc.combatLocY > futurePlayerLocationY)
+            {
+                passY = pc.combatLocY + 1;
+            }
+            else if (pc.combatLocY < futurePlayerLocationY)
+            {
+                passY = pc.combatLocY - 1;
+            }
+
             foreach (string eTag in pc.tagsOfEffectsToRemoveOnMove)
             {
                 for (int i = pc.effectsList.Count-1; i >= 0; i--)
@@ -21671,7 +22385,12 @@ namespace IceBlink2
             {
                 dontEndTurn = true;
             }
+
+
             
+
+
+
             foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
             {
                 if ((crt.hp > 0) && (!crt.isHeld()))
@@ -21695,8 +22414,14 @@ namespace IceBlink2
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='blue'>Attack of Opportunity by: " + crt.cr_name + "</font><BR>");
-                            CreatureDoesAttack(crt, false, pc);
+
+                            //gv.mod.numberOfAoOAttackers++;
+                            gv.touchEnabled = false;
+                            gv.cc.addLogText("<font color='white'>Attack of Opportunity by: <font color='white'>" + crt.cr_name + "</font><BR>");
+                            
+                                CreatureDoesAttack(crt, false, pc, passX, passY);
+                            
+                           
                             //doActualCreatureAttack(pc, crt, 1);
                             if (pc.hp <= 0)
                             {
@@ -21708,7 +22433,9 @@ namespace IceBlink2
                     }
                 }
             }
-        }
+            //gv.mod.AoOHitSymbolHasBeenDrawn = false;
+            //gv.mod.numberOfAoOAttackers = 0;
+    }
 
         public int CalcPcAttackModifier(Player pc, Creature crt)
         {
@@ -21748,7 +22475,7 @@ namespace IceBlink2
                     situationalModifier += gv.mod.attackFromBehindToHitModifier;
                     if (gv.mod.attackFromBehindToHitModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'> Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
                     }
                 }
                 //attacks on truely held creatures get +4 bonus to hit
@@ -21756,7 +22483,7 @@ namespace IceBlink2
                 {
                     modifier += 4;
                     situationalModifier += 4;
-                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " attacks held creature: +4 att</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>attacks held creature: +4 att</font><BR>");
                 }
             }
             else //ranged weapon used
@@ -22050,13 +22777,13 @@ namespace IceBlink2
                 {
                     modifier += gv.mod.attackFromBehindToHitModifier;
                     situationalModifier += gv.mod.attackFromBehindToHitModifier;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks from behind: +" + gv.mod.attackFromBehindToHitModifier + " att</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>attacks from behind: +" + gv.mod.attackFromBehindToHitModifier + " att</font><BR>");
                 }
                 if (pc.isHeld())
                 {
                     modifier += 4;
                     situationalModifier += 4;
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " attacks held player character: +4 att</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>attacks held player character: +4 att</font><BR>");
                 }
                 if (situationalModifier != 0)
                 {

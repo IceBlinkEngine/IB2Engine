@@ -2960,6 +2960,49 @@ namespace IceBlink2
                         }
                     }
                 }
+
+                if (this.screenType == "combat")
+                {
+                    if (mod.isScrollingNowCombat)
+                    {
+                        //projectcombatscrolling
+                        //we needdirection and speed by comparison of curent and former upper left
+                        //is scrollingtimer normalized (elapsed)?
+                        //direction are not limited to four, but actually every angle seems possible, even inbetween diagonals
+
+                        //get diffecrence for x
+                        //get difference for y
+                        //example: form (4,8) to 8,7) (scrolling to right and slightly upwards)
+                        //example: difference x is +4
+                        //example: difference y is -1
+                        
+                        //maybe not needed, ex: turn negative to positives for speed
+                        //maybe not needed, ex: speed is 4 square + (-1) square = root (result)
+                        //maybe not needed, ex: 16 + 1 = root (17) = 4,12
+                        
+                        //example: on every call change pixel x by +4 pix
+                        //example on every call chnage crease pixel y 
+                        if (mod.scrollingDirection == "up")
+                        {
+                            target.Y = target.Y - (int)(squareSize * (mod.scrollingTimer / 100f));
+                        }
+
+                        if (mod.scrollingDirection == "down")
+                        {
+                            target.Y = target.Y + (int)(squareSize * (mod.scrollingTimer / 100f));
+                        }
+
+                        if (mod.scrollingDirection == "left")
+                        {
+                            target.X = target.X - (int)(squareSize * (mod.scrollingTimer / 100f));
+                        }
+
+                        if (mod.scrollingDirection == "right")
+                        {
+                            target.X = target.X + (int)(squareSize * (mod.scrollingTimer / 100f));
+                        }
+                    }
+                }
             }
             
             //org 1

@@ -14,7 +14,6 @@ namespace IceBlink2
     public class Module
     {
 
-        
         public bool isCastFromUsedItem = false;
         public string tagOfItemUsedForCast = "none";
 
@@ -106,7 +105,7 @@ namespace IceBlink2
         //public float hurdle = 10f;
 
         public int breathAnimationFrequency = 10;
-        public int idleAnimationFrequency = 5;
+        public int idleAnimationFrequency = 10;
 
 
 
@@ -160,6 +159,11 @@ namespace IceBlink2
         public bool isScrollingNow = false;
         public string scrollingDirection = "up"; //up, right, down, left
         public float scrollingSpeed = 4.0f;//default 4f, lower is faster
+
+        public float scrollingTimerCombat = 100; //runs from 100 to 0
+        public bool isScrollingNowCombat = false;
+        public string scrollingDirectionCombat = "up"; //up, right, down, left
+        public float scrollingSpeedCombat = 4.0f;//default 4f, lower is faster
 
         public bool useFastRender = false;
         public bool isInitialParticleWave = false;
@@ -248,6 +252,9 @@ namespace IceBlink2
         public int activeSearchSPCost = 1;
 
         public List<string> addedItemsRefs = new List<string>();
+
+        //public bool AoOHitSymbolHasBeenDrawn = false;
+        //public int numberOfAoOAttackers = 0;
 
         public bool encounterSingleImageAutoScale = true;
         public bool useMinimalisticUI = true;

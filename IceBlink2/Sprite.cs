@@ -10,7 +10,8 @@ namespace IceBlink2
     public class Sprite
     {
         public string bitmap = "blank";               // filename of bitmap, do NOT include filename extension
-        public Vector2 position = new Vector2(0, 0);  // The current position of the sprite        
+        public Vector2 position = new Vector2(0, 0);  // The current position of the sprite
+       
         public Vector2 velocity = new Vector2(0, 0);  // The speed of the sprite at the current instance
         public float angle = 0;                       // The current angle of rotation of the sprite
         public float angularVelocity = 0;             // The speed that the angle is changing
