@@ -878,7 +878,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank1;
                                                     if (f.accumulatedBuffStrengthRank1 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank1.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank1 < 0)
                                                     {
@@ -897,7 +897,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank2;
                                                     if (f.accumulatedBuffStrengthRank2 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank2.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank2 < 0)
                                                     {
@@ -913,7 +913,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank3;
                                                     if (f.accumulatedBuffStrengthRank3 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank3.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank3 < 0)
                                                     {
@@ -929,7 +929,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank4;
                                                     if (f.accumulatedBuffStrengthRank4 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank4.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank4 < 0)
                                                     {
@@ -945,7 +945,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank5;
                                                     if (f.accumulatedBuffStrengthRank5 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank5.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank5 < 0)
                                                     {
@@ -961,11 +961,11 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank6;
                                                     if (f.accumulatedBuffStrengthRank6 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "</font><font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank6.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank6 < 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "</font><font color='white'> belongs to " + f.name + ", -" + f.accumulatedBuffStrengthRank6.ToString() + " debuff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                 }
                                                 if (f.rank == 7)
@@ -977,7 +977,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank7;
                                                     if (f.accumulatedBuffStrengthRank7 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank7.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank7 < 0)
                                                     {
@@ -993,7 +993,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank8;
                                                     if (f.accumulatedBuffStrengthRank8 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank8.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank8 < 0)
                                                     {
@@ -1009,7 +1009,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank9;
                                                     if (f.accumulatedBuffStrengthRank9 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank9.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank9 < 0)
                                                     {
@@ -1025,7 +1025,7 @@ namespace IceBlink2
                                                     copy.reflex += f.accumulatedBuffStrengthRank10;
                                                     if (f.accumulatedBuffStrengthRank10 > 0)
                                                     {
-                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color ='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
+                                                        gv.cc.addLogText("<font color='red'>" + copy.cr_name + "<font color='white'> belongs to " + f.name + " , +" + f.accumulatedBuffStrengthRank10.ToString() + " buff to AC, Hitroll and Saves" + "</font><BR><BR>");
                                                     }
                                                     else if (f.accumulatedBuffStrengthRank10 < 0)
                                                     {
@@ -1917,6 +1917,7 @@ namespace IceBlink2
                             //blubb
 
                             //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                            //moved to after prop triggers
                             if (!pc.hasDelayedAlready)
                             {
                                 applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
@@ -1964,8 +1965,14 @@ namespace IceBlink2
                         {
                            doPropTriggers();
                         }
-                        //tiereimpark
-                        checkEndEncounter();
+                            //if (!pc.hasDelayedAlready)
+                            //{
+                                //applyEffectsFromSquare(pc.combatLocX, pc.combatLocY);
+                                //applyEffectsCombat(pc, false);
+                            //}
+
+                            //tiereimpark
+                            checkEndEncounter();
                         floatyTextOn = true;
                         gv.mod.enteredFirstTime = false;
                             //Karl
@@ -1977,7 +1984,8 @@ namespace IceBlink2
                             bool partySkipDueToSurprise = false;
                             if (roundCounter <= 2 && creaturesHaveUpperHand)
                             {
-                                gv.cc.addLogText("Flat-footed" + "<BR>");
+                                //gv.cc.addLogText("<font color='white'> </font>");
+                                gv.cc.addLogText("<font color='white'>Flat-footed</font>" + "<BR>");
                                 partySkipDueToSurprise = true;
                             }
                             if (roundCounter > 2)
@@ -2198,9 +2206,10 @@ namespace IceBlink2
                         //deathAnimationLocations.Clear();
                         gv.cc.addLogText("Turn of " + "<font color='red'>" + crt.cr_name + "</font> <BR>");
                         //switching to a system where effects last from turn they are applied to start of the target creature's next turn (multiplied with duration of effect)
+                        //moved to after prop triggers
                         applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
                         applyEffectsCombat(crt, false);
-                        //applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
+                     
                         //tiereimpark
                         checkEndEncounter();
                         //change creatureIndex or currentPlayerIndex
@@ -2220,6 +2229,8 @@ namespace IceBlink2
                         CalculateUpperLeftCreature(crt);
                         //CalculateUpperLeft();
                         doPropTriggers();
+                        //applyEffectsFromSquare(crt.combatLocX, crt.combatLocY);
+                        //applyEffectsCombat(crt, false);
                         //tiereimpark
                         checkEndEncounter();
                         floatyTextOn = true;
@@ -2229,7 +2240,8 @@ namespace IceBlink2
                         bool skipDueToSurprise = false;
                         if (roundCounter <= 2 && partyHasUpperHand)
                         {
-                            gv.cc.addLogText("Flat-footed" + "<BR>");
+                            //gv.cc.addLogText("<font color='white'> </font>");
+                            gv.cc.addLogText("<font color='white'>Flat-footed</font>" + "<BR>");
                             skipDueToSurprise = true;
                         }
                         if (roundCounter > 2)
@@ -2466,8 +2478,8 @@ namespace IceBlink2
             //summe
             //gv.sf.MessageBox("New round started.");
             floatyTextOn = false;
-            gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "green");
-            gv.cc.addLogText("<font color='lime'>" + "Round " + roundCounter + "</font><BR>");
+            gv.cc.addFloatyText(new Coordinate(0, 0), "Round " + roundCounter, "yellow");
+            gv.cc.addLogText("<font color='yellow'>" + "Round " + roundCounter + "</font><BR>");
             if (gv.mod.currentEncounter.standGroundVictory)
             {
                 //gv.mod.currentEncounter.standGroundInternalTimer--;
@@ -4232,7 +4244,7 @@ namespace IceBlink2
                     {
                         if (crtr.cr_effectsList[i].endEffectWhenCarrierTakesDamage)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + "took damage and is freed from" + crtr.cr_effectsList[i].name + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>took damage and is freed from " + crtr.cr_effectsList[i].name + "</font><BR>");
                             crtr.cr_effectsList.Remove(crtr.cr_effectsList[i]);
                         }
                     }
@@ -4274,44 +4286,56 @@ namespace IceBlink2
 
                     if (saveChk >= DC)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has been shrugged off." + " </font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "The " + crtr.cr_effectsList[i].name + " effect on <font color='red'>" + crtr.cr_name + " <font color='white'>has been shrugged off" + " </font><BR>");
                         crtr.cr_effectsList.RemoveAt(i);
                     }
                     else
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " fails to shrug off " + crtr.cr_effectsList[i].name + "." + " </font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>fails to shrug off " + crtr.cr_effectsList[i].name + " </font><BR>");
                     }
                 }
             }
 
-                
+
+
+                foreach (Effect ef in crtr.cr_effectsList)
+                {
+                    if (!ef.isPermanent && !onlyStepBasedEffects)
+                    {
+                        ef.durationInUnits -= gv.mod.TimePerRound;
+                    }
+                }
+
                 if (!onlyStepBasedEffects)
                 {
                     //if remaining duration <= 0, remove from list
                     for (int i = crtr.cr_effectsList.Count - 1; i >= 0; i--)
                     {
-                        if (crtr.cr_effectsList[i].doBuff || crtr.cr_effectsList[i].doDeBuff)
-                        {
+                        //if (crtr.cr_effectsList[i].doBuff || crtr.cr_effectsList[i].doDeBuff)
+                        //{
                             if (crtr.cr_effectsList[i].durationInUnits <= -gv.mod.TimePerRound)
+                            //if (crtr.cr_effectsList[i].durationInUnits <= 0)
                             {
                                 if (!crtr.cr_effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + crtr.cr_effectsList[i].name + " effect on <font color='red'>" + crtr.cr_name + " <font color='white'>has just ended." + " </font><BR>");
                                     crtr.cr_effectsList.RemoveAt(i);
                                 }
                             }
-                        }
+                        //}
+                        /*
                         else
                         {
                             if (crtr.cr_effectsList[i].durationInUnits <= 0)
                             {
                                 if (!crtr.cr_effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + "The " + crtr.cr_effectsList[i].name + " effect on " + crtr.cr_name + " has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + crtr.cr_effectsList[i].name + " effect on <font color='red'>" + crtr.cr_name + " <font color='white'>has just ended." + " </font><BR>");
                                     crtr.cr_effectsList.RemoveAt(i);
                                 }
                             }
                         }
+                        */
                     }
                 }
                 
@@ -4337,10 +4361,10 @@ namespace IceBlink2
                             }
                     }
 
-                    if (!ef.isPermanent && !onlyStepBasedEffects)
-                    {
-                        ef.durationInUnits -= gv.mod.TimePerRound;
-                    }
+                    //if (!ef.isPermanent && !onlyStepBasedEffects)
+                    //{
+                        //ef.durationInUnits -= gv.mod.TimePerRound;
+                    //}
                 }
 
             }
@@ -4362,7 +4386,7 @@ namespace IceBlink2
                     {
                         if (pc.effectsList[i].endEffectWhenCarrierTakesDamage)
                         {
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'>took damage and is freed from" + pc.effectsList[i].name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> took damage and is freed from " + pc.effectsList[i].name + "</font><BR>");
                             pc.effectsList.Remove(pc.effectsList[i]);
                         }
                     }
@@ -4404,12 +4428,12 @@ namespace IceBlink2
 
                         if (saveChk >= DC)
                         {
-                            gv.cc.addLogText("<font color='whitw'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has been shrugged off." + " </font><BR>");
+                            gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has been shrugged off" + " </font><BR>");
                             pc.effectsList.RemoveAt(i);
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>fails to shrug off " + pc.effectsList[i].name + "." + " </font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>fails to shrug off " + pc.effectsList[i].name + "</font><BR>");
                         }
                     }
                 }
@@ -4417,34 +4441,47 @@ namespace IceBlink2
 
                 //**********************************************************
                 //europa3
-                
+
+
+                foreach (Effect ef in pc.effectsList)
+                {
+                    if (!ef.isPermanent && !onlyStepBasedEffects)
+                    {
+                        ef.durationInUnits -= gv.mod.TimePerRound;
+                    }
+                }
+
                 if (!onlyStepBasedEffects)
                 {
                     for (int i = pc.effectsList.Count - 1; i >= 0; i--)
                     {
                         //pc.effectsList[i].durationOnSquareInUnits
-                        if (pc.effectsList[i].doBuff || pc.effectsList[i].doDeBuff)
-                        {
+                        //if (pc.effectsList[i].doBuff || pc.effectsList[i].doDeBuff)
+                        //{
+                            //if (pc.effectsList[i].durationInUnits <= 0)
                             if (pc.effectsList[i].durationInUnits <= -gv.mod.TimePerRound)
                             {
                                 if (!pc.effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended" + " </font><BR>");
                                     pc.effectsList.RemoveAt(i);
                                 }
                             }
-                        }
+                        //}
+
+                        /*
                         else
                         {
                             if (pc.effectsList[i].durationInUnits <= 0)
                             {
                                 if (!pc.effectsList[i].isPermanent)
                                 {
-                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended." + " </font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended" + " </font><BR>");
                                     pc.effectsList.RemoveAt(i);
                                 }
                             }
                         }
+                        */
                     }
                 }
                 
@@ -4453,6 +4490,7 @@ namespace IceBlink2
                 //maybe reorder all based on their order property            
                 foreach (Effect ef in pc.effectsList)
                 {
+
                     //decrement duration of all
                     //ef.durationInUnits -= gv.mod.TimePerRound;
                     if ((!ef.usedForUpdateStats) && (!ef.isPermanent)) //not used for stat updates
@@ -4470,10 +4508,10 @@ namespace IceBlink2
                         }
                     }
 
-                    if (!ef.isPermanent && !onlyStepBasedEffects)
-                    {
-                        ef.durationInUnits -= gv.mod.TimePerRound;
-                    }
+                    //if (!ef.isPermanent && !onlyStepBasedEffects)
+                    //{
+                        //ef.durationInUnits -= gv.mod.TimePerRound;
+                    //}
                 }
                
 
@@ -15302,9 +15340,29 @@ namespace IceBlink2
                 }
             }
             */
-            gv.DrawTextOutlined(gv.cc.floatyText, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Yellow);
-            gv.DrawTextOutlined(gv.cc.floatyText2, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.Yellow);
-            gv.DrawTextOutlined(gv.cc.floatyText3, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.Yellow);
+            bool isPlayer = false;
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (p.name == gv.cc.floatyTextActorInfoName)
+                {
+                    isPlayer = true;
+                    break;
+                }
+            }
+            if (isPlayer)
+            {
+                gv.DrawTextOutlined(gv.cc.floatyText, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Lime);
+            }
+            else
+            {
+                gv.DrawTextOutlined(gv.cc.floatyText, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH, 1.0f, Color.Red);
+            }
+            gv.DrawTextOutlined(gv.cc.floatyText2, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 2, 1.0f, Color.White);
+            gv.DrawTextOutlined(gv.cc.floatyText3, gv.cc.floatyTextLoc.X, gv.cc.floatyTextLoc.Y + txtH * 3, 1.0f, Color.White);
+
+            //gv.cc.floatyTextLocInfo.X = gv.squareSize/2;
+            //gv.cc.floatyTextLocInfo.Y = gv.squareSize*1;
+            //gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + txtH, 1.0f, Color.White);
         }
         public void drawHPText()
         {
@@ -15901,6 +15959,15 @@ namespace IceBlink2
 #region Move Map
             if (keyData == Keys.Up && !showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -15928,6 +15995,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Left && !showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -15955,6 +16031,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Down && !showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -15982,6 +16067,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.Right && !showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -16010,6 +16104,15 @@ namespace IceBlink2
 
             if (keyData == Keys.W && showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (!gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -16037,6 +16140,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.A && showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (!gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -16064,6 +16176,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.S && showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (!gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -16091,6 +16212,15 @@ namespace IceBlink2
             }
             else if (keyData == Keys.D && showMoveKeys)
             {
+                gv.cc.floatyText = "";
+                gv.cc.floatyText2 = "";
+                gv.cc.floatyText3 = "";
+                gv.cc.floatyText4 = "";
+                gv.cc.floatyText0 = "";
+                gv.cc.floatyTextA = "";
+                gv.cc.floatyTextB = "";
+
+                gv.cc.floatyTextActorInfoName = "";
                 if (!gv.screenMainMap.showMoveKeys)
                 {
                     gv.mod.mainMapMovementRelevantKeyPressed = true;
@@ -17427,6 +17557,9 @@ namespace IceBlink2
                     gv.cc.floatyText0 = "";
                     gv.cc.floatyTextA = "";
                     gv.cc.floatyTextB = "";
+                    
+                    gv.cc.floatyTextActorInfoName = "";
+
                     foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
                     {
                         //if ((crt.combatLocX == gridx + UpperLeftSquare.X) && (crt.combatLocY == gridy + UpperLeftSquare.Y))
@@ -17442,6 +17575,8 @@ namespace IceBlink2
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
                                 gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+
+                                gv.cc.floatyTextActorInfoName = crt.cr_name;
                             }
                         }
 
@@ -17454,6 +17589,8 @@ namespace IceBlink2
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
                                 gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+
+                                gv.cc.floatyTextActorInfoName = crt.cr_name;
                             }
                         }
 
@@ -17466,6 +17603,8 @@ namespace IceBlink2
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
                                 gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+
+                                gv.cc.floatyTextActorInfoName = crt.cr_name;
                             }
                         }
 
@@ -17480,6 +17619,8 @@ namespace IceBlink2
                                 gv.cc.floatyText2 = "HP:" + crt.hp + " SP:" + crt.sp;
                                 gv.cc.floatyText3 = "AC:" + crt.getAc() + " " + crt.cr_status;
                                 gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(crt.combatLocX), getPixelLocY(crt.combatLocY));
+
+                                gv.cc.floatyTextActorInfoName = crt.cr_name;
                             }
                         }
                     }
@@ -17506,6 +17647,7 @@ namespace IceBlink2
                             gv.cc.floatyText3 = "Ammo: " + am;
                             gv.cc.floatyTextLoc = new Coordinate(getPixelLocX(pc1.combatLocX), getPixelLocY(pc1.combatLocY));
 
+                            gv.cc.floatyTextActorInfoName = pc1.name;
                         }
                     }
 #endregion
@@ -17732,6 +17874,9 @@ namespace IceBlink2
                         gv.cc.floatyText0 = "";
                         gv.cc.floatyTextA = "";
                         gv.cc.floatyTextB = "";
+
+                        gv.cc.floatyTextActorInfoName = "";
+
                         if ((currentCombatMode.Equals("attack")) || (currentCombatMode.Equals("cast")))
                         {
                             //Check for second tap so TARGET
@@ -21356,6 +21501,17 @@ namespace IceBlink2
         //projectcombatscrollling
         public void CalculateUpperLeft()
         {
+
+            gv.cc.floatyText = "";
+            gv.cc.floatyText2 = "";
+            gv.cc.floatyText3 = "";
+            gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
+
+            gv.cc.floatyTextActorInfoName = "";
+
             Player pc2 = gv.mod.playerList[currentPlayerIndex];
             if (pc2.hp > 0)
             { 
@@ -21412,6 +21568,16 @@ namespace IceBlink2
 
         public void CalculateUpperLeftCreature(Creature crt)
         {
+            gv.cc.floatyText = "";
+            gv.cc.floatyText2 = "";
+            gv.cc.floatyText3 = "";
+            gv.cc.floatyText4 = "";
+            gv.cc.floatyText0 = "";
+            gv.cc.floatyTextA = "";
+            gv.cc.floatyTextB = "";
+
+            gv.cc.floatyTextActorInfoName = "";
+
             FormerUpperLeftSquare.X = UpperLeftSquare.X;
             FormerUpperLeftSquare.Y = UpperLeftSquare.Y;
 
@@ -22475,7 +22641,7 @@ namespace IceBlink2
                     situationalModifier += gv.mod.attackFromBehindToHitModifier;
                     if (gv.mod.attackFromBehindToHitModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='white'> Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
                     }
                 }
                 //attacks on truely held creatures get +4 bonus to hit
@@ -22598,7 +22764,7 @@ namespace IceBlink2
                     damModifier += gv.mod.attackFromBehindDamageModifier;
                     if (gv.mod.attackFromBehindDamageModifier > 0)
                     {
-                        gv.cc.addLogText("<font color='lime'> Attack from behind: +" + gv.mod.attackFromBehindDamageModifier.ToString() + " damage." + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>Attack from behind: +" + gv.mod.attackFromBehindDamageModifier.ToString() + " damage." + "</font><BR>");
                     }
                 }
 

@@ -178,7 +178,10 @@ namespace IceBlink2
         public string floatyTextA = "";
         public string floatyTextB = "";
 
+        public string floatyTextActorInfoName = "";
+
         public Coordinate floatyTextLoc = new Coordinate();
+        public Coordinate floatyTextLocInfo = new Coordinate();
         public int creatureIndex = 0;
         public bool calledConvoFromProp = false;
         public bool calledEncounterFromProp = false;
@@ -17298,11 +17301,11 @@ namespace IceBlink2
             }
             if (logText != "none" && logText != "None" && logText != "")
             {
-                gv.cc.addLogText("<font color='yellow'>" + logText + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + logText + "</font><BR>");
             }
             else
             {
-                gv.cc.addLogText("<font color='yellow'>" + spell.name + " triggered" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + spell.name + " triggered" + "</font><BR>");
             }
         
             gv.sf.AoeTargetsList.Clear();

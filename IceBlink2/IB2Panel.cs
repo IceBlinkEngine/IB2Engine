@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Color = SharpDX.Color;
 
 namespace IceBlink2
 {
@@ -245,10 +246,32 @@ namespace IceBlink2
 
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(backgroundImageFilename), src, dst, 0, false, 0.575f * gv.mod.logOpacity, true);
                 //}
-
+                int txtH = (int)gv.drawFontRegHeight;
+                gv.cc.floatyTextLocInfo.X = gv.squareSize / 2;
+                gv.cc.floatyTextLocInfo.Y = gv.squareSize * 1;
+                bool isPlayer = false;
+                foreach (Player p in gv.mod.playerList)
+                {
+                    if (p.name == gv.cc.floatyTextActorInfoName)
+                    {
+                        isPlayer = true;
+                        break;
+                    }
+                }
+                if (isPlayer)
+                {
+                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 1.0f, Color.Lime);
+                }
+                else
+                {
+                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 1.0f, Color.Red);
+                }
                 foreach (IB2HtmlLogBox log in logList)
                 {
-                    log.onDrawLogBox(this);
+                    if (gv.cc.floatyTextActorInfoName == "")
+                    {
+                        log.onDrawLogBox(this);
+                    } 
                 }
             }
 
