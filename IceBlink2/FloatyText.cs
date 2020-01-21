@@ -7,6 +7,7 @@ namespace IceBlink2
 {
     public class FloatyText
     {
+        public bool startDrawing = false;
         public Coordinate location = new Coordinate();
         public string areaFilename = "none";
         public string value = "";

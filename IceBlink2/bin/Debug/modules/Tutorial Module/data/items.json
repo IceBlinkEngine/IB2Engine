@@ -5182,9 +5182,9 @@
     "onUseItem": "none",
     "onWhileEquipped": "none",
     "onScoringHitCastSpellTag": "none",
-    "onUseItemCastSpellTag": "flameFingers",
-    "destroyItemAfterOnUseItemCastSpell": true,
-    "levelOfItemForCastSpell": 1,
+    "onUseItemCastSpellTag": "summonAllyTag_11737",
+    "destroyItemAfterOnUseItemCastSpell": false,
+    "levelOfItemForCastSpell": 5,
     "usePlayerClassLevelForOnUseItemCastSpell": false
   },
   {

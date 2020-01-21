@@ -24866,8 +24866,25 @@ namespace IceBlink2
                  {  
                      gv.cc.addLogText("<yl>" + source.cr_name + " fails to teleport, square is already occupied or not valid</yl><BR>");  
                  }  
-             }  
-         }
+             }
+            else if (src is Item)
+            {
+                Item source = (Item)src;
+                Coordinate target = (Coordinate)trg;
+                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+
+                if (IsSquareOpen(target))
+                {
+                    gv.cc.addLogText("<gn>" + pc.name + " teleports to another location</gn><BR>");
+                    pc.combatLocX = target.X;
+                    pc.combatLocY = target.Y;
+                }
+                else
+                {
+                    gv.cc.addLogText("<yl>" + pc.name + " fails to teleport, square is already occupied or not valid</yl><BR>");
+                }
+            }
+        }
 
         public void spSummonAlly(object src, object trg, Spell sp)
         {
@@ -25336,7 +25353,21 @@ namespace IceBlink2
                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                 }
             }
-           
+
+            else if (src is Item)
+            {
+                Item source = (Item)src;
+                Coordinate target = (Coordinate)trg;
+
+                if (IsSquareOpen(target))
+                {
+                    //sourceName = source.name;
+                    gv.cc.addLogText("<gn>" + source.name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    //hersel
+                    int parm2 = Convert.ToInt32(sp.spellScriptParm2);
+                    gv.sf.AddTemporaryAllyForThisEncounter(sp.spellScriptParm1, target.X, target.Y, parm2);
+                }
+            }
         }
 
         public int CalcShopBuyBackModifier(Player pc)

@@ -223,6 +223,38 @@ namespace IceBlink2
             //snowshift
                 dst = new IbRect((int)this.position.X, (int)this.position.Y, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
             //}
+
+            //panikanfälle
+            if (gv.screenType == "combat")
+            {
+                if (!gv.screenCombat.isPlayerTurn)
+                {
+                    Creature cr = new Creature();
+                    int highestLivingCrtMoveOrderfound = 0;
+                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                    {
+                        if (gv.screenCombat.currentMoveOrderIndex == 0)
+                        {
+                            if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                            {
+                                highestLivingCrtMoveOrderfound = c.moveOrder;
+                                cr = c;
+                            }
+                        }
+                        else
+                        {
+                            if (c.moveOrder == gv.screenCombat.currentMoveOrderIndex - 1)
+                            {
+                                cr = c;
+                                break;
+                            }
+                        }
+                    }
+
+                    dst = new IbRect((int)this.position.X - (int)cr.glideAdderX, (int)this.position.Y - (int)cr.glideAdderY, (int)(gv.squareSize * this.scaleX), (int)(gv.squareSize * this.scaleY));
+
+                }
+            }
             float opacityMulti = 1;
             if (this.movementMethod.Contains("fog") || this.movementMethod.Contains("clouds"))
             {

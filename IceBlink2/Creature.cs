@@ -631,9 +631,11 @@ namespace IceBlink2
             }
             if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
-        } 
+        }
 
-         public int getNumberOfAttacks()
+        
+
+        public int getNumberOfAttacks()
          {  
              if (this.cr_category.Equals("Melee"))  
              {

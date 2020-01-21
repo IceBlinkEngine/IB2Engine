@@ -178,7 +178,83 @@ namespace IceBlink2
         public string floatyTextA = "";
         public string floatyTextB = "";
 
+        public string floatyTextPropMouseOver = "";
+        public Coordinate floatyTextLocPropMouseOver = new Coordinate();
+        public float floatyPushUp = 0;
+
+        public bool inEffectMode = false;
         public string floatyTextActorInfoName = "";
+        public string floatyTextActorInfoMoveOrder = "";
+        public string floatyTextActorInfoInitiative = "";
+        public string floatyTextActorInfoAC = "";
+        public string floatyTextActorInfoMovementRange = "";
+        public string floatyTextActorInfoHP = "";
+        public string floatyTextActorInfoSP = "";
+        public string floatyTextActorInfoToHit = "";
+        public string floatyTextActorInfoNumberOfAttacks = "";
+        public string floatyTextActorInfoAmmo = "";
+        public string floatyTextActorInfoOnScoringHitSpellName = "";
+        public string floatyTextActorInfoOnScoringHitSpellNameSelf = "";
+        public string floatyTextActorInfoAttackRange = "";
+        public string floatyTextActorInfoAttackType = "";
+        public string floatyTextActorInfoDamage = "";
+        public string floatyTextActorInfoSaves = "";
+        public string floatyTextActorInfoSaves2 = "";
+        public string floatyTextActorInfoSaves3 = "";
+        public string floatyTextActorInfoDamageType = "";
+
+        public bool drawInfoText = true;
+      
+
+        public string floatyTextActorInfoResistances1 = "";
+        public string floatyTextActorInfoResistances2 = "";
+        public string floatyTextActorInfoResistances3 = "";
+        public string floatyTextActorInfoResistances4 = "";
+        public string floatyTextActorInfoResistances5 = "";
+        public string floatyTextActorInfoResistances6 = "";
+        public string floatyTextActorInfoResistances7 = "";
+        public string floatyTextActorInfoRMB1 = "";
+        public string floatyTextActorInfoRMB2 = "";
+
+        public string floatyTextActorInfoTempEffects1 = "";
+        public string floatyTextActorInfoTempEffects2 = "";
+        public string floatyTextActorInfoTempEffects3 = "";
+        public string floatyTextActorInfoTempEffects4 = "";
+        public string floatyTextActorInfoTempEffects5 = "";
+        public string floatyTextActorInfoTempEffects6 = "";
+        public string floatyTextActorInfoTempEffects7 = "";
+        public string floatyTextActorInfoTempEffects8 = "";
+        public string floatyTextActorInfoTempEffects9 = "";
+        public string floatyTextActorInfoTempEffects10 = "";
+        public string floatyTextActorInfoTempEffects1custom = "";
+        public string floatyTextActorInfoTempEffects2custom = "";
+        public string floatyTextActorInfoTempEffects3custom = "";
+        public string floatyTextActorInfoTempEffects4custom = "";
+        public string floatyTextActorInfoTempEffects5custom = "";
+        public string floatyTextActorInfoTempEffects6custom = "";
+        public string floatyTextActorInfoTempEffects7custom = "";
+        public string floatyTextActorInfoTempEffects8custom = "";
+        public string floatyTextActorInfoTempEffects9custom = "";
+        public string floatyTextActorInfoTempEffects10custom = "";
+
+        public bool showingEffects = true;
+
+        //creature only
+        //public string floatyTextActorInfoFaction = "";
+        public string floatyTextActorInfoRegenerationHP = "";
+        public string floatyTextActorInfoRegenerationSP = "";
+        public string floatyTextActorInfoSpellsKnown1 = "";
+        public string floatyTextActorInfoSpellsKnown2 = "";
+        public string floatyTextActorInfoSpellsKnown3 = "";
+        public string floatyTextActorInfoAIType = "";
+        public string floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
+        public string floatyTextActorInfoInjuryThreshold = "";
+
+        public string floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
+        public string floatyTextActorInfoOnDeathScriptName = "";
+
+
+
 
         public Coordinate floatyTextLoc = new Coordinate();
         public Coordinate floatyTextLocInfo = new Coordinate();
@@ -17353,15 +17429,26 @@ namespace IceBlink2
                 AnimationSequence newSeq = new AnimationSequence();
                 gv.screenCombat.animationSeqStack.Add(newSeq);
                 AnimationStackGroup newGroup = new AnimationStackGroup();
-                gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
+
+            //ulrepforte
+            
+            gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
                 foreach (Coordinate coor in gv.sf.AoeSquaresList)
                 {
                     gv.screenCombat.addEndingAnimation(newGroup, new Coordinate(gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y)), filename);
                 }
-                //add floaty text  
-                //add death animations
+                
+             /*   
+            foreach (Coordinate coor in gv.sf.AoeSquaresList)
+            {
+                Sprite spr = new Sprite(gv, filename, gv.screenCombat.getPixelLocX(coor.X), gv.screenCombat.getPixelLocY(coor.Y), 0, 0, 0, 0, 1, 1000, false, 500);
+                gv.screenCombat.spriteList.Add(spr);
+            }
+            */
+            //add floaty text  
+            //add death animations
 
-                newGroup = new AnimationStackGroup();
+            newGroup = new AnimationStackGroup();
                 gv.screenCombat.animationSeqStack[0].AnimationSeq.Add(newGroup);
                 gv.screenCombat.deathAnimationLocations.Clear();
         

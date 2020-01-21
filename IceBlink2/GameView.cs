@@ -791,6 +791,7 @@ namespace IceBlink2
 
         public void onTimedEvent(object source, EventArgs e)
         {
+            //mod.isScrollingNow = false;
             //check for diretion (set direction on button down)
             //move code for each specific direction
             //int zuz = 0;
@@ -2038,6 +2039,7 @@ namespace IceBlink2
         //new, for all stuff outlined using locx, locy
         public void DrawTextOutlined(string text, float xLoc, float yLoc, float scaler, SharpDX.Color fontColor)
         {
+            //scaler = 0.5f;
             DrawTextOutlined(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
         }
 
