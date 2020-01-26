@@ -574,6 +574,15 @@
         "isLightSource": false,
         "isRation": false,
         "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_17466",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
       }
     ]
   }

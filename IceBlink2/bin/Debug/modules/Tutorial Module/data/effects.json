@@ -2309,7 +2309,11 @@
     "modifyShopSellPrice": 0,
     "allowCastingWithoutTriggeringAoO": false,
     "allowCastingWithoutRiskOfInterruption": false,
-    "affectNeverList": [],
+    "affectNeverList": [
+      {
+        "Value": "undead"
+      }
+    ],
     "affectOnlyList": [],
     "tag": "fx_doubleStrike",
     "tagOfSender": "senderTag",

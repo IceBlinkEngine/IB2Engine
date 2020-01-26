@@ -59,7 +59,7 @@ namespace IceBlink2
                 }
             }
         }
-
+         
         public void AddHtmlTextToLog(string htmlText)
         {
             //Remove any '\r\n' hard returns from message

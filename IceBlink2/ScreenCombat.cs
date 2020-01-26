@@ -3691,7 +3691,7 @@ namespace IceBlink2
                                             if (s.Value.Equals(ls.Value))
                                             {
                                                 skip = true;
-                                                gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " is immune to " + ef.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>is immune to " + ef.name + "</font><BR>");
                                                 break;
                                             }
                                         }
@@ -3763,7 +3763,7 @@ namespace IceBlink2
                                             //}
                                             //else
                                             //{
-                                                gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                                gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
                                             //}
                                             //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
                                             //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
@@ -3780,7 +3780,7 @@ namespace IceBlink2
                                                 //}
                                                 //else
                                                 //{
-                                                    gv.cc.addLogText("<font color='yellow'>" + crtr.cr_name + " failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                    gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                                 //}
                                             }
                                             //else//no save roll allowed
@@ -3995,7 +3995,7 @@ namespace IceBlink2
                             gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> jumps back up (Hard to Kill trait).</font><br>");
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " > 50)</font><BR>");
+                                gv.cc.addLogText("<font color='white'>" + "roll = " + roll + " (" + roll + " > 50)</font><BR>");
                             }
                         }
                         else
@@ -4003,7 +4003,7 @@ namespace IceBlink2
                             gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> stays down (Hard to Kill trait).</font><br>");
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + "roll = " + roll + " (" + roll + " < 51)</font><BR>");
+                                gv.cc.addLogText("<font color='white'>" + "roll = " + roll + " (" + roll + " < 51)</font><BR>");
                             }
                         }
                     }
@@ -4658,6 +4658,8 @@ namespace IceBlink2
         }
         public void doCombatAttack(Player pc)
         {
+            //requiredWeaponTypesToHarmCreature
+
             dontEndTurn = false;
             if (isInRange(pc))
             {
@@ -4848,8 +4850,8 @@ namespace IceBlink2
 
             int attack = attackRoll + attackMod;
             int defense = CalcCreatureDefense(pc, crt);
-            int damage = CalcPcDamageToCreature(pc, crt);
-
+            //int damage = CalcPcDamageToCreature(pc, crt);
+            int damage = 0;
             bool automaticallyHits = false;
             Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
             if (itChk != null)
@@ -4860,6 +4862,7 @@ namespace IceBlink2
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
+                damage = CalcPcDamageToCreature(pc, crt);
                 crt.hp = crt.hp - damage;
                 if (paidHpCost)
                 {
@@ -7079,7 +7082,7 @@ namespace IceBlink2
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is a BasicAttacker</font><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -7087,7 +7090,7 @@ namespace IceBlink2
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a GeneralCaster</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is a GeneralCaster</font><BR>");
                 }
                 GeneralCaster(crt);
             }
@@ -7095,7 +7098,7 @@ namespace IceBlink2
             {
                 if (gv.mod.debugMode)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is a BasicAttacker</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is a BasicAttacker</font><BR>");
                 }
                 BasicAttacker(crt);
             }
@@ -8193,7 +8196,7 @@ namespace IceBlink2
 
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                            gv.cc.addLogText("<font color='white'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
@@ -8216,11 +8219,11 @@ namespace IceBlink2
                             int DC = 15;
                             if (saveChk >= DC) //passed save check
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids stun (" + saveChkRoll + " + " + crt.getFortitude() + " >= " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>avoids stun (" + saveChkRoll + " + " + crt.getFortitude() + " >= " + DC + ")</font><BR>");
                             }
                             else
                             {
-                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is stunned by mace (" + saveChkRoll + " + " + crt.getFortitude() + " < " + DC + ")</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is stunned by mace (" + saveChkRoll + " + " + crt.getFortitude() + " < " + DC + ")</font><BR>");
                                 crt.cr_status = "Held";
                                 Effect ef = gv.mod.getEffectByTag("hold");
                                 crt.AddEffectByObject(ef, 1);
@@ -8235,13 +8238,13 @@ namespace IceBlink2
 
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                            gv.cc.addLogText("<font color='white'>" + "resist = " + resist + " damage = " + damage
                                     + " acidDam = " + acidDam + "</font>" +
                                     "<BR>");
                         }
                         gv.cc.addLogText("<font color='lime'>" + pc.name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
-                                "<font color='lime'>" + acidDam + "</font>" +
+                                "<font color='red'>" + acidDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
                                 "<BR>");
                         pc.hp -= acidDam;
@@ -8252,11 +8255,11 @@ namespace IceBlink2
                         int DC = 10;
                         if (saveChk >= DC) //passed save check
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the acid stun (" + saveChkRoll + " + " + pc.fortitude + " >= " + DC + ")</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>avoids the acid stun (" + saveChkRoll + " + " + pc.fortitude + " >= " + DC + ")</font><BR>");
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is held by an acid stun (" + saveChkRoll + " + " + pc.fortitude + " < " + DC + ")</font><BR>");
                             pc.charStatus = "Held";
                             Effect ef = gv.mod.getEffectByTag("hold");
                             pc.AddEffectByObject(ef, 1);
@@ -8270,11 +8273,11 @@ namespace IceBlink2
 
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                            gv.cc.addLogText("<font color='white'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -8289,11 +8292,11 @@ namespace IceBlink2
 
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                            gv.cc.addLogText("<font color='white'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -8308,11 +8311,11 @@ namespace IceBlink2
 
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage
+                            gv.cc.addLogText("<font color='white'>" + "resist = " + resist + " damage = " + damage
                                         + " fireDam = " + fireDam + "</font>" +
                                         "<BR>");
                         }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + "</font>" +
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + "</font>" +
                                 "<font color='white'>" + " is burned for " + "</font>" +
                                 "<font color='red'>" + fireDam + "</font>" +
                                 "<font color='white'>" + " hit point(s)" + "</font>" +
@@ -8326,17 +8329,17 @@ namespace IceBlink2
                         int DC = 13;
                         if (saveChk >= DC) //passed save check
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>avoids being poisoned" + "</font>" +
                                     "<BR>");
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
+                                gv.cc.addLogText("<font color='white'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
                             }
                         }
                         else //failed check
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is poisoned" + "</font>" + "<BR>");
                             Effect ef = gv.mod.getEffectByTag("poisonedLight");
                             pc.AddEffectByObject(ef, 1);
                         }
@@ -8348,17 +8351,17 @@ namespace IceBlink2
                         int DC = 16;
                         if (saveChk >= DC) //passed save check
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids being poisoned" + "</font>" +
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>avoids being poisoned" + "</font>" +
                                     "<BR>");
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
+                                gv.cc.addLogText("<font color='white'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font>" +
                                             "<BR>");
                             }
                         }
                         else //failed check
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is poisoned" + "</font>" + "<BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is poisoned" + "</font>" + "<BR>");
                             Effect ef = gv.mod.getEffectByTag("poisonedMedium");
                             pc.AddEffectByObject(ef, 1);
                         }
@@ -13378,6 +13381,32 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                             int tlX = ((x - UpperLeftSquare.X + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                             int tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize;
+                            if (!isPlayerTurn)
+                            {
+                                Creature cr = new Creature();
+                                int highestLivingCrtMoveOrderfound = 0;
+                                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if (currentMoveOrderIndex == 0)
+                                    {
+                                        if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                                        {
+                                            highestLivingCrtMoveOrderfound = c.moveOrder;
+                                            cr = c;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                                        {
+                                            cr = c;
+                                            break;
+                                        }
+                                    }
+                                }
+                                tlX = (x - UpperLeftSquare.X + shiftX) * gv.squareSize - (int)(cr.glideAdderX) + gv.oXshift + mapStartLocXinPixels;
+                                tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize - (int)cr.glideAdderY;
+                            }
                             float scalerX = srcLyr.Width / 100;
                             float scalerY = srcLyr.Height / 100;
                             int brX = (int)(gv.squareSize * scalerX);
@@ -13413,6 +13442,32 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                             int tlX = ((x - UpperLeftSquare.X + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                             int tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize;
+                            if (!isPlayerTurn)
+                            {
+                                Creature cr = new Creature();
+                                int highestLivingCrtMoveOrderfound = 0;
+                                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if (currentMoveOrderIndex == 0)
+                                    {
+                                        if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                                        {
+                                            highestLivingCrtMoveOrderfound = c.moveOrder;
+                                            cr = c;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                                        {
+                                            cr = c;
+                                            break;
+                                        }
+                                    }
+                                }
+                                tlX = (x - UpperLeftSquare.X + shiftX) * gv.squareSize - (int)(cr.glideAdderX) + gv.oXshift + mapStartLocXinPixels;
+                                tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize - (int)cr.glideAdderY;
+                            }
                             float scalerX = srcLyr.Width / 100;
                             float scalerY = srcLyr.Height / 100;
                             int brX = (int)(gv.squareSize * scalerX);
@@ -13448,6 +13503,32 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             int shiftX = srcLyr.Left / gv.squareSizeInPixels;
                             int tlX = ((x - UpperLeftSquare.X + shiftX) * gv.squareSize) + gv.oXshift + mapStartLocXinPixels;
                             int tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize;
+                            if (!isPlayerTurn)
+                            {
+                                Creature cr = new Creature();
+                                int highestLivingCrtMoveOrderfound = 0;
+                                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                {
+                                    if (currentMoveOrderIndex == 0)
+                                    {
+                                        if (c.moveOrder >= highestLivingCrtMoveOrderfound)
+                                        {
+                                            highestLivingCrtMoveOrderfound = c.moveOrder;
+                                            cr = c;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (c.moveOrder == currentMoveOrderIndex - 1)
+                                        {
+                                            cr = c;
+                                            break;
+                                        }
+                                    }
+                                }
+                                tlX = (x - UpperLeftSquare.X + shiftX) * gv.squareSize - (int)(cr.glideAdderX) + gv.oXshift + mapStartLocXinPixels;
+                                tlY = (y - UpperLeftSquare.Y + shiftY) * gv.squareSize - (int)cr.glideAdderY;
+                            }
                             float scalerX = srcLyr.Width / 100;
                             float scalerY = srcLyr.Height / 100;
                             int brX = (int)(gv.squareSize * scalerX);
@@ -23292,6 +23373,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoSP = "";
                 gv.cc.floatyTextActorInfoToHit = "";
                 gv.cc.floatyTextActorInfoNumberOfAttacks = "";
+                gv.cc.floatyTextActorInfoWeaponTags = "";
                 gv.cc.floatyTextActorInfoOnScoringHitSpellName = "";
                 gv.cc.floatyTextActorInfoOnScoringHitSpellNameSelf = "";
                 gv.cc.floatyTextActorInfoAttackRange = "";
@@ -23319,11 +23401,74 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
                 gv.cc.floatyTextActorInfoInjuryThreshold = "";
                 gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
+                gv.cc.floatyTextActorInfoHitBy = "";
                 gv.cc.floatyTextActorInfoOnDeathScriptName = "";
                 gv.cc.floatyTextActorInfoRMB1 = "";
                 gv.cc.floatyTextActorInfoRMB2 = "";
 
-    }
+                int counter = 0;
+                foreach (Effect ef in pc.effectsList)
+                {
+                    counter++;
+                    if (counter == 1)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects1 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects1custom = ef.description;
+                    }
+                    if (counter == 2)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects2 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects2custom = ef.description;
+                    }
+                    if (counter == 3)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects3 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects3custom = ef.description;
+                    }
+                    if (counter == 4)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects4 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects4custom = ef.description;
+                    }
+                    if (counter == 5)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects5 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects5custom = ef.description;
+                    }
+                    if (counter == 6)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects6 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects6custom = ef.description;
+                    }
+                    if (counter == 7)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects7 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects7custom = ef.description;
+                    }
+                    if (counter == 8)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects8 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects8custom = ef.description;
+                    }
+                    if (counter == 9)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects9 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects9custom = ef.description;
+                    }
+                    if (counter == 10)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects10 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects10custom = ef.description;
+                    }
+                }
+
+                if (gv.cc.floatyTextActorInfoTempEffects1 == "")
+                {
+                    gv.cc.floatyTextActorInfoTempEffects1 = "No temporary effects";
+                }
+            }
+
+        
             else if (actor is Creature)
             {
                 gv.cc.inEffectMode = true; 
@@ -23359,6 +23504,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoHP = "";
                 gv.cc.floatyTextActorInfoSP = "";
                 gv.cc.floatyTextActorInfoToHit = "";
+                gv.cc.floatyTextActorInfoWeaponTags = "";
                 gv.cc.floatyTextActorInfoNumberOfAttacks = "";
                 gv.cc.floatyTextActorInfoAmmo = "";
                 gv.cc.floatyTextActorInfoOnScoringHitSpellName = "";
@@ -23386,18 +23532,69 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
                 gv.cc.floatyTextActorInfoInjuryThreshold = "";
                 gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
+                gv.cc.floatyTextActorInfoHitBy = "";
                 gv.cc.floatyTextActorInfoOnDeathScriptName = "";
                 gv.cc.floatyTextActorInfoRMB1 = "";
                 gv.cc.floatyTextActorInfoRMB2 = "";
 
 
-                string effectsText = "";
+                //string effectsText = "";
+                int counter = 0;
                 foreach (Effect ef in crt.cr_effectsList)
                 {
-                    effectsText += ef.name;
+                    counter++;
+                    if (counter == 1)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects1 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects1custom = ef.description;
+                    }
+                    if (counter == 2)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects2 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects2custom = ef.description;
+                    }
+                    if (counter == 3)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects3 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects3custom = ef.description;
+                    }
+                    if (counter == 4)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects4 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects4custom = ef.description;
+                    }
+                    if (counter == 5)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects5 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects5custom = ef.description;
+                    }
+                    if (counter == 6)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects6 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects6custom = ef.description;
+                    }
+                    if (counter == 7)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects7 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects7custom = ef.description;
+                    }
+                    if (counter == 8)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects8 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects8custom = ef.description;
+                    }
+                    if (counter == 9)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects9 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects9custom = ef.description;
+                    }
+                    if (counter == 10)
+                    {
+                        gv.cc.floatyTextActorInfoTempEffects10 = ef.name + " (" + (ef.durationInUnits / gv.mod.TimePerRound) + ")";
+                        gv.cc.floatyTextActorInfoTempEffects10custom = ef.description;
+                    }        
                 }
-                gv.cc.floatyTextActorInfoTempEffects1 = effectsText;
-
+         
                 if (gv.cc.floatyTextActorInfoTempEffects1 == "")
                 {
                     gv.cc.floatyTextActorInfoTempEffects1 = "No temporary effects";
@@ -23534,6 +23731,47 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 {
                     am = "";
                 }
+                string weaponTags = "";
+                Item it = gv.mod.getItemByResRef(pc.MainHandRefs.resref);
+                if (it != null)
+                {
+                    foreach (LocalImmunityString tag in it.entriesForPcTags)
+                    {
+                        weaponTags += tag.Value + ", ";
+                    }
+                }
+                it = gv.mod.getItemByResRef(pc.OffHandRefs.resref);
+                if (it != null)
+                {
+                    foreach (LocalImmunityString tag in it.entriesForPcTags)
+                    {
+                        weaponTags += tag.Value + ", ";
+                    }
+                }
+                it = gv.mod.getItemByResRef(pc.AmmoRefs.resref);
+                if (it != null)
+                {
+                    foreach (LocalImmunityString tag in it.entriesForPcTags)
+                    {
+                        weaponTags += tag.Value + ", ";
+                    }
+                }
+
+                //if (weaponTags != "")
+                //{
+                    //weaponTags.Remove(2);
+                //}
+
+                if (weaponTags == "")
+                {
+                    weaponTags = "none";
+                    gv.cc.floatyTextActorInfoWeaponTags = "Perks: " + weaponTags;
+                }
+                else
+                {
+                    gv.cc.floatyTextActorInfoWeaponTags = "Perks: " + weaponTags.Remove(weaponTags.Length -2);
+                }
+             
 
 
                 gv.cc.floatyTextActorInfoNumberOfAttacks = "#A " + numAtt;
@@ -23563,7 +23801,14 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 }
                 if (dammodifier >= 0)
                 {
-                    gv.cc.floatyTextActorInfoDamage = "Damage " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier;
+                    if (dammodifier == 0)
+                    {
+                        gv.cc.floatyTextActorInfoDamage = "Damage " + numberOfDiceRolled + "d" + typeOfDieRolled;
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoDamage = "Damage " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier;
+                    }
                 }
                 else
                 {
@@ -23665,11 +23910,13 @@ cr.glideAdderY -= 0.5f * glideSpeed;
         gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
                 gv.cc.floatyTextActorInfoInjuryThreshold = "";
                 gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
-        gv.cc.floatyTextActorInfoOnDeathScriptName = "";
+                gv.cc.floatyTextActorInfoHitBy = "";
+                gv.cc.floatyTextActorInfoOnDeathScriptName = "";
 
     }
             else if (actor is Creature)
             {
+                gv.cc.floatyTextActorInfoWeaponTags = "";
                 showHP = true;
                 showSP = true;
                 showMoveOrder = true;
@@ -23707,7 +23954,14 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoAttackRange = "Range " + crt.cr_attRange;
                 if (crt.cr_damageAdder >= 0)
                 {
-                    gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + "+" + crt.cr_damageAdder;
+                    if (crt.cr_damageAdder == 0)
+                    {
+                        gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie;
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + "+" + crt.cr_damageAdder;
+                    }
                 }
                 else
                 {
@@ -23845,18 +24099,80 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 {
                     gv.cc.floatyTextActorInfoInjuryThreshold = "";
                 }
+
                 counter = 0;
-                gv.cc.floatyTextActorInfoCreatureTags = "Tags: ";
+                gv.cc.floatyTextActorInfoHitBy = "Hit by: ";
+                foreach (LocalString lis in crt.requiredWeaponTypesToHarmCreature)
+                {
+                    counter++;
+                    if (counter == 1)
+                    {
+                        if (crt.requiredWeaponTypesToHarmCreature.Count() == 1)
+                        {
+                            gv.cc.floatyTextActorInfoHitBy += lis.Value;
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoHitBy += lis.Value + ", ";
+                        }
+                    }
+                    if (counter == 2)
+                    {
+                        if (crt.requiredWeaponTypesToHarmCreature.Count() == 2)
+                        {
+                            gv.cc.floatyTextActorInfoHitBy += lis.Value;
+                        }
+                        else  
+                        {
+                            gv.cc.floatyTextActorInfoHitBy += lis.Value + ", ";
+                        }
+                    }
+                    if (counter == 3)
+                    {
+                        gv.cc.floatyTextActorInfoHitBy += lis.Value;
+                    }
+                    if (counter >= 4)
+                    {
+                        break;
+                    }
+                }
+                if (crt.requiredWeaponTypesToHarmCreature.Count() == 0)
+                {
+                    gv.cc.floatyTextActorInfoHitBy = "Hit by: all";
+                }
+                /*
+                if (crt.requiredWeaponTypesToHarmCreature.Count() == 1 || crt.requiredWeaponTypesToHarmCreature.Count() == 2)
+                {
+                    //gv.cc.floatyTextActorInfoHitBy.Remove(gv.cc.floatyTextActorInfoHitBy.Length-10, 3);
+                }
+                */
+
+                counter = 0;
+                gv.cc.floatyTextActorInfoCreatureTags = "Type: ";
                 foreach (LocalString tag in crt.CreatureLocalStrings)
                 {
                     counter++;
                     if (counter == 1)
                     {
-                        gv.cc.floatyTextActorInfoCreatureTags += tag.Value + ", ";
+                        if (crt.CreatureLocalStrings.Count() == 1)
+                        {
+                            gv.cc.floatyTextActorInfoCreatureTags += tag.Value;
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoCreatureTags += tag.Value + ", ";
+                        }
                     }
                     if (counter == 2)
                     {
-                        gv.cc.floatyTextActorInfoCreatureTags += tag.Value + ", ";
+                        if (crt.CreatureLocalStrings.Count() == 2)
+                        {
+                            gv.cc.floatyTextActorInfoCreatureTags += tag.Value;
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoCreatureTags += tag.Value + ", ";
+                        }
                     }
                     if (counter == 3)
                     {
@@ -23869,7 +24185,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 }
                 if (crt.CreatureLocalStrings.Count == 0)
                 {
-                    gv.cc.floatyTextActorInfoCreatureTags += "none";
+                    gv.cc.floatyTextActorInfoCreatureTags += "Standard";
                 }
                 //gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
 
@@ -23954,7 +24270,26 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             //this will hide second page with effects on mouse move and left click
             //if (gv.cc.floatyTextActorInfoName == "")
             //{
-                gv.cc.floatyTextActorInfoTempEffects1 = "";
+            gv.cc.floatyTextActorInfoTempEffects1 = "";
+            gv.cc.floatyTextActorInfoTempEffects2 = "";
+            gv.cc.floatyTextActorInfoTempEffects3 = "";
+            gv.cc.floatyTextActorInfoTempEffects4 = "";
+            gv.cc.floatyTextActorInfoTempEffects5 = "";
+            gv.cc.floatyTextActorInfoTempEffects6 = "";
+            gv.cc.floatyTextActorInfoTempEffects7 = "";
+            gv.cc.floatyTextActorInfoTempEffects8 = "";
+            gv.cc.floatyTextActorInfoTempEffects9 = "";
+            gv.cc.floatyTextActorInfoTempEffects10 = "";
+            gv.cc.floatyTextActorInfoTempEffects1custom = "";
+            gv.cc.floatyTextActorInfoTempEffects2custom = "";
+            gv.cc.floatyTextActorInfoTempEffects3custom = "";
+            gv.cc.floatyTextActorInfoTempEffects4custom = "";
+            gv.cc.floatyTextActorInfoTempEffects5custom = "";
+            gv.cc.floatyTextActorInfoTempEffects6custom = "";
+            gv.cc.floatyTextActorInfoTempEffects7custom = "";
+            gv.cc.floatyTextActorInfoTempEffects8custom = "";
+            gv.cc.floatyTextActorInfoTempEffects9custom = "";
+            gv.cc.floatyTextActorInfoTempEffects10custom = "";
             //}
             gv.cc.floatyTextActorInfoName = "";
             gv.cc.floatyTextActorInfoMoveOrder = "";
@@ -23964,6 +24299,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoHP = "";
             gv.cc.floatyTextActorInfoSP = "";
             gv.cc.floatyTextActorInfoToHit = "";
+            gv.cc.floatyTextActorInfoWeaponTags = "";
             gv.cc.floatyTextActorInfoNumberOfAttacks = "";
             gv.cc.floatyTextActorInfoOnScoringHitSpellName = "";
             gv.cc.floatyTextActorInfoOnScoringHitSpellNameSelf = "";
@@ -23991,6 +24327,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
             gv.cc.floatyTextActorInfoInjuryThreshold = "";
             gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
+            gv.cc.floatyTextActorInfoHitBy = "";
             gv.cc.floatyTextActorInfoOnDeathScriptName = "";
             gv.cc.floatyTextActorInfoRMB1 = "";
             gv.cc.floatyTextActorInfoRMB2 = "";
@@ -25058,7 +25395,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     {
                         if (pc.steathModeOn)
                         {
-                            gv.cc.addLogText("<font color='lime'>Avoids Attack of Opportunity due to Stealth</font><BR>");
+                            gv.cc.addLogText("<font color='white'>Avoids Attack of Opportunity due to Stealth</font><BR>");
                         }
                         else
                         {
@@ -25150,8 +25487,8 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     {
                         modifier -= 4;
                         situationalModifier -= 4;
-                        gv.cc.addLogText("<font color='yellow'>" + "-4 ranged attack penalty" + "</font><BR>");
-                        gv.cc.addLogText("<font color='yellow'>" + "with enemies in melee range" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "-4 ranged attack penalty" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "with enemies in melee range" + "</font><BR>");
                         //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "-4 att", "yellow");
                     }
                 }
@@ -25181,13 +25518,13 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             if (gv.sf.hasTrait(pc, "hardtokill"))
             {
                 modifier -= 2;
-                gv.cc.addLogText("<font color='yellow'>" + "blinded by rage" + "</font><BR>");
-                gv.cc.addLogText("<font color='yellow'>" + "-2 attack penalty" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "blinded by rage" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "-2 attack penalty" + "</font><BR>");
             }
 
             if (situationalModifier != 0)
             {
-                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "yellow");
+                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "white");
             }
 
             int attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
@@ -25288,9 +25625,16 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                      || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
             {
 
+                //hit by immunity code and messging (floaty, log) here
+                //loop hrough cretaure ahremd by list
+                //forahc entry, compare wtherer pc perks are matched
+                //if case, do damage
+                //if liszt = 0, do dmaage
+
                 if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
                 {
                     resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
+                    //gv.cc.addLogText("<font color='white'>Acid resistance: +" + adding + "%</font><BR>");
                 }
                 else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
                 {
@@ -25354,6 +25698,88 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             {
                 totalDam = 0;
             }
+
+            bool immune = true;
+            if (crt.requiredWeaponTypesToHarmCreature.Count == 0)
+            {
+                immune = false;
+            }
+            else
+            {
+                foreach (LocalString ls in crt.requiredWeaponTypesToHarmCreature)
+                {
+                    string typeCreature = ls.Value.Remove(ls.Value.Length-1);
+                    //typeCreature.Remove(typeCreature.Length-1);
+
+                    //string amount = ls.Value;
+                    //amount.Remove(0, amount.Length - 1);
+                    char c = ls.Value[ls.Value.Length-1];
+                    int amountNumberCreature = 0;
+                    if (Char.IsDigit(c))
+                    {
+                        amountNumberCreature = Convert.ToInt32(c);
+                    }
+                    else
+                    {
+                        typeCreature = ls.Value;
+                    }
+
+                  
+                    //grotzo
+                    //public List<LocalImmunityString> entriesForPcTags = new List<LocalImmunityString>();
+                    foreach (LocalImmunityString lis in gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).entriesForPcTags)
+                    {
+                        string typeWeapon = lis.Value.Remove(lis.Value.Length - 1);
+                        //string typeWeapon = lis.Value;
+                        //typeWeapon.Remove(typeWeapon.Length - 1);
+
+                        //string amount = ls.Value;
+                        //amount.Remove(0, amount.Length - 1);
+                        char c2 = lis.Value[lis.Value.Length - 1];
+                        int amountNumberWeapon = 0;
+                        if (Char.IsDigit(c2))
+                        {
+                            amountNumberWeapon = Convert.ToInt32(c2);
+                        }
+                        else
+                        {
+                            typeWeapon = lis.Value;
+                        }
+
+                        if (typeWeapon == typeCreature)
+                        {
+                            if (amountNumberCreature != 0)
+                            {
+                                if (amountNumberWeapon >= amountNumberCreature)
+                                {
+                                    immune = false;
+                                }
+                            }
+                            else
+                            {
+                                immune = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (immune)
+            {
+                damage = 0;
+                totalDam = 0;
+                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is not harmed by this weapon.</font><BR>");
+
+            }
+
+            if (totalDam < damage)
+            {
+                gv.cc.addLogText("<font color='red'>" + crt.cr_name + "<font color='white'>mitigation: " + (damage - totalDam) + " hp" + "</font><BR>");
+            }
+            else if (totalDam > damage)
+            {
+                gv.cc.addLogText("<font color='red'>" + crt.cr_name + "<font color='white'>extra damage: " + (damage - totalDam) + " hp" + "</font><BR>");
+            }
             //if doing sneak attack, does extra damage
             //if ((pc.steathModeOn) && (melee) && (IsAttackFromBehind(pc,crt)))
             if ((pc.steathModeOn) && (gv.sf.isMeleeAttack(pc)) && (IsAttackFromBehind(pc, crt)))
@@ -25368,7 +25794,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         adding += gv.sf.RandInt(6);
                     }
                     totalDam += adding;
-                    gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " damage</font><BR>");
+                    gv.cc.addLogText("<font color='white'> sneak attack: +" + adding + " damage</font><BR>");
                 }
             }
 
@@ -25407,9 +25833,9 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             {
                 if (isAdjacentPc(crt))
                 {
-                    gv.cc.addLogText("<font color='yellow'> -4 ranged attack penalty </font><BR>");
-                    gv.cc.addLogText("<font color='yellow'>with enemies in melee range</font><BR>");
-                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "yellow");
+                    gv.cc.addLogText("<font color='white'> -4 ranged attack penalty </font><BR>");
+                    gv.cc.addLogText("<font color='white'>with enemies in melee range</font><BR>");
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "-4 att", "white");
                     return crt.getAttackBonus() - 4;
                 }
                 else
@@ -25435,7 +25861,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 }
                 if (situationalModifier != 0)
                 {
-                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+" + situationalModifier + " att", "yellow");
+                    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+" + situationalModifier + " att", "white");
                 }
                 return crt.getAttackBonus() + modifier;
             }
@@ -25530,7 +25956,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>target:" + pc.name + "</font><BR>");
                         }
                     }
                 }
@@ -25575,7 +26001,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>target:" + pc.name + "</font><BR>");
                         }
                     }
                 }
@@ -26555,7 +26981,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>target:" + pc.name + "</font><BR>");
                         }
                     }
                 }
@@ -26611,7 +27037,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         pc = p;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + pc.name + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>target:" + pc.name + "</font><BR>");
                         }
                     }
                 }
@@ -26671,7 +27097,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         crtReturn = crtByCounter;
                         if (gv.mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>target:" + crtReturn.cr_name + "</font><BR>");
+                            gv.cc.addLogText("<font color='red'>target:" + crtReturn.cr_name + "</font><BR>");
                         }
                     }
                 }
@@ -26724,7 +27150,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             crtReturn = crtByCounter;
                             if (gv.mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>target:" + crtReturn.cr_name + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>target:" + crtReturn.cr_name + "</font><BR>");
                             }
                         }
                     }
@@ -26877,7 +27303,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     }
                     if (gv.mod.debugMode)
                     {
-                        gv.cc.addLogText("<font color='yellow'>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</font><BR>");
                     }
                 }
             }

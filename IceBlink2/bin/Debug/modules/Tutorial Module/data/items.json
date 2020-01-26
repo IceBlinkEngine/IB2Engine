@@ -1637,7 +1637,11 @@
   },
   {
     "name": "Dagger",
-    "entriesForPcTags": [],
+    "entriesForPcTags": [
+      {
+        "Value": "magic+1"
+      }
+    ],
     "labelForTheCastAction": "casts",
     "tag": "dagger01",
     "resref": "dagger01",

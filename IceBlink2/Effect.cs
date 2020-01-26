@@ -156,6 +156,7 @@ namespace IceBlink2
             copy.allowCastingWithoutTriggeringAoO = this.allowCastingWithoutTriggeringAoO;
 		    copy.name = this.name;
 		    copy.tag = this.tag;
+            //copy.shortText = this.shortText;
 		    copy.tagOfSender = this.tagOfSender;
             copy.classLevelOfSender = this.classLevelOfSender;
 		    copy.description = this.description;

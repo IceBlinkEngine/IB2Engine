@@ -12930,7 +12930,7 @@ namespace IceBlink2
         public void GiveFunds(int amount)
         {
             mod.partyGold += amount;
-            gv.cc.addLogText("<font color='yellow'>" + "The party receives " + amount + " Gold" + "</font>" + "<BR>");
+            gv.cc.addLogText("<font color='White'>" + "The party receives " + amount + " Gold" + "</font>" + "<BR>");
         }
         public void TakeFunds(int amount)
         {
@@ -12943,7 +12943,7 @@ namespace IceBlink2
             {
                 mod.partyGold -= amount;
             }
-            gv.cc.addLogText("<font color='yellow'>" + "The party loses " + amount + " Gold" + "</font>" + "<BR>");
+            gv.cc.addLogText("<font color='White'>" + "The party loses " + amount + " Gold" + "</font>" + "<BR>");
         }
 
         /*
@@ -12980,7 +12980,7 @@ namespace IceBlink2
             {
                 if (message != "")
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + message + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + message + "</font><BR>");
                 }
             }
         }
@@ -13056,7 +13056,7 @@ namespace IceBlink2
                 }
             }
 
-            gv.cc.addLogText("<font color='yellow'>" + "A(n) " + masterItem.name + " has been fully recharged." + "</font><BR>");
+            gv.cc.addLogText("<font color='white'>" + "A(n) " + masterItem.name + " has been fully recharged." + "</font><BR>");
         }
 
         public void RechargeAllItemsOfAType(string resref)
@@ -13111,7 +13111,7 @@ namespace IceBlink2
                     }
                 }
             
-            gv.cc.addLogText("<font color='yellow'>" + "All items of type " + masterItem.name + " have been fully recharged." + "</font><BR>");
+            gv.cc.addLogText("<font color='white'>" + "All items of type " + masterItem.name + " have been fully recharged." + "</font><BR>");
         }
 
 
@@ -13212,7 +13212,7 @@ namespace IceBlink2
                     }
                 }
             }
-            gv.cc.addLogText("<font color='yellow'>" + "All rechargeable items have been fully recharged." + "</font><BR>");
+            gv.cc.addLogText("<font color='white'>" + "All rechargeable items have been fully recharged." + "</font><BR>");
         }
 
         public void GiveItem(string resref, int quantity)
@@ -13223,7 +13223,7 @@ namespace IceBlink2
                 ItemRefs ir = mod.createItemRefsFromItem(newItem);
                 mod.partyInventoryRefsList.Add(ir);
             }
-            gv.cc.addLogText("<font color='yellow'>" + "The party gains " + quantity + " " + newItem.name + "(s)" + "</font><BR>");
+            gv.cc.addLogText("<font color='white'>" + "The party gains " + quantity + " " + newItem.name + "(s)" + "</font><BR>");
         }
 
         public void RemoveItemFromInventory(ItemRefs itRef, int quantity)
@@ -13286,7 +13286,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[gv.mod.selectedPartyLeader].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='white'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13297,7 +13297,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[0].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[0].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[0].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13308,7 +13308,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[1].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[1].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[1].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13319,7 +13319,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[2].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[2].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[2].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13330,7 +13330,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[3].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[3].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[3].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13341,7 +13341,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[4].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[4].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[4].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13352,7 +13352,7 @@ namespace IceBlink2
                 {
                     int xpToGive = amount;
                     gv.mod.playerList[5].XP += xpToGive;
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[5].name + " has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='´lime'>" + gv.mod.playerList[5].name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13366,7 +13366,7 @@ namespace IceBlink2
                     {
                         givePcXp.XP += xpToGive;
                     }
-                    gv.cc.addLogText("<font color='yellow'>" + "Each player has gained " + xpToGive + " XP" + "</font>" +
+                    gv.cc.addLogText("<font color='white'>" + "Each player has gained " + xpToGive + " XP" + "</font>" +
                             "<BR>");
                 }
             }
@@ -13380,7 +13380,7 @@ namespace IceBlink2
                         {
                             int xpToGive = amount;
                             p.XP += xpToGive;
-                            gv.cc.addLogText("<font color='yellow'>" + p.name + " has gained " + xpToGive + " XP" + "</font>" +
+                            gv.cc.addLogText("<font color='lime'>" + p.name + " <font color='white'>has gained " + xpToGive + " XP" + "</font>" +
                                     "<BR>");
                         }
                     }
@@ -15104,11 +15104,11 @@ namespace IceBlink2
         {
             foreach (Player pc in mod.playerList)
             {
-                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes " + dam + " damage" + "</font><BR>");
+                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes " + dam + " damage" + "</font><BR>");
                 pc.hp -= dam;
                 if (pc.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconcious!" + "</font><BR>");
                     pc.charStatus = "Dead";
                 }
             }
@@ -15120,11 +15120,11 @@ namespace IceBlink2
             //block for party leader, "-1"
             if (pcIdentifier == "-1")
             {         
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[gv.mod.selectedPartyLeader].hp -= dam;
                     if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[gv.mod.selectedPartyLeader].charStatus = "Dead";
                     }
             }
@@ -15132,11 +15132,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 0)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[0].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[0].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[0].hp -= dam;
                     if (gv.mod.playerList[0].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[0].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[0].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[0].charStatus = "Dead";
                     }
                 }
@@ -15145,11 +15145,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 1)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[1].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[1].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[1].hp -= dam;
                     if (gv.mod.playerList[1].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[1].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[1].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[1].charStatus = "Dead";
                     }
                 }
@@ -15158,11 +15158,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 2)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[2].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[2].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[2].hp -= dam;
                     if (gv.mod.playerList[2].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[2].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[2].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[2].charStatus = "Dead";
                     }
                 }
@@ -15171,11 +15171,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 3)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[3].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[3].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[3].hp -= dam;
                     if (gv.mod.playerList[3].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[3].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[3].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[3].charStatus = "Dead";
                     }
                 }
@@ -15184,11 +15184,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 4)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[4].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[4].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[4].hp -= dam;
                     if (gv.mod.playerList[4].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[4].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[4].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[4].charStatus = "Dead";
                     }
                 }
@@ -15197,11 +15197,11 @@ namespace IceBlink2
             {
                 if (gv.mod.playerList.Count > 5)
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + gv.mod.playerList[5].name + " takes " + dam + " damage" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[5].name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                     gv.mod.playerList[5].hp -= dam;
                     if (gv.mod.playerList[5].hp <= 0)
                     {
-                        gv.cc.addLogText("<font color='red'>" + gv.mod.playerList[5].name + " is unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + gv.mod.playerList[5].name + " <font color='white'>is unconcious!" + "</font><BR>");
                         gv.mod.playerList[5].charStatus = "Dead";
                     }
                 }
@@ -15212,11 +15212,11 @@ namespace IceBlink2
                 {
                     if (pc.name == pcIdentifier)
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes " + dam + " damage" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes <font color='red'>" + dam + " <font color='white'>damage" + "</font><BR>");
                         pc.hp -= dam;
                         if (pc.hp <= 0)
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconcious!" + "</font><BR>");
                             pc.charStatus = "Dead";
                         }
                     }
@@ -19403,28 +19403,73 @@ namespace IceBlink2
                         #endregion
                         if (saveChk >= DC) //passed save check (do half or avoid all?)
                         {
+                            //meisterproper0
                             //**************************************
-                            if (ef.saveOnlyHalvesDamage)
+                            if (ef.saveCheckType.Equals("will"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("reflex"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("fortitude"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                            }
+
+
+                        if (ef.saveOnlyHalvesDamage)
                             {
                                 damage = damage / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + ef.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes only half damage from " + ef.name + "</font><BR>");
                             }
                             else
                             {
                                 damage = 0;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + ef.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes no damage from " + ef.name + "</font><BR>");
                             }
-                        
-                        //**************************************
-                        //damage = damage / 2;
-                        //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
-                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+
+                            if (ef.damType.Equals("Normal"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + crt.getDamageTypeResistanceValueNormal() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Magic"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + crt.getDamageTypeResistanceValueMagic() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Poison"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + crt.getDamageTypeResistanceValuePoison() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Fire"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + crt.getDamageTypeResistanceValueFire() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Cold"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + crt.getDamageTypeResistanceValueCold() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Acid"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + crt.getDamageTypeResistanceValueAcid() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Electricity"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + crt.getDamageTypeResistanceValueElectricity() + "%</font><BR>");
+                            }
+                          
+
+                            //**************************************
+                            //damage = damage / 2;
+                            //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
+                            //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
                         }
-                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
+                        //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
                         int damageAndResist = (int)((float)damage * resist);
                         damageTotal += damageAndResist;
-                        gv.cc.addLogText("<font color='silver'>" + crt.cr_name + "</font>" + "<font color='white'>" + " is damaged with " + ef.name 
-                                        + " (" + "</font>" + "<font color='lime'>" + damageAndResist + "</font>" + "<font color='white'>" + " damage)</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + "</font>" + "<font color='white'>" + " is damaged by " + ef.name 
+                                        + " for" + "</font>" + "<font  color='red'>" + damageAndResist + "</font>" + "<font color='white'>" + "hp</font><BR>");
                     }
                     crt.hp -= damageTotal;
                     if (crt.hp <= 0)
@@ -19434,7 +19479,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
                         }
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;
@@ -19469,7 +19514,7 @@ namespace IceBlink2
                         {
                             crt.hp = crt.hpMax;
                         }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>HPs" + "</font><BR>");
                         //Do floaty text heal
                         //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
@@ -19481,7 +19526,7 @@ namespace IceBlink2
                         {
                             crt.sp = crt.spMax;
                         }
-                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>SPs" + "</font><BR>");
                         //Do floaty text heal
                         //gv.screenCombat.floatyTextOn = true;
                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
@@ -19621,27 +19666,68 @@ namespace IceBlink2
                         #endregion
                         if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                         {
+
+                            if (ef.saveCheckType.Equals("will"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("reflex"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("fortitude"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                            }
                             if (ef.saveOnlyHalvesDamage)
                             {
                                 damagePc = damagePc / 2;
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + ef.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + ef.name + "</font><BR>");
                             }
                             else
                             {
                                 damagePc = 0;
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + ef.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + ef.name + "</font><BR>");
                             }
-                        
-                        //damagePc = damagePc / 2;
-                        //gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
-                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+
+                            if (ef.damType.Equals("Normal"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Magic"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Poison"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Fire"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Cold"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Acid"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Electricity"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
+                            }
+                            //damagePc = damagePc / 2;
+                            //gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
+                            //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
                         }
-                        if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
+                        //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
                         int damageAndResist = (int)((float)damagePc * resistPc);
                         damageTotal += damageAndResist;
-                        gv.cc.addLogText("<font color='silver'>"
-                                        + pc.name + "</font>" + "<font color='white'>" + " is damaged with " + ef.name + " (" + "</font>" + "<font color='lime'>"
-                                        + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>"
+                                        + pc.name + "</font>" + "<font color='white'>" + " is damaged by " + ef.name + " for " + "</font>" + "<font color='red'>"
+                                        + damageAndResist + "</font>" + "<font color='white'>" + " hp" + "</font><BR>");
                     }
                     pc.hp -= damageTotal;
                     if (pc.hp <= 0)
@@ -19649,11 +19735,11 @@ namespace IceBlink2
                         if (pc.hp <= -20)
                         {
                             //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops DEAD!" + "</font><BR>");
                         }
                         else
                         {
-                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconcious!" + "</font><BR>");
                         }
                         pc.charStatus = "Dead";
                     }
@@ -19668,7 +19754,7 @@ namespace IceBlink2
                     if (pc.hp <= -20)
                     {
                         //MessageBox("Can't heal a dead character!");
-                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character!" + "</font><BR>");
                     }
                     else
                     {
@@ -19713,7 +19799,7 @@ namespace IceBlink2
                             {
                                 pc.sp = pc.spMax;
                             }
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>SPs" + "</font><BR>");
                             //Do floaty text heal
                             //gv.screenCombat.floatyTextOn = true;
                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
@@ -19813,12 +19899,12 @@ namespace IceBlink2
                     {
                         source.charStatus = "Dead";
                     }
-                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is no longer</font><BR>");
-                    gv.cc.addLogText("<font color='yellow'> being held</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>is no longer</font><BR>");
+                    gv.cc.addLogText("<font color='white'> being held</font><BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is held, (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'> is held</font><BR>");
                     source.charStatus = "Held";
                 }
             }
@@ -19829,12 +19915,12 @@ namespace IceBlink2
                 {
                     source.cr_status = "Alive";
                     //ef.statusType = "none";
-                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is no longer" + "</font>" + "<BR>");
-                    gv.cc.addLogText("<font color='yellow'>" + " being held" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>is no longer" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='white'>" + " being held" + "</font>" + "<BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is held, (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>is held</font><BR>");
                     source.cr_status = "Held";
                     //ef.statusType = "Held";
                 }
@@ -19862,11 +19948,11 @@ namespace IceBlink2
                     {
                         source.charStatus = "Dead";
                     }
-                    gv.cc.addLogText("<font color='yellow'>" + source.name + " wakes up from sleep spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>wakes up from sleep spell" + "</font><BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + source.name + " is sleeping, (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>is sleeping</font><BR>");
                     source.charStatus = "Held";
                 }
             }
@@ -19877,11 +19963,11 @@ namespace IceBlink2
                 {
                     source.cr_status = "Alive";
                     //ef.statusType = "none";
-                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " wakes up from sleep spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>wakes up from sleep spell" + "</font><BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + source.cr_name + " is sleeping, (" + ef.durationInUnits + " seconds remain)</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>is sleeping</font><BR>");
                     source.cr_status = "Held";
                     //hurgh16
                     //ef = mod.getEffectByTag("hold");
@@ -19906,7 +19992,7 @@ namespace IceBlink2
                 if (source.hp <= -20)
                 {
                     //MessageBox("Can't heal a dead character!");
-                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                    gv.cc.addLogText("<font color='White'>" + "Can't heal a dead character" + "</font><BR>");
                 }
                 else
                 {
@@ -19919,7 +20005,7 @@ namespace IceBlink2
                     {
                         source.charStatus = "Alive";
                     }
-                    gv.cc.addLogText("<font color='lime'>" + source.name + " gains 2 HPs" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>gains 2 HPs" + "</font><BR>");
                 }
             }
             else if (src is Creature) //creature casting
@@ -19930,7 +20016,7 @@ namespace IceBlink2
                 {
                     source.hp = source.hpMax;
                 }
-                gv.cc.addLogText("<font color='lime'>" + source.cr_name + " gains 2 HPs" + "</font><BR>");
+                gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>gains 2 HPs" + "</font><BR>");
             }
             else // don't know who cast this spell
             {
@@ -19955,11 +20041,11 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " poisonDam = " + poisonDam + "</font>" + "<BR>");
                 }
 
-                gv.cc.addLogText("<font color='lime'>" + source.name + " is poisoned for " + poisonDam + " hp" + "</font>" + "<BR>");
+                gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>is poisoned for <font color='red'>" + poisonDam + " <font color='white'>hp" + "</font>" + "<BR>");
                 source.hp -= poisonDam;
                 if (source.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + source.name + " is unconcious!" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>is unconcious!" + "</font>" + "<BR>");
                     source.charStatus = "Dead";
                 }
             }
@@ -19976,11 +20062,11 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " poisonDam = " + poisonDam + "</font>" + "<BR>");
                 }
 
-                gv.cc.addLogText("<font color='lime'>" + source.cr_name + " is poisoned for " + poisonDam + " hp" + "</font>" + "<BR>");
+                gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>is poisoned for <font color='red'>" + poisonDam + " <font color='white'>hp" + "</font>" + "<BR>");
                 source.hp -= poisonDam;
                 if (source.hp <= 0)
                 {
-                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " has been killed!" + "</font>" + "<BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>has been killed!" + "</font>" + "<BR>");
                 }
             }
             else // don't know who cast this spell
@@ -21235,7 +21321,7 @@ namespace IceBlink2
                                         {
                                             crt.hp = crt.hpMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>HPs" + "</font><BR>");
                                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
 
                                     }
@@ -21247,8 +21333,8 @@ namespace IceBlink2
                                         {
                                             crt.sp = crt.spMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
-                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>SPs" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                                     }
 
                                     //Do floaty text heal
@@ -21316,7 +21402,7 @@ namespace IceBlink2
                                     //europa
                                     if (saveChk >= DC) //passed save check
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
@@ -21326,7 +21412,7 @@ namespace IceBlink2
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         }
                                         //else//no save roll allowed
                                         //{
@@ -21445,7 +21531,7 @@ namespace IceBlink2
                                     if (s.Value.Equals(ls))
                                     {
                                         skip = true;
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                         break;
                                     }
                                 }
@@ -21561,30 +21647,90 @@ namespace IceBlink2
                                         if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                         {
 
+                                            //meisterproper
+                                            /*
                                             if (thisSpellEffect.saveOnlyHalvesDamage)
                                             {
                                                 damagePc = damagePc / 2;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
                                             else
                                             {
                                                 damagePc = 0;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
+                                            */
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
                                             //damagePc = damagePc / 2;
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            //**************************************
+                                            if (thisSpellEffect.saveCheckType.Equals("will"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+
+
+                                            if (thisSpellEffect.saveOnlyHalvesDamage)
+                                            {
+                                                damagePc = damagePc / 2;
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            else
+                                            {
+                                                damagePc = 0;
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+
+                                            if (thisSpellEffect.damType.Equals("Normal"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Magic"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Poison"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Fire"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Cold"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Acid"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Electricity"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
+                                            }
+
+
+
                                         }
                                         else //failed save check or no save check allowed
                                         {
                                             //failed save roll
                                             if (saveChkAdder > -99)
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
                                             }
                                             else//no save roll allowed
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                             }
                                         }
 
@@ -21597,22 +21743,22 @@ namespace IceBlink2
                                         //resistance exists
                                         if (resistPc < 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
                                         }
                                         //vulnerability exists
                                         else if (resistPc > 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                         }
                                         //neither resistance nor vulnerability
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                         }
                                     }
@@ -21623,11 +21769,11 @@ namespace IceBlink2
                                         if (pc.hp <= -20)
                                         {
                                             //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops <font color='red'>dead" + "</font><BR>");
                                         }
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconcious" + "</font><BR>");
                                         }
                                         pc.charStatus = "Dead";
                                     }
@@ -21642,7 +21788,7 @@ namespace IceBlink2
                                     if (pc.hp <= -20)
                                     {
                                         //MessageBox("Can't heal a dead character!");
-                                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                                     }
                                     else
                                     {
@@ -21678,7 +21824,7 @@ namespace IceBlink2
                                             {
                                                 pc.charStatus = "Alive";
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='lime'>gains " + heal + " <font color='white'>hp" + "</font><BR>");
                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
 
                                         }
@@ -21690,8 +21836,8 @@ namespace IceBlink2
                                             {
                                                 pc.sp = pc.spMax;
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
-                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp " + "</font><BR>");
+                                            gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
 
                                         }
                                         //gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
@@ -21736,17 +21882,21 @@ namespace IceBlink2
                                     int saveChk = 0;
                                     int DC = 0;
                                     int saveChkAdder = 0;
+                                    string rollType = "";
                                     if (thisSpellEffect.saveCheckType.Equals("will"))
                                     {
                                         saveChkAdder = pc.will;
+                                        rollType = "Will";
                                     }
                                     else if (thisSpellEffect.saveCheckType.Equals("reflex"))
                                     {
                                         saveChkAdder = pc.reflex;
+                                        rollType = "Reflex";
                                     }
                                     else if (thisSpellEffect.saveCheckType.Equals("fortitude"))
                                     {
                                         saveChkAdder = pc.fortitude;
+                                        rollType = "Fortitude";
                                     }
                                     else
                                     {
@@ -21757,14 +21907,14 @@ namespace IceBlink2
                                     #endregion
                                     if (saveChk >= DC) //passed save check
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                     }
                                     else//failed save roll or no roll allowed
                                     {
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
                                             //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
                                         }
@@ -22047,7 +22197,7 @@ namespace IceBlink2
                                 if (s.Value.Equals(ls.Value))
                                 {
                                     skip = true;
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                     break;
                                 }
                             }
@@ -22172,30 +22322,75 @@ namespace IceBlink2
                                     DC = thisSpellEffect.saveCheckDC;
                                     #endregion
                                     //europa
+                                    //meisterproper2
                                     if (saveChk >= DC) //passed save check (do half or avoid all?)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
-                                        if (thisSpellEffect.saveOnlyHalvesDamage)
-                                        {
-                                            damage = damage / 2;
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            //meisterproper0
+                                            //**************************************
+                                            if (thisSpellEffect.saveCheckType.Equals("will"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                            }
+
+
+                                            if (thisSpellEffect.saveOnlyHalvesDamage)
+                                            {
+                                                damage = damage / 2;
+                                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+                                            else
+                                            {
+                                                damage = 0;
+                                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+
+                                            if (thisSpellEffect.damType.Equals("Normal"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + crt.getDamageTypeResistanceValueNormal() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Magic"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + crt.getDamageTypeResistanceValueMagic() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Poison"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + crt.getDamageTypeResistanceValuePoison() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Fire"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + crt.getDamageTypeResistanceValueFire() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Cold"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + crt.getDamageTypeResistanceValueCold() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Acid"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + crt.getDamageTypeResistanceValueAcid() + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Electricity"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + crt.getDamageTypeResistanceValueElectricity() + "%</font><BR>");
+                                            }
                                         }
-                                        else
-                                        {
-                                            damage = 0;
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
-                                        }
-                                    }
                                     else //failed save check or no save check allowed
                                     {
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         }
                                         else//no save roll allowed
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                         }
                                     }
 
@@ -22207,22 +22402,22 @@ namespace IceBlink2
                                     //resistance exists
                                     if (resist < 1)
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
                                     }
                                     //vulnerability exists
                                     else if (resist > 1)
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                     }
                                     //neither resistance nor vulnerability
                                     else
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                        + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                     }
                                 }
@@ -22241,7 +22436,7 @@ namespace IceBlink2
                                         {
                                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                                 }
                                 //Do floaty text damage
                                 //gv.screenCombat.floatyTextOn = true;
@@ -22285,7 +22480,7 @@ namespace IceBlink2
                                         {
                                             crt.hp = crt.hpMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
 
                                  }
@@ -22297,8 +22492,8 @@ namespace IceBlink2
                                         {
                                             crt.sp = crt.spMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
-                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp" + "</font><BR>");
+                                        gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
                                  }
 
                                     //Do floaty text heal
@@ -22349,7 +22544,7 @@ namespace IceBlink2
                                 //europa
                                 if (saveChk >= DC) //passed save check
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
@@ -22359,14 +22554,14 @@ namespace IceBlink2
                                     //failed save roll
                                     if (saveChkAdder > -99)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                     }
                                     //else//no save roll allowed
                                     //{
                                     //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
                                     //}
                                     int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                    gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + thisSpellEffect.name + " is applied on <font color='red'>" + crt.cr_name + " <font color='white'>for " + numberOfRounds + " round(s)</font><BR>");
                                     //crt.AddEffectByObject(thisSpellEffect, classLevel);
                                         string stackState = "";
 
@@ -22476,7 +22671,7 @@ namespace IceBlink2
                                 if (s.Value.Equals(ls))
                                 {
                                     skip = true;
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                     break;
                                 }
                             }
@@ -22591,31 +22786,74 @@ namespace IceBlink2
 
                                     if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                     {
+                                            //meisterproper4
+                                            if (thisSpellEffect.saveCheckType.Equals("will"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+
 
                                             if (thisSpellEffect.saveOnlyHalvesDamage)
                                             {
                                                 damagePc = damagePc / 2;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
                                             else
                                             {
                                                 damagePc = 0;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+
+                                            if (thisSpellEffect.damType.Equals("Normal"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Magic"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Poison"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Fire"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Cold"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Acid"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Electricity"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
                                             }
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
                                             //damagePc = damagePc / 2;
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
-                                    }
+                                        }
                                     else //failed save check or no save check allowed
                                     {
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
                                         }
                                         else//no save roll allowed
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                         }
                                     }
 
@@ -22628,22 +22866,22 @@ namespace IceBlink2
                                     //resistance exists
                                     if (resistPc < 1)
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
                                     }
                                     //vulnerability exists
                                     else if (resistPc > 1)
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                     }
                                     //neither resistance nor vulnerability
                                     else
                                     {
-                                        gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                        gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                        + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                         + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                     }
                                 }
@@ -22653,12 +22891,12 @@ namespace IceBlink2
                                 {
                                         if (pc.hp <= -20)
                                         {
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops <font color='red'>dead" + "</font><BR>");
                                             //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                                         }
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconcious!" + "</font><BR>");
                                         }
                                     pc.charStatus = "Dead";
                                 }
@@ -22673,7 +22911,7 @@ namespace IceBlink2
                                 if (pc.hp <= -20)
                                 {
                                     //MessageBox("Can't heal a dead character!");
-                                    gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                                 }
                                 else
                                 {
@@ -22709,7 +22947,7 @@ namespace IceBlink2
                                             {
                                                 pc.charStatus = "Alive";
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
 
                                    }
@@ -22721,7 +22959,7 @@ namespace IceBlink2
                                             {
                                                 pc.sp = pc.spMax;
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp" + "</font><BR>");
                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
 
                                         }
@@ -22774,14 +23012,14 @@ namespace IceBlink2
                                 #endregion
                                 if (saveChk >= DC) //passed save check
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                 }
                                 else//failed save roll or no roll allowed
                                 {
                                     //failed save roll
                                     if (saveChkAdder > -99)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='lime'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
                                     }
@@ -22974,7 +23212,7 @@ namespace IceBlink2
                                     if (s.Value.Equals(ls.Value))
                                     {
                                         skip = true;
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                         break;
                                     }
                                 }
@@ -23101,16 +23339,16 @@ namespace IceBlink2
                                         //europa
                                         if (saveChk >= DC) //passed save check (do half or avoid all?)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
                                             if (thisSpellEffect.saveOnlyHalvesDamage)
                                             {
                                                 damage = damage / 2;
-                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
                                             else
                                             {
                                                 damage = 0;
-                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
                                         }
                                         else //failed save check or no save check allowed
@@ -23118,11 +23356,11 @@ namespace IceBlink2
                                             //failed save roll
                                             if (saveChkAdder > -99)
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                             }
                                             else//no save roll allowed
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                             }
                                         }
 
@@ -23134,22 +23372,22 @@ namespace IceBlink2
                                         //resistance exists
                                         if (resist < 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
                                         }
                                         //vulnerability exists
                                         else if (resist > 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                         }
                                         //neither resistance nor vulnerability
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                            + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                         }
                                     }
@@ -23168,7 +23406,7 @@ namespace IceBlink2
                                         {
                                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                                     }
                                     //Do floaty text damage
                                     //gv.screenCombat.floatyTextOn = true;
@@ -23212,7 +23450,7 @@ namespace IceBlink2
                                         {
                                             crt.hp = crt.hpMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
 
                                     }
@@ -23224,7 +23462,7 @@ namespace IceBlink2
                                         {
                                             crt.sp = crt.spMax;
                                         }
-                                        gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp" + "</font><BR>");
                                         gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "yellow");
                                     }
 
@@ -23276,7 +23514,7 @@ namespace IceBlink2
                                     //europa
                                     if (saveChk >= DC) //passed save check
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
@@ -23286,14 +23524,14 @@ namespace IceBlink2
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                         }
                                         //else//no save roll allowed
                                         //{
                                         //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
                                         //}
                                         int numberOfRounds = thisSpellEffect.durationInUnits / gv.mod.TimePerRound;
-                                        gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
+                                        //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + crt.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
                                  
                                         //UpdateStats(pc);
                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -23406,7 +23644,7 @@ namespace IceBlink2
                                     if (s.Value.Equals(ls))
                                     {
                                         skip = true;
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                         break;
                                     }
                                 }
@@ -23521,16 +23759,59 @@ namespace IceBlink2
 
                                         if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                         {
+                                            //meisterproper5
+                                            if (thisSpellEffect.saveCheckType.Equals("will"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+                                            if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                            }
+
 
                                             if (thisSpellEffect.saveOnlyHalvesDamage)
                                             {
                                                 damagePc = damagePc / 2;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                             }
                                             else
                                             {
                                                 damagePc = 0;
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                            }
+
+                                            if (thisSpellEffect.damType.Equals("Normal"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Magic"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Poison"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Fire"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Cold"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Acid"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                                            }
+                                            if (thisSpellEffect.damType.Equals("Electricity"))
+                                            {
+                                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
                                             }
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
                                             //damagePc = damagePc / 2;
@@ -23541,11 +23822,11 @@ namespace IceBlink2
                                             //failed save roll
                                             if (saveChkAdder > -99)
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
                                             }
                                             else//no save roll allowed
                                             {
-                                                gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                                gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                             }
                                         }
 
@@ -23558,22 +23839,22 @@ namespace IceBlink2
                                         //resistance exists
                                         if (resistPc < 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
                                         }
                                         //vulnerability exists
                                         else if (resistPc > 1)
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                         }
                                         //neither resistance nor vulnerability
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                            gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                            + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                             + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                         }
                                     }
@@ -23583,12 +23864,12 @@ namespace IceBlink2
                                     {
                                         if (pc.hp <= -20)
                                         {
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops <font color='red'>dead" + "</font><BR>");
                                             //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                                         }
                                         else
                                         {
-                                            gv.cc.addLogText("<font color='red'>" + pc.name + " is unconcious!" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is unconscious" + "</font><BR>");
                                         }
                                         pc.charStatus = "Dead";
                                     }
@@ -23603,7 +23884,7 @@ namespace IceBlink2
                                     if (pc.hp <= -20)
                                     {
                                         //MessageBox("Can't heal a dead character!");
-                                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                                     }
                                     else
                                     {
@@ -23639,7 +23920,7 @@ namespace IceBlink2
                                             {
                                                 pc.charStatus = "Alive";
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
 
                                         }
@@ -23651,7 +23932,7 @@ namespace IceBlink2
                                             {
                                                 pc.sp = pc.spMax;
                                             }
-                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp" + "</font><BR>");
                                             gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "yellow");
 
                                         }
@@ -23704,14 +23985,14 @@ namespace IceBlink2
                                     #endregion
                                     if (saveChk >= DC) //passed save check
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                                     }
                                     else//failed save roll or no roll allowed
                                     {
                                         //failed save roll
                                         if (saveChkAdder > -99)
                                         {
-                                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
                                             //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
                                         }
@@ -23945,7 +24226,7 @@ namespace IceBlink2
                             if (s.Value.Equals(ls.Value))
                             {
                                 skip = true;
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                 break;
                             }
                         }
@@ -24061,31 +24342,74 @@ namespace IceBlink2
                             //europa
                             if (saveChk >= DC) //passed save check (do half or avoid all?)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + "</font><BR>");
+                                    //meisterproper7
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Will: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                    }
+                                    if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Ref: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                    }
+                                    if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                    }
+
+
                                     if (thisSpellEffect.saveOnlyHalvesDamage)
                                     {
                                         damage = damage / 2;
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                     }
                                     else
                                     {
                                         damage = 0;
-                                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
                                     }
-                                
-                                //damage = damage / 2;
-                                //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
-                            }
+
+                                    if (thisSpellEffect.damType.Equals("Normal"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + crt.getDamageTypeResistanceValueNormal() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Magic"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + crt.getDamageTypeResistanceValueMagic() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Poison"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + crt.getDamageTypeResistanceValuePoison() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Fire"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + crt.getDamageTypeResistanceValueFire() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Cold"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + crt.getDamageTypeResistanceValueCold() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Acid"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + crt.getDamageTypeResistanceValueAcid() + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Electricity"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + crt.getDamageTypeResistanceValueElectricity() + "%</font><BR>");
+                                    }
+
+                                    //damage = damage / 2;
+                                    //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                }
                             else //failed save check or no save check allowed
                             {
                                 //failed save roll
                                 if (saveChkAdder > -99)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                 }
                                 else//no save roll allowed
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                 }
                             }
 
@@ -24097,22 +24421,22 @@ namespace IceBlink2
                             //resistance exists
                             if (resist < 1)
                             {
-                                gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                 + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resist) * 100f) + "% resistance)" + "</font><BR>");
                             }
                             //vulnerability exists
                             else if (resist > 1)
                             {
-                                gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                 + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resist - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                             }
                             //neither resistance nor vulnerability
                             else
                             {
-                                gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='red'>"
+                                                + crt.cr_name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                 + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                             }
                         }
@@ -24130,7 +24454,7 @@ namespace IceBlink2
                                 {
                                     gv.screenCombat.deathAnimationLocations.Add(new Coordinate(coor.X, coor.Y));
                                 }
-                                gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                                gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                         }
                         //Do floaty text damage
                         //gv.screenCombat.floatyTextOn = true;
@@ -24166,7 +24490,7 @@ namespace IceBlink2
                                 {
                                     crt.hp = crt.hpMax;
                                 }
-                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " HPs" + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='green'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                 //Do floaty text heal
                                 //gv.screenCombat.floatyTextOn = true;
                                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
@@ -24174,7 +24498,7 @@ namespace IceBlink2
                             else
                             {
                                 crt.sp += heal;
-                                gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + heal + " SPs" + "</font><BR>");
+                                gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='green'>" + heal + " <font color='white'>sp" + "</font><BR>");
                                 //Do floaty text heal
                                 //gv.screenCombat.floatyTextOn = true;
                                 gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), heal + "", "green");
@@ -24353,7 +24677,7 @@ namespace IceBlink2
                             if (s.Value.Equals(ls))
                             {
                                 skip = true;
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " is immune to " + thisSpellEffect.name + "</font><BR>");
+                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + thisSpellEffect.name + "</font><BR>");
                                 break;
                             }
                         }
@@ -24468,16 +24792,60 @@ namespace IceBlink2
 
                                 if (saveChkPc >= DCPc) //passed save check (do half or avoid all?)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + ">=" + DCPc.ToString() + ")" + "</font><BR>");
+                                    //meisterproper8
+
+                                    if (thisSpellEffect.saveCheckType.Equals("will"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                    }
+                                    if (thisSpellEffect.saveCheckType.Equals("reflex"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                    }
+                                    if (thisSpellEffect.saveCheckType.Equals("fortitude"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>");
+                                    }
+
+
                                     if (thisSpellEffect.saveOnlyHalvesDamage)
                                     {
                                         damagePc = damagePc / 2;
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes only half damage from " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes only half damage from " + thisSpellEffect.name + "</font><BR>");
                                     }
                                     else
                                     {
                                         damagePc = 0;
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>takes no damage from " + thisSpellEffect.name + "</font><BR>");
+                                    }
+
+                                    if (thisSpellEffect.damType.Equals("Normal"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Magic"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Poison"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Fire"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Cold"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Acid"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                                    }
+                                    if (thisSpellEffect.damType.Equals("Electricity"))
+                                    {
+                                        gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
                                     }
 
                                     //damagePc = damagePc / 2;
@@ -24488,11 +24856,11 @@ namespace IceBlink2
                                     //failed save roll
                                     if (saveChkAdder > -99)
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRollPc.ToString() + "+" + saveChkAdder + " < " + DCPc.ToString() + ")" + "</font><BR>");
                                     }
                                     else//no save roll allowed
                                     {
-                                        gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed" + "</font><BR>");
+                                        gv.cc.addLogText("<font color='white'>" + "No saving roll allowed" + "</font><BR>");
                                     }
                                 }
 
@@ -24505,22 +24873,22 @@ namespace IceBlink2
                                 //resistance exists
                                 if (resistPc < 1)
                                 {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                    gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                     + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(-" + ((1 - resistPc) * 100f) + "% resistance)" + "</font><BR>");
                                 }
                                 //vulnerability exists
                                 else if (resistPc > 1)
                                 {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                    gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                     + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "(+" + ((resistPc - 1) * 100f) + "% vulnerability)" + "</font><BR>");
                                 }
                                 //neither resistance nor vulnerability
                                 else
                                 {
-                                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='silver'>"
-                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='lime'>"
+                                    gv.cc.addLogText("<font color='white'>" + sourceName + "</font>" + "<font color='white'>" + " damages " + "</font>" + "<font color='lime'>"
+                                                    + pc.name + "</font>" + "<font color='white'>" + "with " + thisSpellEffect.name + " (" + "</font>" + "<font color='red'>"
                                                     + damageAndResist + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                                 }
                             }
@@ -24530,7 +24898,7 @@ namespace IceBlink2
                             {
                                 if (pc.hp <= -20)
                                 {
-                                    gv.cc.addLogText("<font color='red'>" + pc.name + " drops DEAD!" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops <font color='red'>dead" + "</font><BR>");
                                     //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                                 }
                                 else
@@ -24550,7 +24918,7 @@ namespace IceBlink2
                             if (pc.hp <= -20)
                             {
                                 //MessageBox("Can't heal a dead character!");
-                                gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                                gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                             }
                             else
                             {
@@ -24583,7 +24951,7 @@ namespace IceBlink2
                                     {
                                         pc.charStatus = "Alive";
                                     }
-                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " HPs" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>hp" + "</font><BR>");
                                     //Do floaty text heal
                                     //gv.screenCombat.floatyTextOn = true;
                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
@@ -24595,7 +24963,7 @@ namespace IceBlink2
                                     {
                                         pc.sp = pc.spMax;
                                     }
-                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + heal + " SPs" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + heal + " <font color='white'>sp" + "</font><BR>");
                                     //Do floaty text heal
                                     //gv.screenCombat.floatyTextOn = true;
                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), heal + "", "green");
@@ -24645,14 +25013,14 @@ namespace IceBlink2
                             #endregion
                             if (saveChk >= DC) //passed save check
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + pc.name + " makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
+                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>makes successful " + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + thisSpellEffect.name + " </font><BR>");
                             }
                             else//failed save roll or no roll allowed
                             {
                                 //failed save roll
                                 if (saveChkAdder > -99)
                                 {
-                                    gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                    gv.cc.addLogText("<font color='liem'>" + pc.name + " <font color='white'>failed " + thisSpellEffect.saveCheckType + " saving roll for " + thisSpellEffect.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
                                     //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
                                 }
@@ -24830,7 +25198,7 @@ namespace IceBlink2
    
                  if (IsSquareOpen(target))  
                  {  
-                     gv.cc.addLogText("<gn>" + source.name + " teleports to another location</gn><BR>");  
+                     gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>teleports to another location<BR>");  
                      source.combatLocX = target.X;  
                      source.combatLocY = target.Y;
                     if (!source.thisCastIsFreeOfCost)
@@ -24846,7 +25214,7 @@ namespace IceBlink2
                  }  
                  else  
                  {  
-                     gv.cc.addLogText("<yl>" + source.name + " fails to teleport, square is already occupied or not valid</yl><BR>");  
+                     gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>fails to teleport, square is already occupied or not valid<BR>");  
                  }  
             }  
              else if (src is Creature) //creature casting  
@@ -24856,7 +25224,7 @@ namespace IceBlink2
   
                  if (IsSquareOpen(target))  
                  {  
-                     gv.cc.addLogText("<gn>" + source.cr_name + " teleports to another location</gn><BR>");  
+                     gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>teleports to another location<BR>");  
                      source.combatLocX = target.X;  
                      source.combatLocY = target.Y;  
                      source.sp -= SpellToCast.costSP;  
@@ -24864,7 +25232,7 @@ namespace IceBlink2
                  }  
                  else  
                  {  
-                     gv.cc.addLogText("<yl>" + source.cr_name + " fails to teleport, square is already occupied or not valid</yl><BR>");  
+                     gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>fails to teleport, square is already occupied or not valid<BR>");  
                  }  
              }
             else if (src is Item)
@@ -24875,13 +25243,13 @@ namespace IceBlink2
 
                 if (IsSquareOpen(target))
                 {
-                    gv.cc.addLogText("<gn>" + pc.name + " teleports to another location</gn><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>teleports to another location<BR>");
                     pc.combatLocX = target.X;
                     pc.combatLocY = target.Y;
                 }
                 else
                 {
-                    gv.cc.addLogText("<yl>" + pc.name + " fails to teleport, square is already occupied or not valid</yl><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>fails to teleport, square is already occupied or not valid<BR>");
                 }
             }
         }
@@ -24895,7 +25263,7 @@ namespace IceBlink2
 
                 if (IsSquareOpen(target))
                 {
-                    gv.cc.addLogText("<gn>" + source.name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>calls for a " + sp.spellScriptParm1 + "<BR>");
                     //hersel
                     int parm2 = Convert.ToInt32(sp.spellScriptParm2);
                     gv.sf.AddTemporaryAllyForThisEncounter(sp.spellScriptParm1, target.X, target.Y, parm2);
@@ -24912,7 +25280,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    gv.cc.addLogText("<yl>" + source.name + " fails to call ally, square is already occupied or not valid</yl><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>fails to call ally, square is already occupied or not valid<BR>");
                 }
             }
             //gaAddCreatureToCurrentEncounter.cs
@@ -25043,7 +25411,7 @@ namespace IceBlink2
                 //try to find a nearby square
                 if (foundPlace)
                 {
-                    gv.cc.addLogText("<gn>" + source.cr_name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>calls for a " + sp.spellScriptParm1 + "<BR>");
                     //p1 is the resref of the added creature(use one from a blueprint in the toolset's creature blueprints section)  
                     //p2 is the duration in turns that the creature will stay
                     gv.sf.AddCreatureToCurrentEncounter(sp.spellScriptParm1, target.X.ToString(), target.Y.ToString(), sp.spellScriptParm2);
@@ -25336,7 +25704,7 @@ namespace IceBlink2
                     //just check whether a free squre does exist at all; if not, do not complete the summon  
                     if ((nearestTileByIndex != -1) || (changeSummonLocation == false))
                     {
-                        gv.cc.addLogText("<gn>" + source.cr_name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                        gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>calls for a " + sp.spellScriptParm1 + "<BR>");
                         //p1 is the resref of the added creature(use one from a blueprint in the toolset's creature blueprints section)  
                         //p2 is the duration in turns that the creature will stay
                         gv.sf.AddCreatureToCurrentEncounter(sp.spellScriptParm1, target.X.ToString(), target.Y.ToString(), sp.spellScriptParm2);
@@ -25347,7 +25715,7 @@ namespace IceBlink2
                     }
                     else
                     {
-                        gv.cc.addLogText("<yl>" + source.cr_name + " fails to call ally, square is already occupied or not valid</yl><BR>");
+                        gv.cc.addLogText("<font color='red'>" + source.cr_name + " <font color='white'>fails to call ally, square is already occupied or not valid</yl><BR>");
                     }
 
                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -25362,7 +25730,7 @@ namespace IceBlink2
                 if (IsSquareOpen(target))
                 {
                     //sourceName = source.name;
-                    gv.cc.addLogText("<gn>" + source.name + " calls for a " + sp.spellScriptParm1 + "</gn><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + source.name + " <font color='white'>calls for a " + sp.spellScriptParm1 + "</gn><BR>");
                     //hersel
                     int parm2 = Convert.ToInt32(sp.spellScriptParm2);
                     gv.sf.AddTemporaryAllyForThisEncounter(sp.spellScriptParm1, target.X, target.Y, parm2);
@@ -25702,23 +26070,23 @@ namespace IceBlink2
                     if (saveChk >= DC) //passed save check
                     {
                         fireDam = fireDam / 2;
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>evades most of the Flame Fingers spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='red'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;
@@ -25738,16 +26106,16 @@ namespace IceBlink2
                         if (this.hasTrait(pc, "evasion"))
                         {
                             fireDam = 0;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Flame Fingers spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades all of the Flame Fingers spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
-                                gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
+                                gv.cc.addLogText("<font color='white'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
                             }
                         }
                         else
                         {
                             fireDam = fireDam / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Flame Fingers spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades most of the Flame Fingers spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -25758,8 +26126,8 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + sourceName + "</font>" + "<font color='white'>" + " scorches " + "</font>" + "<font color='lime'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "with Flame Fingers (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
@@ -25814,18 +26182,18 @@ namespace IceBlink2
                     int damage = 1 * RandInt(4) + 1;
                     target.hp = target.hp - damage;
                     damageTotal += damage;
-                    gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + source.name + "</font>" +
                             "<font color='white'>" + " attacks " + "</font>" +
-                            "<font color='silver'>" + target.cr_name + "</font>" +
+                            "<font color='red'>" + target.cr_name + "</font>" +
                             "<BR>");
                     gv.cc.addLogText("<font color='white'>" + "Mage Bolt HITS (" + "</font>" +
-                            "<font color='lime'>" + damage + "</font>" +
+                            "<font color='red'>" + damage + "</font>" +
                             "<font color='white'>" + " damage)" + "</font>" +
                             "<BR>");
                     if (target.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='white'>" + target.cr_name + "</font><BR>");
                         /*try
                         {
                             for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
@@ -25884,9 +26252,9 @@ namespace IceBlink2
 
                     target.hp = target.hp - damage;
                     damageTotal += damage;
-                    gv.cc.addLogText("<font color='silver'>" + source.cr_name + "</font>" +
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + "</font>" +
                             "<font color='white'>" + " attacks " + "</font>" +
-                            "<font color='aqua'>" + target.name + "</font>" +
+                            "<font color='lime'>" + target.name + "</font>" +
                             "<BR>");
                     gv.cc.addLogText("<font color='white'>" + "Mage Bolt HITS (" + "</font>" +
                             "<font color='red'>" + damage + "</font>" +
@@ -25963,7 +26331,7 @@ namespace IceBlink2
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the sleep spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>avoids the sleep spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getWill() + " >= " + DC + "</font><BR>");
@@ -25971,7 +26339,7 @@ namespace IceBlink2
                     }
                     else //failed check
                     {
-                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a sleep spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is held by a sleep spell" + "</font><BR>");
                         crt.cr_status = "Held";
                         Effect ef = mod.getEffectByTag("sleep");
                         ef.statusType = "Held";
@@ -25987,7 +26355,7 @@ namespace IceBlink2
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the sleep spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>avoids the sleep spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.will + " >= " + DC + "</font><BR>");
@@ -25995,7 +26363,7 @@ namespace IceBlink2
                     }
                     else //failed check
                     {
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a sleep spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is held by a sleep spell" + "</font><BR>");
                         pc.charStatus = "Held";
                         Effect ef = mod.getEffectByTag("sleep");
                         ef.statusType = "Held";
@@ -26023,8 +26391,8 @@ namespace IceBlink2
                 int numberOfRounds = (source.classLevel * 20); //20 rounds per level
                 Effect ef = mod.getEffectByTag("mageArmor").DeepCopy();
                 ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
-                gv.cc.addLogText("<font color='lime'>" + "Mage Armor is applied on " + target.name + "<BR>");
-                gv.cc.addLogText("<font color='lime'>" + " for " + numberOfRounds + " turn(s)" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "Mage Armor is applied on <font color='lime'>" + target.name + "<BR>");
+                gv.cc.addLogText("<font color='white'>" + " for " + numberOfRounds + " turn(s)" + "</font><BR>");
                 target.AddEffectByObject(ef, source.classLevel);
                 if (!source.thisCastIsFreeOfCost)
                 {
@@ -26044,8 +26412,8 @@ namespace IceBlink2
                 int numberOfRounds = (source.cr_level * 20); //20 rounds per level
                 Effect ef = mod.getEffectByTag("mageArmor").DeepCopy();
                 ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
-                gv.cc.addLogText("<font color='lime'>" + "Mage Armor is applied on " + target.cr_name + "<BR>");
-                gv.cc.addLogText("<font color='lime'>" + " for " + numberOfRounds + " turn(s)" + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "Mage Armor is applied on <font color='red'>" + target.cr_name + "<BR>");
+                gv.cc.addLogText("<font color='white'>" + " for " + numberOfRounds + " turn(s)" + "</font><BR>");
                 target.AddEffectByObject(ef, source.cr_level);
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -26072,7 +26440,7 @@ namespace IceBlink2
                     Player target = (Player)trg;
 
                     Effect ef = mod.getEffectByTag("minorRegen");
-                    gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Minor Regeneration is applied on <font color='lime'>" + target.name + "</font><BR>");
                     target.AddEffectByObject(ef, source.classLevel);
                     if (!source.thisCastIsFreeOfCost)
                     {
@@ -26091,7 +26459,7 @@ namespace IceBlink2
                 Creature target = (Creature)trg;
 
                 Effect ef = mod.getEffectByTag("minorRegen");
-                gv.cc.addLogText("<font color='lime'>" + "Minor Regeneration is applied on " + target.cr_name + "</font><BR>");
+                gv.cc.addLogText("<font color='white'>" + "Minor Regeneration is applied on <font color='red'>" + target.cr_name + "</font><BR>");
                 target.AddEffectByObject(ef, source.cr_level);
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -26148,7 +26516,7 @@ namespace IceBlink2
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the web spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>avoids the web spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
@@ -26156,7 +26524,7 @@ namespace IceBlink2
                     }
                     else //failed check
                     {
-                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " is held by a web spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is held by a web spell" + "</font><BR>");
                         crt.cr_status = "Held";
                         //hurgh15
                         Effect ef = mod.getEffectByTag("web");
@@ -26172,7 +26540,7 @@ namespace IceBlink2
                     int DC = 13;
                     if (saveChk >= DC) //passed save check
                     {
-                        gv.cc.addLogText("<font color='yellow'>" + pc.name + " avoids the web spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>avoids the web spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26180,7 +26548,7 @@ namespace IceBlink2
                     }
                     else //failed check
                     {
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " is held by a web spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is held by a web spell" + "</font><BR>");
                         pc.charStatus = "Held";
                         Effect ef = mod.getEffectByTag("web");
                         ef.statusType = "Held";
@@ -26240,7 +26608,7 @@ namespace IceBlink2
                     if (saveChk >= DC) //passed save check
                     {
                         iceDam = iceDam / 2;
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Ice Storm spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>evades most of the Ice Storm spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
@@ -26250,13 +26618,13 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " iceDam = " + iceDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='lime'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='red'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='red'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     crt.hp -= iceDam;
                     if (crt.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;
@@ -26277,7 +26645,7 @@ namespace IceBlink2
                         if (this.hasTrait(pc, "evasion"))
                         {
                             iceDam = 0;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Ice Storm spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'>" + pc.name + " <font color='white'>evades all of the Ice Storm spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26286,7 +26654,7 @@ namespace IceBlink2
                         else
                         {
                             iceDam = iceDam / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Ice Storm spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades most of the Ice Storm spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26297,8 +26665,8 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " iceDam = " + iceDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='lime'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='lime'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Ice Storm (" + "</font>" + "<font color='red'>" + iceDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= iceDam;
                     if (pc.hp <= 0)
                     {
@@ -26306,7 +26674,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + pc.name + " <font color='white'>drops unconcious" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -26399,7 +26767,7 @@ namespace IceBlink2
                     if (saveChk >= DC) //passed save check
                     {
                         fireDam = fireDam / 2;
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Fireball spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>evades most of the Fireball spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
@@ -26409,13 +26777,13 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='red'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;
@@ -26436,7 +26804,7 @@ namespace IceBlink2
                         if (this.hasTrait(pc, "evasion"))
                         {
                             fireDam = 0;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Fireball spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades all of the Fireball spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26445,7 +26813,7 @@ namespace IceBlink2
                         else
                         {
                             fireDam = fireDam / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Fireball spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades most of the Fireball spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26456,8 +26824,8 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='lime'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Fireball (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
@@ -26465,7 +26833,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops unconcious" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -26545,18 +26913,18 @@ namespace IceBlink2
                     if (saveChk >= DC) //passed save check
                     {
                         elecDam = elecDam / 2;
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Lightning spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>evades most of the Lightning spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
-                            gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
                         }
                     }
                     if (mod.debugMode)
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " elecDam = " + elecDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='lime'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='red'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='red'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     crt.hp -= elecDam;
                     if (crt.hp <= 0)
                     {
@@ -26583,7 +26951,7 @@ namespace IceBlink2
                         if (this.hasTrait(pc, "evasion"))
                         {
                             elecDam = 0;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Lightning spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades all of the Lightning spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26592,7 +26960,7 @@ namespace IceBlink2
                         else
                         {
                             elecDam = elecDam / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Lightning spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades most of the Lightning spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -26603,8 +26971,8 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " elecDam = " + elecDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='lime'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='lime'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Lightning (" + "</font>" + "<font color='red'>" + elecDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= elecDam;
                     if (pc.hp <= 0)
                     {
@@ -26612,7 +26980,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='liem'>" + pc.name + " <font color='white'>drops unconcious" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -26658,7 +27026,7 @@ namespace IceBlink2
                     if (target.hp <= -20)
                     {
                         //MessageBox("Can't heal a dead character!");
-                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                     }
                     else
                     {
@@ -26672,7 +27040,7 @@ namespace IceBlink2
                             target.charStatus = "Alive";
                         }
                         //MessageBox(pc.name + " gains " + healAmount + " HPs");
-                        gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + target.name + " <font color='white'>gains <font color='lime'>" + healAmount + " <font color='white'>hp" + "</font><BR>");
                     }
                     if (!source.thisCastIsFreeOfCost)
                     {
@@ -26694,7 +27062,7 @@ namespace IceBlink2
                     if (target.hp <= -20)
                     {
                         //MessageBox("Can't heal a dead character!");
-                        gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                     }
                     else
                     {
@@ -26709,7 +27077,7 @@ namespace IceBlink2
                         }
                         //MessageBox(pc.name + " gains " + healAmount + " HPs");
                         MessageBoxHtml(target.name + " gains " + healAmount + " HPs, now has " + target.hp + "/" + target.hpMax + "HPs");
-                        gv.cc.addLogText("<font color='lime'>" + target.name + " gains " + healAmount + " HPs" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + target.name + " <font color='white'>gains <font color='lime'>" + healAmount + " <font color='white'>hp" + "</font><BR>");
                     }
                 }
             }
@@ -26723,7 +27091,7 @@ namespace IceBlink2
                 {
                     target.hp = target.hpMax;
                 }
-                gv.cc.addLogText("<font color='lime'>" + target.cr_name + " gains " + healAmount + " HPs" + "</font><BR>");
+                gv.cc.addLogText("<font color='red'>" + target.cr_name + " <font color='white'>gains <font color='lime'>" + healAmount + " <font color='white'>hp" + "</font><BR>");
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
             }
@@ -26752,7 +27120,7 @@ namespace IceBlink2
                     {
                         if (pc.hp <= -20)
                         {
-                            gv.cc.addLogText("<font color='red'>" + "Can't heal a dead character!" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'>" + "Can't heal a dead character" + "</font><BR>");
                         }
                         else
                         {
@@ -26766,7 +27134,7 @@ namespace IceBlink2
                                 pc.charStatus = "Alive";
                             }
                             //MessageBox(pc.name + " gains " + healAmount + " HPs");
-                            gv.cc.addLogText("<font color='lime'>" + pc.name + " gains " + healAmount + " HPs" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>gains <font color='lime'>" + healAmount + " <font color='white'>hp" + "</font><BR>");
                         }
                     }
                     if (!source.thisCastIsFreeOfCost)
@@ -26792,7 +27160,7 @@ namespace IceBlink2
                     {
                         crt.hp = crt.hpMax;
                     }
-                    gv.cc.addLogText("<font color='lime'>" + crt.cr_name + " gains " + healAmount + " HPs" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>gains <font color='lime'>" + healAmount + " <font color='white'>hp" + "</font><BR>");
                 }
                 source.sp -= SpellToCast.costSP;
                 if (source.sp < 0) { source.sp = 0; }
@@ -26821,8 +27189,8 @@ namespace IceBlink2
                     int numberOfRounds = (source.classLevel * 5); //5 rounds per level
                     Effect ef = mod.getEffectByTag("bless").DeepCopy();
                     ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
-                    gv.cc.addLogText("<font color='lime'>" + "Bless is applied on " + pc.name
-                            + " for " + numberOfRounds + " turn(s)" + "</font>" +
+                    gv.cc.addLogText("<font color='white'>" + "Bless is applied on <font color='lime'>" + pc.name
+                            + " <font color='white'>for " + numberOfRounds + " turn(s)" + "</font>" +
                             "<BR>");
                     pc.AddEffectByObject(ef, source.classLevel);
                 }
@@ -26846,8 +27214,8 @@ namespace IceBlink2
                     int numberOfRounds = (source.cr_level * 5); //5 rounds per level
                     Effect ef = mod.getEffectByTag("bless").DeepCopy();
                     ef.durationInUnits = numberOfRounds * gv.mod.TimePerRound;
-                    gv.cc.addLogText("<font color='lime'>" + "Bless is applied on " + crt.cr_name
-                            + " for " + numberOfRounds + " turn(s)" + "</font>" +
+                    gv.cc.addLogText("<font color='white'>" + "Bless is applied on <font color='red'>" + crt.cr_name
+                            + " <font color='white'>for " + numberOfRounds + " turn(s)" + "</font>" +
                             "<BR>");
                     crt.AddEffectByObject(ef, source.cr_level);
                 }
@@ -26891,18 +27259,18 @@ namespace IceBlink2
                                     "<BR>");
                     }
 
-                    gv.cc.addLogText("<font color='aqua'>" + source.name + "</font>" +
+                    gv.cc.addLogText("<font color='lime'>" + source.name + "</font>" +
                             "<font color='white'>" + " attacks " + "</font>" +
-                            "<font color='silver'>" + target.cr_name + "</font>" +
+                            "<font color='red'>" + target.cr_name + "</font>" +
                             "<BR>");
                     gv.cc.addLogText("<font color='white'>" + "Magic Stone (" + "</font>");
-                    gv.cc.addLogText("<font color='lime'>" + stoneDam + "</font>" +
+                    gv.cc.addLogText("<font color='red'>" + stoneDam + "</font>" +
                             "<font color='white'>" + " damage)" + "</font>" +
                             "<BR>");
                     if (target.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + target.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + target.cr_name + "</font><BR>");
                         /*try
                         {
                             for (int x = mod.currentEncounter.encounterCreatureList.Count - 1; x >= 0; x--)
@@ -26968,12 +27336,12 @@ namespace IceBlink2
                                     + " stoneDam = " + stoneDam + "</font>" +
                                     "<BR>");
                     }
-                    gv.cc.addLogText("<font color='silver'>" + source.cr_name + "</font>" +
+                    gv.cc.addLogText("<font color='red'>" + source.cr_name + "</font>" +
                             "<font color='white'>" + " attacks " + "</font>" +
-                            "<font color='aqua'>" + target.name + "</font>" +
+                            "<font color='lime'>" + target.name + "</font>" +
                             "<BR>");
                     gv.cc.addLogText("<font color='white'>" + "Magic Stone (" + "</font>");
-                    gv.cc.addLogText("<font color='lime'>" + stoneDam + "</font>" +
+                    gv.cc.addLogText("<font color='red'>" + stoneDam + "</font>" +
                             "<font color='white'>" + " damage)" + "</font>" +
                             "<BR>");
                     if (target.hp <= 0)
@@ -26982,7 +27350,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(target.combatLocX, target.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + target.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + target.name + " <font color='white'>drops unconcious" + "</font><BR>");
                         target.charStatus = "Dead";
                     }
                 }
@@ -27054,7 +27422,7 @@ namespace IceBlink2
                     if (saveChk >= DC) //passed save check
                     {
                         fireDam = fireDam / 2;
-                        gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the Blast of Light spell" + "</font><BR>");
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>evades most of the Blast of Light spell" + "</font><BR>");
                         if (mod.debugMode)
                         {
                             gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + crt.getReflex() + " >= " + DC + "</font><BR>");
@@ -27064,13 +27432,13 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + crt.cr_name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='red'>" + crt.cr_name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     crt.hp -= fireDam;
                     if (crt.hp <= 0)
                     {
                         gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
-                        gv.cc.addLogText("<font color='lime'>" + "You killed the " + crt.cr_name + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>" + "You killed the <font color='red'>" + crt.cr_name + "</font><BR>");
                     }
                     //Do floaty text damage
                     //gv.screenCombat.floatyTextOn = true;
@@ -27091,7 +27459,7 @@ namespace IceBlink2
                         if (this.hasTrait(pc, "evasion"))
                         {
                             fireDam = 0;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades all of the Blast of Light spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades all of the Blast of Light spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -27100,7 +27468,7 @@ namespace IceBlink2
                         else
                         {
                             fireDam = fireDam / 2;
-                            gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the Blast of Light spell" + "</font><BR>");
+                            gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>evades most of the Blast of Light spell" + "</font><BR>");
                             if (mod.debugMode)
                             {
                                 gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + pc.reflex + " >= " + DC + "</font><BR>");
@@ -27111,8 +27479,8 @@ namespace IceBlink2
                     {
                         gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + " fireDam = " + fireDam + "</font><BR>");
                     }
-                    gv.cc.addLogText("<font color='aqua'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='silver'>" + pc.name + "</font><BR>");
-                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='lime'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + sourceName + "</font>" + "<font color='white'>" + " attacks " + "</font>" + "<font color='lime'>" + pc.name + "</font><BR>");
+                    gv.cc.addLogText("<font color='white'>" + "Blast of Light (" + "</font>" + "<font color='red'>" + fireDam + "</font>" + "<font color='white'>" + " damage)" + "</font><BR>");
                     pc.hp -= fireDam;
                     if (pc.hp <= 0)
                     {
@@ -27120,7 +27488,7 @@ namespace IceBlink2
                         {
                             gv.screenCombat.deathAnimationLocations.Add(new Coordinate(pc.combatLocX, pc.combatLocY));
                         }
-                        gv.cc.addLogText("<font color='red'>" + pc.name + " drops unconcious!" + "</font><BR>");
+                        gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>drops unconcious" + "</font><BR>");
                         pc.charStatus = "Dead";
                     }
                     //Do floaty text damage
@@ -27165,11 +27533,11 @@ namespace IceBlink2
                 int DC = 16;
                 if (saveChk >= DC) //passed save check
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + target.cr_name + " avoids the hold spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + target.cr_name + " <font color='white'>avoids the hold spell" + "</font><BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='red'>" + target.cr_name + " is held by a hold spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='red'>" + target.cr_name + " <font color='white'>is held by a hold spell" + "</font><BR>");
                     target.cr_status = "Held";
                     Effect ef = mod.getEffectByTag("hold");
                     ef.statusType = "Held";
@@ -27196,11 +27564,11 @@ namespace IceBlink2
                 int DC = 16;
                 if (saveChk >= DC) //passed save check
                 {
-                    gv.cc.addLogText("<font color='yellow'>" + target.name + " avoids the hold spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + target.name + " <font color='white'>avoids the hold spell" + "</font><BR>");
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='red'>" + target.name + " is held by a hold spell" + "</font><BR>");
+                    gv.cc.addLogText("<font color='lime'>" + target.name + " <font color='white'>is held by a hold spell" + "</font><BR>");
                     target.charStatus = "Held";
                     Effect ef = mod.getEffectByTag("hold");
                     ef.statusType = "Held";
