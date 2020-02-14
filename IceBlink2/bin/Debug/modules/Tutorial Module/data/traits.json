@@ -424,7 +424,7 @@
     "traitWorksOnlyWhen": [],
     "traitWorksNeverWhen": [],
     "tag": "mechanist",
-    "associatedSpellTag": "none",
+    "associatedSpellTag": "newSpellTag_mechanist",
     "traitImage": "tr_mechanist",
     "description": "A Mechanist can pick mechanical locks on containers and doors. He can also disarm mechanical traps. All of this gets more difficult in complete darkness (-12) or in the night (-4) on unlit squares.<br><br> To use this trait on - partially - hidden objects (mostly traps in this case), the player has to do a SEARCH action via space key next to the hidden object. Searching consumes the time required for ten moves, costs the party leader one SP and can be interrupted by enemies or traps the party directly stands on. Interacting with visible objects (mostly doors and chests in this case) works by just bumping/moving into the visible object.<br><br>Uses dexterity as skill roll modifier. The relevant Mechanist skill value is always based on the current party leader's Mechanist trait.",
     "prerequisiteTrait": "none",

@@ -15481,13 +15481,16 @@ namespace IceBlink2
         public bool CheckPassSkill(int PCIndex, string tag, int dc, bool useRollTen, bool isSilent)
         {
 
-            if (PCIndex == -1 && (gv.screenType == "combat" || gv.screenType == "Combat"))
+            if (gv.screenCombat.isPlayerTurn)
             {
-                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                if (PCIndex == -1 && (gv.screenType == "combat" || gv.screenType == "Combat"))
                 {
-                    if (gv.mod.playerList[i].moveOrder == gv.screenCombat.currentMoveOrderIndex -1)
+                    for (int i = 0; i < gv.mod.playerList.Count; i++)
                     {
-                        PCIndex = i;
+                        if (gv.mod.playerList[i].moveOrder == gv.screenCombat.currentMoveOrderIndex - 1)
+                        {
+                            PCIndex = i;
+                        }
                     }
                 }
             }
@@ -15762,11 +15765,11 @@ namespace IceBlink2
                     }
                     if ((useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'> Static " + tr.name + " check of <font color='ilme'>" + playerName + " <font color='white'>successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
                     }
                     else if ((!useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check of " + playerName + " successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check of <font color='lime'>" + playerName + " <font color='white'>successful (" + roll + "+" + power + ">=" + dc + ")" + "</font><BR>");
                     }
                     return true;
                 }
@@ -15778,11 +15781,11 @@ namespace IceBlink2
                     }
                     if ((useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='red'> Static " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'> Static " + tr.name + " check of <font color='lime'>" + playerName + " <font color='white'>failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
                     }
                     else if ((!useRollTen) && (!isSilent))
                     {
-                        gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check of " + playerName + " failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check of <font color='lime'>" + playerName + " <font color='white'>failed (" + roll + "+" + power + " is less than " + dc + ")" + "</font><BR>");
                     }
                     return false;
                 }
@@ -15821,11 +15824,11 @@ namespace IceBlink2
                         }
                         if ((useRollTen)&& (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Static " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
                         }
                         else if ((!useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check (for not a single failure in group) was successful" + " (difficulty level was " + dc + ")" + "</font><BR>");
                         }
                         return true;
                     }
@@ -15837,10 +15840,10 @@ namespace IceBlink2
                         }
                         if ((useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Static " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
                         }
                         else if ((!useRollTen) && (!isSilent))                        {
-                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check (for not a single failure in group) was failed by " + playerName + " (" + rollUsed + "+" + power + " is less than" + dc + ")" + "</font><BR>");
                         }
                         return false;
                     }
@@ -15877,11 +15880,11 @@ namespace IceBlink2
                         }
                         if ((useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='lime'> Static " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Static " + tr.name + " check (for one success in group) was successful for <font color='lime'>" + playerName + " <font color='white'>(" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
                         }
                         else if ((!useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='lime'> Rolled " + tr.name + " check (for one success in group) was successful for " + playerName + " (" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check (for one success in group) was successful for <font color='lime'>" + playerName + " <font color='white'>(" + rollUsed + "+" + power + ">=" + dc + ")" + "</font><BR>");
                         }
                         return true;
                     }
@@ -15893,11 +15896,11 @@ namespace IceBlink2
                         }
                         if ((useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='red'> Static " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Static " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
                         }
                         else if ((!useRollTen) && (!isSilent))
                         {
-                            gv.cc.addLogText("<font color='red'> Rolled " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
+                            gv.cc.addLogText("<font color='white'> Rolled " + tr.name + " check (for one success in group) failed for everybody" + " (difficulty level was " + dc + ")" + "</font><BR>");
                         }
                         return false;
                     }
@@ -25152,21 +25155,22 @@ namespace IceBlink2
                 //            gv.postDelayed("doFloatyText", 100);
         }
 
-        public void trRemoveTrap(object src, object trg)
-        {  
-           if (src is Player) //player casting  
-            {  
-                Player source = (Player)src;  
-                Coordinate target = (Coordinate)trg;  
-  
-                 foreach(Prop prp in gv.mod.currentEncounter.propsList)  
-                 {  
-                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))  
-                    {  
-                         if (prp.isTrap)  
-                         {
+        public void trRemoveTrap(object src, object trg, Spell spell)
+        {
+            //todo: item usage
+            if (src is Player) //player casting  
+            {
+                Player source = (Player)src;
+                Coordinate target = (Coordinate)trg;
+
+                foreach (Prop prp in gv.mod.currentEncounter.propsList)
+                {
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))
+                    {
+                        if (prp.isTrap)
+                        {
                             int PCIndex = -1;
-                            for ( int i = 0; i < gv.mod.playerList.Count; i++)
+                            for (int i = 0; i < gv.mod.playerList.Count; i++)
                             {
                                 if (source.name == gv.mod.playerList[i].name)
                                 {
@@ -25174,19 +25178,354 @@ namespace IceBlink2
                                     break;
                                 }
                             }
-                            gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            if (spell.tag.Contains(gv.mod.tagOfDisarmTrapCombatTrait))
+                            {
+                                gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            }
+                            else
+                            {
+                                gv.mod.returnCheck = false;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                            }
+                            //gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
                             if (gv.mod.returnCheck)
                             {
                                 gv.mod.currentEncounter.propsList.Remove(prp);
-                                gv.cc.addLogText("<gn>" + source.name + " removed trap</gn><BR>");
-                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "trap removed", "green");
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
                             }
-                            return;  
-                         }  
-                     }  
-                 }  
-             }              
-        }  
+                            return;
+                        }
+                    }
+                }
+
+                foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+                {
+                    foreach (Coordinate coord in t.TriggerSquaresList)
+                    {
+                        if ((coord.X == target.X) && (coord.Y == target.Y))
+                        {
+                            if (t.txtTrigDisablingTraitTag != "none" && t.txtTrigDisablingTraitTag != "None" && t.txtTrigDisablingTraitTag != "" && t.txtTrigDisablingTraitTag != null)
+                            {
+                                int PCIndex = -1;
+                                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                                {
+                                    if (source.name == gv.mod.playerList[i].name)
+                                    {
+                                        PCIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (spell.tag.Contains(t.txtTrigDisablingTraitTag))
+                                {
+                                    gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigDisablingTraitTag, Convert.ToInt32(t.txtTrigDisablingDC), false, false);
+                                }
+                                else
+                                {
+                                    gv.mod.returnCheck = false;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                                }
+                                if (gv.mod.returnCheck)
+                                {
+                                    //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    t.Enabled = false;
+                                    t.chkTrigHidden = true;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                }
+                                return;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (src is Item)
+            {
+                Item source = (Item)src;
+                Coordinate target = (Coordinate)trg;
+                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+
+
+                foreach (Prop prp in gv.mod.currentEncounter.propsList)
+                {
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))
+                    {
+                        if (prp.isTrap)
+                        {
+                            int PCIndex = -1;
+                            for (int i = 0; i < gv.mod.playerList.Count; i++)
+                            {
+                                if (source.name == gv.mod.playerList[i].name)
+                                {
+                                    PCIndex = i;
+                                    break;
+                                }
+                            }
+
+                            if (spell.tag.Contains(gv.mod.tagOfDisarmTrapCombatTrait))
+                            {
+                                gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            }
+                            else
+                            {
+                                gv.mod.returnCheck = false;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+                            }
+                            //gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            if (gv.mod.returnCheck)
+                            {
+                                gv.mod.currentEncounter.propsList.Remove(prp);
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                            }
+                            return;
+                        }
+                    }
+                }
+
+                foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+                {
+                    foreach (Coordinate coord in t.TriggerSquaresList)
+                    {
+                        if ((coord.X == target.X) && (coord.Y == target.Y))
+                        {
+                            if (t.txtTrigDisablingTraitTag != "none" && t.txtTrigDisablingTraitTag != "None" && t.txtTrigDisablingTraitTag != "" && t.txtTrigDisablingTraitTag != null)
+                            {
+                                int PCIndex = -1;
+                                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                                {
+                                    if (source.name == gv.mod.playerList[i].name)
+                                    {
+                                        PCIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (spell.tag.Contains(t.txtTrigDisablingTraitTag))
+                                {
+                                    gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigDisablingTraitTag, Convert.ToInt32(t.txtTrigDisablingDC), false, false);
+                                }
+                                else
+                                {
+                                    gv.mod.returnCheck = false;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> uses mismatching approach<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                                }
+                                //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigDisablingTraitTag, Convert.ToInt32(t.txtTrigDisablingDC), false, false);
+                                if (gv.mod.returnCheck)
+                                {
+                                    //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    t.Enabled = false;
+                                    t.chkTrigHidden = true;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> disabled target<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                }
+                                return;
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        public void trEnableTarget(object src, object trg, Spell spell)
+        {
+
+            //todo: item usage
+            if (src is Player) //player casting  
+            {
+                Player source = (Player)src;
+                Coordinate target = (Coordinate)trg;
+
+                foreach (Prop prp in gv.mod.currentEncounter.propsList)
+                {
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))
+                    {
+                        //todo: enable mechanism for props (properties to add)
+                        if (prp.isTrap)
+                        {
+                            int PCIndex = -1;
+                            for (int i = 0; i < gv.mod.playerList.Count; i++)
+                            {
+                                if (source.name == gv.mod.playerList[i].name)
+                                {
+                                    PCIndex = i;
+                                    break;
+                                }
+                            }
+                            //todo: enable mechanism for props (properties to add)
+                            //gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            if (spell.tag.Contains(gv.mod.tagOfDisarmTrapCombatTrait))
+                            {
+                                gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            }
+                            else
+                            {
+                                gv.mod.returnCheck = false;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                            }
+                            if (gv.mod.returnCheck)
+                            {
+                                //gv.mod.currentEncounter.propsList.Remove(prp);
+                                prp.isActive = true;
+                                prp.isShown = true;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                            }
+                            return;
+                        }
+                    }
+                }
+
+                foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+                {
+                    foreach (Coordinate coord in t.TriggerSquaresList)
+                    {
+                        if ((coord.X == target.X) && (coord.Y == target.Y))
+                        {
+                            if (t.txtTrigEnablingTraitTag != "none" && t.txtTrigEnablingTraitTag != "None" && t.txtTrigEnablingTraitTag != "" && t.txtTrigEnablingTraitTag !=null)
+                            {
+                                int PCIndex = -1;
+                                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                                {
+                                    if (source.name == gv.mod.playerList[i].name)
+                                    {
+                                        PCIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (spell.tag.Contains(t.txtTrigEnablingTraitTag))
+                                {
+                                    gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
+                                }
+                                else
+                                {
+                                    gv.mod.returnCheck = false;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> uses mismatching approach<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                                }
+                                //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
+                                if (gv.mod.returnCheck)
+                                {
+                                    //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enbaled", "white");
+                                }
+                                return;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (src is Item)
+            {
+                Item source = (Item)src;
+                Coordinate target = (Coordinate)trg;
+                Player pc = gv.mod.playerList[gv.screenCombat.currentPlayerIndex];
+
+                foreach (Prop prp in gv.mod.currentEncounter.propsList)
+                {
+                    if ((prp.LocationX == target.X) && (prp.LocationY == target.Y))
+                    {
+                        //todo: enable mechanism for props (properties to add)
+                        if (prp.isTrap)
+                        {
+                            int PCIndex = -1;
+                            for (int i = 0; i < gv.mod.playerList.Count; i++)
+                            {
+                                if (source.name == gv.mod.playerList[i].name)
+                                {
+                                    PCIndex = i;
+                                    break;
+                                }
+                            }
+                            //todo: enable mechanism for props (properties to add)
+                            if (spell.tag.Contains(gv.mod.tagOfDisarmTrapCombatTrait))
+                            {
+                                gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            }
+                            else
+                            {
+                                gv.mod.returnCheck = false;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                            }
+                            //gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
+                            if (gv.mod.returnCheck)
+                            {
+                                //gv.mod.currentEncounter.propsList.Remove(prp);
+                                prp.isActive = true;
+                                prp.isShown = true;
+                                gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                            }
+                            return;
+                        }
+                    }
+                }
+
+                foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+                {
+                    foreach (Coordinate coord in t.TriggerSquaresList)
+                    {
+                        if ((coord.X == target.X) && (coord.Y == target.Y))
+                        {
+                            if (t.txtTrigEnablingTraitTag != "none" && t.txtTrigEnablingTraitTag != "None" && t.txtTrigEnablingTraitTag != "" && t.txtTrigEnablingTraitTag != null)
+                            {
+                                int PCIndex = -1;
+                                for (int i = 0; i < gv.mod.playerList.Count; i++)
+                                {
+                                    if (source.name == gv.mod.playerList[i].name)
+                                    {
+                                        PCIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (spell.tag.Contains(t.txtTrigEnablingTraitTag))
+                                {
+                                    gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
+                                }
+                                else
+                                {
+                                    gv.mod.returnCheck = false;
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> uses mismatching approach<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+
+                                }
+                                //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
+                                if (gv.mod.returnCheck)
+                                {
+                                    //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enbaled", "white");
+                                }
+                                return;
+
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+        }
 
         //SPELLS WIZARD
         public void spDimensionDoor(object src, object trg)

@@ -10,8 +10,27 @@ namespace IceBlink2
 {
     public class Trigger 
     {
+        public bool chkTrigHidden = false;
+        public string txtTrigFindingTraitTag = "none";
+        public string txtTrigFindingDC = "none";
+        public string txtTrigSpawningTraitTag = "none";
+        public string txtTrigSpawningDC = "none";
+        public string txtTrigDespawningTraitTag = "none";
+        public string txtTrigDespawningDC = "none";
+        public string txtTrigDisablingTraitTag = "none";
+        public string txtTrigDisablingDC = "none";
+        public string txtTrigEnablingTraitTag = "none";
+        public string txtTrigEnablingDC = "none";
+        public bool chkTrigEnableOnFinding = false;
 
         public string bumpTriggerDirection = "none"; //can be fromSouth,fromNorth, fromEast, fromWest, none
+        public string mouseOverText = "none";
+
+        //public string traitTagForSpawning = "none";
+        //public int DCForSpawning = 0;
+        //public string traitTagForFinding = "none";
+        //public int DCForFinding = 0;
+        //public bool onlyFunctionalWhenFound = false;
 
         public bool connectedDiscovery = false;
         public string triggerImage = "none";

@@ -264,9 +264,24 @@ namespace IceBlink2
                         break;
                     }
                 }
+                bool isCreature = false;
+                foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                {
+                    if (c.cr_name == gv.cc.floatyTextActorInfoName)
+                    {
+                        isCreature = true;
+                        break;
+                    }
+                }
+                bool isTrigger = false;
+                if (gv.cc.floatyTextActorInfoName == "Trigger Square")
+                {
+                        isTrigger = true;
+                }
+                
+                //isTrigger, Trigger Square
 
-
-                if (gv.cc.drawInfoText)
+                if (gv.cc.drawInfoText && gv.screenCombat.isPlayerTurn)
                 {
                     if (isPlayer)
                     {
@@ -337,7 +352,7 @@ namespace IceBlink2
 
                     }
                     //this draw creature info
-                    else
+                    if (isCreature)
                     {
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Red);
                         if (!gv.cc.inEffectMode)
@@ -426,8 +441,42 @@ namespace IceBlink2
                         }
                     }
 
+                    if (isTrigger)
+                    {
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Yellow);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoText, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoWorksFor, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCharges, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEveryStep, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 11 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 16 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 20 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
 
-                    
+
+                    }
+                    /*
+                    public string floatyTextActorInfoText = "";
+        public string floatyTextActorInfoWorksFor = "";
+        public string floatyTextActorInfoCharges = "";
+        public string floatyTextActorInfoEveryStep = "";
+        public string floatyTextActorInfoSpellName = "";//get via tag
+        public string floatyTextActorInfoOnlyWhileOnSquare = "";
+        public string floatyTextActorInfoOnlyCasterLevel = "";
+        public string floatyTextActorInfoSpellName2 = "";//get via tag
+        public string floatyTextActorInfoOnlyWhileOnSquare2 = "";
+        public string floatyTextActorInfoOnlyCasterLevel2 = "";
+        public string floatyTextActorInfoSpellName3 = "";//get via tag
+        public string floatyTextActorInfoOnlyWhileOnSquare3 = "";
+        public string floatyTextActorInfoOnlyCasterLevel3 = "";
+        */
+
+
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 4 * txtH, 0.9f, Color.White);
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 6 * txtH, 0.9f, Color.White);
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
@@ -449,9 +498,6 @@ namespace IceBlink2
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects8custom, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects9custom, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
                     gv.DrawTextOutlined(gv.cc.floatyTextActorInfoTempEffects10custom, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
-
-
-
                 }
 
 

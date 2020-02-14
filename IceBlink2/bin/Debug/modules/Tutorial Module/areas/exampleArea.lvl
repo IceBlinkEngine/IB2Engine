@@ -45623,6 +45623,18 @@
   ],
   "Triggers": [
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45637,6 +45649,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45678,6 +45691,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45692,6 +45717,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45733,6 +45759,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45747,6 +45785,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45788,6 +45827,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45802,6 +45853,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45843,6 +45895,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45857,6 +45921,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45898,6 +45963,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45912,6 +45989,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -45953,6 +46031,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -45967,6 +46057,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46008,6 +46099,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46022,6 +46125,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -46058,6 +46162,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46072,6 +46188,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46113,6 +46230,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46127,6 +46256,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46168,6 +46298,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46182,6 +46324,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -46218,6 +46361,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46232,6 +46387,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": true,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46273,6 +46429,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46287,6 +46455,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46328,6 +46497,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46342,6 +46523,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46383,6 +46565,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46397,6 +46591,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46438,6 +46633,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46452,6 +46659,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46493,6 +46701,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46507,6 +46727,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46548,6 +46769,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46562,6 +46795,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [
         {
@@ -46603,6 +46837,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46617,6 +46863,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -46653,6 +46900,18 @@
       "Event3Parm4": "none"
     },
     {
+      "chkTrigHidden": false,
+      "txtTrigFindingTraitTag": null,
+      "txtTrigFindingDC": null,
+      "txtTrigSpawningTraitTag": null,
+      "txtTrigSpawningDC": null,
+      "txtTrigDespawningTraitTag": null,
+      "txtTrigDespawningDC": null,
+      "txtTrigDisablingTraitTag": null,
+      "txtTrigDisablingDC": null,
+      "txtTrigEnablingTraitTag": null,
+      "txtTrigEnablingDC": null,
+      "chkTrigEnableOnFinding": false,
       "numberOfScriptCallsRemaining": 999,
       "canBeTriggeredByPc": true,
       "canBeTriggeredByCreature": true,
@@ -46667,6 +46926,7 @@
       "DoOnceOnly": false,
       "RequiresActiveSearch": false,
       "BumpTriggerDirection": "none",
+      "MouseOverText": "none",
       "ConnectedDiscovery": false,
       "TriggerSquaresList": [],
       "DoOnceOnlyEvent1": false,
@@ -46709,7 +46969,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 1566,
+  "NextIdNumber": 1582,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],
