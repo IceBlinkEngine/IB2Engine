@@ -182,6 +182,11 @@ namespace IceBlink2
         public Coordinate floatyTextLocPropMouseOver = new Coordinate();
         public float floatyPushUp = 0;
 
+        public string floatyTextActorInfoEnableTrait = "";
+        public string floatyTextActorInfoEnableDC = "";
+        public string floatyTextActorInfoDisableTrait = "";
+        public string floatyTextActorInfoDisableDC = "";
+
         public string floatyTextActorInfoText = "";
         public string floatyTextActorInfoWorksFor = "";
         public string floatyTextActorInfoCharges = "";

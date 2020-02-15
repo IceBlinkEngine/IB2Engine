@@ -445,18 +445,30 @@ namespace IceBlink2
                     {
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Yellow);
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoText, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoWorksFor, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCharges, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEveryStep, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 11 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 16 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 20 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
+
+                        if (gv.cc.floatyTextActorInfoEnableTrait != "none" && gv.cc.floatyTextActorInfoEnableTrait != "None" && gv.cc.floatyTextActorInfoEnableTrait != "" && gv.cc.floatyTextActorInfoEnableTrait != null)
+                        {
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEnableTrait, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEnableDC, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                        }
+                        else if (gv.cc.floatyTextActorInfoDisableTrait != "none" && gv.cc.floatyTextActorInfoDisableTrait != "None" && gv.cc.floatyTextActorInfoDisableTrait != "" && gv.cc.floatyTextActorInfoDisableTrait != null)
+                        {
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDisableTrait, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDisableDC, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                        }
+
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoWorksFor, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCharges, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 10* txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEveryStep, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y +11 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 18 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
 
 
                     }
