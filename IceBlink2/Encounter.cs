@@ -253,9 +253,44 @@ public Trigger getTriggerByLocation(int x, int y)
                 }
             }
         }
+        //ginandmussels
+        public Encounter DeepCopy()
+        {
+            Encounter copy = new Encounter();
+            copy = (Encounter)this.MemberwiseClone();
+            copy.Triggers = new List<Trigger>();
+            copy.Triggers.Clear();
+            foreach (Trigger t in this.Triggers)
+            {
+                copy.Triggers.Add(t.DeepCopy());
+            }
+            /*
+            public List<int> originalAoEofSpells = new List<int>();
+            public List<Trigger> Triggers = new List<Trigger>();
+        public List<TileEnc> encounterTiles = new List<TileEnc>();
+
+        //public List<TileEnc> encounterTiles = new List<TileEnc>();
+        public List<CreatureRefs> encounterCreatureRefsList = new List<CreatureRefs>();
+        [JsonIgnore]
+        public List<Creature> encounterCreatureList = new List<Creature>();
+        public List<ItemRefs> encounterInventoryRefsList = new List<ItemRefs>();
+        public List<Coordinate> encounterPcStartLocations = new List<Coordinate>();
+        public List<Effect> effectsList = new List<Effect>();
+        public List<Prop> propsList = new List<Prop>();
+            */
+            /*
+           copy.learningSpellsTags.Clear();
+           foreach (String s in this.learningSpellsTags)
+           {
+               copy.learningSpellsTags.Add(s);
+           }
+           */
+            //copy.hpThisUpdate = this.hpThisUpdate;
+            return copy;
+        }
 
 
-    }    
+        }    
 }
 
 

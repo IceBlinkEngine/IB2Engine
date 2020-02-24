@@ -13,6 +13,14 @@ namespace IceBlink2
 {
     public class Module
     {
+      
+        public bool showType = true;
+        public bool showHitBy = true;
+        public bool showRegen = true;
+        public bool showDeathScript = true;
+        public bool showAI = true;
+        public bool showSpells = true;
+       
 
         public int mousePosX = 0;
         public int mousePosY = 0;
@@ -861,7 +869,7 @@ namespace IceBlink2
         {
             foreach (Encounter e in this.moduleEncountersList)
             {
-                if (e.encounterName.Equals(name)) return e;
+                if (e.encounterName.Equals(name)) return e.DeepCopy();
             }
             return null;
         }

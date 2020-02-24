@@ -6085,6 +6085,14 @@ namespace IceBlink2
                         if (!gv.mod.currentEncounter.isRepeatable)
                         {
                             gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                            //clear encounters with same tag, tag, too (not only the copy that current encounter is)
+                            foreach (Encounter e in gv.mod.moduleEncountersList)
+                            {
+                                if (e.encounterName == gv.mod.currentEncounter.encounterName)
+                                {
+                                    e.encounterCreatureRefsList.Clear();
+                                }
+                            }
                         }
                         gv.screenCombat.checkEndEncounter();
                     }

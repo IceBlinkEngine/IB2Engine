@@ -3815,7 +3815,15 @@ namespace IceBlink2
                     {
                         if (screenItemSelector.itemSelectorType.Equals("container"))
                         {
-                            screenType = "main";
+                            if (screenItemSelector.callingScreen == "main")
+                            {
+                                screenType = "main";
+                            }
+
+                            if (screenItemSelector.callingScreen == "combat")
+                            {
+                                screenType = "combat";
+                            }
                         }
                         else if (screenItemSelector.itemSelectorType.Equals("equip"))
                         {

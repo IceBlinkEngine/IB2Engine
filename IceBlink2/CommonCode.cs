@@ -187,6 +187,10 @@ namespace IceBlink2
         public string floatyTextActorInfoDisableTrait = "";
         public string floatyTextActorInfoDisableDC = "";
 
+        public string floatyTextActorInfoVanishInXTurns = "";
+        public string floatyTextActorInfoAppearInXTurns = "";
+        public string floatyTextActorInfoChangeWalkableState = "";
+
         public string floatyTextActorInfoText = "";
         public string floatyTextActorInfoWorksFor = "";
         public string floatyTextActorInfoCharges = "";
@@ -17076,6 +17080,37 @@ namespace IceBlink2
             }
         }
 
+        public void doContainerBasedOnTagCombat(string tag)
+        {
+
+   /*
+            gv.mod.blockRightKey = false;
+            gv.mod.blockLeftKey = false;
+            gv.mod.blockUpKey = false;
+            gv.mod.blockDownKey = false;
+            gv.aTimer.Stop();
+            gv.a2Timer.Stop();
+            gv.mod.scrollModeSpeed = 1.15f;
+            gv.mod.scrollingTimer = 100;
+            */
+
+            gv.screenType = "combat";
+
+            try
+            {
+                Container container = gv.mod.getContainerByTag(tag);
+                //gv.screenType = "itemSelector";
+                gv.screenItemSelector.resetItemSelector(container.containerItemRefs, "container", "combat");
+                gv.screenType = "itemSelector";
+            }
+            catch (Exception ex)
+            {
+                gv.sf.MessageBox("Karl Error 117End");
+                gv.errorLog(ex.ToString());
+            }
+
+        }
+
         public void doContainerBasedOnTag(string tag)
         {
 
@@ -19086,7 +19121,7 @@ namespace IceBlink2
                 //gv.mod.justLeftCombat = true;
                 gv.screenType = "main";
                 */
-
+                //ginandmussels
                 gv.mod.currentEncounter = gv.mod.getEncounter(name);
                     if (gv.mod.currentEncounter.encounterCreatureRefsList.Count > 0)
                     {

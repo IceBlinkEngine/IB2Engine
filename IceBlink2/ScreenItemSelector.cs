@@ -463,7 +463,16 @@ namespace IceBlink2
                             gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
                         }
                         thisItemRefs.Clear();
-                        gv.screenType = "main";
+                        if (callingScreen == "main")
+                        {
+                            gv.screenType = "main";
+                        }
+
+                        if (callingScreen == "combat")
+                        {
+                            gv.screenType = "combat";
+                        }
+                        //gv.screenType = "main";
                     }
                 }
             }            
@@ -701,7 +710,16 @@ namespace IceBlink2
                                         gv.mod.partyInventoryRefsList.Add(s.DeepCopy());
                                     }
                                     thisItemRefs.Clear();
-                                    gv.screenType = "main";
+                                    if (callingScreen == "main")
+                                    {
+                                        gv.screenType = "main";
+                                    }
+
+                                    if (callingScreen == "combat")
+                                    {
+                                        gv.screenType = "combat";
+                                    }
+                                    //gv.screenType = "main";
                                 }
                             }
                             else if (itemSelectorType.Equals("equip"))
@@ -748,7 +766,16 @@ namespace IceBlink2
 
                             if (itemSelectorType.Equals("container"))
                             {
-                                gv.screenType = "main";
+                                if (callingScreen == "main")
+                                {
+                                    gv.screenType = "main";
+                                }
+
+                                if (callingScreen == "combat")
+                                {
+                                    gv.screenType = "combat";
+                                 }
+                                //gv.screenType = "main";
                             }
                             else if (itemSelectorType.Equals("equip"))
                             {

@@ -1710,7 +1710,60 @@ namespace IceBlink2
             }
             floatyTextEnlargerOn = true;
             //floatyTextOn = true;
+            foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+            {
+                //Convert.ToInt32(cr.creatureStartLocationX);
+                if (t.vanishInXTurns != null && t.vanishInXTurns != "" && t.vanishInXTurns != "none" && t.vanishInXTurns != "None" && Convert.ToInt32(t.vanishInXTurns) > 0)
+                {
+                    if (t.vanishCounter >= Convert.ToInt32(t.vanishInXTurns))
+                    {
+                        t.Enabled = false;
+                        t.chkTrigHidden = true;
+                        if (t.changeWalkableStateOnEnabledStateChange)
+                        {
+                            foreach (Coordinate coord in t.TriggerSquaresList)
+                            {
+                                if (gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                }
+                                else
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                }
+                            }
+                        }
+                    }
+                    t.vanishCounter++;
+                }
+            }
 
+            foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+            {
+                if (t.appearInXTurns != null && t.appearInXTurns != "" && t.appearInXTurns != "none" && t.appearInXTurns != "None" && Convert.ToInt32(t.appearInXTurns) > 0)
+                {
+                    if (t.appearCounter >= Convert.ToInt32(t.appearInXTurns))
+                    {
+                        t.Enabled = false;
+                        t.chkTrigHidden = true;
+                        if (t.changeWalkableStateOnEnabledStateChange)
+                        {
+                            foreach (Coordinate coord in t.TriggerSquaresList)
+                            {
+                                if (gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                }
+                                else
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                }
+                            }
+                        }
+                    }
+                    t.appearCounter++;
+                }
+            }
             roundCounter++;
             turnController();
         }
@@ -2433,6 +2486,61 @@ namespace IceBlink2
 
         public void startNextRoundStuff()
         {
+
+            foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+            {
+                if (t.vanishInXTurns != null && t.vanishInXTurns != "" && t.vanishInXTurns != "none" && t.vanishInXTurns != "None" && Convert.ToInt32(t.vanishInXTurns) > 0)
+                {
+                    if (t.vanishCounter >= Convert.ToInt32(t.vanishInXTurns))
+                    {
+                        t.Enabled = false;
+                        t.chkTrigHidden = true;
+                        if (t.changeWalkableStateOnEnabledStateChange)
+                        {
+                            foreach (Coordinate coord in t.TriggerSquaresList)
+                            {
+                                if (gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y* gv.mod.currentEncounter.MapSizeX].Walkable)
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                }
+                                else
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                }
+                            }
+                        }
+                    }
+                    t.vanishCounter++;
+                }
+            }
+
+            foreach (Trigger t in gv.mod.currentEncounter.Triggers)
+            {
+                if (t.appearInXTurns != null && t.appearInXTurns != "" && t.appearInXTurns != "none" && t.appearInXTurns != "None" && Convert.ToInt32(t.appearInXTurns) > 0)
+                {
+                    if (t.appearCounter >= Convert.ToInt32(t.appearInXTurns))
+                    {
+                        t.Enabled = false;
+                        t.chkTrigHidden = true;
+                        if (t.changeWalkableStateOnEnabledStateChange)
+                        {
+                            foreach (Coordinate coord in t.TriggerSquaresList)
+                            {
+                                if (gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                }
+                                else
+                                {
+                                    gv.mod.currentEncounter.encounterTiles[coord.X + coord.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                }
+                            }
+                        }
+                    }
+                    t.appearCounter++;
+                }
+            }
+
             foreach (Player p in gv.mod.playerList)
             {
                 p.hasDelayedAlready = false;
@@ -8743,6 +8851,14 @@ namespace IceBlink2
                 if (!gv.mod.currentEncounter.isRepeatable)
                 {
                     gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
+                    //clear encounters with same tag, tag, too (not only the copy that current encounter is)
+                    foreach (Encounter e in gv.mod.moduleEncountersList)
+                    {
+                        if (e.encounterName == gv.mod.currentEncounter.encounterName)
+                        {
+                            e.encounterCreatureRefsList.Clear();
+                        }
+                    }
                 }
 
                 //prevent any auto scrolling
@@ -8886,7 +9002,8 @@ namespace IceBlink2
                 gv.screenCombat.endingAnimationLocation = null;
                 gv.cc.floatyTextList.Clear();
 
-
+                //173
+                //35571
                 //remove night and nolight debuffs
                 gv.mod.poorVisionModifier = 0;
                 for (int index = 0; index < gv.mod.playerList.Count; index++)
@@ -9382,6 +9499,16 @@ namespace IceBlink2
                                 gv.cc.doIBScriptBasedOnFilename(trig.Event1FilenameOrTag, trig.Event1Parm1);
                                 didTriggerEvent = true;
                             }
+                            doTriggers();
+                        }
+                        //add container veent, maybe also transition?
+                        else if (trig.Event1Type.Equals("container"))
+                        {
+                            
+                            //wohnraum
+                            //must assure that container screen will retrun to combat screen
+                            gv.cc.doContainerBasedOnTagCombat(trig.Event1FilenameOrTag);
+                            didTriggerEvent = true;
                             doTriggers();
                         }
                         //do that event
@@ -23817,6 +23944,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoCharges = "";
                 gv.cc.floatyTextActorInfoEveryStep = "";
 
+                gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                gv.cc.floatyTextActorInfoChangeWalkableState = "";
+
         //hide the normal info when efects are shown
         gv.cc.floatyTextActorInfoMoveOrder = "";
                 gv.cc.floatyTextActorInfoInitiative = "";
@@ -23876,6 +24007,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoSpellName3 = "";//get via tag
                 gv.cc.floatyTextActorInfoOnlyWhileOnSquare3 = "";
                 gv.cc.floatyTextActorInfoOnlyCasterLevel3 = "";
+
+                gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                gv.cc.floatyTextActorInfoChangeWalkableState = "";
 
 
 
@@ -23980,6 +24115,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoCharges = "";
                 gv.cc.floatyTextActorInfoEveryStep = "";
 
+                gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                gv.cc.floatyTextActorInfoChangeWalkableState = "";
+
                 gv.cc.floatyTextActorInfoMoveOrder = "";
                 gv.cc.floatyTextActorInfoInitiative = "";
                 gv.cc.floatyTextActorInfoAC = "";
@@ -24024,6 +24163,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
+
+                gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                gv.cc.floatyTextActorInfoChangeWalkableState = "";
                 gv.cc.floatyTextActorInfoDisableTrait = "";
                 gv.cc.floatyTextActorInfoDisableDC = "";
                 gv.cc.floatyTextActorInfoCharges = "";
@@ -24417,6 +24560,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
+
+                gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                gv.cc.floatyTextActorInfoChangeWalkableState = "";
                 gv.cc.floatyTextActorInfoDisableTrait = "";
                 gv.cc.floatyTextActorInfoDisableDC = "";
                 gv.cc.floatyTextActorInfoCharges = "";
@@ -24725,7 +24872,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                     if (trg.mouseOverText == "none")
                     {
-                        gv.cc.floatyTextActorInfoText = "Triggers actions described below";
+                        gv.cc.floatyTextActorInfoText = "Triggers event(s) described below";
                     }
                     else
                     {
@@ -24798,12 +24945,65 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                     if (trg.encounterTriggerOnEveryStep)
                     {
-                        gv.cc.floatyTextActorInfoEveryStep = "Only once a turn";
+                        gv.cc.floatyTextActorInfoEveryStep = "Only once a turn each actor";
                     }
                     else
                     {
-                        gv.cc.floatyTextActorInfoEveryStep = "Multiple times during a turn";
+                        gv.cc.floatyTextActorInfoEveryStep = "Multiple times a turn each actor";
                     }
+
+                    if (trg.vanishInXTurns != null && trg.vanishInXTurns != "" && trg.vanishInXTurns != "none" && trg.vanishInXTurns != "None")
+                    {
+                        if (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter <= 0)
+                        {
+                            gv.cc.floatyTextActorInfoVanishInXTurns = "Has vanished";
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoVanishInXTurns = "Vanishes in " + (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter).ToString() + " rounds";
+                        }
+                        //has vanished todo
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoVanishInXTurns = "";
+                    }
+
+                    if (trg.appearInXTurns != null && trg.appearInXTurns != "" && trg.appearInXTurns != "none" && trg.appearInXTurns != "None")
+                    {
+                        if (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter <= 0)
+                        {
+                            gv.cc.floatyTextActorInfoAppearInXTurns = "Has appeared";
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoAppearInXTurns = "Appears in " + (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter).ToString() + " rounds";
+                            //has appeared todo
+                        }
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoAppearInXTurns = "";
+                    }
+
+                    if (gv.cc.floatyTextActorInfoVanishInXTurns == "" && gv.cc.floatyTextActorInfoAppearInXTurns == "")
+                    {
+                        gv.cc.floatyTextActorInfoVanishInXTurns = "No timer for this event square";
+                    }
+                    //gv.cc.floatyTextActorInfoVanishInXTurns
+                    //appear/vanish
+
+                    if (trg.changeWalkableStateOnEnabledStateChange)
+                    {
+                        gv.cc.floatyTextActorInfoChangeWalkableState = "Affects walkable state on change";
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoChangeWalkableState = "Does not change walkable state";
+                    }
+                    //Affects walkable state
+
+
 
                     if (trg.Event1FilenameOrTag == "gaCastSpellEncounterTrigger.cs")
                     {
@@ -24821,9 +25021,16 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         }
                         else
                         {
-                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "Instant or lasting effect";
+                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "No presence on square required";
                         }
                         gv.cc.floatyTextActorInfoOnlyCasterLevel = "Power: " + trg.Event1Parm3;
+                    }
+
+                    if (trg.Event1Type == "container")
+                    {
+                        gv.cc.floatyTextActorInfoSpellName = "Treasure";
+                        gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "";
+                        gv.cc.floatyTextActorInfoOnlyCasterLevel = "";
                     }
 
                     if (trg.Event2FilenameOrTag == "gaCastSpellEncounterTrigger.cs")
@@ -24842,9 +25049,16 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         }
                         else
                         {
-                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare2 = "Instant or lasting effect";
+                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare2 = "No presence on square required";
                         }
                         gv.cc.floatyTextActorInfoOnlyCasterLevel2 = "Power: " + trg.Event2Parm3;
+                    }
+
+                    if (trg.Event2Type == "container")
+                    {
+                        gv.cc.floatyTextActorInfoSpellName = "Treasure";
+                        gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "";
+                        gv.cc.floatyTextActorInfoOnlyCasterLevel = "";
                     }
 
                     if (trg.Event3FilenameOrTag == "gaCastSpellEncounterTrigger.cs")
@@ -24863,9 +25077,15 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         }
                         else
                         {
-                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare3 = "Instant or lasting effect";
+                            gv.cc.floatyTextActorInfoOnlyWhileOnSquare3 = "No presence on square required";
                         }
                         gv.cc.floatyTextActorInfoOnlyCasterLevel3 = "Power: " + trg.Event3Parm3;
+                    }
+                    if (trg.Event3Type == "container")
+                    {
+                        gv.cc.floatyTextActorInfoSpellName = "Treasure";
+                        gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "";
+                        gv.cc.floatyTextActorInfoOnlyCasterLevel = "";
                     }
 
                     //hide the normal info when efects are shown
@@ -25034,6 +25254,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoWorksFor = "";
             gv.cc.floatyTextActorInfoEnableTrait = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
+
+            gv.cc.floatyTextActorInfoVanishInXTurns = "";
+            gv.cc.floatyTextActorInfoAppearInXTurns = "";
+            gv.cc.floatyTextActorInfoChangeWalkableState = "";
             gv.cc.floatyTextActorInfoDisableTrait = "";
             gv.cc.floatyTextActorInfoDisableDC = "";
             gv.cc.floatyTextActorInfoCharges = "";
@@ -25085,6 +25309,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoWorksFor = "";
             gv.cc.floatyTextActorInfoEnableTrait = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
+
+            gv.cc.floatyTextActorInfoVanishInXTurns = "";
+            gv.cc.floatyTextActorInfoAppearInXTurns = "";
+            gv.cc.floatyTextActorInfoChangeWalkableState = "";
             gv.cc.floatyTextActorInfoDisableTrait = "";
             gv.cc.floatyTextActorInfoDisableDC = "";
             gv.cc.floatyTextActorInfoCharges = "";

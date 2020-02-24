@@ -10,6 +10,14 @@ namespace IceBlink2
 {
     public class Trigger 
     {
+        public string vanishInXTurns = "none";
+        public int vanishCounter = 0;
+        public string appearInXTurns = "none";
+        public int appearCounter = 0;
+        public bool changeWalkableStateOnEnabledStateChange = false;
+        //below is likely only needed in toolset
+        public string tagOfPRopToPlaceOnTop = "none";
+
         public bool chkTrigHidden = false;
         public string txtTrigFindingTraitTag = "none";
         public string txtTrigFindingDC = "none";
@@ -89,9 +97,18 @@ namespace IceBlink2
         public string tagOfLink = "none";
         public int transitionToMasterRotationCounter = 1;
 
+        public Trigger DeepCopy()
+        {
+            Trigger copy = new Trigger();
+            copy = (Trigger)this.MemberwiseClone();
+            return copy;
+        }
+
         public Trigger()
         {
     	
+
+
         }
     }
 }

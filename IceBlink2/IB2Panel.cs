@@ -362,82 +362,150 @@ namespace IceBlink2
                             gv.DrawTextOutlined(gv.cc.floatyTextActorInfoInitiative, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 4 * txtH, 0.9f, Color.White);
                             gv.DrawTextOutlined(gv.cc.floatyTextActorInfoHP, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
                             gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSP, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoNumberOfAttacks, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoToHit, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAmmo, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAttackType, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAttackRange, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamage, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
 
-                            //todo color coding
-                            if (gv.cc.floatyTextActorInfoDamageType == "Normal")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Poison")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.LimeGreen);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Magic")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Gold);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Fire")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.OrangeRed);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Cold")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.CornflowerBlue);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Acid")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Purple);
-                            }
-                            if (gv.cc.floatyTextActorInfoDamageType == "Electricity")
-                            {
-                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Turquoise);
-                            }
+                            //cut here if trait != noen and roll failed
+                            // unveilStatInfoTraitDC
+                            bool showStats = false;
+                            string traitName = "none";
+                            int traitDC = 0;
 
-                            //gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnScoringHitSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 10 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves2, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves3, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances2, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.Gold);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances3, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.LimeGreen);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances4, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.OrangeRed);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances5, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.CornflowerBlue);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances6, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.Purple);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances7, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.Turquoise);
-                            //17
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCreatureTags, gv.cc.floatyTextLocInfo.X , gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoHitBy, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 18 * txtH, 0.9f, Color.White);
+                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                            {
+                                if (c.cr_name == gv.cc.floatyTextActorInfoName)
+                                {
+                                    if (c.unveilStatInfoTraitTag == "none" || c.unveilStatInfoTraitTag == "None" || c.unveilStatInfoTraitTag == "" || c.unveilStatInfoTraitTag == null)
+                                    {
+                                        showStats = true;
+                                    }
+                                    else
+                                    {
+                                        traitName = c.unveilStatInfoTraitTag;
+                                        traitDC = c.unveilStatInfoTraitDC;
+                                        if (gv.sf.CheckPassSkill(-2, c.unveilStatInfoTraitTag, c.unveilStatInfoTraitDC, true, true))
+                                        {
+                                            showStats = true;
+                                        }
 
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRegenerationHP, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRegenerationSP, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnDeathScriptName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 20 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAIType, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAIAffinityForCasting, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoInjuryThreshold, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 24 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 25 * txtH, 0.9f, Color.White);
+                                    }
+                                }
+                            }
+                            if (showStats)
+                            {
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoNumberOfAttacks, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoToHit, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAmmo, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAttackType, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAttackRange, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamage, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
 
-                            ///gv.cc.floatyTextActorInfoRegenerationHP = "";
-                            ///gv.cc.floatyTextActorInfoRegenerationSP = "";
-                            //gv.cc.floatyTextActorInfoSpellsKnown1 = "";
-                            //gv.cc.floatyTextActorInfoSpellsKnown2 = "";
-                            //gv.cc.floatyTextActorInfoSpellsKnown3 = "";
-                            //gv.cc.floatyTextActorInfoAIType = "";
-                            //gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
-                            ///gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
-                            ///gv.cc.floatyTextActorInfoOnDeathScriptName = "";
+                                //todo color coding
+                                if (gv.cc.floatyTextActorInfoDamageType == "Normal")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Poison")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.LimeGreen);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Magic")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Gold);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Fire")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.OrangeRed);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Cold")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.CornflowerBlue);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Acid")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Purple);
+                                }
+                                if (gv.cc.floatyTextActorInfoDamageType == "Electricity")
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.Turquoise);
+                                }
 
-                            //25
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRMB1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 26 * txtH, 0.9f, Color.White);
-                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRMB2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 27 * txtH, 0.9f, Color.White);
+
+
+
+                                //gv.DrawTextOutlined(gv.cc.floatyTextActorInfoDamageType, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnScoringHitSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 10 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves2, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSaves3, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances2, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.Gold);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances3, gv.cc.floatyTextLocInfo.X + 2.7f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.LimeGreen);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances4, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.OrangeRed);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances5, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.CornflowerBlue);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances6, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.Purple);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoResistances7, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.Turquoise);
+                                //17
+
+                                /*
+                                 public bool showType = true;
+          public bool showHitBy = true;
+          public bool showRegen = true;
+          public bool showDeathScript = true;
+          public bool showAI = true;
+          public bool showSpells = true;
+          */
+
+
+                                if (gv.mod.showType)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCreatureTags, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.mod.showHitBy)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoHitBy, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 18 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.mod.showRegen)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRegenerationHP, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRegenerationSP, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.mod.showDeathScript)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnDeathScriptName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 20 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.mod.showAI)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAIType, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAIAffinityForCasting, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoInjuryThreshold, gv.cc.floatyTextLocInfo.X + 1.5f * gv.squareSize, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
+                                }
+                                if (gv.mod.showSpells)
+                                {
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 24 * txtH, 0.9f, Color.White);
+                                    gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellsKnown3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 25 * txtH, 0.9f, Color.White);
+                                }
+
+                                ///gv.cc.floatyTextActorInfoRegenerationHP = "";
+                                ///gv.cc.floatyTextActorInfoRegenerationSP = "";
+                                //gv.cc.floatyTextActorInfoSpellsKnown1 = "";
+                                //gv.cc.floatyTextActorInfoSpellsKnown2 = "";
+                                //gv.cc.floatyTextActorInfoSpellsKnown3 = "";
+                                //gv.cc.floatyTextActorInfoAIType = "";
+                                //gv.cc.floatyTextActorInfoAIAffinityForCasting = "";//0 to 100
+                                ///gv.cc.floatyTextActorInfoCreatureTags = "";//used for immunities, special weaknesses, eg "undead" are affected by turn spells and immunne to paralyze...
+                                ///gv.cc.floatyTextActorInfoOnDeathScriptName = "";
+
+                                //25
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRMB1, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 26 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined(gv.cc.floatyTextActorInfoRMB2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 27 * txtH, 0.9f, Color.White);
+                            }
+                            //show stats was false
+                            else
+                            {
+                                //draw info for checked trait and required dc
+                                gv.DrawTextOutlined(traitName + " too low (best in party)", gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                                gv.DrawTextOutlined("At least skill level " + traitDC + " required", gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                            }
                         }
                     }
 
@@ -460,15 +528,27 @@ namespace IceBlink2
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoWorksFor, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoCharges, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 10* txtH, 0.9f, Color.White);
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoEveryStep, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y +11 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 14 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 18 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 22 * txtH, 0.9f, Color.White);
-                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
+
+                        if (gv.cc.floatyTextActorInfoVanishInXTurns != "" && gv.cc.floatyTextActorInfoVanishInXTurns != "none" && gv.cc.floatyTextActorInfoVanishInXTurns != "None")
+                        {
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoVanishInXTurns, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                        }
+                        else
+                        {
+                            gv.DrawTextOutlined(gv.cc.floatyTextActorInfoAppearInXTurns, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 12 * txtH, 0.9f, Color.White);
+                        }
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoChangeWalkableState, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 13 * txtH, 0.9f, Color.White);
+                        
+
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 15 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 16 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 17 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 19 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 20 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel2, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 21 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoSpellName3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 23 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 24 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 25 * txtH, 0.9f, Color.White);
 
 
                     }

@@ -29,6 +29,9 @@ namespace IceBlink2
         public bool showBreathingFrame = false;//4
 
 
+        public string unveilStatInfoTraitTag = "none";
+        public int unveilStatInfoTraitDC = 0;
+
         public float walkAnimationDelayCounter = 0;
         public float idleAnimationDelayCounter = 0;
         public float breathAnimationDelayCounter = 0;
@@ -145,7 +148,11 @@ namespace IceBlink2
 	    {
 		    Creature copy = new Creature();
 
-            copy.maxTurnTimeCounter = maxTurnTimeCounter;
+
+
+        copy.unveilStatInfoTraitTag = unveilStatInfoTraitTag;
+        copy.unveilStatInfoTraitDC = unveilStatInfoTraitDC;
+        copy.maxTurnTimeCounter = maxTurnTimeCounter;
             foreach (String et in this.tagsOfEffectsToRemoveOnMove)
             {
                 copy.tagsOfEffectsToRemoveOnMove.Add(et);
