@@ -1315,7 +1315,7 @@
     "aoeShape": "Circle",
     "aoeRadius": 0,
     "range": 1,
-    "spellScript": "trRemoveTrap",
+    "spellScript": "trChangeEnabledState",
     "spellScriptParm1": "none",
     "spellScriptParm2": "none",
     "additionalCustomLogTextOnCast": "none",

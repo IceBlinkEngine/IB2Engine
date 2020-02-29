@@ -17501,6 +17501,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     {
                         colr = Color.Lime;
                     }
+                    else if (gv.cc.floatyTextList[i].color.Equals("white"))
+                    {
+                        colr = Color.White;
+                    }
                     else
                     {
                         colr = Color.Red;
@@ -23938,6 +23942,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
+                gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
                 gv.cc.floatyTextActorInfoDisableTrait = "";
                 gv.cc.floatyTextActorInfoDisableDC = "";
@@ -23993,6 +23998,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
+                gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
                 gv.cc.floatyTextActorInfoDisableTrait = "";
                 gv.cc.floatyTextActorInfoDisableDC = "";
@@ -24109,6 +24115,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
+                gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
                 gv.cc.floatyTextActorInfoDisableTrait = "";
                 gv.cc.floatyTextActorInfoDisableDC = "";
@@ -24162,6 +24169,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
+                gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
 
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
@@ -24559,6 +24567,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
                 gv.cc.floatyTextActorInfoEnableTrait = "";
+                gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
 
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
@@ -24878,8 +24887,15 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     {
                         gv.cc.floatyTextActorInfoText = trg.mouseOverText;
                     }
-
-
+                    if (trg.Enabled)
+                    {
+                        gv.cc.floatyTextActorInfoEnabledState = "Enabled";
+                    }
+                    else
+                    {
+                        gv.cc.floatyTextActorInfoEnabledState = "Disabled";
+                    }
+                    
                     if (trg.txtTrigEnablingTraitTag != "" && trg.txtTrigEnablingTraitTag != "none" && trg.txtTrigEnablingTraitTag != "None" && trg.txtTrigEnablingTraitTag != null)
                     {
                         //enable info
@@ -24891,8 +24907,16 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                                 traitName = t.nameOfTraitGroup;
                             }
                         }
-                        gv.cc.floatyTextActorInfoEnableTrait = "Use " + traitName + " to enable";
-                        gv.cc.floatyTextActorInfoEnableDC = "Roll for DC " + trg.txtTrigEnablingDC;
+                        if (trg.Enabled == false)
+                        {
+                            gv.cc.floatyTextActorInfoEnableTrait = "Use " + traitName + " to enable";
+                            gv.cc.floatyTextActorInfoEnableDC = "Roll for DC " + trg.txtTrigEnablingDC;
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoDisableTrait = "No trait/spell usage needed";
+                            gv.cc.floatyTextActorInfoDisableDC = "Has been enabled";
+                        }
                     }
                     else
                     {
@@ -24907,24 +24931,46 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                                     traitName = t.nameOfTraitGroup;
                                 }
                             }
-                            gv.cc.floatyTextActorInfoDisableTrait = "Use " + traitName + " to disable";
-                            gv.cc.floatyTextActorInfoDisableDC = "Roll for DC " + trg.txtTrigDisablingDC;
+                            if (trg.Enabled == true)
+                            {
+                                gv.cc.floatyTextActorInfoDisableTrait = "Use " + traitName + " to disable";
+                                gv.cc.floatyTextActorInfoDisableDC = "Roll for DC " + trg.txtTrigDisablingDC;
+                            }
+                            else
+                            {
+                                gv.cc.floatyTextActorInfoDisableTrait = "No trait/spell usage needed";
+                                gv.cc.floatyTextActorInfoDisableDC = "Has been disabled";
+                            }
                         }
                         else
                         {
                             //neutral info
-                            gv.cc.floatyTextActorInfoDisableTrait = "Always working";
+                            gv.cc.floatyTextActorInfoDisableTrait = "No trait/spell usage needed";
                             gv.cc.floatyTextActorInfoDisableDC = "Cannot be disabled";
                         }
                     }
 
                     if (trg.canBeTriggeredByPc && trg.canBeTriggeredByCreature)
                     {
-                        gv.cc.floatyTextActorInfoWorksFor = "Applies to: players and creatures";
+                        if (trg.Event1Type == "container")
+                        {
+                            gv.cc.floatyTextActorInfoWorksFor = "Applies to: players";
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoWorksFor = "Applies to: players and creatures";
+                        }
                     }
                     if (!trg.canBeTriggeredByPc && trg.canBeTriggeredByCreature)
                     {
-                        gv.cc.floatyTextActorInfoWorksFor = "Applies to: creatures";
+                        if (trg.Event1Type == "container")
+                        {
+                            gv.cc.floatyTextActorInfoWorksFor = "Applies to: players";
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoWorksFor = "Applies to: creatures";
+                        }
                     }
                     if (trg.canBeTriggeredByPc && !trg.canBeTriggeredByCreature)
                     {
@@ -24945,7 +24991,14 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                     if (trg.encounterTriggerOnEveryStep)
                     {
-                        gv.cc.floatyTextActorInfoEveryStep = "Only once a turn each actor";
+                        if (trg.Event1Type == "container")
+                        {
+                            gv.cc.floatyTextActorInfoEveryStep = "Multiple times a turn each actor";
+                        }
+                        else
+                        {
+                            gv.cc.floatyTextActorInfoEveryStep = "Only once a turn each actor";
+                        }
                     }
                     else
                     {
@@ -24954,13 +25007,17 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                     if (trg.vanishInXTurns != null && trg.vanishInXTurns != "" && trg.vanishInXTurns != "none" && trg.vanishInXTurns != "None")
                     {
-                        if (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter <= 0)
+                        if (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter < 0)
                         {
                             gv.cc.floatyTextActorInfoVanishInXTurns = "Has vanished";
                         }
+                        else if (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter == 0)
+                        {
+                            gv.cc.floatyTextActorInfoVanishInXTurns = "Vanishes on start of next round";
+                        }          
                         else
                         {
-                            gv.cc.floatyTextActorInfoVanishInXTurns = "Vanishes in " + (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter).ToString() + " rounds";
+                            gv.cc.floatyTextActorInfoVanishInXTurns = "Vanishes in " + (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter + 1).ToString() + " rounds";
                         }
                         //has vanished todo
                     }
@@ -24971,13 +25028,17 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                     if (trg.appearInXTurns != null && trg.appearInXTurns != "" && trg.appearInXTurns != "none" && trg.appearInXTurns != "None")
                     {
-                        if (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter <= 0)
+                        if (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter < 0)
                         {
-                            gv.cc.floatyTextActorInfoAppearInXTurns = "Has appeared";
+                            gv.cc.floatyTextActorInfoAppearInXTurns = "Has appeared/been activated";
+                        }
+                        else if (Convert.ToInt32(trg.vanishInXTurns) - trg.vanishCounter == 0)
+                        {
+                            gv.cc.floatyTextActorInfoVanishInXTurns = "Activated on start of next round";
                         }
                         else
                         {
-                            gv.cc.floatyTextActorInfoAppearInXTurns = "Appears in " + (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter).ToString() + " rounds";
+                            gv.cc.floatyTextActorInfoAppearInXTurns = "Activated in " + (Convert.ToInt32(trg.appearInXTurns) - trg.appearCounter + 1).ToString() + " rounds";
                             //has appeared todo
                         }
                     }
@@ -25024,6 +25085,13 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "No presence on square required";
                         }
                         gv.cc.floatyTextActorInfoOnlyCasterLevel = "Power: " + trg.Event1Parm3;
+                    }
+
+                    if (trg.changeWalkableStateOnEnabledStateChange)
+                    {
+                        gv.cc.floatyTextActorInfoSpellName = "Barrier";
+                        gv.cc.floatyTextActorInfoOnlyWhileOnSquare = "";
+                        gv.cc.floatyTextActorInfoOnlyCasterLevel = "";
                     }
 
                     if (trg.Event1Type == "container")
@@ -25253,6 +25321,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoText = "";
             gv.cc.floatyTextActorInfoWorksFor = "";
             gv.cc.floatyTextActorInfoEnableTrait = "";
+            gv.cc.floatyTextActorInfoEnabledState = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
 
             gv.cc.floatyTextActorInfoVanishInXTurns = "";
@@ -25308,6 +25377,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoText = "";
             gv.cc.floatyTextActorInfoWorksFor = "";
             gv.cc.floatyTextActorInfoEnableTrait = "";
+            gv.cc.floatyTextActorInfoEnabledState = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
 
             gv.cc.floatyTextActorInfoVanishInXTurns = "";

@@ -25165,6 +25165,11 @@ namespace IceBlink2
 
         public void trRemoveTrap(object src, object trg, Spell spell)
         {
+            if (gv.screenType != "combat")
+            {
+                return;
+            }
+            
             //todo: item usage
             if (src is Player) //player casting  
             {
@@ -25215,6 +25220,11 @@ namespace IceBlink2
                     {
                         if ((coord.X == target.X) && (coord.Y == target.Y))
                         {
+                            if (t.chkTrigHidden)
+                            {
+                                return;
+                            }
+
                             if (t.txtTrigDisablingTraitTag != "none" && t.txtTrigDisablingTraitTag != "None" && t.txtTrigDisablingTraitTag != "" && t.txtTrigDisablingTraitTag != null)
                             {
                                 int PCIndex = -1;
@@ -25242,6 +25252,20 @@ namespace IceBlink2
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
                                     t.Enabled = false;
                                     t.chkTrigHidden = true;
+                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    {
+                                        foreach (Coordinate coord2 in t.TriggerSquaresList)
+                                        {
+                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                            }
+                                            else
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                            }
+                                        }
+                                    }
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
                                     gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
                                 }
@@ -25332,6 +25356,20 @@ namespace IceBlink2
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
                                     t.Enabled = false;
                                     t.chkTrigHidden = true;
+                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    {
+                                        foreach (Coordinate coord2 in t.TriggerSquaresList)
+                                        {
+                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                            }
+                                            else
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                            }
+                                        }
+                                    }
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> disabled target<BR>");
                                     gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
                                 }
@@ -25348,7 +25386,10 @@ namespace IceBlink2
 
         public void trEnableTarget(object src, object trg, Spell spell)
         {
-
+            if (gv.screenType != "combat")
+            {
+                return;
+            }
             //todo: item usage
             if (src is Player) //player casting  
             {
@@ -25381,7 +25422,7 @@ namespace IceBlink2
                             {
                                 gv.mod.returnCheck = false;
                                 gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
-                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Wrong target", "red");
 
                             }
                             if (gv.mod.returnCheck)
@@ -25390,7 +25431,7 @@ namespace IceBlink2
                                 prp.isActive = true;
                                 prp.isShown = true;
                                 gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
-                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
                             }
                             return;
                         }
@@ -25403,6 +25444,10 @@ namespace IceBlink2
                     {
                         if ((coord.X == target.X) && (coord.Y == target.Y))
                         {
+                            if (t.chkTrigHidden)
+                            {
+                                return;
+                            }
                             if (t.txtTrigEnablingTraitTag != "none" && t.txtTrigEnablingTraitTag != "None" && t.txtTrigEnablingTraitTag != "" && t.txtTrigEnablingTraitTag !=null)
                             {
                                 int PCIndex = -1;
@@ -25422,15 +25467,31 @@ namespace IceBlink2
                                 {
                                     gv.mod.returnCheck = false;
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> uses mismatching approach<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Wrong target", "red");
 
                                 }
                                 //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
                                 if (gv.mod.returnCheck)
                                 {
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    t.Enabled = true;
+                                    t.chkTrigHidden = false;
+                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    {
+                                        foreach (Coordinate coord2 in t.TriggerSquaresList)
+                                        {
+                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                            }
+                                            else
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                            }
+                                        }
+                                    }
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enbaled", "white");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
                                 }
                                 return;
 
@@ -25471,7 +25532,7 @@ namespace IceBlink2
                             {
                                 gv.mod.returnCheck = false;
                                 gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> uses mismatching approach<BR>");
-                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Wrong target", "red");
 
                             }
                             //gv.mod.returnCheck = CheckPassSkill(PCIndex, gv.mod.tagOfDisarmTrapCombatTrait, prp.trapDCforDisableCheck, false, false);
@@ -25480,8 +25541,9 @@ namespace IceBlink2
                                 //gv.mod.currentEncounter.propsList.Remove(prp);
                                 prp.isActive = true;
                                 prp.isShown = true;
+                               
                                 gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
-                                gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                                gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
                             }
                             return;
                         }
@@ -25513,15 +25575,31 @@ namespace IceBlink2
                                 {
                                     gv.mod.returnCheck = false;
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> uses mismatching approach<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Wrong target", "red");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Wrong target", "red");
 
                                 }
                                 //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
                                 if (gv.mod.returnCheck)
                                 {
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    t.Enabled = true;
+                                    t.chkTrigHidden = false;
+                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    {
+                                        foreach (Coordinate coord2 in t.TriggerSquaresList)
+                                        {
+                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                            }
+                                            else
+                                            {
+                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                            }
+                                        }
+                                    }
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enbaled", "white");
+                                    gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
                                 }
                                 return;
 

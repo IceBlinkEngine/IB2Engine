@@ -182,6 +182,7 @@ namespace IceBlink2
         public Coordinate floatyTextLocPropMouseOver = new Coordinate();
         public float floatyPushUp = 0;
 
+        public string floatyTextActorInfoEnabledState = ""; 
         public string floatyTextActorInfoEnableTrait = "";
         public string floatyTextActorInfoEnableDC = "";
         public string floatyTextActorInfoDisableTrait = "";
@@ -17419,12 +17420,14 @@ namespace IceBlink2
                 gv.sf.spHold(source, target);
             }
             //THIEF SKILL 
-            else if (spell.spellScript.Equals("trRemoveTrap"))
+            else if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trDisableTarget"))
             {
                 gv.sf.trRemoveTrap(source, target, spell);
+                gv.sf.trEnableTarget(source, target, spell);
             }
-            else if (spell.spellScript.Equals("trEnableTarget"))
+            else if (spell.spellScript.Equals("trEnableTarget") || spell.spellScript.Equals("trChangeEnabledState"))
             {
+                gv.sf.trRemoveTrap(source, target, spell);
                 gv.sf.trEnableTarget(source, target, spell);
             }
         }
@@ -17662,6 +17665,7 @@ namespace IceBlink2
             {
                 if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trEnableTrap"))
                 {
+                    int fdsfsdf = 0;
                 }
                 else
                 {
@@ -17698,6 +17702,7 @@ namespace IceBlink2
             {
                 if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trEnableTrap"))
                 {
+                    int fdsfsdf = 0;
                 }
                 else
                 {
@@ -17811,12 +17816,14 @@ namespace IceBlink2
                 gv.sf.spHold(source, target);
             }
             //THIEF SKILL 
-            else if (spell.spellScript.Equals("trRemoveTrap"))
+            else if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trDisableTarget"))
             {
                 gv.sf.trRemoveTrap(source, target, spell);
+                gv.sf.trEnableTarget(source, target, spell);
             }
-            else if (spell.spellScript.Equals("trEnableTarget"))
+            else if (spell.spellScript.Equals("trEnableTarget") || spell.spellScript.Equals("trChangeEnabledState"))
             {
+                gv.sf.trRemoveTrap(source, target, spell);
                 gv.sf.trEnableTarget(source, target, spell);
             }
         }
@@ -17843,6 +17850,7 @@ namespace IceBlink2
             {
                 if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trEnableTrap"))
                 {
+                    int fdsfsdf = 0;
                 }
                 else
                 {
@@ -17878,6 +17886,7 @@ namespace IceBlink2
             {
                 if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trEnableTrap"))
                 {
+                    int fdsfsdf = 0;
                 }
                 else
                 {
@@ -17990,12 +17999,14 @@ namespace IceBlink2
                 gv.sf.spHold(source, target);
             }
             //THIEF SKILL 
-            else if (spell.spellScript.Equals("trRemoveTrap"))
+            else if (spell.spellScript.Equals("trRemoveTrap") || spell.spellScript.Equals("trDisableTarget"))
             {
                 gv.sf.trRemoveTrap(source, target, spell);
+                gv.sf.trEnableTarget(source, target, spell);
             }
-            else if (spell.spellScript.Equals("trEnableTarget"))
+            else if (spell.spellScript.Equals("trEnableTarget") || spell.spellScript.Equals("trChangeEnabledState"))
             {
+                gv.sf.trRemoveTrap(source, target, spell);
                 gv.sf.trEnableTarget(source, target, spell);
             }
         }
