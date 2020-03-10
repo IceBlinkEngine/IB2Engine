@@ -13,6 +13,8 @@ namespace IceBlink2
 {
     public class Effect 
     {
+
+        public int onSquarePersistenceBonus = 0;
         public bool triggeredEachStepToo = false;
 
         public int modifyShopBuyBackPrice = 0;//is in  
@@ -149,6 +151,7 @@ namespace IceBlink2
 	    public Effect DeepCopy()
 	    {
 		    Effect copy = new Effect();
+            copy.onSquarePersistenceBonus = this.onSquarePersistenceBonus;
             copy.squareIndicatorFilename = this.squareIndicatorFilename;
             copy.durationOnSquareInUnits = this.durationOnSquareInUnits;
             copy.triggeredEachStepToo = this.triggeredEachStepToo;

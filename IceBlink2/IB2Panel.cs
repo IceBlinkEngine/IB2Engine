@@ -278,7 +278,13 @@ namespace IceBlink2
                 {
                         isTrigger = true;
                 }
-                
+
+                bool isEffect = false;
+                if (gv.cc.floatyTextActorInfoName == "Lingering Effect")
+                {
+                    isEffect = true;
+                }
+
                 //isTrigger, Trigger Square
 
                 if (gv.cc.drawInfoText && gv.screenCombat.isPlayerTurn)
@@ -352,7 +358,7 @@ namespace IceBlink2
 
                     }
                     //this draw creature info
-                    if (isCreature)
+                    else if (isCreature)
                     {
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Red);
                         if (!gv.cc.inEffectMode)
@@ -513,7 +519,7 @@ namespace IceBlink2
 
                     }
 
-                    if (isTrigger)
+                    else if (isTrigger)
                     {
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Yellow);
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoText, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
@@ -584,6 +590,21 @@ namespace IceBlink2
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyWhileOnSquare3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 25 * txtH, 0.9f, Color.White);
                         gv.DrawTextOutlined(gv.cc.floatyTextActorInfoOnlyCasterLevel3, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 26 * txtH, 0.9f, Color.White);
 
+
+                    }
+                    else if (isEffect)
+                    {
+                        //todo
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoName, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 3 * txtH, 0.9f, Color.Yellow);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoText, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 5 * txtH, 0.9f, Color.White);
+
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 7 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoLingeringEffectPower, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 8 * txtH, 0.9f, Color.White);
+                        gv.DrawTextOutlined(gv.cc.floatyTextActorInfoLingeringEffectPersistence, gv.cc.floatyTextLocInfo.X, gv.cc.floatyTextLocInfo.Y + 9 * txtH, 0.9f, Color.White);
+
+                        //gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "Duration: " + ef.durationOnSquareInUnits + "round(s)";
+                        //gv.cc.floatyTextActorInfoLingeringEffectPersistence = "Persistence: " + ef.onSquarePersistenceBonus;
+                        //gv.cc.floatyTextActorInfoLingeringEffectPower = "Power: " + ef.classLevelOfSender;
 
                     }
                     /*

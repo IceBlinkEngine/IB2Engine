@@ -3724,7 +3724,7 @@ namespace IceBlink2
                                             if (s.Value.Equals(ls))
                                             {
                                                 skip = true;
-                                                gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>is immune to " + ef.name + "</font><BR>");
+                                                gv.cc.addLogText(ef.name + " not added due to immunity of <font color='lime'>" + pc.name + "</font><BR>");
                                                 break;
                                             }
                                         }
@@ -3763,106 +3763,102 @@ namespace IceBlink2
                                     if (!skip)
                                     {
                                         //nerdlove
-                                        #region Do Calc Save and DC
-                                        int saveChkRoll = gv.sf.RandInt(20);
-                                        int saveChk = 0;
-                                        int DC = 0;
-                                        int saveChkAdder = 0;
-                                        if (ef.saveCheckType.Equals("will"))
+                                        if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
                                         {
-                                            saveChkAdder = pc.will;
-                                        }
-                                        else if (ef.saveCheckType.Equals("reflex"))
-                                        {
-                                            saveChkAdder = pc.reflex;
-                                        }
-                                        else if (ef.saveCheckType.Equals("fortitude"))
-                                        {
-                                            saveChkAdder = pc.fortitude;
+                                            pc.AddEffectByObject(ef, ef.classLevelOfSender);
+
+                                            /*
+                                            #region Do Calc Save and DC
+                                            int saveChkRoll = gv.sf.RandInt(20);
+                                            int saveChk = 0;
+                                            int DC = 0;
+                                            int saveChkAdder = 0;
+                                            if (ef.saveCheckType.Equals("will"))
+                                            {
+                                                saveChkAdder = pc.will;
+                                            }
+                                            else if (ef.saveCheckType.Equals("reflex"))
+                                            {
+                                                saveChkAdder = pc.reflex;
+                                            }
+                                            else if (ef.saveCheckType.Equals("fortitude"))
+                                            {
+                                                saveChkAdder = pc.fortitude;
+                                            }
+                                            else
+                                            {
+                                                saveChkAdder = -99;
+                                            }
+                                            saveChk = saveChkRoll + saveChkAdder;
+                                            DC = ef.saveCheckDC;
+                                            #endregion
+                                            if (saveChk >= DC) //passed save check
+                                            {
+                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                //{
+                                                //do notshow in log
+                                                //}
+                                                //else
+                                                //{
+                                                gv.cc.addLogText("Adding prevented: <font color='lime'>" + pc.name + "<font color='white'> makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                                //}
+                                            }
+                                            else//failed save roll or no roll allowed
+                                            {
+                                                //failed save roll
+                                                if (saveChkAdder > -99)
+                                                {
+                                                    //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                    //{
+                                                    //do notshow in log
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    gv.cc.addLogText("Effect added: <font color='lime'>" + pc.name + "<font color='white'> failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                    //}
+                                                    //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
+                                                    //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
+                                                }
+                                                else//no save roll allowed
+                                                {
+                                                    //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
+                                                }
+                                                int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
+                                                //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
+
+                                                if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
+                                                {
+                                                    //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                    //{
+                                                    //do not add as it cannot be used
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    pc.AddEffectByObject(ef, ef.classLevelOfSender);
+                                                    //}
+                                                }
+                                                else
+                                                {
+                                                    //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
+                                                    //{
+                                                    //do not add as it cannot be used
+                                                    //}
+                                                    //else
+                                                    //{
+                                                    gv.cc.doEffectScript(pc, ef);
+                                                    //}
+                                                }
+                                                //gv.cc.doEffectScript(pc, ef);
+
+                                              
+
+
+                                            }
+                                            */
                                         }
                                         else
                                         {
-                                            saveChkAdder = -99;
-                                        }
-                                        saveChk = saveChkRoll + saveChkAdder;
-                                        DC = ef.saveCheckDC;
-                                        #endregion
-                                        if (saveChk >= DC) //passed save check
-                                        {
-                                            //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
-                                            //{
-                                                //do notshow in log
-                                            //}
-                                            //else
-                                            //{
-                                                gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
-                                            //}
-                                        }
-                                        else//failed save roll or no roll allowed
-                                        {
-                                            //failed save roll
-                                            if (saveChkAdder > -99)
-                                            {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
-                                                //{
-                                                    //do notshow in log
-                                                //}
-                                                //else
-                                                //{
-                                                    gv.cc.addLogText("<font color='lime'>" + pc.name + "<font color='white'> failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                                //}
-                                                //gv.cc.addLogText("<font color='yellow'>" + pc.name + " failed " + thisSpellEffect.saveCheckType + " saving roll against " + thisSpellEffect.name + "</font><BR>");
-                                                //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder.ToString() + "<" + DC.ToString() + ")" + "</font><BR>");
-                                            }
-                                            else//no save roll allowed
-                                            {
-                                                //gv.cc.addLogText("<font color='yellow'>" + "No saving roll allowed against longer lasting effect of " + thisSpellEffect.name + "</font><BR>");
-                                            }
-                                            int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
-                                            //gv.cc.addLogText("<font color='lime'>" + thisSpellEffect.name + " is applied on " + pc.name + " for " + numberOfRounds + " round(s)</font><BR>");
-
-                                            if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
-                                            {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
-                                                //{
-                                                    //do not add as it cannot be used
-                                                //}
-                                                //else
-                                                //{
-                                                    pc.AddEffectByObject(ef, ef.classLevelOfSender);
-                                                //}
-                                            }
-                                            else
-                                             {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (currentMoves == 0))
-                                                //{
-                                                    //do not add as it cannot be used
-                                                //}
-                                                //else
-                                                //{
-                                                    gv.cc.doEffectScript(pc, ef);
-                                                //}
-                                            }
-                                            //gv.cc.doEffectScript(pc, ef);
-
-                                            /*
-                                            if (ef.statusType == "Held")
-                                            {
-                                                //currentMoveOrderIndex++;
-                                                //endPcTurn(true);
-                                                if (pc.hp > 0)
-                                                {
-                                                    pc.charStatus = "Held";
-                                                }
-                                            }
-
-                                            if (ef.statusType == "Immobile")
-                                            {
-                                                currentMoves = pc.moveDistance;
-                                            }
-                                            */
-                                            
-
+                                            gv.cc.doEffectScript(pc, ef);
                                         }
                                     }
 
@@ -3936,7 +3932,7 @@ namespace IceBlink2
                                             if (s.Value.Equals(ls.Value))
                                             {
                                                 skip = true;
-                                                gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>is immune to " + ef.name + "</font><BR>");
+                                                gv.cc.addLogText(ef.name + " not added due to immunity of <font color='red'>" + crtr.cr_name + "</font><BR>");
                                                 break;
                                             }
                                         }
@@ -3975,107 +3971,71 @@ namespace IceBlink2
                                     if (!skip)
                                     {
                                         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
-                                        #region Do Calc Save and DC
-                                        int saveChkRoll = gv.sf.RandInt(20);
-                                        int saveChk = 0;
-                                        int DC = 0;
-                                        int saveChkAdder = 0;
-                                        if (ef.saveCheckType.Equals("will"))
+                                        if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
                                         {
-                                            saveChkAdder = crtr.getWill();
-                                        }
-                                        else if (ef.saveCheckType.Equals("reflex"))
-                                        {
-                                            saveChkAdder = crtr.getReflex();
-                                        }
-                                        else if (ef.saveCheckType.Equals("fortitude"))
-                                        {
-                                            saveChkAdder = crtr.getFortitude();
-                                        }
-                                        else
-                                        {
-                                            saveChkAdder = -99;
-                                        }
-                                        saveChk = saveChkRoll + saveChkAdder;
-                                        DC = ef.saveCheckDC;
-                                        #endregion
-                                        //europa
-                                        if (saveChk >= DC) //passed save check
-                                        {
-                                            //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
-                                            //{
-                                                //do not show in log as it does not work
-                                            //}
-                                            //else
-                                            //{
-                                                gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
-                                            //}
-                                            //gv.cc.addLogText("<font color='yellow'>" + "(" + thisSpellEffect.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids the longer lasting effect of" + thisSpellEffect.name + " </font><BR>");
-                                            //gv.cc.addLogText("<font color='yellow'>" + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                            //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " avoids the " + thisSpellEffect.name + " effect.</font><BR>");
-                                        }
-                                        else//failed save roll or no roll allowed
-                                        {
-                                            //failed save roll 
-                                            if (saveChkAdder > -99)
+                                            crtr.AddEffectByObject(ef, ef.classLevelOfSender);
+                                            
+                                            /*
+                                            #region Do Calc Save and DC
+                                            int saveChkRoll = gv.sf.RandInt(20);
+                                            int saveChk = 0;
+                                            int DC = 0;
+                                            int saveChkAdder = 0;
+                                            if (ef.saveCheckType.Equals("will"))
                                             {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
-                                                //{
-                                                    //do not show in log as it does not work
-                                                //}
-                                                //else
-                                                //{
-                                                    gv.cc.addLogText("<font color='red'>" + crtr.cr_name + " <font color='white'>failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
-                                                //}
+                                                saveChkAdder = crtr.getWill();
                                             }
-                                            //else//no save roll allowed
-                                            //{
-                                            //gv.cc.addLogText("<font color='yellow'>" + "No save roll against longer lasting effect of " + thisSpellEffect.name + " allowed" + "</font><BR>");
-                                            //}
-                                            int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
-                                            //gv.cc.addLogText("<font color='lime'>" + ef.name + " is applied on " + crtr.cr_name + " for " + numberOfRounds + " round(s)</font><BR>");
-                                            // 
-                                            if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
+                                            else if (ef.saveCheckType.Equals("reflex"))
                                             {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
-                                                //{
-                                                    //do not add as it cannot be used
-                                                //}
-                                                //else
-                                                //{
-                                                    crtr.AddEffectByObject(ef, ef.classLevelOfSender);
-                                                //}
+                                                saveChkAdder = crtr.getReflex();
+                                            }
+                                            else if (ef.saveCheckType.Equals("fortitude"))
+                                            {
+                                                saveChkAdder = crtr.getFortitude();
                                             }
                                             else
                                             {
-                                                //if ((ef.doBuff || ef.doDeBuff) && (creatureMoves == 0))
-                                                //{
-                                                    //do not add as it cannot be used
-                                                //}
-                                                //else
-                                                //{
-                                                    gv.cc.doEffectScript(crtr, ef);
-                                                //}
+                                                saveChkAdder = -99;
                                             }
-                                            
-                                            /*
-                                            if (ef.statusType == "Held")
+                                            saveChk = saveChkRoll + saveChkAdder;
+                                            DC = ef.saveCheckDC;
+                                            #endregion
+                                            //europa
+                                            if (saveChk >= DC) //passed save check
                                             {
-                                                //currentMoveOrderIndex++;
-                                                //endCreatureTurn(crtr);
-                                                if (crtr.hp > 0)
-                                                {
-                                                    crtr.cr_status = "Held";
-                                                }
-                                            }
 
-                                            if (ef.statusType == "Immobile")
+                                                gv.cc.addLogText("Adding prevented: <font color='red'>" + crtr.cr_name + "<font color='white'> makes successful " + ef.saveCheckType + " saving roll (" + saveChkRoll.ToString() + "+" + saveChkAdder + ">=" + DC.ToString() + ")" + " and avoids " + ef.name + " </font><BR>");
+                                            }
+                                            else//failed save roll or no roll allowed
                                             {
-                                                creatureMoves = crtr.moveDistance;
+                                                //failed save roll 
+                                                if (saveChkAdder > -99)
+                                                {
+                                                    gv.cc.addLogText("Effect added: <font color='red'>" + crtr.cr_name + "<font color='white'> failed " + ef.saveCheckType + " saving roll for " + ef.name + "(" + saveChkRoll.ToString() + "+" + saveChkAdder + " < " + DC.ToString() + ")" + "</font><BR>");
+                                                }
+                                                
+                                                int numberOfRounds = ef.durationInUnits / gv.mod.TimePerRound;
+                                                
+                                                if (ef.durationInUnits > 0 || ef.doBuff || ef.doDeBuff)
+                                                {
+                                                   
+                                                    crtr.AddEffectByObject(ef, ef.classLevelOfSender);
+                                                    
+                                                }
+                                                else
+                                                {
+                                                    
+                                                    gv.cc.doEffectScript(crtr, ef);
+                                                    
+                                                }
+
                                             }
                                             */
                                             
-
+                                        }
+                                        else
+                                        {
+                                            gv.cc.doEffectScript(crtr, ef);
                                         }
 
                                     }
@@ -19703,56 +19663,91 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             {
                                 if (!ef.description.Equals("none") && (isPlayerTurn))
                                 {
-                                    gv.cc.floatyTextPropMouseOver = ef.description;
-                                    float floatyPushUp = 0;
+                                    bool isBlocked = false;
+                                    foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                    {
+                                        if (c.combatLocX == ef.combatLocX && c.combatLocY == ef.combatLocY)
+                                        {
+                                            isBlocked = true;
+                                        }
+                                    }
 
-                                    if (gv.cc.floatyTextPropMouseOver.Length <= 20)
+                                    foreach (Player p in gv.mod.playerList)
                                     {
-                                        floatyPushUp = 0.0f;
+                                        if (p.combatLocX == ef.combatLocX && p.combatLocY == ef.combatLocY)
+                                        {
+                                            isBlocked = true;
+                                        }
                                     }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 35)
+
+                                    foreach (Trigger t in gv.mod.currentEncounter.Triggers)
                                     {
-                                        floatyPushUp = 0.0f;
+                                        foreach (Coordinate Coord in t.TriggerSquaresList)
+                                        {
+                                            if (Coord.X == ef.combatLocX && Coord.Y == ef.combatLocY)
+                                            {
+                                                if (t.mouseOverText != "" && t.mouseOverText != null && t.mouseOverText != "None" && t.mouseOverText != "none")
+                                                {
+                                                    isBlocked = true;
+                                                }
+                                            }
+                                        }
                                     }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 52)
+
+                                    if (!isBlocked)
                                     {
-                                        floatyPushUp = 0.12f;
+                                        gv.cc.floatyTextPropMouseOver = ef.description;
+
+                                        float floatyPushUp = 0;
+
+                                        if (gv.cc.floatyTextPropMouseOver.Length <= 20)
+                                        {
+                                            floatyPushUp = 0.0f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 35)
+                                        {
+                                            floatyPushUp = 0.0f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 52)
+                                        {
+                                            floatyPushUp = 0.12f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 70)
+                                        {
+                                            floatyPushUp = 0.3f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 87)
+                                        {
+                                            floatyPushUp = 0.7f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 105)
+                                        {
+                                            floatyPushUp = 1.0f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 122)
+                                        {
+                                            floatyPushUp = 1.35f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 140)
+                                        {
+                                            floatyPushUp = 1.5f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 157)
+                                        {
+                                            floatyPushUp = 1.62f;
+                                        }
+                                        else if (gv.cc.floatyTextPropMouseOver.Length <= 175)
+                                        {
+                                            floatyPushUp = 1.75f;
+                                        }
+                                        else
+                                        {
+                                            floatyPushUp = 2.0f;
+                                        }
+                                        gv.cc.floatyPushUp = floatyPushUp;
+                                        //aggroman
+                                        gv.cc.floatyTextLocPropMouseOver = new Coordinate(gridx * gv.squareSize, (gridy) * gv.squareSize - (int)(floatyPushUp * 2 * gv.squareSize));
                                     }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 70)
-                                    {
-                                        floatyPushUp = 0.3f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 87)
-                                    {
-                                        floatyPushUp = 0.7f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 105)
-                                    {
-                                        floatyPushUp = 1.0f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 122)
-                                    {
-                                        floatyPushUp = 1.35f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 140)
-                                    {
-                                        floatyPushUp = 1.5f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 157)
-                                    {
-                                        floatyPushUp = 1.62f;
-                                    }
-                                    else if (gv.cc.floatyTextPropMouseOver.Length <= 175)
-                                    {
-                                        floatyPushUp = 1.75f;
-                                    }
-                                    else
-                                    {
-                                        floatyPushUp = 2.0f;
-                                    }
-                                    gv.cc.floatyPushUp = floatyPushUp;
-                                    //aggroman
-                                    gv.cc.floatyTextLocPropMouseOver = new Coordinate(gridx * gv.squareSize, (gridy) * gv.squareSize - (int)(floatyPushUp * 2 * gv.squareSize));
 
                                 }
                             }
@@ -23949,6 +23944,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoCharges = "";
                 gv.cc.floatyTextActorInfoEveryStep = "";
 
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "";
+
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
                 gv.cc.floatyTextActorInfoAppearInXTurns = "";
                 gv.cc.floatyTextActorInfoChangeWalkableState = "";
@@ -23994,6 +23993,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoOnDeathScriptName = "";
                 gv.cc.floatyTextActorInfoRMB1 = "";
                 gv.cc.floatyTextActorInfoRMB2 = "";
+
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "";
 
                 gv.cc.floatyTextActorInfoText = "";
                 gv.cc.floatyTextActorInfoWorksFor = "";
@@ -24122,6 +24125,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoCharges = "";
                 gv.cc.floatyTextActorInfoEveryStep = "";
 
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "";
+
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
                 gv.cc.floatyTextActorInfoAppearInXTurns = "";
                 gv.cc.floatyTextActorInfoChangeWalkableState = "";
@@ -24171,6 +24178,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoEnableTrait = "";
                 gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
+
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "";
 
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
                 gv.cc.floatyTextActorInfoAppearInXTurns = "";
@@ -24570,6 +24581,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.cc.floatyTextActorInfoEnabledState = "";
                 gv.cc.floatyTextActorInfoEnableDC = "";
 
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "";
+
                 gv.cc.floatyTextActorInfoVanishInXTurns = "";
                 gv.cc.floatyTextActorInfoAppearInXTurns = "";
                 gv.cc.floatyTextActorInfoChangeWalkableState = "";
@@ -24867,10 +24882,6 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                 gv.cc.floatyTextActorInfoRMB1 = "Press RMB to show current";
                 gv.cc.floatyTextActorInfoRMB2 = "temporary effects";
-            }
-            else if (actor is Prop)
-            {
-                Prop prp = (Prop)(actor);
             }
             else if (actor is Trigger)
             {
@@ -25226,10 +25237,35 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     //eventually add trait related info to this for eg traps (disarm on step on mechnaism or trait use on the trap?), useability trait requiremnts (to have effect when stepping on it), spawn requiremnets (at start of battle), spawn prevention requirements (at start of battle),
                     //unveiling requirements for hidden triggers (successful triatc ehck of nearby character, might cerate nice gameplay where a thief scous a path)
                 }
+                else
+                {
+                    //corona
+                    hideActorInfo();
+                }
             }
             else if (actor is Effect)
             {
                 Effect ef = (Effect)(actor);
+                gv.cc.floatyTextActorInfoName = "Lingering Effect";
+
+                if (ef.description == "none")
+                {
+                    gv.cc.floatyTextActorInfoText = "Details are unknown";
+                }
+                else
+                {
+                    gv.cc.floatyTextActorInfoText = ef.description;
+                }
+
+
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "Duration: " +ef.durationOnSquareInUnits + "round(s)";
+                gv.cc.floatyTextActorInfoLingeringEffectPersistence = "Persistence: " + ef.onSquarePersistenceBonus;
+                gv.cc.floatyTextActorInfoLingeringEffectPower = "Power: " + ef.classLevelOfSender;
+                
+                //duration remaining (dutration on square in units)
+                //power (claasslevelofsender)
+                //persistence
+
             }
         }
 
@@ -25324,6 +25360,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoEnabledState = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
 
+            gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+            gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+            gv.cc.floatyTextActorInfoLingeringEffectPower = "";
+
             gv.cc.floatyTextActorInfoVanishInXTurns = "";
             gv.cc.floatyTextActorInfoAppearInXTurns = "";
             gv.cc.floatyTextActorInfoChangeWalkableState = "";
@@ -25379,6 +25419,10 @@ cr.glideAdderY -= 0.5f * glideSpeed;
             gv.cc.floatyTextActorInfoEnableTrait = "";
             gv.cc.floatyTextActorInfoEnabledState = "";
             gv.cc.floatyTextActorInfoEnableDC = "";
+
+            gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "";
+            gv.cc.floatyTextActorInfoLingeringEffectPersistence = "";
+            gv.cc.floatyTextActorInfoLingeringEffectPower = "";
 
             gv.cc.floatyTextActorInfoVanishInXTurns = "";
             gv.cc.floatyTextActorInfoAppearInXTurns = "";

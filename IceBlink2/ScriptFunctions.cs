@@ -19426,7 +19426,7 @@ namespace IceBlink2
                             }
                             if (ef.saveCheckType.Equals("fortitude"))
                             {
-                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
+                                 gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>");
                             }
 
 
@@ -19440,6 +19440,7 @@ namespace IceBlink2
                                 damage = 0;
                                 gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>takes no damage from " + ef.name + "</font><BR>");
                             }
+
 
                             if (ef.damType.Equals("Normal"))
                             {
@@ -19475,6 +19476,51 @@ namespace IceBlink2
                             //damage = damage / 2;
                             //gv.cc.addLogText("<font color='yellow'>" + crt.cr_name + " evades most of the " + ef.name + "</font><BR>");
                             //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRoll + " + " + saveChkAdder + " >= " + DC + "</font><BR>"); }
+                        }
+                        //reporting for failed saving roll
+                        else
+                        {
+                            if (ef.saveCheckType.Equals("will"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRoll + " + " + saveChkAdder + " < " + DC + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("reflex"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRoll + " + " + saveChkAdder + " < " + DC + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("fortitude"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRoll + " + " + saveChkAdder + " < " + DC + "</font><BR>");
+                            }
+
+                            if (ef.damType.Equals("Normal"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + crt.getDamageTypeResistanceValueNormal() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Magic"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + crt.getDamageTypeResistanceValueMagic() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Poison"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + crt.getDamageTypeResistanceValuePoison() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Fire"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + crt.getDamageTypeResistanceValueFire() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Cold"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + crt.getDamageTypeResistanceValueCold() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Acid"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + crt.getDamageTypeResistanceValueAcid() + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Electricity"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + crt.getDamageTypeResistanceValueElectricity() + "%</font><BR>");
+                            }
                         }
                         //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resist + " damage = " + damage + "</font><BR>"); }
                         int damageAndResist = (int)((float)damage * resist);
@@ -19732,6 +19778,51 @@ namespace IceBlink2
                             //damagePc = damagePc / 2;
                             //gv.cc.addLogText("<font color='yellow'>" + pc.name + " evades most of the " + ef.name + "</font><BR>");
                             //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + saveChkRollPc + " + " + saveChkAdder + " >= " + DCPc + "</font><BR>"); }
+                        }
+                        //on failed saving roll
+                        else
+                        {
+                            if (ef.saveCheckType.Equals("will"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Will: " + saveChkRollPc + " + " + saveChkAdder + " < " + DCPc + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("reflex"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Ref: " + saveChkRollPc + " + " + saveChkAdder + " < " + DCPc + "</font><BR>");
+                            }
+                            if (ef.saveCheckType.Equals("fortitude"))
+                            {
+                                gv.cc.addLogText("<font color='white'> Fort: " + saveChkRollPc + " + " + saveChkAdder + " < " + DCPc + "</font><BR>");
+                            }
+
+                            if (ef.damType.Equals("Normal"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Normal Resistance: " + pc.damageTypeResistanceTotalNormal + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Magic"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Magic Resistance: " + pc.damageTypeResistanceTotalMagic + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Poison"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Poison Resistance: " + pc.damageTypeResistanceTotalPoison + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Fire"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Fire Resistance: " + pc.damageTypeResistanceTotalFire + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Cold"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Cold Resistance: " + pc.damageTypeResistanceTotalCold + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Acid"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Acid Resistance: " + pc.damageTypeResistanceTotalAcid + "%</font><BR>");
+                            }
+                            if (ef.damType.Equals("Electricity"))
+                            {
+                                gv.cc.addLogText("<font color='white'>" + "Electricity Resistance: " + pc.damageTypeResistanceTotalElectricity + "%</font><BR>");
+                            }
                         }
                         //if (mod.debugMode) { gv.cc.addLogText("<font color='yellow'>" + "resist = " + resistPc + " damage = " + damagePc + "</font><BR>"); }
                         int damageAndResist = (int)((float)damagePc * resistPc);
@@ -21037,19 +21128,75 @@ namespace IceBlink2
                 }
 
                 #region Iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
+
+                #region Iterate over squares and apply effect to them
                 if (thisSpell.isUsedForCombatSquareEffect)
                 {
-
-                    #region Iterate over squares and apply effect to them
-                    int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
-                    if (numberOfRounds > 0)
+                    int applicationCounter = 0;
+                    foreach (object target in AoeTargetsList)
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares for this round and " + numberOfRounds + " more round(s)</gn><BR>");
+                        if (target is Coordinate)
+                        {
+                            Coordinate c = (Coordinate)target;
+                            Effect e = thisSpellEffect.DeepCopy();
+                            e.combatLocX = c.X;
+                            e.combatLocY = c.Y;
+                            bool containsOtherEffect = false;
+
+                            //foreach (Effect effCompare in gv.mod.currentEncounter.effectsList)
+                            for (int i = gv.mod.currentEncounter.effectsList.Count - 1; i >= 0; i--)
+                            {
+                                if (gv.mod.currentEncounter.effectsList[i].combatLocX == e.combatLocX && gv.mod.currentEncounter.effectsList[i].combatLocY == e.combatLocY)
+                                {
+                                    if (gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus != null && e.onSquarePersistenceBonus != null)
+                                    {
+                                        containsOtherEffect = true;
+                                        int persistenceOld = gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        int persistenceNew = e.onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        if (persistenceNew >= persistenceOld)
+                                        {
+                                            if (thisSpell.triggeredEachStepToo)
+                                            {
+                                                e.triggeredEachStepToo = true;
+                                            }
+                                            gv.mod.currentEncounter.effectsList.RemoveAt(i);
+                                            gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                            applicationCounter++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!containsOtherEffect)
+                            {
+                                if (thisSpell.triggeredEachStepToo)
+                                {
+                                    e.triggeredEachStepToo = true;
+                                }
+                                gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                applicationCounter++;
+                            }
+                        }
+                    }
+
+                    if (applicationCounter > 0)
+                    {
+                        int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
+                        if (numberOfRounds > 0)
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) for this round and " + numberOfRounds + " more round(s), removing all other effects at the same location</gn><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) until end of this round only, removing all other effects at the same location</gn><BR>");
+                        }
                     }
                     else
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares until end of this round only.</gn><BR>");
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " fails to gain persistence</gn><BR>");
                     }
+
+                    /*
                     foreach (object target in AoeTargetsList)
                     {
                         if (target is Coordinate)
@@ -21065,6 +21212,7 @@ namespace IceBlink2
                             gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
                         }
                     }
+                    */
                 }
                 #endregion
 
@@ -22162,17 +22310,71 @@ namespace IceBlink2
                 #region Iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
                 if (thisSpell.isUsedForCombatSquareEffect)
                 {
-                
-                    #region Iterate over squares and apply effect to them
-                    int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
-                    if (numberOfRounds > 0)
+                    int applicationCounter = 0;
+                    foreach (object target in AoeTargetsList)
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares for this round and " + numberOfRounds + " more round(s)</gn><BR>");
+                        if (target is Coordinate)
+                        {
+                            Coordinate c = (Coordinate)target;
+                            Effect e = thisSpellEffect.DeepCopy();
+                            e.combatLocX = c.X;
+                            e.combatLocY = c.Y;
+                            bool containsOtherEffect = false;
+
+                            //foreach (Effect effCompare in gv.mod.currentEncounter.effectsList)
+                            for (int i = gv.mod.currentEncounter.effectsList.Count - 1; i >= 0; i--)
+                            {
+                                if (gv.mod.currentEncounter.effectsList[i].combatLocX == e.combatLocX && gv.mod.currentEncounter.effectsList[i].combatLocY == e.combatLocY)
+                                {
+                                    if (gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus != null && e.onSquarePersistenceBonus != null)
+                                    {
+                                        containsOtherEffect = true;
+                                        int persistenceOld = gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        int persistenceNew = e.onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        if (persistenceNew >= persistenceOld)
+                                        {
+                                            if (thisSpell.triggeredEachStepToo)
+                                            {
+                                                e.triggeredEachStepToo = true;
+                                            }
+                                            gv.mod.currentEncounter.effectsList.RemoveAt(i);
+                                            gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                            applicationCounter++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!containsOtherEffect)
+                            {
+                                if (thisSpell.triggeredEachStepToo)
+                                {
+                                    e.triggeredEachStepToo = true;
+                                }
+                                gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                applicationCounter++;
+                            }
+                        }
+                    }
+
+                    if (applicationCounter > 0)
+                    {
+                        int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
+                        if (numberOfRounds > 0)
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) for this round and " + numberOfRounds + " more round(s), removing all other effects at the same location</gn><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) until end of this round only, removing all other effects at the same location</gn><BR>");
+                        }
                     }
                     else
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares until end of this round only.</gn><BR>");
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " fails to gain persistence</gn><BR>");
                     }
+
+                    /*
                     foreach (object target in AoeTargetsList)
                     {
                         if (target is Coordinate)
@@ -22188,9 +22390,10 @@ namespace IceBlink2
                             gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
                         }
                     }
+                    */
                 }
                 #endregion
-                
+
                 else foreach (object target in AoeTargetsList)
                 {
                     if (target is Creature)
@@ -23162,7 +23365,7 @@ namespace IceBlink2
 
                 //            gv.postDelayed("doFloatyText", 100);
             }
-            #endregion
+            
 
             #region one effect old
             if (thisSpell.spellEffectTag != "none" && thisSpell.spellEffectTag != "None" && thisSpell.spellEffectTag != "")
@@ -23177,17 +23380,71 @@ namespace IceBlink2
                 #region Iterate over targets and apply the modifiers for damage, heal, buffs and debuffs
                 if (thisSpell.isUsedForCombatSquareEffect)
                 {
-
-                    #region Iterate over squares and apply effect to them
-                    int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
-                    if (numberOfRounds > 0)
+                    int applicationCounter = 0;
+                    foreach (object target in AoeTargetsList)
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares for this round and " + numberOfRounds + " more round(s)</gn><BR>");
+                        if (target is Coordinate)
+                        {
+                            Coordinate c = (Coordinate)target;
+                            Effect e = thisSpellEffect.DeepCopy();
+                            e.combatLocX = c.X;
+                            e.combatLocY = c.Y;
+                            bool containsOtherEffect = false;
+
+                            //foreach (Effect effCompare in gv.mod.currentEncounter.effectsList)
+                            for (int i = gv.mod.currentEncounter.effectsList.Count - 1; i >= 0; i--)
+                            {
+                                if (gv.mod.currentEncounter.effectsList[i].combatLocX == e.combatLocX && gv.mod.currentEncounter.effectsList[i].combatLocY == e.combatLocY)
+                                {
+                                    if (gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus != null && e.onSquarePersistenceBonus != null)
+                                    {
+                                        containsOtherEffect = true;
+                                        int persistenceOld = gv.mod.currentEncounter.effectsList[i].onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        int persistenceNew = e.onSquarePersistenceBonus + gv.sf.RandInt(1, 20);
+                                        if (persistenceNew >= persistenceOld)
+                                        {
+                                            if (thisSpell.triggeredEachStepToo)
+                                            {
+                                                e.triggeredEachStepToo = true;
+                                            }
+                                            gv.mod.currentEncounter.effectsList.RemoveAt(i);
+                                            gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                            applicationCounter++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (!containsOtherEffect)
+                            {
+                                if (thisSpell.triggeredEachStepToo)
+                                {
+                                    e.triggeredEachStepToo = true;
+                                }
+                                gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
+                                applicationCounter++;
+                            }
+                        }
+                    }
+
+                    if (applicationCounter > 0)
+                    {
+                        int numberOfRounds = thisSpellEffect.durationOnSquareInUnits / gv.mod.TimePerRound;
+                        if (numberOfRounds > 0)
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) for this round and " + numberOfRounds + " more round(s), removing all other effects at the same location</gn><BR>");
+                        }
+                        else
+                        {
+                            gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on square(s) until end of this round only, removing all other effects at the same location</gn><BR>");
+                        }
                     }
                     else
                     {
-                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " is applied on squares until end of this round only.</gn><BR>");
+                        gv.cc.addLogText("<gn>" + thisSpellEffect.name + " fails to gain persistence</gn><BR>");
                     }
+
+                    /*
                     foreach (object target in AoeTargetsList)
                     {
                         if (target is Coordinate)
@@ -23203,6 +23460,7 @@ namespace IceBlink2
                             gv.mod.currentEncounter.AddEffectByObject(e, classLevel);
                         }
                     }
+                    */
                 }
                 #endregion
 
@@ -24135,7 +24393,7 @@ namespace IceBlink2
 
                 //            gv.postDelayed("doFloatyText", 100);
             }
-            #endregion
+            
 
 
         }
@@ -25250,24 +25508,75 @@ namespace IceBlink2
                                 if (gv.mod.returnCheck)
                                 {
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
+                                    /*
                                     t.Enabled = false;
                                     t.chkTrigHidden = true;
-                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    t.vanishCounter = 0;
+                                    t.vanishInXTurns = "none";
+                                    */
+                                    bool showBlocked = false;
+                                    if (t.changeWalkableStateOnEnabledStateChange) 
                                     {
                                         foreach (Coordinate coord2 in t.TriggerSquaresList)
                                         {
-                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            bool allowChange = true;
+                                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                if (c.combatLocX == coord.X && c.combatLocY == coord.Y)
+                                                {
+                                                    if (c.hp > 0)
+                                                    {
+                                                        allowChange = false;
+                                                    }
+                                                }
+                                            }
+                                            //also for pc
+                                            foreach (Player p in gv.mod.playerList)
+                                            {
+                                                if (p.combatLocX == coord.X && p.combatLocY == coord.Y)
+                                                {
+                                                    allowChange = false;
+                                                }
+                                            }
+
+                                            if (allowChange)
+                                            {
+                                                t.Enabled = false;
+                                                t.chkTrigHidden = true;
+                                                t.vanishCounter = 0;
+                                                t.vanishInXTurns = "none";
+                                                if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                }
                                             }
                                             else
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                showBlocked = true;
                                             }
                                         }
                                     }
-                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                    else
+                                    {
+                                        t.Enabled = false;
+                                        t.chkTrigHidden = true;
+                                        t.vanishCounter = 0;
+                                        t.vanishInXTurns = "none";
+                                    }
+                                    if (showBlocked)
+                                    {
+                                        gv.cc.addLogText("Target blcoked<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target blocked", "red");
+                                    }
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                    }
                                 }
                                 return;
 
@@ -25353,25 +25662,69 @@ namespace IceBlink2
                                 //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigDisablingTraitTag, Convert.ToInt32(t.txtTrigDisablingDC), false, false);
                                 if (gv.mod.returnCheck)
                                 {
-                                    //gv.mod.currentEncounter.propsList.Remove(prp);
-                                    t.Enabled = false;
-                                    t.chkTrigHidden = true;
+                                    bool showBlocked = false;
                                     if (t.changeWalkableStateOnEnabledStateChange)
                                     {
                                         foreach (Coordinate coord2 in t.TriggerSquaresList)
                                         {
-                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            bool allowChange = true;
+                                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                if (c.combatLocX == coord.X && c.combatLocY == coord.Y)
+                                                {
+                                                    if (c.hp > 0)
+                                                    {
+                                                        allowChange = false;
+                                                    }
+                                                }
+                                            }
+                                            //also for pc
+                                            foreach (Player p in gv.mod.playerList)
+                                            {
+                                                if (p.combatLocX == coord.X && p.combatLocY == coord.Y)
+                                                {
+                                                    allowChange = false;
+                                                }
+                                            }
+
+                                            if (allowChange)
+                                            {
+                                                t.Enabled = false;
+                                                t.chkTrigHidden = true;
+                                                t.vanishCounter = 0;
+                                                t.vanishInXTurns = "none";
+                                                if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                }
                                             }
                                             else
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                showBlocked = true;
                                             }
                                         }
                                     }
-                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> disabled target<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                    else
+                                    {
+                                        t.Enabled = false;
+                                        t.chkTrigHidden = true;
+                                        t.vanishCounter = 0;
+                                        t.vanishInXTurns = "none";
+                                    }
+                                    if (showBlocked)
+                                    {
+                                        gv.cc.addLogText("Target blcoked<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target blocked", "red");
+                                    }
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> disabled target<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target removed", "white");
+                                    }
                                 }
                                 return;
 
@@ -25473,9 +25826,77 @@ namespace IceBlink2
                                 //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
                                 if (gv.mod.returnCheck)
                                 {
+                                    bool showBlocked = false;
+                                    if (t.changeWalkableStateOnEnabledStateChange)
+                                    {
+                                        foreach (Coordinate coord2 in t.TriggerSquaresList)
+                                        {
+                                            bool allowChange = true;
+                                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+                                            {
+                                                if (c.combatLocX == coord.X && c.combatLocY == coord.Y)
+                                                {
+                                                    if (c.hp > 0)
+                                                    {
+                                                        allowChange = false;
+                                                    }
+                                                }
+                                            }
+                                            //also for pc
+                                            foreach (Player p in gv.mod.playerList)
+                                            {
+                                                if (p.combatLocX == coord.X && p.combatLocY == coord.Y)
+                                                {
+                                                    allowChange = false;
+                                                }
+                                            }
+
+                                            if (allowChange)
+                                            {
+                                                t.Enabled = true;
+                                                t.chkTrigHidden = false;
+                                                t.vanishCounter = 0;
+                                                t.vanishInXTurns = "none";
+                                                if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                showBlocked = true;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        t.Enabled = true;
+                                        t.chkTrigHidden = false;
+                                        t.vanishCounter = 0;
+                                        t.vanishInXTurns = "none";
+                                    }
+                                    if (showBlocked)
+                                    {
+                                        gv.cc.addLogText("Target blcoked<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target blocked", "red");
+                                    }
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> enabled target<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                                    }
+
+
+                                    /*
                                     //gv.mod.currentEncounter.propsList.Remove(prp);
                                     t.Enabled = true;
                                     t.chkTrigHidden = false;
+                                    t.vanishCounter = 0;
+                                    t.vanishInXTurns = "none";
                                     if (t.changeWalkableStateOnEnabledStateChange)
                                     {
                                         foreach (Coordinate coord2 in t.TriggerSquaresList)
@@ -25492,6 +25913,7 @@ namespace IceBlink2
                                     }
                                     gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
                                     gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
+                                */
                                 }
                                 return;
 
@@ -25581,28 +26003,72 @@ namespace IceBlink2
                                 //gv.mod.returnCheck = CheckPassSkill(PCIndex, t.txtTrigEnablingTraitTag, Convert.ToInt32(t.txtTrigEnablingDC), false, false);
                                 if (gv.mod.returnCheck)
                                 {
-                                    //gv.mod.currentEncounter.propsList.Remove(prp);
-                                    t.Enabled = true;
-                                    t.chkTrigHidden = false;
+                                    bool showBlocked = false;
                                     if (t.changeWalkableStateOnEnabledStateChange)
                                     {
                                         foreach (Coordinate coord2 in t.TriggerSquaresList)
                                         {
-                                            if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                            bool allowChange = true;
+                                            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                if (c.combatLocX == coord.X && c.combatLocY == coord.Y)
+                                                {
+                                                    if (c.hp > 0)
+                                                    {
+                                                        allowChange = false;
+                                                    }
+                                                }
+                                            }
+                                            //also for pc
+                                            foreach (Player p in gv.mod.playerList)
+                                            {
+                                                if (p.combatLocX == coord.X && p.combatLocY == coord.Y)
+                                                {
+                                                    allowChange = false;
+                                                }
+                                            }
+
+                                            if (allowChange)
+                                            {
+                                                t.Enabled = true;
+                                                t.chkTrigHidden = false;
+                                                t.vanishCounter = 0;
+                                                t.vanishInXTurns = "none";
+                                                if (gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable)
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = false;
+                                                }
+                                                else
+                                                {
+                                                    gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                }
                                             }
                                             else
                                             {
-                                                gv.mod.currentEncounter.encounterTiles[coord2.X + coord2.Y * gv.mod.currentEncounter.MapSizeX].Walkable = true;
+                                                showBlocked = true;
                                             }
                                         }
                                     }
-                                    gv.cc.addLogText("<font color='lime'>" + source.name + "<fontcolor='white'> enabled target<BR>");
-                                    gv.cc.addFloatyText(new Coordinate(target.X, target.Y), "Target enabled", "white");
+                                    else
+                                    {
+                                        t.Enabled = true;
+                                        t.chkTrigHidden = false;
+                                        t.vanishCounter = 0;
+                                        t.vanishInXTurns = "none";
+                                    }
+                                    if (showBlocked)
+                                    {
+                                        gv.cc.addLogText("Target blcoked<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target blocked", "red");
+                                    }
+                                    else
+                                    {
+                                        gv.cc.addLogText("<font color='lime'>" + source.name + "<font color='white'> enabled target<BR>");
+                                        gv.cc.addFloatyText(new Coordinate(target.X, target.X), "Target enabled", "white");
+                                    }
+
                                 }
                                 return;
-
                             }
                         }
                     }

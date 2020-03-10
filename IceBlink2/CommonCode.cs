@@ -192,6 +192,10 @@ namespace IceBlink2
         public string floatyTextActorInfoAppearInXTurns = "";
         public string floatyTextActorInfoChangeWalkableState = "";
 
+        public string floatyTextActorInfoLingeringEffectRemainingDuration = "";
+        public string floatyTextActorInfoLingeringEffectPersistence = "";
+        public string floatyTextActorInfoLingeringEffectPower = "";
+
         public string floatyTextActorInfoText = "";
         public string floatyTextActorInfoWorksFor = "";
         public string floatyTextActorInfoCharges = "";
