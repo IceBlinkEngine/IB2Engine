@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Color = SharpDX.Color;
+using Bitmap = SharpDX.Direct2D1.Bitmap;
+
 
 namespace IceBlink2
 {
@@ -11,6 +13,7 @@ namespace IceBlink2
     {
         [JsonIgnore]
         public GameView gv;
+        public int playerNumber = 0;
         public string tag = "";
         public string ImgBGFilename = "";
         public string ImgFilename = "";
@@ -97,6 +100,7 @@ namespace IceBlink2
         {
             if (show)
             {
+                //this.tag
                 int pH = (int)((float)gv.screenHeight / 200.0f);
                 int pW = (int)((float)gv.screenHeight / 200.0f);
                 float fSize = (float)(gv.squareSize / 4) * scaler;
@@ -216,7 +220,8 @@ namespace IceBlink2
                 //better reoute all to drawtext and from the to draw outlined
 
                 //draw level up symbol
-                ulX = (int)(110 * gv.screenDensity) - pW * 9;
+                //ulX = (int)(110 * gv.screenDensity) - pW * 9;
+                ulX = (int)(110 * gv.screenDensity) - pW * 24;
                 ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + pH;
 
                 /*
@@ -240,7 +245,8 @@ namespace IceBlink2
                 
                 //draw chat symbol
                 int ulX5 = (int)(110 * gv.screenDensity) - pW * 24;
-                int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
+                //int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
+                int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 6) + 3 * pH;
                 /*
                 for (int x = -1; x <= 1; x++)
                 {
@@ -257,7 +263,57 @@ namespace IceBlink2
                 */
                 int xLoc4 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW);
                 int yLoc4 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH);
-                gv.DrawTextOutlined(chatSymbol, xLoc4, yLoc4, scaler * 0.5f, Color.Azure);
+                gv.DrawTextOutlined(chatSymbol, xLoc4, yLoc4, scaler * 0.25f, Color.Azure);
+
+                //effects on portrait
+                
+                  int effectCounter = 0;
+                            foreach (Effect ef in gv.mod.playerList[playerNumber].effectsList)
+                            {
+                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != "") && (ef.spriteFilename != "None"))
+                                {
+                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                    IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    effectCounter++;
+                                    if (effectCounter == 2)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 3)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 4)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 5)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 6)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 7)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 8)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 9)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    gv.DrawBitmap(fx, src, dst2);
+                                    gv.cc.DisposeOfBitmap(ref fx);
+                                }
+                            }
+                
+                 
             }
 
             //draw level up symbol

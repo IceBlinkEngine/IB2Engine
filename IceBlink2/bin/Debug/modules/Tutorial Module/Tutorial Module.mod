@@ -98,7 +98,8 @@
     "floatytext",
     "floatytext2",
     "PartyLocationFloatyText",
-    "summonAlly"
+    "summonAlly",
+    "giveXP"
   ],
   "moduleAreasObjects": [],
   "moduleGlobalInts": [],
@@ -230,7 +231,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "Short module tutorial on how to make a simple module.",
   "moduleCredits": "<big><b>Unwanted Guests</b></big><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 17574,
+  "nextIdNumber": 17579,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 626572800,

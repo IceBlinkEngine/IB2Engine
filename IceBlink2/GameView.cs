@@ -2327,10 +2327,15 @@ namespace IceBlink2
             {
                 thisFontHeight = drawFontLargeHeight;
             }
+            else if (scaler <= 0.25f)
+            {
+                thisFontHeight = drawFontSmallHeight *2/3f;
+            }
             else if (scaler < 0.95f)
             {
                 thisFontHeight = drawFontSmallHeight;
             }
+          
 
             textFormat = new TextFormat(factoryDWrite, FontFamilyName, CurrentFontCollection, fw, fs, FontStretch.Normal, thisFontHeight) { TextAlignment = TextAlignment.Leading, ParagraphAlignment = ParagraphAlignment.Near };
             textLayout = new TextLayout(factoryDWrite, text, textFormat, this.Width, this.Height);

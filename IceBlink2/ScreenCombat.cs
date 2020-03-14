@@ -3870,7 +3870,7 @@ namespace IceBlink2
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     if (!isPlayerTurn)
                                     {
-                                        string filename = ef.spriteFilename;
+                                        //string filename = ef.spriteFilename;
                                         AnimationSequence newSeq = new AnimationSequence();
                                         gv.screenCombat.animationSeqStack.Add(newSeq);
                                         AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -4053,7 +4053,7 @@ namespace IceBlink2
                                     //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                     if (!isPlayerTurn)
                                     {
-                                        string filename = ef.spriteFilename;
+                                        //string filename = ef.spriteFilename;
                                         AnimationSequence newSeq = new AnimationSequence();
                                         gv.screenCombat.animationSeqStack.Add(newSeq);
                                         AnimationStackGroup newGroup = new AnimationStackGroup();
@@ -12660,6 +12660,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     {
                         if (!pc1.isTemporaryAllyForThisEncounterOnly)
                         {
+                            pnl.portraitList[index].playerNumber = index;
                             pnl.portraitList[index].show = true;
                             pnl.portraitList[index].ImgFilename = pc1.portraitFilename;
                             pnl.portraitList[index].TextHP = pc1.hp + "/" + pc1.hpMax;
@@ -14207,30 +14208,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         }
                         gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                        //always show effects
-                        //if (!animationsOn)
-                        {
-                            foreach (Effect ef in pc.effectsList)
-                            {
-                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
-                                {
-                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                                    gv.DrawBitmap(fx, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref fx);
-                                }
-                            }
-                        }
-                        if ((pc.isDead()) || (pc.isUnconcious()))
-                        {
-                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
-                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
-                        }
-                        if (pc.steathModeOn)
-                        {
-                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
-                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
-                        }
+
                         //PLAYER FACING
                         src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                         if (pc.hp > 0)
@@ -14257,8 +14235,68 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                             else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                             else { } //didn't find one
-                            
+
                         }
+                        //always show effects
+                        //if (!animationsOn)
+                        {
+                            int effectCounter = 0;
+                            foreach (Effect ef in pc.effectsList)
+                            {
+                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != "") && (ef.spriteFilename != "None"))
+                                {
+                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                    IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    effectCounter++;
+                                    if (effectCounter == 2)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 3)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 4)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 5)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 6)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 7)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 8)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 9)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    gv.DrawBitmap(fx, src, dst2);
+                                    gv.cc.DisposeOfBitmap(ref fx);
+                                }
+                            }
+                        }
+                        if ((pc.isDead()) || (pc.isUnconcious()))
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
+                        }
+                        if (pc.steathModeOn)
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
+                        }
+                      
 
 
                         if (showMoveOrder)
@@ -14361,31 +14399,8 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                         }
                         gv.DrawBitmap(pc.token, src, dst, !pc.combatFacingLeft, false);
+
                         src = new IbRect(0, 0, pc.token.PixelSize.Width, pc.token.PixelSize.Width);
-                        //show effects always
-                        //if (!animationsOn)
-                        {
-                            foreach (Effect ef in pc.effectsList)
-                            {
-                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != ""))
-                                {
-                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                                    gv.DrawBitmap(fx, src, dst);
-                                    gv.cc.DisposeOfBitmap(ref fx);
-                                }
-                            }
-                        }
-                        if ((pc.isDead()) || (pc.isUnconcious()))
-                        {
-                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
-                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
-                        }
-                        if (pc.steathModeOn)
-                        {
-                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
-                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
-                        }
                         //PLAYER FACING
                         src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                         if (pc.hp > 0)
@@ -14415,8 +14430,68 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                             else if (pc.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                             else if (pc.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                             else { } //didn't find one
-                            
+
                         }
+                        //show effects always
+                        //if (!animationsOn)
+                        {
+                            int effectCounter = 0;
+                            foreach (Effect ef in pc.effectsList)
+                            {
+                                if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != "") && (ef.spriteFilename != "None"))
+                                {
+                                    Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                                    src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                                    IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    effectCounter++;
+                                    if (effectCounter == 2)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 3)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 4)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 5)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 6)
+                                    {
+                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 7)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 8)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    if (effectCounter == 9)
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    }
+                                    gv.DrawBitmap(fx, src, dst2);
+                                    gv.cc.DisposeOfBitmap(ref fx);
+                                }
+                            }
+                        }
+                        if ((pc.isDead()) || (pc.isUnconcious()))
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_dead.PixelSize.Width, gv.cc.pc_dead.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_dead, src, dst);
+                        }
+                        if (pc.steathModeOn)
+                        {
+                            src = new IbRect(0, 0, gv.cc.pc_stealth.PixelSize.Width, gv.cc.pc_stealth.PixelSize.Width);
+                            gv.DrawBitmap(gv.cc.pc_stealth, src, dst);
+                        }
+                       
 
 
                         if (showMoveOrder)
@@ -16633,16 +16708,6 @@ cr.glideAdderY -= 0.5f * glideSpeed;
 
                 //if (!animationsOn && drawCreature)
                 //always show efects
-                if (drawCreature)
-                {
-                    foreach (Effect ef in crt.cr_effectsList)
-                    {
-                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                        src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                        gv.DrawBitmap(fx, src, dst);
-                        gv.cc.DisposeOfBitmap(ref fx);
-                    }
-                }
                 //CREATURE FACING
                 src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
 
@@ -16657,6 +16722,60 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                     else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                     else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                     else { } //didn't find one
+                }
+
+                    if (drawCreature)
+                {
+                    int effectCounter = 0;
+                    foreach (Effect ef in crt.cr_effectsList)
+                    {
+
+                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                        src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                        IbRectF dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        effectCounter++;
+                        if (effectCounter == 2)
+                        {
+                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 3)
+                        {
+                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 4)
+                        {
+                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 5)
+                        {
+                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 6)
+                        {
+                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 7)
+                        {
+                            dst2 = new IbRectF(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 8)
+                        {
+                            dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 9)
+                        {
+                            dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        gv.DrawBitmap(fx, src, dst2);
+                        gv.cc.DisposeOfBitmap(ref fx);
+                    }
+                }
+                //CREATURE FACING
+                src = new IbRectF(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
+
+                if (drawCreature)
+                {
+                   
 
                     if (showMoveOrder)
                     {
@@ -16881,18 +17000,6 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 gv.DrawBitmap(crt.token, src, dst, !crt.combatFacingLeft, false);
 
 
-
-                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                if (!animationsOn)
-                {
-                    foreach (Effect ef in crt.cr_effectsList)
-                    {
-                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
-                        src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                        gv.DrawBitmap(fx, src, dst);
-                        gv.cc.DisposeOfBitmap(ref fx);
-                    }
-                }
                 //CREATURE FACING
                 src = new IbRect(0, 0, gv.cc.facing1.PixelSize.Width, gv.cc.facing1.PixelSize.Height);
                 if (crt.combatFacing == 8) { gv.DrawBitmap(gv.cc.facing8, src, dst); }
@@ -16904,6 +17011,54 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 else if (crt.combatFacing == 4) { gv.DrawBitmap(gv.cc.facing4, src, dst); }
                 else if (crt.combatFacing == 7) { gv.DrawBitmap(gv.cc.facing7, src, dst); }
                 else { } //didn't find one
+                //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                //if (!animationsOn)
+                {
+                    int effectCounter = 0;
+                    foreach (Effect ef in crt.cr_effectsList)
+                    {
+                      
+                        Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
+                        src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
+                        IbRect dst2 = new IbRect(dst.Left +(int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        effectCounter++;
+                        if (effectCounter == 2)
+                        {
+                           dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 3)
+                        {
+                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 4)
+                        {
+                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 5)
+                        {
+                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 6)
+                        {
+                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 7)
+                        {
+                            dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 8)
+                        {
+                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        if (effectCounter == 9)
+                        {
+                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                        }
+                        gv.DrawBitmap(fx, src, dst2);
+                        gv.cc.DisposeOfBitmap(ref fx);
+                    }
+                }
+             
 
                 if (showMoveOrder)
                 {
@@ -19661,6 +19816,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                         {
                             if ((ef.combatLocX == gridx + UpperLeftSquare.X) && (ef.combatLocY == gridy + UpperLeftSquare.Y))
                             {
+                                /*
                                 if (!ef.description.Equals("none") && (isPlayerTurn))
                                 {
                                     bool isBlocked = false;
@@ -19750,6 +19906,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                                     }
 
                                 }
+                                */
                             }
                         }
                     }
@@ -25258,7 +25415,7 @@ cr.glideAdderY -= 0.5f * glideSpeed;
                 }
 
 
-                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "Duration: " +ef.durationOnSquareInUnits + "round(s)";
+                gv.cc.floatyTextActorInfoLingeringEffectRemainingDuration = "Duration: " + (ef.durationOnSquareInUnits/gv.mod.TimePerRound) + " round(s)";
                 gv.cc.floatyTextActorInfoLingeringEffectPersistence = "Persistence: " + ef.onSquarePersistenceBonus;
                 gv.cc.floatyTextActorInfoLingeringEffectPower = "Power: " + ef.classLevelOfSender;
                 
