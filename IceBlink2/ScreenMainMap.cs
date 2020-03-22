@@ -3800,7 +3800,7 @@ namespace IceBlink2
                                     yPos = yPos + (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                 }
 
-                                if (gv.mod.scrollingDirection == "left")
+                                 if (gv.mod.scrollingDirection == "left")
                                 {
                                     xPos = xPos - (int)(gv.squareSize * (gv.mod.scrollingTimer / 100f));
                                 }

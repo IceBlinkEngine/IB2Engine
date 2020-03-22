@@ -13,7 +13,22 @@ namespace IceBlink2
 {
     public class Module
     {
-      
+
+        //public int xScroll = 0;
+        //public int yScroll = 0;
+        public float combatScrollingTimer = 0;
+        public float combatScrollingTimerY = 0;
+        public string combatScrollDirectionY = "none"; //up, down, left, rigth
+
+        public string combatScrollDirection = "none"; //up, down, left, rigth
+        public int timeSinceLastCombatScrollTick = 0;
+        public long beforeCombatScroll = 0;
+        public long afterCombatScroll = 0;
+
+        public int timeSinceLastCombatScrollTickY = 0;
+        public long beforeCombatScrollY = 0;
+        public long afterCombatScrollY = 0;
+
         public bool showType = true;
         public bool showHitBy = true;
         public bool showRegen = true;
@@ -170,10 +185,13 @@ namespace IceBlink2
         public string scrollingDirection = "up"; //up, right, down, left
         public float scrollingSpeed = 4.0f;//default 4f, lower is faster
 
+
+        /*
         public float scrollingTimerCombat = 100; //runs from 100 to 0
         public bool isScrollingNowCombat = false;
         public string scrollingDirectionCombat = "up"; //up, right, down, left
         public float scrollingSpeedCombat = 4.0f;//default 4f, lower is faster
+        */
 
         public bool useFastRender = false;
         public bool isInitialParticleWave = false;

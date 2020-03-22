@@ -175,6 +175,8 @@ namespace IceBlink2
         public bool useLargeLayout = true;
         public Timer aTimer = new Timer();
         public Timer a2Timer = new Timer();
+        public Timer combatScrollTimer = new Timer();
+        public Timer combatScrollTimerY = new Timer();
 
         public GameView()
         {
@@ -200,6 +202,14 @@ namespace IceBlink2
             a2Timer.Tick += new System.EventHandler(onTimedEvent2);
             a2Timer.Interval = 1;
             a2Timer.Enabled = false;
+
+            combatScrollTimer.Tick += new System.EventHandler(onTimedEvent3);
+            combatScrollTimer.Interval = 1;
+            combatScrollTimer.Enabled = false;
+
+            combatScrollTimerY.Tick += new System.EventHandler(onTimedEvent4);
+            combatScrollTimerY.Interval = 1;
+            combatScrollTimerY.Enabled = false;
 
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.GameView_MouseWheel);
             //if (this.screenType == "main")
@@ -789,6 +799,250 @@ namespace IceBlink2
 
         }
 
+        //for combatScrollTimer
+        //covid19
+        public void onTimedEvent3(object source, EventArgs e)
+        {
+            cc.floatyTextPropMouseOver = "";
+            mod.beforeCombatScroll = gameTimerStopwatch.ElapsedMilliseconds;
+            mod.timeSinceLastCombatScrollTick = (int)(mod.beforeCombatScroll - mod.afterCombatScroll);
+            if (mod.timeSinceLastCombatScrollTick > 10)
+            {
+                mod.timeSinceLastCombatScrollTick = 10;
+            }
+            //if (mod.combatScrollingTimer <= 0)
+            //{
+            //mod.combatScrollingTimer = 0;
+            //}
+            //else
+            //{
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 30f);
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 3000f);
+
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - 1f;
+            if (mod.combatScrollDirection == "left")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 1.0f);
+            }
+            if (mod.combatScrollDirection == "right")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer + (mod.timeSinceLastCombatScrollTick / 1.0f);
+            }
+            //cc.addLogText("white", "Timer: " + mod.combatScrollingTimer);
+
+
+            if (mod.combatScrollingTimer <= -100)
+            {
+                mod.combatScrollingTimer = 0;
+                if (screenCombat.UpperLeftSquare.X > -playerOffsetX)
+                {
+                    screenCombat.UpperLeftSquare.X--;
+                }
+            }
+
+            if (mod.combatScrollingTimer >= 100)
+            {
+                mod.combatScrollingTimer = 0;
+                if (screenCombat.UpperLeftSquare.X < mod.currentEncounter.MapSizeX - playerOffsetX - 1)
+                {
+                    screenCombat.UpperLeftSquare.X++;
+                }
+            }
+
+            /*
+            if (mod.combatScrollDirection == "left")
+                {
+                    if (screenCombat.UpperLeftSquare.X > -playerOffsetX)
+                    {
+                        screenCombat.UpperLeftSquare.X--;
+                    }
+                }
+                if (mod.combatScrollDirection == "right")
+                {
+                    if (screenCombat.UpperLeftSquare.X < mod.currentEncounter.MapSizeX - playerOffsetX - 1)
+                    {
+                        screenCombat.UpperLeftSquare.X++;
+                    }
+                }
+            }
+            */
+
+            mod.afterCombatScroll = gameTimerStopwatch.ElapsedMilliseconds;
+        }
+
+        public void onTimedEvent4(object source, EventArgs e)
+        {
+            cc.floatyTextPropMouseOver = "";
+            mod.beforeCombatScrollY = gameTimerStopwatch.ElapsedMilliseconds;
+            mod.timeSinceLastCombatScrollTickY = (int)(mod.beforeCombatScrollY - mod.afterCombatScrollY);
+            if (mod.timeSinceLastCombatScrollTickY > 10)
+            {
+                mod.timeSinceLastCombatScrollTickY = 10;
+            }
+            //if (mod.combatScrollingTimer <= 0)
+            //{
+            //mod.combatScrollingTimer = 0;
+            //}
+            //else
+            //{
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 30f);
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 3000f);
+
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - 1f;
+
+            /*
+            if (mod.combatScrollDirection == "left")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 2f);
+            }
+            if (mod.combatScrollDirection == "right")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer + (mod.timeSinceLastCombatScrollTick / 2f);
+            }
+            */
+
+
+            if (mod.combatScrollDirectionY == "up")
+            {
+                mod.combatScrollingTimerY = mod.combatScrollingTimerY - (mod.timeSinceLastCombatScrollTickY / 1.0f);
+            }
+            if (mod.combatScrollDirectionY == "down")
+            {
+                mod.combatScrollingTimerY = mod.combatScrollingTimerY + (mod.timeSinceLastCombatScrollTickY / 1.0f);
+            }
+            //cc.addLogText("white", "Timer: " + mod.combatScrollingTimer);
+
+
+            if (mod.combatScrollingTimerY <= -100)
+            {
+                mod.combatScrollingTimerY = 0;
+                if (screenCombat.UpperLeftSquare.Y > -playerOffsetY)
+                {
+                    screenCombat.UpperLeftSquare.Y--;
+                }
+            }
+
+            if (mod.combatScrollingTimerY >= 100)
+            {
+                mod.combatScrollingTimerY = 0;
+                if (screenCombat.UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - playerOffsetY - 1)
+                {
+                    screenCombat.UpperLeftSquare.Y++;
+                }
+            }
+            /*
+                if (mod.combatScrollingTimerY <= 0)
+            {
+                mod.combatScrollingTimerY = 100;
+                
+                if (mod.combatScrollDirection == "up")
+                {
+                    if (screenCombat.UpperLeftSquare.Y > -playerOffsetY)
+                    {
+                        screenCombat.UpperLeftSquare.Y--;
+                    }
+                }
+                if (mod.combatScrollDirection == "down")
+                {
+                    if (screenCombat.UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - playerOffsetY - 1)
+                    {
+                        screenCombat.UpperLeftSquare.Y++;
+                    }
+                }
+                
+                if (mod.combatScrollDirection == "left")
+                {
+                    if (screenCombat.UpperLeftSquare.X > -playerOffsetX)
+                    {
+                        screenCombat.UpperLeftSquare.X--;
+                    }
+                }
+                if (mod.combatScrollDirection == "right")
+                {
+                    if (screenCombat.UpperLeftSquare.X < mod.currentEncounter.MapSizeX - playerOffsetX - 1)
+                    {
+                        screenCombat.UpperLeftSquare.X++;
+                    }
+                }
+                
+            }
+        */
+            mod.afterCombatScrollY = gameTimerStopwatch.ElapsedMilliseconds;
+        }
+
+        public void onTimedEvent5justincase(object source, EventArgs e)
+        {
+            mod.beforeCombatScrollY = gameTimerStopwatch.ElapsedMilliseconds;
+            mod.timeSinceLastCombatScrollTickY = (int)(mod.beforeCombatScrollY - mod.afterCombatScrollY);
+            if (mod.timeSinceLastCombatScrollTickY > 15)
+            {
+                mod.timeSinceLastCombatScrollTickY = 15;
+            }
+            //if (mod.combatScrollingTimer <= 0)
+            //{
+            //mod.combatScrollingTimer = 0;
+            //}
+            //else
+            //{
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 30f);
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 3000f);
+
+            //mod.combatScrollingTimer = mod.combatScrollingTimer - 1f;
+
+            /*
+            if (mod.combatScrollDirection == "left")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer - (mod.timeSinceLastCombatScrollTick / 2f);
+            }
+            if (mod.combatScrollDirection == "right")
+            {
+                mod.combatScrollingTimer = mod.combatScrollingTimer + (mod.timeSinceLastCombatScrollTick / 2f);
+            }
+            */
+
+
+
+            mod.combatScrollingTimerY = mod.combatScrollingTimerY - (mod.timeSinceLastCombatScrollTickY / 1.5f);
+            //cc.addLogText("white", "Timer: " + mod.combatScrollingTimer);
+
+
+            if (mod.combatScrollingTimerY <= 0)
+            {
+                mod.combatScrollingTimerY = 100;
+
+                if (mod.combatScrollDirectionY == "up")
+                {
+                    if (screenCombat.UpperLeftSquare.Y > -playerOffsetY)
+                    {
+                        screenCombat.UpperLeftSquare.Y--;
+                    }
+                }
+                if (mod.combatScrollDirectionY == "down")
+                {
+                    if (screenCombat.UpperLeftSquare.Y < mod.currentEncounter.MapSizeY - playerOffsetY - 1)
+                    {
+                        screenCombat.UpperLeftSquare.Y++;
+                    }
+                }
+                /*
+                if (mod.combatScrollDirection == "left")
+                {
+                    if (screenCombat.UpperLeftSquare.X > -playerOffsetX)
+                    {
+                        screenCombat.UpperLeftSquare.X--;
+                    }
+                }
+                if (mod.combatScrollDirection == "right")
+                {
+                    if (screenCombat.UpperLeftSquare.X < mod.currentEncounter.MapSizeX - playerOffsetX - 1)
+                    {
+                        screenCombat.UpperLeftSquare.X++;
+                    }
+                }
+                */
+            }
+            mod.afterCombatScrollY = gameTimerStopwatch.ElapsedMilliseconds;
+        }
         public void onTimedEvent(object source, EventArgs e)
         {
             //mod.isScrollingNow = false;
@@ -2387,7 +2641,7 @@ namespace IceBlink2
         {
             using (SolidColorBrush scb = new SolidColorBrush(renderTarget2D, penColor))
             {
-                renderTarget2D.DrawLine(new Vector2(lastX,lastY), new Vector2(nextX, nextY), scb, penWidth);
+                renderTarget2D.DrawLine(new Vector2(lastX - (int)( squareSize * (mod.combatScrollingTimer / 100f)), lastY - (int)(squareSize * (mod.combatScrollingTimerY / 100f))), new Vector2(nextX - (int)(squareSize * (mod.combatScrollingTimer / 100f)), nextY - (int)(squareSize * (mod.combatScrollingTimerY / 100f))), scb, penWidth);
             }
         }
         public void DrawBitmapGDI(System.Drawing.Bitmap bitmap, IbRect source, IbRect target)
@@ -2970,7 +3224,7 @@ namespace IceBlink2
 
                 if (this.screenType == "combat")
                 {
-                    if (mod.isScrollingNowCombat)
+                    // if (mod.combatScrollingTimer > 0)
                     {
                         //projectcombatscrolling
                         //we needdirection and speed by comparison of curent and former upper left
@@ -2982,31 +3236,42 @@ namespace IceBlink2
                         //example: form (4,8) to 8,7) (scrolling to right and slightly upwards)
                         //example: difference x is +4
                         //example: difference y is -1
-                        
+
                         //maybe not needed, ex: turn negative to positives for speed
                         //maybe not needed, ex: speed is 4 square + (-1) square = root (result)
                         //maybe not needed, ex: 16 + 1 = root (17) = 4,12
-                        
+
                         //example: on every call change pixel x by +4 pix
                         //example on every call chnage crease pixel y 
-                        if (mod.scrollingDirection == "up")
+                        if (angleInRadians != -0.01f && isParty == false)
                         {
-                            target.Y = target.Y - (int)(squareSize * (mod.scrollingTimer / 100f));
-                        }
+                            target.Y = target.Y - (int)(squareSize * (mod.combatScrollingTimerY / 100f));
+                            target.X = target.X - (int)(squareSize * (mod.combatScrollingTimer / 100f));
+                            /*
+                            if (mod.combatScrollDirection == "up")
+                            {
+                                target.Y = target.Y - (int)(squareSize * (mod.combatScrollingTimerY / 100f));
+                            }
 
-                        if (mod.scrollingDirection == "down")
-                        {
-                            target.Y = target.Y + (int)(squareSize * (mod.scrollingTimer / 100f));
-                        }
+                            if (mod.combatScrollDirection == "down")
+                            {
+                                target.Y = target.Y + (int)(squareSize * (mod.combatScrollingTimerY / 100f));
+                            }
 
-                        if (mod.scrollingDirection == "left")
-                        {
-                            target.X = target.X - (int)(squareSize * (mod.scrollingTimer / 100f));
-                        }
+                            if (mod.combatScrollDirection == "left")
+                            {
+                                target.X = target.X - (int)(squareSize * (mod.combatScrollingTimer / 100f));
+                            }
 
-                        if (mod.scrollingDirection == "right")
+                            if (mod.combatScrollDirection == "right")
+                            {
+                                target.X = target.X + (int)(squareSize * (mod.combatScrollingTimer / 100f));
+                            }
+                            */
+                        }
+                        else
                         {
-                            target.X = target.X + (int)(squareSize * (mod.scrollingTimer / 100f));
+                            angleInRadians = 0;
                         }
                     }
                 }
@@ -3120,6 +3385,8 @@ namespace IceBlink2
         //onKeyDown(sender, e);
         //}
 
+            //this a true in key up only event
+            //covid19
         private void GameView_onKeyUp(object sender, KeyEventArgs e)
         {
             //if (screenType.Equals("main"))
@@ -3162,8 +3429,74 @@ namespace IceBlink2
                     mod.scrollModeSpeed = 1.15f;
                 }
             }
-            //}
-        }
+
+            if (screenType == "combat")
+            {
+
+                if (mod.combatScrollDirectionY == "up")
+                {
+                    if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
+                    {
+                        combatScrollTimerY.Stop();
+                    }
+                    //mod.combatScrollDirectionY = "none";
+                }
+
+                if (mod.combatScrollDirectionY == "down")
+                {
+                    if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
+                    {
+                        combatScrollTimerY.Stop();
+                    }
+                    //mod.combatScrollDirectionY = "none";
+                }
+
+                if (mod.combatScrollDirection == "left")
+                {
+                    if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
+                    {
+                        combatScrollTimer.Stop();
+                    }
+                    //mod.combatScrollDirection = "none";
+                }
+
+                if (mod.combatScrollDirection == "right")
+                {
+                    if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
+                    {
+                        combatScrollTimer.Stop();
+                    }
+                    //mod.combatScrollDirection = "none";
+                }
+
+                /*
+                if (mod.combatScrollDirectionY == "up" || mod.combatScrollDirectionY == "down")
+                {
+                    if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.W || e.KeyCode == Keys.S)
+                    {
+                        combatScrollTimerY.Stop();
+                    }
+                    //mod.combatScrollDirectionY = "none";
+                }
+
+                if (mod.combatScrollDirection == "left" || mod.combatScrollDirection == "right")
+                {
+                    if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Right || e.KeyCode == Keys.A || e.KeyCode == Keys.D)
+                    {
+                        combatScrollTimer.Stop();
+                    }
+                    //mod.combatScrollDirection = "none";
+                }
+                */
+                //combatScrollTimer.Stop();
+                //combatScrollTimerY.Stop();
+
+                //mod.combatScrollingTimer = 0;
+                //mod.combatScrollingTimerY = 0;
+
+            }
+                //}
+            }
 
         private void GameView_onKeyDown(object sender, KeyEventArgs e)
         {

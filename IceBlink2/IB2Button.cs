@@ -288,35 +288,36 @@ namespace IceBlink2
                 //draw glow first if on
                 if (glowOn)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow, true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow, -0.01f, false, 1.0f, true);
+                    //   gv.DrawBitmap(gv.cc.GetFromBitmapList("tgl_bg"), src2, dst2, -0.01f, false, 0.75f, true);
                 }
 
                 //draw the proper button State
                 if (btnState == buttonState.On)
-                {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst,true);
+                { 
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOnFilename), src, dst, -0.01f, false, 1.0f, true);
                 }
                 else if (btnState == buttonState.Off)
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgOffFilename), src, dst, -0.01f, false, 1.0f, true);
                 }
                 else
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst,true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(ImgFilename), src, dst, -0.01f, false, 1.0f, true);
                 }
                 //draw the standard overlay image if has one
                 if ((btnState == buttonState.Off) && (!Img2OffFilename.Equals("")))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst,true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2OffFilename), src, dst, -0.01f, false, 1.0f, true);
                 }
                 else if (!Img2Filename.Equals(""))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst, true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img2Filename), src, dst, -0.01f, false, 1.0f, true);
                 }
                 //draw the notification image if turned on (like a level up or additional convo nodes image)
                 if ((btnNotificationOn) && (!Img3Filename.Equals("")))
                 {
-                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst, true);
+                    gv.DrawBitmap(gv.cc.GetFromBitmapList(Img3Filename), src, dst, -0.01f, false, 1.0f, true);
                 }
 
                 float thisFontHeight = gv.drawFontRegHeight;
