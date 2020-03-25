@@ -3201,7 +3201,15 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            /*
+            //betterl
+            if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+            {
+                gv.cc.resetLightAndDarkness();
+                gv.cc.doIllumination();
 
+            }
+            */
             //mainUiLayout.panelList;
             foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
             {
@@ -5217,7 +5225,14 @@ namespace IceBlink2
                 //}
 
             }
-          
+            //betterl
+            if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+            {
+                gv.cc.resetLightAndDarkness();
+                gv.cc.doIllumination();
+
+            }
+
         }
 
         //enter code for stealthing props here; using their isVisible state (might be buggy as sued in otehr contexts a lot)

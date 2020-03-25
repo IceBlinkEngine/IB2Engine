@@ -19782,6 +19782,12 @@ namespace IceBlink2
             {
                 case MouseEventType.EventType.MouseDown:
 
+                    //hundi
+                    if (e.Button == MouseButtons.Left)
+                    {
+
+                    }
+                 break;
                 //MouseButtons.
 
                 //int x = (int)e.X;

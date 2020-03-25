@@ -185,6 +185,8 @@ namespace IceBlink2
         public string scrollingDirection = "up"; //up, right, down, left
         public float scrollingSpeed = 4.0f;//default 4f, lower is faster
 
+        public bool lightWasAdjusted = false;
+
 
         /*
         public float scrollingTimerCombat = 100; //runs from 100 to 0

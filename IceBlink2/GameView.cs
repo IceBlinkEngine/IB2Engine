@@ -2697,6 +2697,22 @@ namespace IceBlink2
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror);
         }
+
+        public void DrawBitmapBL(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
+        {
+            //test
+            //orgi
+            if (bitmap == cc.night_tile_NE || bitmap == cc.night_tile_NW || bitmap == cc.night_tile_SW || bitmap == cc.night_tile_SE || bitmap == cc.tint_night)
+            {
+                //opacity *= 0.6f;
+                opacity *= mod.nightTimeDarknessOpacity;
+
+            }
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+        }
+
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
         {
             //test
@@ -2726,6 +2742,22 @@ namespace IceBlink2
             //DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity);
             DrawD2DBitmapParallelToPlayer(bitmap, src, tar, angleInRadians, mirror, opacity);
         }
+
+        public void DrawBitmapBL(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity, bool isParty)
+        {
+            //test
+            //kloni
+            if (bitmap == cc.night_tile_NE || bitmap == cc.night_tile_NW || bitmap == cc.night_tile_SW || bitmap == cc.night_tile_SE || bitmap == cc.tint_night)
+            {
+                //opacity *= 0.6f;
+                opacity *= mod.nightTimeDarknessOpacity;
+
+            }
+            SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
+            SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+        }
+
 
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity, bool isParty)
         {
@@ -2791,6 +2823,7 @@ namespace IceBlink2
             SharpDX.Rectangle src = new SharpDX.Rectangle(source.Left, source.Top, source.Width, source.Height);
             //calling new overloaded draw that takes in opacity, too
             DrawD2DBitmap(bitmap, src, tar, mirror, opac, NearestNeighbourInterpolation);
+            //DrawD2DBitmap(bitmap, src, tar, mirror, opac, true);
         }
 
         //DIRECT2D STUFF
@@ -3402,6 +3435,7 @@ namespace IceBlink2
 
             if (screenType == "main")
             {
+              
                 if ((e.KeyCode == Keys.Up && this.screenMainMap.showMoveKeys && mod.blockUpKey) || (e.KeyCode == Keys.W && !this.screenMainMap.showMoveKeys && mod.blockUpKey) || e.KeyCode == Keys.D8 || e.KeyCode == Keys.NumPad8)
                 {
                     mod.blockUpKey = false;
@@ -3428,6 +3462,21 @@ namespace IceBlink2
                     aTimer.Stop();
                     mod.scrollModeSpeed = 1.15f;
                 }
+
+                //covid23
+                /*
+                aTimer.Stop();
+                a2Timer.Stop();
+                mod.isScrollingNow = false;
+                mod.scrollingDirection = "none";
+                */
+                /*
+                mod.blockRightKey = true;
+                mod.blockLeftKey = true;
+                mod.blockUpKey = true;
+                mod.blockDownKey = true;
+                */
+
             }
 
             if (screenType == "combat")
