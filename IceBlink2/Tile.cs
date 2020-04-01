@@ -11,6 +11,8 @@ namespace IceBlink2
     {
         public int stealthModifier = 0; //highrt makes hiding/stealthing easier
         public int speedModifier = 0;
+        public int distanceToParty = 0;
+        public int distanceToOtherLight = 0;
 
         public string Layer0Filename = "";
         public string Layer1Filename = "t_blank";

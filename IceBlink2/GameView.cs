@@ -2698,8 +2698,9 @@ namespace IceBlink2
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror);
         }
 
-        public void DrawBitmapBL(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
+        public void DrawBitmapBL(Tile t, SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
         {
+            
             //test
             //orgi
             if (bitmap == cc.night_tile_NE || bitmap == cc.night_tile_NW || bitmap == cc.night_tile_SW || bitmap == cc.night_tile_SE || bitmap == cc.tint_night)
@@ -2710,6 +2711,39 @@ namespace IceBlink2
             }
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+            //if (!t.LoSBlocked && t.distanceToParty <= 4)
+            /*
+            if (t.distanceToParty < 10)
+            {
+                cc.addLogText("lime", "Dist " + t.distanceToParty);
+            }
+            */
+            //if (t.distanceToParty <= 4)
+            /*
+            if (!t.LoSBlocked && t.distanceToParty <= 3)
+            {
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+            }
+            else
+            {
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, false);
+            }
+            */
+            //t.isLit.Count
+            //if (t.distanceToParty > 3 || t.isLit.Count == 0)
+            //if (t.isLit.Count == 0 || t.distanceToParty > 2)
+            //if (t.isLit.Count > 0 && !t.tileLightSourceTag.Contains("party") || (t.isLit.Count == 0 && t.distanceToParty < 3 && mod.partyLightOn))
+            /*
+            if (t.isLit.Count == 0 && t.distanceToParty < 3 && mod.partyLightOn)
+            {
+                
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, false);
+            }
+            else
+            {
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+            }
+            */
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
         }
 
@@ -2743,7 +2777,7 @@ namespace IceBlink2
             DrawD2DBitmapParallelToPlayer(bitmap, src, tar, angleInRadians, mirror, opacity);
         }
 
-        public void DrawBitmapBL(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity, bool isParty)
+        public void DrawBitmapBL(Tile t, SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity, bool isParty)
         {
             //test
             //kloni
@@ -2755,6 +2789,41 @@ namespace IceBlink2
             }
             SharpDX.RectangleF tar = new SharpDX.RectangleF(target.Left, target.Top + oYshift, target.Width, target.Height);
             SharpDX.RectangleF src = new SharpDX.RectangleF(source.Left, source.Top, source.Width, source.Height);
+
+            //if (!t.LoSBlocked && t.distanceToParty <= 4)
+            /*
+            if (t.distanceToParty < 10)
+            {
+                cc.addLogText("lime", "Dist " + t.distanceToParty);
+            }
+            */
+
+            //if (t.distanceToParty <= 4)
+            /*
+            if (!t.LoSBlocked && t.distanceToParty <= 4)
+            {
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+            }
+            else
+            {
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, false);
+            }
+            */
+
+            //if (t.distanceToParty > 3 || t.isLit.Count == 0)
+            /*
+            if (t.isLit.Count == 0 && t.distanceToParty < 3 && mod.partyLightOn)
+            //if (t.isLit.Count > 0 && !t.tileLightSourceTag.Contains("party") || (t.isLit.Count == 0 && t.distanceToParty < 3 && mod.partyLightOn))
+            {
+                //move with square underneath
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, false);
+            }
+            else
+            {
+                //lets squres glide under it and change (Aroudn party)
+                DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+            }
+            */
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
         }
 

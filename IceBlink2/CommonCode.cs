@@ -3201,6 +3201,16 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            //alienware
+            /*
+            if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+            {
+                gv.cc.resetLightAndDarkness();
+                gv.cc.doIllumination();
+
+            }
+            */
+
             /*
             //betterl
             if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
@@ -3211,6 +3221,28 @@ namespace IceBlink2
             }
             */
             //mainUiLayout.panelList;
+
+           if (gv.mod.heightBlocksSight)
+            {
+                for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                {
+                    if ((gv.mod.moduleAreasObjects[i] == gv.mod.currentArea) || ( i == gv.mod.indexOfEasternNeighbour) || (i == gv.mod.indexOfWesternNeighbour) || (i == gv.mod.indexOfNorthernNeighbour) || (i == gv.mod.indexOfSouthernNeighbour) || (i == gv.mod.indexOfNorthEasternNeighbour) || (i == gv.mod.indexOfNorthWesternNeighbour) || (i == gv.mod.indexOfSouthEasternNeighbour) || (i == gv.mod.indexOfSouthWesternNeighbour))
+                    {
+                        foreach (Tile t in gv.mod.moduleAreasObjects[i].Tiles)
+                        {
+                            if (t.heightLevel > gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
+                            {
+                                t.LoSBlocked = true;
+                            }
+                            else
+                            {
+                                t.LoSBlocked = false;
+                            }
+                        }
+                    }
+                }
+            }
+
             foreach (IB2Panel pnl in gv.screenMainMap.mainUiLayout.panelList)
             {
                 foreach (IB2ToggleButton tgl in pnl.toggleList)
@@ -5225,13 +5257,15 @@ namespace IceBlink2
                 //}
 
             }
-            //betterl
+            //alienware
+            
             if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
             {
                 gv.cc.resetLightAndDarkness();
                 gv.cc.doIllumination();
 
             }
+            
 
         }
 
