@@ -40523,6 +40523,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                   
                                                     gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                 }
+                                                //telefon
                                                 //the party light
                                                 else
                                                 {
@@ -41773,11 +41774,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         int time = gv.mod.WorldTime % 1440;
                                         if ((time >= dawn) && (time < sunrise))
                                         {
-                                            gv.DrawBitmapBL(tile, gv.cc.tint_dawn, src, dst, 0, false, 1f);
+                                            gv.DrawBitmap(gv.cc.tint_dawn, src, dst, 0, false, 1f);
                                         }
                                         else if ((time >= sunrise) && (time < day))
                                         {
-                                            gv.DrawBitmapBL(tile, gv.cc.tint_sunrise, src, dst, 0, false, 1f);
+                                            gv.DrawBitmap(gv.cc.tint_sunrise, src, dst, 0, false, 1f);
                                         }
                                         else if ((time >= day) && (time < sunset))
                                         {
@@ -41785,16 +41786,35 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         }
                                         else if ((time >= sunset) && (time < dusk))
                                         {
-                                            gv.DrawBitmapBL(tile, gv.cc.tint_sunset, src, dst, 0, false, 1f);
+                                            gv.DrawBitmap(gv.cc.tint_sunset, src, dst, 0, false, 1f);
                                         }
                                         else if ((time >= dusk) && (time < night))
                                         {
-                                            gv.DrawBitmapBL(tile, gv.cc.tint_dusk, src, dst, 0, false, 1f);
+                                            gv.DrawBitmap(gv.cc.tint_dusk, src, dst, 0, false, 1f);
                                         }
                                         else if ((time >= night) || (time < dawn))
                                         {
                                             //gv.DrawBitmapBLBL(gv.cc.black_tile, src, dst, 0, false, 0.55f);
-                                            gv.DrawBitmapBL(tile, gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                            //telefon
+                                            //if (tile.distanceToParty > 3 || !gv.mod.partyLightOn || gv.mod.useSimpleLight)
+                                            //{
+                                                gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                            //}
+                                            /*
+                                            else
+                                            {
+                                                //gv.DrawBitmapBL(tile, gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                                if (inRundirection)
+                                                {
+                                                    gv.DrawBitmapBL(tile, gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                                    gv.DrawBitmap(gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmapBL(tile, gv.cc.tint_night, src, dst, 0, false, 0.8f);
+                                                }
+                                            }
+                                            */
                                         }
                                     }
                                     

@@ -3201,28 +3201,39 @@ namespace IceBlink2
 
         public void doUpdate()
         {
-            //alienware
-            /*
-            if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+            if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
             {
-                gv.cc.resetLightAndDarkness();
-                gv.cc.doIllumination();
-
+                foreach (Tile t in gv.mod.currentArea.Tiles)
+                {
+                    t.Visible = true;
+                }
             }
-            */
-
-            /*
-            //betterl
-            if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+            if (gv.mod.useLightSystem && gv.mod.currentArea.UseDayNightCycle)
             {
-                gv.cc.resetLightAndDarkness();
-                gv.cc.doIllumination();
-
+                gv.mod.partyLightOn = false;
             }
-            */
-            //mainUiLayout.panelList;
+                //alienware
+                /*
+                if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+                {
+                    gv.cc.resetLightAndDarkness();
+                    gv.cc.doIllumination();
 
-           if (gv.mod.heightBlocksSight)
+                }
+                */
+
+                /*
+                //betterl
+                if (gv.mod.partyLightOn && !gv.mod.lightWasAdjusted)
+                {
+                    gv.cc.resetLightAndDarkness();
+                    gv.cc.doIllumination();
+
+                }
+                */
+                //mainUiLayout.panelList;
+
+                if (gv.mod.heightBlocksSight)
             {
                 for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
                 {
