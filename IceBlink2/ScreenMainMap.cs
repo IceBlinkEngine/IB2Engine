@@ -3989,9 +3989,60 @@ namespace IceBlink2
                     //{
                     //wiederan 1line
                     //greenwhich
+
+                    //betterlight4
                     
-                //betterlight4
-                 drawLightAndDarkness(elapsed);
+                    bool nearLight = false;
+                    bool inLight = false;
+                    foreach (Prop p in gv.mod.currentArea.Props)
+                    {
+                        if (p.isLight)
+                        {
+                            Coordinate pCoord = new Coordinate();
+                            pCoord.X = p.LocationX;
+                            pCoord.Y = p.LocationY;
+                            Coordinate partycoord = new Coordinate();
+                            partycoord.X = gv.mod.PlayerLocationX;
+                            partycoord.Y = gv.mod.PlayerLocationY;
+                            if (IsLineOfSightForEachCorner(pCoord, partycoord))
+                            {
+                                if (gv.cc.getDistance(pCoord, partycoord) < 6)
+                                {
+                                    nearLight = true;
+                                    //break;
+                                }
+                                if (gv.cc.getDistance(pCoord, partycoord) < 3)
+                                {
+                                    inLight = true;
+                                    //break;
+                                }
+                            }
+                        }
+                    }
+                    if (nearLight && gv.mod.partyLightOn)
+                    {
+                        gv.mod.useSimpleLight = true;
+                        //gv.mod.partyLightOn = false;
+                        //set tiles aroudn party to be entry ligth
+                    }
+                    else
+                    {
+                        gv.mod.useSimpleLight = false;
+                    }
+
+                    /*
+                    if (inLight)
+                    {
+                        gv.mod.partyLightOn = false;
+                        gv.mod.useSimpleLight = false;
+                    }
+                    */
+                    
+                    
+                        drawLightAndDarkness(elapsed);
+                    //}
+                    
+                 //drawLightAndDarkness(elapsed);
                     //}
                 }
                 
@@ -38144,7 +38195,7 @@ namespace IceBlink2
                                 }
                             }
 
-                            
+                            gv.mod.partyDistanceToNextLightSource = gv.cc.getDistance(LightCoord, partyCoord);
 
                             bool lightOn = false;
                                 foreach (bool light in tile.isLit)
@@ -38428,6 +38479,12 @@ namespace IceBlink2
                     for (int y = minY; y < maxY; y++)
                     {
 
+                        if (x == 5 && y == 19)
+                        {
+                            int gfgd = 0;
+                        }
+
+
                         bool situationFound = false;
                         bool drawTile = true;
                         int index = -1;
@@ -38572,6 +38629,13 @@ namespace IceBlink2
 
                         if (drawTile)
                         {
+
+                            
+                            if (y == 5 && x == 19)
+                            {
+                                int gfgd = 0;
+                            }
+
                             Coordinate tileCoord = new Coordinate();
                             Coordinate partyCoord = new Coordinate();
 
@@ -38609,7 +38673,7 @@ namespace IceBlink2
                             }
 
 
-
+                            gv.mod.partyDistanceToNextLightSource = gv.cc.getDistance(LightCoord, partyCoord);
 
 
                             bool lightOn = false;
@@ -38764,30 +38828,73 @@ namespace IceBlink2
                                     }
                                 }
 
-                                
 
 
+                                bool againstRundirection = false;
                                 bool inRundirection = false;
                                 if (gv.mod.scrollingDirection == "right" && x > gv.mod.PlayerLocationX)
                                 {
                                     inRundirection = true;
                                 }
+                                if (gv.mod.scrollingDirection == "right" && x < gv.mod.PlayerLocationX)
+                                {
+                                    againstRundirection = true;
+                                }
                                 if (gv.mod.scrollingDirection == "down" && y > gv.mod.PlayerLocationY)
                                 {
                                     inRundirection = true;
+                                }
+                                if (gv.mod.scrollingDirection == "down" && y < gv.mod.PlayerLocationY)
+                                {
+                                    againstRundirection = true;
                                 }
                                 if (gv.mod.scrollingDirection == "left" && x < gv.mod.PlayerLocationX)
                                 {
                                     inRundirection = true;
                                 }
+                                if (gv.mod.scrollingDirection == "left" && x > gv.mod.PlayerLocationX)
+                                {
+                                    againstRundirection = true;
+                                }
                                 if (gv.mod.scrollingDirection == "up" && y < gv.mod.PlayerLocationY)
                                 {
                                     inRundirection = true;
                                 }
+                                if (gv.mod.scrollingDirection == "up" && y > gv.mod.PlayerLocationY)
+                                {
+                                    againstRundirection = true;
+                                }
+
+                                bool partyMovedinDirectionOfLightSource = false;
+                                if (gv.mod.scrollingDirection == "up" && LightCoord.Y <= partyCoord.Y)
+                                {
+                                    partyMovedinDirectionOfLightSource = true;
+                                }
+                                if (gv.mod.scrollingDirection == "down" && LightCoord.Y >= partyCoord.Y)
+                                {
+                                    partyMovedinDirectionOfLightSource = true;
+                                }
+                                if (gv.mod.scrollingDirection == "left" && LightCoord.X <= partyCoord.X)
+                                {
+                                    partyMovedinDirectionOfLightSource = true;
+                                }
+                                if (gv.mod.scrollingDirection == "right" && LightCoord.X >= partyCoord.X)
+                                {
+                                    partyMovedinDirectionOfLightSource = true;
+                                }
+
+                                if (tile.isEntryLight)
+                                {
+                                    gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                    continue;
+                                }
 
                                 if ((tile.isFocalPoint)  && (lightOn))
                                 {
-
+                                    if (gv.mod.useSimpleLight)
+                                    {
+                                        continue;
+                                    }
                                     //color of light source
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
                                     //{
@@ -38978,6 +39085,10 @@ namespace IceBlink2
 
                                 else if ((tile.isCentreOfLightCircle)  && (lightOn))
                                 {
+                                    if (gv.mod.useSimpleLight)
+                                    {
+                                        continue;
+                                    }
                                     //gv.DrawBitmapBL(tile, gv.cc.light_torchOLD, src, dst, 0, false, 0.75f * 0.75f * (0.225f - flicker / 400f));
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
                                     //{
@@ -39341,8 +39452,14 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 else if ((tile.isOtherPartOfLightCircle) && (lightOn))
                                 {
 
-                                    
-                                   
+                                    if (gv.mod.useSimpleLight)
+                                    {
+                                        continue;
+                                    }
+                                    if (x == 19 && y == 5)
+                                    {
+                                        int ghj = 1;
+                                    }
                                     float extraDarkness = 1;
                                     foreach (string position in tile.tilePositionInLitArea)
                                     {
@@ -39792,6 +39909,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     }
                                                 else
                                                 {
+
                                                     gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 2, (int)(brY * scaler) + 1);
                                                     gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
@@ -39801,23 +39919,224 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                                             else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E1"))
                                             {
-                                            if (tile.tileLightSourceTag.Contains("party") && tile.distanceToOtherLight >= 3)
+
+                                                if (tile.tileLightSourceTag.Contains("party"))
+                                                {
+                                                    gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                    gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                    gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+                                                }
+                                                
+
+                                                /*
+                                                if ((tile.tileLightSourceTag.Contains("party") || (tile.distanceToParty <= 3 && !(gv.mod.partyDistanceToNextLightSource > 4))) && (gv.mod.partyLightOn))
+                                                {
+
+                                                    if (tile.distanceToOtherLight <= 3 && gv.mod.isScrollingNow)
+                                                    {
+
+                                                        if (!againstRundirection || tile.distanceToOtherLight > 3 || !gv.mod.isScrollingNow || (gv.mod.partyDistanceToNextLightSource < tile.distanceToOtherLight && tile.distanceToOtherLight >= 2))
+                                                        {
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                        }
+                                                        else
+                                                        if (againstRundirection)
+                                                        {
+                                                            if (gv.mod.scrollingDirection == "left")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Width -= (int)(frozenTimer / 100f * gv.squareSize);
+                                                                gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, darknessWeighter * (1.0f));
+
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "up")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Height -= (int)(frozenTimer / 100f * gv.squareSize);
+                                                                gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "right")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Left += (int)((frozenTimer / 100f * gv.squareSize));
+                                                                dst.Width -= (int)((frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "down")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Top += (int)((frozenTimer / 100f * gv.squareSize));
+                                                                dst.Height -= (int)((frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, darknessWeighter * (1.0f));
+
+                                                            }
+
+                                                        }
+
+                                                        if (inRundirection)
+                                                        {
+                                                            if (gv.mod.scrollingDirection == "right")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "left")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "down")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Top += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "up")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                            }
+                                                        }
+                                                    }
+                                                    //non-scrolling or far away from light prop
+                                                    else
+                                                    {
+                                                        gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                        gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                    }
+                                                }
+                                                //not illuminated by party
+                                                else
+                                                {
+
+                                                    gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                    gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+
+                                                }
+                                                */
+
+                                                // old house
+                                                ///////////////////////////////////////////////////////////////////////////7
+                                                /*
+                                                if (tile.tileLightSourceTag.Contains("party"))
+                                                {
+                                                    if (tile.distanceToOtherLight <= 3 && gv.mod.isScrollingNow)
+                                                    {
+                                                        //if (!againstRundirection || tile.distanceToOtherLight > 2 || !gv.mod.isScrollingNow)
+                                                        //{
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                        //}
+                                                        ////////////////////////////////////////////77
+                                                        else if (againstRundirection)
+                                                        {
+                                                            if (gv.mod.scrollingDirection == "right")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                dst.Height -= 2;
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "left")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                                dst.Height -= 2;
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "down")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Top += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "up")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter * (1.0f));
+
+                                                        }
+                                                        ////////////////////////////////////////////////////7
+                                                        if (gv.mod.scrollingDirection == "right")
+                                                        {
+                                                            float frozenTimer = gv.mod.scrollingTimer;
+                                                            dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                            dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            dst.Height -= 2;
+                                                        }
+                                                        if (gv.mod.scrollingDirection == "left")
+                                                        {
+                                                            float frozenTimer = gv.mod.scrollingTimer;
+                                                            dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            dst.Height -= 2;
+                                                        }
+                                                        if (gv.mod.scrollingDirection == "down")
+                                                        {
+                                                            float frozenTimer = gv.mod.scrollingTimer;
+                                                            dst.Top += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                            dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                        }
+                                                        if (gv.mod.scrollingDirection == "up")
+                                                        {
+                                                            float frozenTimer = gv.mod.scrollingTimer;
+                                                            dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                        }
+                                                        if (inRundirection)
+                                                        {
+                                                            gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                        }
+                                                    }
+                                                    //non-scrolling or far away from light prop
+                                                    else
+                                                    {
+                                                        //if (!againstRundirection || tile.distanceToOtherLight > 2 || !gv.mod.isScrollingNow)
+                                                        //{
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
+                                                            dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
+                                                        //}
+                                                    }
+                                                }
+                                                //not illuminated by party
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+                                                    dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
+                                                    gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
+
+                                                }
+                                                */
+
+                                                ////oldest house
+                                                /*
+                                                //only do this for squres lit by party
+                                                //if (tile.tileLightSourceTag.Contains("party") && tile.distanceToOtherLight >= 3)
+                                                if (tile.tileLightSourceTag.Contains("party"))
                                                 {
                                                   
-                                                    if (tile.distanceToOtherLight == 3 && gv.mod.isScrollingNow && gv.mod.scrollingDirection == "right" && x < LightCoord.X)
+                                                    //if (tile.distanceToOtherLight == 3 && gv.mod.isScrollingNow && gv.mod.scrollingDirection == "right" && x < LightCoord.X)
+                                                    if (tile.distanceToOtherLight <= 3 && gv.mod.isScrollingNow && gv.mod.scrollingDirection == "right")
                                                     {
-                                                        /*
-                                                        gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (0.5f + gv.mod.scrollingTimer / 400f));
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (0.5f + gv.mod.scrollingTimer / 400f));
-                                                        gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (0.75f- gv.mod.scrollingTimer / 400f));
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (0.75f - gv.mod.scrollingTimer/400f));
-                                                        */
-
-                                                        //gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (0.6f + gv.mod.scrollingTimer / 333f));
-                                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        //gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (0.6f + gv.mod.scrollingTimer / 333f));
+                                                       
                                                         gv.DrawBitmapBL(tile, gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
                                                         dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
                                                         gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
@@ -39825,34 +40144,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         float frozenTimer = gv.mod.scrollingTimer;
                                                         dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
                                                         dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
-                                                        /*
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
-                                                        dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
-                                                        */
-
-                                                        /*
-                                                        float frozenTimer = gv.mod.scrollingTimer;
-                                                        dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
-                                                        dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
-                                                        dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
-                                                        */
-
-                                                        /*
-                                                        dst.Left += (int)(gv.squareSize - (gv.mod.scrollingTimer / 100f * gv.squareSize));
-                                                        dst.Width -= (int)((1f - gv.mod.scrollingTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f * (1.0f));
-                                                        dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
-                                                        dst.Left += (int)(gv.squareSize - (gv.mod.scrollingTimer / 100f * gv.squareSize));
-                                                        dst.Width -= (int)((1f - gv.mod.scrollingTimer / 100f) * gv.squareSize);
-                                                        gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter * (1.0f));
-                                                        */
+                                                        dst.Height -= 2;
+                                                        gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, darknessWeighter * (1.0f));
                                                     }
                                                     else
                                                     {
@@ -39861,13 +40154,100 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         gv.DrawBitmapBL(tile, gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
                                                     }
                                                 }
+
                                                 else
                                                 {
                                                     gv.DrawBitmap(gv.cc.black_tile_NE, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
                                                     dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - 1, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler) + 1, (int)(brY * scaler) + 2);
                                                     gv.DrawBitmap(gv.cc.black_tile_SW, src, dst, 0, false, darknessWeighter);
                                                 }
+                                                */
                                             }
+                                            /*
+                                            else if (tile.tilePositionInLitArea[indexOfRelevantLightSource] == "E2" || tile.tilePositionInLitArea[indexOfRelevantLightSource] == "N2" || tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S2" || tile.tilePositionInLitArea[indexOfRelevantLightSource] == "W2")
+                                            {
+                                               if ((tile.tileLightSourceTag.Contains("party") || (tile.distanceToParty <= 3 && !(gv.mod.partyDistanceToNextLightSource > 4))) && (gv.mod.partyLightOn))
+                                               {
+                                                   
+                                                    if (tile.distanceToOtherLight <= 3 && gv.mod.isScrollingNow)
+                                                    {
+                                                      
+                                                        if (!againstRundirection || tile.distanceToOtherLight > 3 || !gv.mod.isScrollingNow || (gv.mod.partyDistanceToNextLightSource < tile.distanceToOtherLight && tile.distanceToOtherLight >= 2))
+                                                        {
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                        }
+                                                        else
+                                                        if (againstRundirection)
+                                                        {
+                                                            if (gv.mod.scrollingDirection == "left")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Width -= (int)(frozenTimer / 100f * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "up")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Height -= (int)(frozenTimer / 100f * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "right")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Left += (int)((frozenTimer / 100f * gv.squareSize));
+                                                                dst.Width -= (int)((frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "down")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Top += (int)((frozenTimer / 100f * gv.squareSize));
+                                                                dst.Height -= (int)((frozenTimer / 100f) * gv.squareSize);
+                                                            }
+
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+
+                                                        }
+
+                                                        if (inRundirection)
+                                                        {
+                                                            if (gv.mod.scrollingDirection == "right")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Left += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "left")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Width -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "down")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Top += (int)(gv.squareSize - (frozenTimer / 100f * gv.squareSize));
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                            if (gv.mod.scrollingDirection == "up")
+                                                            {
+                                                                float frozenTimer = gv.mod.scrollingTimer;
+                                                                dst.Height -= (int)((1f - frozenTimer / 100f) * gv.squareSize);
+                                                            }
+                                                           
+                                                                gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                        }
+                                                    }
+                                                    //non-scrolling or far away from light prop
+                                                    else
+                                                    {
+                                                            gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+                                                    }
+                                                }
+                                                //not illuminated by party
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, extraDarkness * 0.675f * 2.5f * flicker / 100f);
+
+                                                }
+                                            }
+                                            */
                                             else if ((tile.tilePositionInLitArea[indexOfRelevantLightSource] == "S1"))
                                             {
 if (tile.tileLightSourceTag.Contains("party"))
@@ -40138,13 +40518,15 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         {
                                             if (gv.mod.fogOfWarOpacity >= 0.7f)
                                             {
-                                                if (tile.distanceToParty > 3 || !gv.mod.partyLightOn)
+                                                if (tile.distanceToParty > 3 || !gv.mod.partyLightOn || gv.mod.useSimpleLight)
                                                 {
+                                                  
                                                     gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                 }
                                                 //the party light
                                                 else
                                                 {
+                                                    
                                                     /*
                                                     bool inRundirection = false;
                                                     if (gv.mod.scrollingDirection == "right" && x > gv.mod.PlayerLocationX)
@@ -40166,12 +40548,18 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     */
                                                     if (inRundirection)
                                                     {
-                                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                        //if (!gv.mod.useSimpleLight)
+                                                        {
+                                                            gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                        }
                                                         gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                     }
                                                     else
                                                     {
-                                                        gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                        //if (!gv.mod.useSimpleLight)
+                                                        {
+                                                            gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                        }
 
                                                         //this must be added under rright condtions
                                                         //gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
@@ -40179,8 +40567,9 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         /////////////////////////////////////////////////////////7
                                                         //find out whether a sight blocking tile is betwee party and this tile
                                                         //if there is one, add the drawbitmap call for immediate blackout
-                                                        bool blockerFound = false;
 
+                                                        bool blockerFound = false;
+                                                       
                                                         if (gv.mod.PlayerLocationX > 1 && gv.mod.PlayerLocationY > 1 && gv.mod.PlayerLocationY < gv.mod.currentArea.MapSizeY - 2 && gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX - 2)
                                                         {
                                                             #region north

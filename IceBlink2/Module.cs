@@ -17,6 +17,8 @@ namespace IceBlink2
         //public int xScroll = 0;
         //public int yScroll = 0;
 
+        public bool useSimpleLight = false;
+
         public bool heightBlocksSight = true; 
         public float combatScrollingTimer = 0;
         public float combatScrollingTimerY = 0;
@@ -294,6 +296,8 @@ namespace IceBlink2
         public bool useCombatSmoothMovement = true;
         public float fogOfWarOpacity = 0.9525f;
         public bool spritesUnderOverlays = true;
+
+        public int partyDistanceToNextLightSource = 3;
 
         public int creatureCounterSubstractor = 0;
         public int moveOrderOfCreatureThatIsBeforeBandChange = 0;

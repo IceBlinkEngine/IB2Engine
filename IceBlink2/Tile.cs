@@ -9,6 +9,8 @@ namespace IceBlink2
 {
     public class Tile
     {
+
+        public bool isEntryLight = false;
         public int stealthModifier = 0; //highrt makes hiding/stealthing easier
         public int speedModifier = 0;
         public int distanceToParty = 0;
