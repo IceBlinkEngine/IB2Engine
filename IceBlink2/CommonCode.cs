@@ -6875,7 +6875,7 @@ namespace IceBlink2
                         Coordinate partycoord = new Coordinate();
                         partycoord.X = gv.mod.PlayerLocationX;
                         partycoord.Y = gv.mod.PlayerLocationY;
-                        if (!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord))
+                        if (!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
                         {
                             if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
                             {

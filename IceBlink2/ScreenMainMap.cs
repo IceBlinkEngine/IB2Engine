@@ -3993,6 +3993,7 @@ namespace IceBlink2
                     //betterlight4
                     
                     bool nearLight = false;
+                    gv.mod.simpleLightTiles.Clear();
                     bool inLight = false;
                     foreach (Prop p in gv.mod.currentArea.Props)
                     {
@@ -4006,10 +4007,35 @@ namespace IceBlink2
                             partycoord.Y = gv.mod.PlayerLocationY;
                             if (IsLineOfSightForEachCorner(pCoord, partycoord))
                             {
-                                if (gv.cc.getDistance(pCoord, partycoord) < 6)
+                                if (gv.cc.getDistance(pCoord, partycoord) < 6 && gv.mod.isScrollingNow)
                                 {
                                     nearLight = true;
+                                    //add tiles of these props to simple light tiles list 
                                     //break;
+                                    for (int i = 0; i < gv.mod.currentArea.Tiles.Count; i++)
+                                    {
+                                        int TileCoordX = i % gv.mod.currentArea.MapSizeX;
+                                        int TileCoordY = i / gv.mod.currentArea.MapSizeX;
+                                        Coordinate tileCoord = new Coordinate();
+                                        tileCoord.X = TileCoordX;
+                                        tileCoord.Y = TileCoordY;
+
+                                        if (gv.mod.currentArea.Tiles[i].tileLightSourceTag.Contains(p.PropTag))
+                                        {
+                                            if (gv.mod.partyLightOn)
+                                            {
+                                                //gv.mod.simpleLightTiles.Add(t);
+                                            }
+                                        }
+                                        //if (gv.cc.getDistance(tileCoord, partycoord) <= 3 && (gv.cc.getDistance(tileCoord, pCoord) <= 4))
+                                            if (gv.cc.getDistance(tileCoord, partycoord) <= 3)
+                                            {
+                                            if (gv.mod.partyLightOn)
+                                            {
+                                                gv.mod.simpleLightTiles.Add(gv.mod.currentArea.Tiles[i]);
+                                            }
+                                        }
+                                    }
                                 }
                                 if (gv.cc.getDistance(pCoord, partycoord) < 3)
                                 {
@@ -29936,6 +29962,18 @@ namespace IceBlink2
                             }
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp) && !p.isStealthed && !p.wasKilled)
                             {
+
+                                if (p.isLight && p.isMover)
+                                {
+                                    //gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                    IbRect defaultSrc = new IbRect();
+                                    defaultSrc.Top = 0;
+                                    defaultSrc.Left = 0;
+                                    defaultSrc.Height = 100;
+                                    defaultSrc.Width = 100;
+
+                                    gv.DrawBitmap(gv.cc.prp_lightYellow, defaultSrc, dst, 0, false, 0.7f);
+                                }
                                 gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
@@ -30878,6 +30916,17 @@ namespace IceBlink2
                             }
                             if ((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp) && !p.isStealthed && !p.wasKilled)
                             {
+                                if (p.isLight && p.isMover)
+                                {
+                                    //gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                    IbRect defaultSrc = new IbRect();
+                                    defaultSrc.Top = 0;
+                                    defaultSrc.Left = 0;
+                                    defaultSrc.Height = 100;
+                                    defaultSrc.Width = 100;
+                                    gv.DrawBitmap(gv.cc.prp_lightYellow, defaultSrc, dst, 0, false, 0.7f);
+                                }
+                                
                                 gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
@@ -32376,7 +32425,18 @@ namespace IceBlink2
 
                                 if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && !p.isStealthed && !p.wasKilled)
                                 {
-                                    gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
+                                        //covidhope
+                                        if (p.isLight && p.isMover)
+                                        {
+                                            //gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                            IbRect defaultSrc = new IbRect();
+                                            defaultSrc.Top = 0;
+                                            defaultSrc.Left = 0;
+                                            defaultSrc.Height = 100;
+                                            defaultSrc.Width = 100;
+                                            gv.DrawBitmap(gv.cc.prp_lightYellow, defaultSrc, dst, 0, false, 0.7f);
+                                        }
+                                        gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                                 }
 
                                 if (gv.mod.showInteractionState == true && !p.isStealthed && !p.wasKilled)
@@ -32549,6 +32609,17 @@ namespace IceBlink2
                             IbRect dst = new IbRect(x + gv.oXshift + mapStartLocXinPixels - dstXshift, y - dstYshift, dstW, dstH);
                             if (((p.maxNumberOfFrames == 1) || (p.drawAnimatedProp)) && !p.isStealthed && !p.wasKilled)
                             {
+                                //covidhope
+                                if (p.isLight && p.isMover)
+                                {
+                                    //gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.7f * 0.45f * 0.75f * (0.425f - flicker / 200f));
+                                    IbRect defaultSrc = new IbRect();
+                                    defaultSrc.Top = 0;
+                                    defaultSrc.Left = 0;
+                                    defaultSrc.Height = 100;
+                                    defaultSrc.Width = 100;
+                                    gv.DrawBitmap(gv.cc.prp_lightYellow, defaultSrc, dst, 0, false, 0.7f);
+                                }
                                 gv.DrawBitmap(p.token, src, dst, !p.PropFacingLeft, p.opacity);
                             }
 
@@ -38381,6 +38452,7 @@ namespace IceBlink2
 
                                                 }
 
+                                              
 
                                                 if ((tile.isLit[z]) && (draw) && !tileIsTooExtreme && drawLightHalo)
                                                 {
@@ -38893,7 +38965,12 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.useSimpleLight)
                                     {
-                                        continue;
+                                        if (gv.mod.simpleLightTiles.Contains(tile))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+
+                                            //continue;
+                                        }
                                     }
                                     //color of light source
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
@@ -39083,11 +39160,16 @@ namespace IceBlink2
                                     }
                                 }
 
-                                else if ((tile.isCentreOfLightCircle)  && (lightOn))
+                                else if ((tile.isCentreOfLightCircle)  && lightOn)
                                 {
                                     if (gv.mod.useSimpleLight)
                                     {
-                                        continue;
+                                        if (gv.mod.simpleLightTiles.Contains(tile))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false,  0.675f * 2.5f * flicker / 100f);
+
+                                            //continue;
+                                        }
                                     }
                                     //gv.DrawBitmapBL(tile, gv.cc.light_torchOLD, src, dst, 0, false, 0.75f * 0.75f * (0.225f - flicker / 400f));
                                     //if (!gv.mod.currentArea.UseDayNightCycle)
@@ -39454,7 +39536,12 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                                     if (gv.mod.useSimpleLight)
                                     {
-                                        continue;
+                                        if (gv.mod.simpleLightTiles.Contains(tile))
+                                        {
+                                            //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
+
+                                            //continue;
+                                        }
                                     }
                                     if (x == 19 && y == 5)
                                     {
@@ -40518,10 +40605,9 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         {
                                             if (gv.mod.fogOfWarOpacity >= 0.7f)
                                             {
-                                                if (tile.distanceToParty > 3 || !gv.mod.partyLightOn || gv.mod.useSimpleLight)
+                                                if (tile.distanceToParty > 3 || !gv.mod.partyLightOn || (gv.mod.useSimpleLight && gv.mod.simpleLightTiles.Contains(tile)))
                                                 {
-                                                  
-                                                    gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                        gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                 }
                                                 //telefon
                                                 //the party light
@@ -57253,7 +57339,7 @@ if (tile.tileLightSourceTag.Contains("party"))
             }
             return true;
         }
-        public bool IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
+        public bool  IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
         {
             //start is at the center of party location square
             Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));

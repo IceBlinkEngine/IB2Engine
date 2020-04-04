@@ -2744,7 +2744,16 @@ namespace IceBlink2
                 DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
             }
             */
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+
+            bool isParty = true;
+            if (mod.useSimpleLight)
+            {
+                if (mod.simpleLightTiles.Contains(t))
+                {
+                    isParty = false;
+                }
+            }
+                    DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, isParty);
         }
 
         public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
@@ -2824,7 +2833,15 @@ namespace IceBlink2
                 DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
             }
             */
-            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, true);
+            //bool isParty = true;
+            if (mod.useSimpleLight)
+            {
+                if (mod.simpleLightTiles.Contains(t))
+                {
+                    isParty = false;
+                }
+            }
+            DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, isParty);
         }
 
 

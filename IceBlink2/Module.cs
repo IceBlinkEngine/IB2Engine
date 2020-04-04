@@ -17,6 +17,7 @@ namespace IceBlink2
         //public int xScroll = 0;
         //public int yScroll = 0;
 
+        public List<Tile> simpleLightTiles = new List<Tile>(); 
         public bool useSimpleLight = false;
 
         public bool heightBlocksSight = true; 
