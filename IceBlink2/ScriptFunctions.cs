@@ -4755,11 +4755,11 @@ namespace IceBlink2
 
                             if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
 
                             if (gv.sf.CheckPassSkill(parm1, p1, parm2 + darkAdder, true, true))
@@ -4844,7 +4844,7 @@ namespace IceBlink2
                                     gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                                 }
-                                else if (darkAdder == 12)
+                                else if (darkAdder == 6)
                                 {
                                     gv.screenMainMap.addFloatyText(gv.sf.ThisProp.LocationX, gv.sf.ThisProp.LocationY, "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (parm2 + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -5255,11 +5255,11 @@ namespace IceBlink2
 
                             if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
 
                             if (keyFound)
@@ -10141,11 +10141,11 @@ namespace IceBlink2
                             /*
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
                             */
                             if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
@@ -10377,11 +10377,11 @@ namespace IceBlink2
                             /*
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
                             */
                             if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
@@ -10617,11 +10617,11 @@ namespace IceBlink2
                             /*
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
                             */
                             if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))
@@ -10855,11 +10855,11 @@ namespace IceBlink2
                             /*
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (CheckPropByTagIsInDarknessPerArea(ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
                             */
                             if (CheckPassSkill(parm1, ThisProp.pushableTraitTag, ThisProp.pushableDC + darkAdder, true, true))

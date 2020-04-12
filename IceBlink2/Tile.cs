@@ -10,6 +10,10 @@ namespace IceBlink2
     public class Tile
     {
 
+        public int visibiltyPosX = 0;
+        public int visibiltyPosY = 0;
+        //public bool tilesLightSourceIsVisible = false;
+
         public bool isEntryLight = false;
         public int stealthModifier = 0; //highrt makes hiding/stealthing easier
         public int speedModifier = 0;

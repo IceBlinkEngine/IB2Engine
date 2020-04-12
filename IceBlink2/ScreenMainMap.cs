@@ -4005,9 +4005,15 @@ namespace IceBlink2
                             Coordinate partycoord = new Coordinate();
                             partycoord.X = gv.mod.PlayerLocationX;
                             partycoord.Y = gv.mod.PlayerLocationY;
-                            if (IsLineOfSightForEachCorner(pCoord, partycoord))
+                            //if (IsLineOfSightForEachCorner(pCoord, partycoord) || gv.mod.currentArea.Tiles[pCoord.Y * gv.mod.currentArea.MapSizeX + pCoord.X].heightLevel > gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
+                            if (pCoord.X == 0 && pCoord.Y == 3)
                             {
-                                if (gv.cc.getDistance(pCoord, partycoord) < 6 && gv.mod.isScrollingNow)
+                                int ghgj = 0;
+                            }
+                            //if (IsLineOfSightForEachCorner(partycoord, pCoord))
+
+                                {
+                                    if (gv.cc.getDistance(pCoord, partycoord) < 6 && gv.mod.isScrollingNow)
                                 {
                                     nearLight = true;
                                     //add tiles of these props to simple light tiles list 
@@ -4028,8 +4034,8 @@ namespace IceBlink2
                                             }
                                         }
                                         //if (gv.cc.getDistance(tileCoord, partycoord) <= 3 && (gv.cc.getDistance(tileCoord, pCoord) <= 4))
-                                            if (gv.cc.getDistance(tileCoord, partycoord) <= 3)
-                                            {
+                                        if (gv.cc.getDistance(tileCoord, partycoord) <= 3)
+                                        {
                                             if (gv.mod.partyLightOn)
                                             {
                                                 gv.mod.simpleLightTiles.Add(gv.mod.currentArea.Tiles[i]);
@@ -4064,8 +4070,8 @@ namespace IceBlink2
                     }
                     */
                     
-                    
-                        drawLightAndDarkness(elapsed);
+                    //entling
+                    drawLightAndDarkness(elapsed);
                     //}
                     
                  //drawLightAndDarkness(elapsed);
@@ -4095,7 +4101,10 @@ namespace IceBlink2
                 //eva
                 //betterlight3
                 if (gv.mod.currentArea.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
-                { }
+                {
+                  //entling
+                    drawNonVisibleTilesBlack();
+                }
                 else
                 {
                     drawFogOfWar();
@@ -5047,7 +5056,23 @@ namespace IceBlink2
                                     {
                                         drawTile = false;
                                     }
+                                Coordinate partycoord = new Coordinate();
+                                Coordinate tileCoord = new Coordinate();
+                                partycoord.X = gv.mod.PlayerLocationX;
+                                partycoord.Y = gv.mod.PlayerLocationY;
+                                tileCoord.X = x;
+                                tileCoord.Y = y;
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCorner(partycoord, tileCoord))
+                                    {
+                                        drawTile = false;
+                                    }
+                                }
                             }
+                    
+
+                           
 
                                 if (drawTile)
                                 {
@@ -5381,7 +5406,8 @@ namespace IceBlink2
                                         index = i;
                                     }
                                 }
-                            }
+                            
+                        }
 
                           
                           
@@ -5678,7 +5704,8 @@ namespace IceBlink2
                             if (!situationFound)
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
+                           
+                        }
 
                             if (drawTile && tile.Layer2Filename != "t_a_blank")
                             {
@@ -5897,7 +5924,8 @@ namespace IceBlink2
                             if (!situationFound)
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
+                            
+                        }
 
                             if (drawTile && tile.Layer3Filename != "t_a_blank")
                             {
@@ -6115,7 +6143,8 @@ namespace IceBlink2
                             if (!situationFound)
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
+                          
+                        }
 
                             if (drawTile && tile.Layer4Filename != "t_a_blank")
                             {
@@ -6335,7 +6364,8 @@ namespace IceBlink2
                             if (!situationFound)
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
+                            
+                        }
 
                             if (drawTile)
                             {
@@ -6621,7 +6651,8 @@ namespace IceBlink2
                             if (!situationFound)
                             {
                                 tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
-                            }
+                            
+                        }
 
                             if (drawTile && tile.Layer5Filename != "t_a_blank")
                             {
@@ -36561,6 +36592,46 @@ namespace IceBlink2
                 }
             } 
         }
+
+        public void drawNonVisibleTilesBlack()
+        {
+            for (int i = 0; i < gv.mod.currentArea.Tiles.Count; i++)
+            {
+                Coordinate partyCoord = new Coordinate();
+                Coordinate tileCoord = new Coordinate();
+                partyCoord.X = gv.mod.PlayerLocationX;
+                partyCoord.Y = gv.mod.PlayerLocationY;
+                tileCoord.X = i / gv.mod.currentArea.MapSizeX;
+                tileCoord.Y = i % gv.mod.currentArea.MapSizeY;
+
+
+                bool excludeFromBlackTiling = false;
+                if (gv.mod.partyLightOn && gv.cc.getDistance(partyCoord, tileCoord) <= 2)
+                {
+                    //excludeFromBlackTiling = true;
+                }
+                if (!IsLineOfSightForEachCorner(partyCoord, tileCoord) && !excludeFromBlackTiling)
+                {
+
+                    int tlX = (tileCoord.X - gv.mod.PlayerLocationX + gv.playerOffsetX) * (int)gv.squareSize;
+                    int tlY = (tileCoord.Y - gv.mod.PlayerLocationY + gv.playerOffsetY) * (int)gv.squareSize;
+                    //float scalerX = tile.tileBitmap0.PixelSize.Width / 100;
+                    //float scalerY = tile.tileBitmap0.PixelSize.Height / 100;
+                    //the tiles0 arrive as 50x50px but we want to have them 100% square size, therefore scaler to 1, ie 100%
+                    float scalerX = 1.0f;
+                    float scalerY = 1.0f;
+                    int brX = gv.squareSize;
+                    int brY = gv.squareSize;
+                    IbRect src = new IbRect(0, 0, 100, 100);
+                    //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                    //IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels - (int)(brX * 0.1f), tlY - (int)(brY * 0.1f), (int)(brX * 1.2f), (int)(brY * 1.2f));
+
+                    IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                    gv.DrawBitmap(gv.cc.black_tile, src, dst, false, 1.0f);
+                }
+            }
+        }
+
         public void drawFogOfWar()
         {
             #region new system
@@ -36988,6 +37059,8 @@ namespace IceBlink2
                                     }
                                 }
 
+
+
                                 //code for math grid fade, ie diferent fade speeds for fading tiles
                                 else if ((tile.Visible == true) && ( (tile.opacity > 0) ) && (gv.mod.useMathGridFade) )
                                 {
@@ -37188,6 +37261,7 @@ namespace IceBlink2
                                     tile.opacity = tile.opacity - 0.07f;
                                 }
 
+                              
                                 //else if (tile.Visible == false)
                                 //{
                                 //gv.DrawBitmap(gv.cc.black_tile2, src, dst, false, 1.0f, false);
@@ -38085,7 +38159,11 @@ namespace IceBlink2
 
                         if ((gv.mod.PlayerLocationX == x) && (gv.mod.PlayerLocationY == y))
                             {
+                            //osterhase2
+                            if (gv.mod.partyLightOn)
+                            {
                                 continue;
+                            }
                             }
                             bool situationFound = false;
                             bool drawTile = true;
@@ -38969,7 +39047,8 @@ namespace IceBlink2
                                         {
                                             //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
 
-                                            //continue;
+                                        //osterhase    
+                                        //continue;
                                         }
                                     }
                                     //color of light source
@@ -39152,11 +39231,16 @@ namespace IceBlink2
 
                                     //blackmaker
                                     //if ((!tile.Visible) && (gv.mod.fogOfWarOpacity == 1.0f))
-                                    if ((!tile.Visible) && (gv.mod.fogOfWarOpacity >= 0.7f))
+                                    //hasi1
+                                    if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
                                     {
-                                        //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
-                                        
-                                        gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                        if ((!tile.Visible) && (gv.mod.fogOfWarOpacity >= 0.7f))
+                                        {
+                                            //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
+
+                                            gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                            //gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                        }
                                     }
                                 }
 
@@ -39167,7 +39251,8 @@ namespace IceBlink2
                                         if (gv.mod.simpleLightTiles.Contains(tile))
                                         {
                                             //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false,  0.675f * 2.5f * flicker / 100f);
-
+                                            
+                                            //osterhase
                                             //continue;
                                         }
                                     }
@@ -39184,9 +39269,13 @@ namespace IceBlink2
                                         }
                                     //to DO XXX
                                     //betterlight2 done
-                                    if (gv.mod.currentArea.UseDayNightCycle && tile.Visible)
-                                    //if (gv.mod.currentArea.UseDayNightCycle)
-                                    {
+                                    
+                                    //hasi3
+                                    //if (gv.mod.currentArea.UseDayNightCycle && tile.Visible)
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+
+                                        //if (gv.mod.currentArea.UseDayNightCycle)
+                                        {
                                         /*
                                         //entführt
                                         if (gv.mod.blendOutTooHighAndTooDeepTiles)
@@ -39378,7 +39467,8 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                                     //dark area
                                     //connect to area is dark?
-                                                                        
+                                              
+                                    //osterhase3 nothing changed
                                     else if (tile.Visible)
                                     //else
                                     {
@@ -39516,16 +39606,19 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, (int)(brX * scaler), (int)(brY * scaler));
                                         //blackmaker
                                         //if (gv.mod.fogOfWarOpacity == 1.0f) 
-                                        if (gv.mod.fogOfWarOpacity >= 0.7f)
+                                        if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
                                         {
-                                            if (tile.tileLightSourceTag.Contains("party") || (gv.mod.partyLightOn && tile.isLit.Count == 0))
+                                            if (gv.mod.fogOfWarOpacity >= 0.7f)
                                             {
-                                                gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                if (tile.tileLightSourceTag.Contains("party") || (gv.mod.partyLightOn && tile.isLit.Count == 0))
+                                                {
+                                                    gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
 
+                                                }
                                             }
                                         }
                                     }
@@ -39540,7 +39633,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         {
                                             //gv.DrawBitmap(gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
 
-                                            //continue;
+                                        //osterhase    
+                                        //continue;
                                         }
                                     }
                                     if (x == 19 && y == 5)
@@ -39559,7 +39653,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                             extraDarkness = 1.5f;
                                         }
                                     }
-                                    if (gv.mod.currentArea.UseDayNightCycle && tile.Visible)
+
+                                    //hasi3
+                                    //if (gv.mod.currentArea.UseDayNightCycle && tile.Visible)
+                                    if (gv.mod.currentArea.UseDayNightCycle)
+                                        //if (gv.mod.currentArea.UseDayNightCycle && tile.Visible)
                                     {
                                         int dawn = 5 * 60;
                                         int sunrise = 6 * 60;
@@ -40565,16 +40663,19 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
                                         //blackmaker
                                         //if (gv.mod.fogOfWarOpacity == 1.0f)
-                                        if (gv.mod.fogOfWarOpacity >= 0.7f)
+                                        if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
                                         {
-                                            //doubt
-                                            if (tile.tileLightSourceTag.Contains("party") || (gv.mod.partyLightOn && tile.isLit.Count == 0))
+                                            if (gv.mod.fogOfWarOpacity >= 0.7f)
                                             {
-                                                gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                            }
-                                            else
-                                            {
-                                                gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                //doubt
+                                                if (tile.tileLightSourceTag.Contains("party") || (gv.mod.partyLightOn && tile.isLit.Count == 0))
+                                                {
+                                                    gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                }
+                                                else
+                                                {
+                                                    gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                }
                                             }
                                         }
                                     }
@@ -40608,7 +40709,9 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 if (tile.distanceToParty > 3 || !gv.mod.partyLightOn || (gv.mod.useSimpleLight && gv.mod.simpleLightTiles.Contains(tile)))
                                                 {
                                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
+                                                    //gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                 }
+                                                //spulcher
                                                 //telefon
                                                 //the party light
                                                 else
@@ -40635,6 +40738,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     */
                                                     if (inRundirection)
                                                     {
+                                                        //osterhase
                                                         //if (!gv.mod.useSimpleLight)
                                                         {
                                                             gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
@@ -40643,8 +40747,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     }
                                                     else
                                                     {
+                                                        //osterhase
                                                         //if (!gv.mod.useSimpleLight)
                                                         {
+
+                                                            //milbi
                                                             gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                         }
 
@@ -40656,7 +40763,9 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         //if there is one, add the drawbitmap call for immediate blackout
 
                                                         bool blockerFound = false;
-                                                       
+
+                                                        ////////////XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                        
                                                         if (gv.mod.PlayerLocationX > 1 && gv.mod.PlayerLocationY > 1 && gv.mod.PlayerLocationY < gv.mod.currentArea.MapSizeY - 2 && gv.mod.PlayerLocationX < gv.mod.currentArea.MapSizeX - 2)
                                                         {
                                                             #region north
@@ -40691,20 +40800,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                                     //new is current pary pos
                                                                     //ols isone back opposite of scroll direction
                                                                     //tile is plain x,y
-                                                                    /*
-                                                                    if (tile.distanceToParty == 2)
-                                                                    {
-                                                                        if (gv.mod.scrollingDirection == "right")
-                                                                        {
-
-                                                                        }
-
-                                                                        if (gv.mod.scrollingDirection == "left")
-                                                                        {
-
-                                                                        }
-                                                                    }
-                                                                    */
+                                                          
 
 
                                                                         
@@ -41675,140 +41771,28 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                                                             #endregion
                                                         }
-                                                        //////////////////////////////////////////777
+
+                                                        //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+
+                                                        //Coordinate partyCoord = new Coordinate();
+                                                        //Coordinate tileCoor
                                                         /*
-                                                        //tile south of party
-                                                        if (y < gv.mod.currentArea.MapSizeY)
+                                                        if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                                         {
-                                                            if (y > gv.mod.PlayerLocationY && x == gv.mod.PlayerLocationX)
-                                                            {
-                                                                if (tile.distanceToParty == 3)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + x].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                    if (y > gv.mod.PlayerLocationY+1)
-                                                                    {
-                                                                        if (gv.mod.currentArea.Tiles[(y - 2) * gv.mod.currentArea.MapSizeX + x].LoSBlocked)
-                                                                        {
-                                                                            blockerFound = true;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                if (tile.distanceToParty == 2)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y - 1) * gv.mod.currentArea.MapSizeX + x].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-
-                                                        //west of party
-                                                        //only on this map so far
-                                                        if (x >= 0)
-                                                        {
-                                                            if (x < gv.mod.PlayerLocationX && y == gv.mod.PlayerLocationY)
-                                                            {
-                                                                if (tile.distanceToParty == 3)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x+1].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                    if (x < gv.mod.PlayerLocationX-1)
-                                                                    {
-                                                                        if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x + 2].LoSBlocked)
-                                                                        {
-                                                                            blockerFound = true;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                if (tile.distanceToParty == 2)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x+1].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-
-                                                        //east of party
-                                                        //only on this map so far
-                                                        if (x < gv.mod.currentArea.MapSizeX)
-                                                        {
-                                                            if (x > gv.mod.PlayerLocationX && y == gv.mod.PlayerLocationY)
-                                                            {
-                                                                if (tile.distanceToParty == 3)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x - 1].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                    if (x > gv.mod.PlayerLocationX+1)
-                                                                    {
-                                                                        if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x - 2].LoSBlocked)
-                                                                        {
-                                                                            blockerFound = true;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                                if (tile.distanceToParty == 2)
-                                                                {
-                                                                    if (gv.mod.currentArea.Tiles[(y) * gv.mod.currentArea.MapSizeX + x - 1].LoSBlocked)
-                                                                    {
-                                                                        blockerFound = true;
-                                                                    }
-                                                                }
-                                                            }
+                                                            blockerFound = true;
                                                         }
                                                         */
-                                                        ////////////////////////////////////////////77
-
+                                                        //blockerFound = true;
                                                         if (blockerFound)
                                                         {
                                                             gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
                                                         }
-                                                        /////////////////////////////////////////////////////////
-
-                                                        ///////////////////////////////////////////////////////////
-                                                        /*
-                                                        bool inSight = false;
-                                                        foreach (bool b in tile.isLit)
-                                                        {
-                                                            if (b)
-                                                            {
-                                                                 inSight = true;
-                                                                break;
-                                                            }
-                                                        }
-                                                        if (inSight || tile.distanceToParty != 3)
-                                                        {
-                                                            //gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                                        }
-                                                        else
-                                                        {
-                                                            gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                                            //gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                                        }
-                                                        */
-                                                        //////////////////////////////////////////////////////////////77
+                                                       
                                                      
                                                     }
                                                     
                                                 }
-                                                    //gv.DrawBitmapBL(tile, gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                                
-                                                //else
-                                                {
-                                                    //gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f);
-                                                }
+                                                 
                                             }
                                             else
                                             {
@@ -41964,6 +41948,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                 }
             }
             #endregion
+            //gv.DrawBitmapBL(tile, gv.cc.black_tile, src, dst, 0, false, 0.675f * 2.5f * flicker / 100f);
         }
 
         public void OLDdrawLightAndDarkness(float elapsed)
@@ -44707,6 +44692,8 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         }
                     }
+
+
                 }
                 #endregion
 
@@ -46554,11 +46541,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                         }
                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                         {
-                                            darkAdder = 4;
+                                            darkAdder = 0;
                                         }
                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                                         {
-                                            darkAdder = 12;
+                                            darkAdder = 6;
                                         }
 
                                         //factor in lit state and tile stealtModifier
@@ -46615,11 +46602,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                             }
                                             if (gv.sf.CheckIsInDarkness("party", "night"))
                                             {
-                                                darkAdder = 4;
+                                                darkAdder = 0;
                                             }
                                             if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                             {
-                                                darkAdder = 12;
+                                                darkAdder = 6;
                                             }
                                             Coordinate pcCoord = new Coordinate();
                                             Coordinate propCoord = new Coordinate();
@@ -46660,11 +46647,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                             }
                                             if (gv.sf.CheckIsInDarkness("party", "night"))
                                             {
-                                                darkAdder = 4;
+                                                darkAdder = 0;
                                             }
                                             if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                             {
-                                                darkAdder = 12;
+                                                darkAdder = 6;
                                             }
                                             checkModifier = -4 + darkAdder + tileAdder;
                                         }
@@ -47193,11 +47180,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
 
                                                 //factor in lit state and tile stealtModifier
@@ -47244,11 +47231,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     }
                                                     if (gv.sf.CheckIsInDarkness("party", "night"))
                                                     {
-                                                        darkAdder = 4;
+                                                        darkAdder = 0;
                                                     }
                                                     if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                                     {
-                                                        darkAdder = 12;
+                                                        darkAdder = 6;
                                                     }
                                                     Coordinate pcCoord = new Coordinate();
                                                     Coordinate propCoord = new Coordinate();
@@ -47289,11 +47276,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                     }
                                                     if (gv.sf.CheckIsInDarkness("party", "night"))
                                                     {
-                                                        darkAdder = 4;
+                                                        darkAdder = 0;
                                                     }
                                                     if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                                     {
-                                                        darkAdder = 12;
+                                                        darkAdder = 6;
                                                     }
                                                     checkModifier = -4 + darkAdder + tileAdder;
                                                 }
@@ -48245,11 +48232,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48259,11 +48246,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY - a.MapSizeY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48273,11 +48260,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY - a.MapSizeY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48287,11 +48274,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48301,11 +48288,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48315,11 +48302,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48329,11 +48316,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48343,11 +48330,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48357,11 +48344,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                         propCoord.Y = p.LocationY - a.MapSizeY; ;
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                         {
-                                                            darkAdder = 4;
+                                                            darkAdder = 0;
                                                         }
                                                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                         {
-                                                            darkAdder = 12;
+                                                            darkAdder = 6;
                                                         }
                                                     }
 
@@ -48489,7 +48476,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                                 }
-                                                                else if (darkAdder == 12)
+                                                                else if (darkAdder == 6)
                                                                 {
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -48531,7 +48518,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                                 }
-                                                                else if (darkAdder == 12)
+                                                                else if (darkAdder == 6)
                                                                 {
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -48597,7 +48584,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                                 }
-                                                                else if (darkAdder == 12)
+                                                                else if (darkAdder == 6)
                                                                 {
                                                                     gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                                     gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -52010,11 +51997,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52024,11 +52011,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY - a.MapSizeY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52038,11 +52025,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY - a.MapSizeY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52052,11 +52039,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52066,11 +52053,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52080,11 +52067,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52094,11 +52081,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = gv.mod.currentArea.MapSizeY + p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52108,11 +52095,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52122,11 +52109,11 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                 propCoord.Y = p.LocationY - a.MapSizeY; ;
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                                 {
-                                                    darkAdder = 4;
+                                                    darkAdder = 0;
                                                 }
                                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                                 {
-                                                    darkAdder = 12;
+                                                    darkAdder = 6;
                                                 }
                                             }
 
@@ -52257,7 +52244,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                         }
-                                                        else if (darkAdder == 12)
+                                                        else if (darkAdder == 6)
                                                         {
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.secretDoorDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -52300,7 +52287,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                         }
-                                                        else if (darkAdder == 12)
+                                                        else if (darkAdder == 6)
                                                         {
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.trapDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -52368,7 +52355,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+4 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
                                                         }
-                                                        else if (darkAdder == 12)
+                                                        else if (darkAdder == 6)
                                                         {
                                                             gv.screenMainMap.addFloatyText(x3, y3, "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                                             gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.infoDC + darkAdder - 10).ToString() + " required (+12 for poor visibility), " + gv.mod.playerList[gv.mod.selectedPartyLeader].name + " loses " + gv.mod.activeSearchSPCost + " SP");
@@ -53152,11 +53139,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -53173,7 +53160,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -53233,11 +53220,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -53254,7 +53241,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -53621,11 +53608,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -53642,7 +53629,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -53702,11 +53689,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(gv.sf.ThisProp.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -53723,7 +53710,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -54108,11 +54095,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -54129,7 +54116,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -54189,11 +54176,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -54210,7 +54197,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -54577,11 +54564,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -54598,7 +54585,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -54658,11 +54645,11 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
 
                         //skill check and messages
@@ -54679,7 +54666,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+4 for poor visibility)");
                             }
-                            else if (darkAdder == 12)
+                            else if (darkAdder == 6)
                             {
                                 gv.screenMainMap.addFloatyText(p.LocationX, p.LocationY, "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)", "red", 2000);
                                 gv.cc.addLogText("red", "Failure: " + traitName + " level " + (p.climbDC + darkAdder - 10).ToString() + " required (+12 for poor visibility)");
@@ -57345,6 +57332,8 @@ if (tile.tileLightSourceTag.Contains("party"))
             Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
             //check center of all four sides of the end square
             int halfSquare = (gv.squareSize / 2);
+            //center itself
+            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //left side center
             if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //right side center
@@ -57353,6 +57342,155 @@ if (tile.tileLightSourceTag.Contains("party"))
             if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
             //bottom side center
             if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+            //cats rays from the corners of the start square, too
+            Coordinate startTopLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize));
+            Coordinate startTopRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
+            Coordinate startBottomRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            Coordinate startBottomLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+
+            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+
+            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+
+            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+
+
+            return false;
+        }
+
+        public bool IsLineOfSightForEachCornerPropLight(Coordinate s, Coordinate e)
+        {
+
+            //wenn party nicht lichtquelle sieht und e/tile höher las party, return false
+
+            Coordinate partyCoord = new Coordinate();
+            partyCoord.X = gv.mod.PlayerLocationX;
+            partyCoord.Y = gv.mod.PlayerLocationY;
+
+            Tile t = new Tile();
+            t = gv.mod.currentArea.Tiles[e.Y * gv.mod.currentArea.MapSizeX + e.X];
+            int tileHeight = t.heightLevel;
+            int partyHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+            if (!IsLineOfSightForEachCorner(partyCoord, s) && tileHeight > partyHeight)
+            {
+                //gv.mod.simpleLightTiles.Add(t);
+                //for (int i = 0; i < t.isLit.Count; i++)
+                //{
+                    //t.isLit[i] = false;
+
+                //}
+                return false;
+            }
+            //entling
+            //return true;
+            
+            //start is at the center of party location square
+            int lightHeight = gv.mod.currentArea.Tiles[s.Y * gv.mod.currentArea.MapSizeX + s.X].heightLevel;
+            
+            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
+            //check center of all four sides of the end square
+            int halfSquare = (gv.squareSize / 2);
+            //center itself
+            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+            //cats rays from the corners of the start square, too
+            Coordinate startTopLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize));
+            Coordinate startTopRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
+            Coordinate startBottomRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            Coordinate startBottomLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+
+            //halfSquare = gv.squareSize;
+
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
 
             return false;
         }
@@ -57506,6 +57644,180 @@ if (tile.tileLightSourceTag.Contains("party"))
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
                         if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            return true;
+        }
+        public bool IsVisibleLineOfSightPropLight(Coordinate s, Coordinate e, Coordinate endSquare, int lightHeight)
+        {
+            // Bresenham Line algorithm
+            Coordinate start = s;
+            Coordinate end = e;
+            int deltax = Math.Abs(end.X - start.X);
+            int deltay = Math.Abs(end.Y - start.Y);
+            int ystep = 10;
+            int xstep = 10;
+            int gridx = 0;
+            int gridy = 0;
+            int gridXdelayed = s.X;
+            int gridYdelayed = s.Y;
+
+            //gv.DrawLine(end.X + gv.oXshift, end.Y + gv.oYshift, start.X + gv.oXshift, start.Y + gv.oYshift, Color.Lime, 1);
+
+            #region low angle version
+            if (deltax > deltay) //Low Angle line
+            {
+                Coordinate nextPoint = start;
+                int error = deltax / 2;
+
+                if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
+
+                if (end.X > start.X) //down and right
+                {
+                    for (int x = start.X; x <= end.X; x += xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                                //if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+
+                                {
+                                    //you are on the end square so return true
+                                    return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else //down and left
+                {
+                    for (int x = start.X; x >= end.X; x -= xstep)
+                    {
+                        nextPoint.X = x;
+                        error -= deltay;
+                        if (error < 0)
+                        {
+                            nextPoint.Y += ystep;
+                            error += deltax;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
+            #region steep version
+            else //Low Angle line
+            {
+                Coordinate nextPoint = start;
+                int error = deltay / 2;
+
+                if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
+
+                if (end.Y > start.Y) //up and right
+                {
+                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        {
+                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                            {
+                                //you are on the end square so return true
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                else //up and right
+                {
+                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    {
+                        nextPoint.Y = y;
+                        error -= deltax;
+                        if (error < 0)
+                        {
+                            nextPoint.X += xstep;
+                            error += deltay;
+                        }
+                        //do your checks here for LoS blocking
+                        gridx = nextPoint.X / gv.squareSize;
+                        gridy = nextPoint.Y / gv.squareSize;
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {

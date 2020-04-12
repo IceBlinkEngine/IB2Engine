@@ -14260,39 +14260,43 @@ namespace IceBlink2
                                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                                     src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                                     IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    effectCounter++;
-                                    if (effectCounter == 2)
+                                    if (!gv.mod.allEffectsUseFullSizeIcons && !ef.thisEffectUsesFullSizeIcon)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        effectCounter++;
+                                        if (effectCounter == 2)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 3)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 4)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 5)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 6)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 7)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 8)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 9)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
                                     }
-                                    if (effectCounter == 3)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 4)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 5)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 6)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 7)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 8)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 9)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
+
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
                                 }
@@ -14455,38 +14459,41 @@ namespace IceBlink2
                                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                                     src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                                     IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    effectCounter++;
-                                    if (effectCounter == 2)
+                                    if (!gv.mod.allEffectsUseFullSizeIcons && !ef.thisEffectUsesFullSizeIcon)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 3)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 4)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 5)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 6)
-                                    {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 7)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 8)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                                    }
-                                    if (effectCounter == 9)
-                                    {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        effectCounter++;
+                                        if (effectCounter == 2)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 3)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 4)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 5)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 6)
+                                        {
+                                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 7)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 8)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
+                                        if (effectCounter == 9)
+                                        {
+                                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        }
                                     }
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
@@ -16745,38 +16752,41 @@ namespace IceBlink2
                         Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                         src = new IbRectF(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                         IbRectF dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        effectCounter++;
-                        if (effectCounter == 2)
+                        if (!gv.mod.allEffectsUseFullSizeIcons && !ef.thisEffectUsesFullSizeIcon)
                         {
-                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 3)
-                        {
-                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 4)
-                        {
-                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 5)
-                        {
-                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 6)
-                        {
-                            dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 7)
-                        {
-                            dst2 = new IbRectF(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 8)
-                        {
-                            dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 9)
-                        {
-                            dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            effectCounter++;
+                            if (effectCounter == 2)
+                            {
+                                dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 3)
+                            {
+                                dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 4)
+                            {
+                                dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 5)
+                            {
+                                dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 6)
+                            {
+                                dst2 = new IbRectF(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 7)
+                            {
+                                dst2 = new IbRectF(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 8)
+                            {
+                                dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 9)
+                            {
+                                dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
                         }
                         gv.DrawBitmap(fx, src, dst2);
                         gv.cc.DisposeOfBitmap(ref fx);
@@ -17033,38 +17043,41 @@ namespace IceBlink2
                         Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                         src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
                         IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        effectCounter++;
-                        if (effectCounter == 2)
+                        if (!gv.mod.allEffectsUseFullSizeIcons && !ef.thisEffectUsesFullSizeIcon)
                         {
-                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 3)
-                        {
-                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 4)
-                        {
-                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 5)
-                        {
-                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 6)
-                        {
-                            dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 7)
-                        {
-                            dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 8)
-                        {
-                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
-                        }
-                        if (effectCounter == 9)
-                        {
-                            dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            effectCounter++;
+                            if (effectCounter == 2)
+                            {
+                                dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 3)
+                            {
+                                dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 4)
+                            {
+                                dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 5)
+                            {
+                                dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 6)
+                            {
+                                dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 7)
+                            {
+                                dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 8)
+                            {
+                                dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
+                            if (effectCounter == 9)
+                            {
+                                dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                            }
                         }
                         gv.DrawBitmap(fx, src, dst2);
                         gv.cc.DisposeOfBitmap(ref fx);

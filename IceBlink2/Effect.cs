@@ -13,7 +13,7 @@ namespace IceBlink2
 {
     public class Effect 
     {
-
+        public bool thisEffectUsesFullSizeIcon = false;
         public int onSquarePersistenceBonus = 0;
         public bool triggeredEachStepToo = false;
 
@@ -151,6 +151,7 @@ namespace IceBlink2
 	    public Effect DeepCopy()
 	    {
 		    Effect copy = new Effect();
+            copy.thisEffectUsesFullSizeIcon = this.thisEffectUsesFullSizeIcon;
             copy.onSquarePersistenceBonus = this.onSquarePersistenceBonus;
             copy.squareIndicatorFilename = this.squareIndicatorFilename;
             copy.durationOnSquareInUnits = this.durationOnSquareInUnits;

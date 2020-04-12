@@ -4142,7 +4142,9 @@ namespace IceBlink2
                     }
                 }
 
+                //revolution
                 gv.realTimeTimerMilliSecondsEllapsed = 0;
+                
                 //wolfwood
                 //gv.screenMainMap.updateTraitsPanel();
                 handleRationsAndLightSources();
@@ -5170,13 +5172,17 @@ namespace IceBlink2
                 //move any props that are active and only if they are not on the party location
                 //anatomy
                 doPropTriggersMovers();
-                if (!gv.mod.isBreathingWorld)
+                //revolution
+                //if (gv.mod.calledByRealTimeTimer)
                 {
-                    doPropMoves();
-                }
-                else
-                {
-                    doPropMovesNearby();
+                    if (!gv.mod.isBreathingWorld)
+                    {
+                        doPropMoves();
+                    }
+                    else
+                    {
+                        doPropMovesNearby();
+                    }
                 }
 
                 //if (gv.mod.PlayerLocationX != gv.mod.PlayerLastLocationX || gv.mod.PlayerLocationY != gv.mod.PlayerLastLocationY)
@@ -5511,11 +5517,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", gv.mod.currentArea.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", gv.mod.currentArea.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5536,11 +5542,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5561,11 +5567,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5586,11 +5592,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5611,11 +5617,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5636,11 +5642,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5661,11 +5667,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5686,11 +5692,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -5711,11 +5717,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "night", a.Filename))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckPropByTagIsInDarknessPerArea(p.PropTag, "noLight", a.Filename))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                             }
 
@@ -6867,6 +6873,7 @@ namespace IceBlink2
 
                 foreach (Prop p in gv.mod.moduleAreasObjects[relevantIndices[h]].Props)
                 {//3
+                    //bool coontinuePropLoop = false;
                     if (p.isLight)
                     {
                         Coordinate pCoord3 = new Coordinate();
@@ -6875,14 +6882,35 @@ namespace IceBlink2
                         Coordinate partycoord = new Coordinate();
                         partycoord.X = gv.mod.PlayerLocationX;
                         partycoord.Y = gv.mod.PlayerLocationY;
-                        if (!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
+
+                        if (pCoord3.X == 0 && pCoord3.Y == 3)
                         {
-                            if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                            int ghgj = 0;
+                        }
+
+                        //if ((!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord) && gv.mod.currentArea.Tiles[pCoord3.Y * gv.mod.currentArea.MapSizeX + pCoord3.X].heightLevel <= gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
+                        p.isVisibleAsLight = false;
+                        if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                        {
+                            if (gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
                             {
                                 continue;
                             }
+                            if (!gv.screenMainMap.IsLineOfSightForEachCorner(partycoord, pCoord3) || !gv.mod.currentArea.Props.Contains(p))
+                            {
+                                //hack
+                                //continue;
+                            }
+                            else
+                            {
+                                p.isVisibleAsLight = true;
+                            }
                         }
-
+                        else
+                        {
+                            p.isVisibleAsLight = true;
+                        }
+                       
                             //hurgh27
                             //List<Tile> tilesOfThisLightSource = new List<Tile>();
                             tilesOfThisLightSource.Clear();
@@ -6910,6 +6938,21 @@ namespace IceBlink2
                         {
                             for (int yy = minY2; yy <= maxY2; yy++)
                             {
+                                //todo: does this work from here, too?
+
+                                //add check whetehr tiel itself is visible or prop light tiel itself
+                                /*
+                                if ((!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord) && gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel <= gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
+                                {
+                                    if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                    {
+                                        continue;
+                                    }
+                                }
+                                */
+                              
+                               
+
                                 //YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
                                 bool situationFound = false;
                                 bool drawTile = true;
@@ -7308,23 +7351,44 @@ namespace IceBlink2
                                     Coordinate propSquare = new Coordinate(p.LocationX, p.LocationY);
                                     if ((xx >= 0) && (yy >= 0) && (xx <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX - 1) && (yy <= gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeY - 1))
                                     {
-                                        addedTileToListAlready = true;
-                                        //ubierring
-                                        tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx]);
-                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].tileLightSourceTag.Add(p.PropTag);
-                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
-                                        gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceRingHaloIntensity.Add(p.ringIntensity);
+                                        ///////////////////////////////////////////
 
-                                        //note: this also added the focal point
+                                        //if ((!gv.screenMainMap.IsLineOfSightForEachCorner(pCoord3, partycoord) && gv.mod.currentArea.Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].heightLevel <= gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
+                                        //Coordinate tCoord = new Coordinate();
+                                        //tCoord.X = xx;
+                                        //tCoord.Y = yy;
 
-                                        if (getDistance(illuSquare, propSquare) <= 1)
+                                        //if ((!gv.screenMainMap.IsLineOfSightForEachCorner(tCoord, partycoord) && gv.mod.currentArea.Tiles[tCoord.Y * gv.mod.currentArea.MapSizeX + tCoord.X].heightLevel <= gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel) || gv.mod.moduleAreasObjects[relevantIndices[h]] != gv.mod.currentArea)
+                                        //{
+                                            //if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                            //{
+                                                //coontinuePropLoop = true;
+                                                //continue;
+                                            //}
+                                        //}
+                                        ///////////////////////////////////////777
+                                        //if (!coontinuePropLoop)
                                         {
-                                            gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isCentreOfLightCircle = true;
-                                            //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
-                                        }
-                                        else
-                                        {
-                                            gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isOtherPartOfLightCircle = true;
+                                            addedTileToListAlready = true;
+                                            //ubierring
+                                            tilesOfThisLightSource.Add(gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx]);
+                                            gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].tileLightSourceTag.Add(p.PropTag);
+                                            gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceFocalHaloIntensity.Add(p.focalIntensity);
+                                            gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].lightSourceRingHaloIntensity.Add(p.ringIntensity);
+
+                                            //note: this also added the focal point
+
+                                            if (getDistance(illuSquare, propSquare) <= 1)
+                                            {
+                                                gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isCentreOfLightCircle = true;
+                                                //mod.currentArea.Tiles[yy * mod.currentArea.MapSizeX + xx].Visible = true;
+                                            }
+                                            else
+                                            {
+                                                gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[yy * gv.mod.moduleAreasObjects[relevantIndices[h]].MapSizeX + xx].isOtherPartOfLightCircle = true;
+                                            }
+                                            gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].visibiltyPosX = xx;
+                                            gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].visibiltyPosY = yy;
                                         }
                                     }
                                 }
@@ -7339,6 +7403,10 @@ namespace IceBlink2
                             }
                         }
 
+                        //if (coontinuePropLoop)
+                        //{
+                            //continue;
+                        //}
                         //current prop position is centre of light
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isOtherPartOfLightCircle = false;
                         gv.mod.moduleAreasObjects[relevantIndices[h]].Tiles[p.LocationY * gv.mod.currentArea.MapSizeX + p.LocationX].isCentreOfLightCircle = false;
@@ -7368,9 +7436,36 @@ namespace IceBlink2
                         //ubierring
                         for (int tCount = 0; tCount <= 24; tCount++)
                         {
+
+                            //if (tilesOfThisLightSource[tCount])
+                            Coordinate tileCoord = new Coordinate();
+                            tileCoord.X = tilesOfThisLightSource[tCount].visibiltyPosX;
+                            tileCoord.Y = tilesOfThisLightSource[tCount].visibiltyPosY;
+
+                            //hack
+                            //tileCoord = partycoord;
+                            //partycoord = tileCoord;
+                            partycoord = propCoord;
                             if (tCount == 0)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N0");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(1);
+                                        continue;
+                                    }
+                                }
+
+
                                 if (!tilesOfThisLightSource[6].LoSBlocked)
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7378,6 +7473,7 @@ namespace IceBlink2
                                 }
                                 else
                                 {
+                                    //entling2
                                     tilesOfThisLightSource[tCount].isLit.Add(false);
                                     tilesOfThisLightSource[tCount].priority.Add(0);
                                 }
@@ -7386,6 +7482,21 @@ namespace IceBlink2
                             else if (tCount == 5)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N1");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7401,6 +7512,21 @@ namespace IceBlink2
                             else if (tCount == 10)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N2");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(3);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[11].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7416,6 +7542,21 @@ namespace IceBlink2
                             else if (tCount == 15)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N3");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[11].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7431,6 +7572,21 @@ namespace IceBlink2
                             else if (tCount == 20)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N4");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(1);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[16].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7446,6 +7602,21 @@ namespace IceBlink2
                             else if (tCount == 21)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E1");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[16].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7461,6 +7632,21 @@ namespace IceBlink2
                             else if (tCount == 22)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E2");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(3);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[17].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7476,6 +7662,21 @@ namespace IceBlink2
                             else if (tCount == 23)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E3");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[17].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7491,6 +7692,21 @@ namespace IceBlink2
                             else if (tCount == 24)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S4");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(1);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[18].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7506,6 +7722,21 @@ namespace IceBlink2
                             else if (tCount == 19)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S3");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[18].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7521,6 +7752,21 @@ namespace IceBlink2
                             else if (tCount == 14)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S2");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(3);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[13].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7536,6 +7782,21 @@ namespace IceBlink2
                             else if (tCount == 9)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S1");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[13].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7551,6 +7812,21 @@ namespace IceBlink2
                             else if (tCount == 4)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S0");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(1);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[8].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7566,6 +7842,21 @@ namespace IceBlink2
                             else if (tCount == 3)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W3");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[8].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7581,6 +7872,21 @@ namespace IceBlink2
                             else if (tCount == 2)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W2");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(3);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[7].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7596,6 +7902,21 @@ namespace IceBlink2
                             else if (tCount == 1)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W1");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(2);
+                                        continue;
+                                    }
+                                }
                                 if ((!tilesOfThisLightSource[6].LoSBlocked) && (!tilesOfThisLightSource[7].LoSBlocked))
                                 {
                                     tilesOfThisLightSource[tCount].isLit.Add(true);
@@ -7611,6 +7932,21 @@ namespace IceBlink2
                             else if (tCount == 6)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NW");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(4);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(4);
                                 continue;
@@ -7618,6 +7954,21 @@ namespace IceBlink2
                             else if (tCount == 11)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("N");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(5);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(5);
                                 continue;
@@ -7625,6 +7976,21 @@ namespace IceBlink2
                             else if (tCount == 16)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("NE");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(4);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(4);
                                 continue;
@@ -7632,6 +7998,21 @@ namespace IceBlink2
                             else if (tCount == 17)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("E");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(5);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(5);
                                 continue;
@@ -7639,6 +8020,21 @@ namespace IceBlink2
                             else if (tCount == 18)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SE");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(4);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(4);
                                 continue;
@@ -7646,6 +8042,21 @@ namespace IceBlink2
                             else if (tCount == 13)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("S");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(5);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(5);
                                 continue;
@@ -7653,6 +8064,21 @@ namespace IceBlink2
                             else if (tCount == 8)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("SW");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(4);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(4);
                                 continue;
@@ -7660,6 +8086,21 @@ namespace IceBlink2
                             else if (tCount == 7)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("W");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(5);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(5);
                                 continue;
@@ -7667,6 +8108,21 @@ namespace IceBlink2
                             else if (tCount == 12)
                             {
                                 tilesOfThisLightSource[tCount].tilePositionInLitArea.Add("Center");
+                                if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                {
+                                    if (!gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partycoord, tileCoord))
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(false);
+                                        tilesOfThisLightSource[tCount].priority.Add(0);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        tilesOfThisLightSource[tCount].isLit.Add(true);
+                                        tilesOfThisLightSource[tCount].priority.Add(6);
+                                        continue;
+                                    }
+                                }
                                 tilesOfThisLightSource[tCount].isLit.Add(true);
                                 tilesOfThisLightSource[tCount].priority.Add(6);
                                 continue;
@@ -8087,6 +8543,9 @@ namespace IceBlink2
                             tilesOfThisLightSource.Add(gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx]);
                             gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].tileLightSourceTag.Add("party");
                             addedTileToListAlready = true;
+                            //gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].visibiltyPosX = xx;
+                            //gv.mod.currentArea.Tiles[yy * gv.mod.currentArea.MapSizeX + xx].visibiltyPosY = yy;
+
                         }
 
                         //placebo catch
@@ -8097,6 +8556,8 @@ namespace IceBlink2
                             Tile placeboTile = new Tile();
                             tilesOfThisLightSource.Add(placeboTile);
                         }
+
+                       
                     }
                 }
 
@@ -10547,11 +11008,11 @@ namespace IceBlink2
 
                                 if (gv.sf.CheckIsInDarkness("party", "night"))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                                 Coordinate pcCoord = new Coordinate();
                                 Coordinate propCoord = new Coordinate();
@@ -11802,11 +12263,11 @@ namespace IceBlink2
                                 }
                                 if (gv.sf.CheckIsInDarkness("party", "night"))
                                 {
-                                    darkAdder = 4;
+                                    darkAdder = 0;
                                 }
                                 if (gv.sf.CheckIsInDarkness("party", "noLight"))
                                 {
-                                    darkAdder = 12;
+                                    darkAdder = 6;
                                 }
                                 Coordinate pcCoord = new Coordinate();
                                 Coordinate propCoord = new Coordinate();
@@ -14956,11 +15417,11 @@ namespace IceBlink2
                         }
                         if (gv.sf.CheckIsInDarkness("party", "night"))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckIsInDarkness("party", "noLight"))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
                         Coordinate pcCoord = new Coordinate();
                         Coordinate propCoord = new Coordinate();
@@ -15345,11 +15806,11 @@ namespace IceBlink2
                             }
                             if (gv.sf.CheckIsInDarkness("party", "night"))
                             {
-                                darkAdder = 4;
+                                darkAdder = 0;
                             }
                             if (gv.sf.CheckIsInDarkness("party", "noLight"))
                             {
-                                darkAdder = 12;
+                                darkAdder = 6;
                             }
                             Coordinate pcCoord = new Coordinate();
                             Coordinate propCoord = new Coordinate();
@@ -16781,11 +17242,11 @@ namespace IceBlink2
                         }
                         if (gv.sf.CheckIsInDarkness("party", "night"))
                         {
-                            darkAdder = 4;
+                            darkAdder = 0;
                         }
                         if (gv.sf.CheckIsInDarkness("party", "noLight"))
                         {
-                            darkAdder = 12;
+                            darkAdder = 6;
                         }
                         Coordinate pcCoord = new Coordinate();
                         Coordinate propCoord = new Coordinate();
@@ -18617,11 +19078,11 @@ namespace IceBlink2
                     }
                     if (gv.sf.CheckIsInDarkness("party", "night"))
                     {
-                        darkAdder = 4;
+                        darkAdder = 0;
                     }
                     if (gv.sf.CheckIsInDarkness("party", "noLight"))
                     {
-                        darkAdder = 12;
+                        darkAdder = 6;
                     }
                     Coordinate pcCoord = new Coordinate();
                     Coordinate propCoord = new Coordinate();

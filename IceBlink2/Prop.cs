@@ -343,6 +343,7 @@ namespace IceBlink2
         public int lastLocationZ = 0;
         public string ImageFileName = "blank";
         public bool isLight = false;
+        public bool isVisibleAsLight = false;
         //[JsonIgnore]
 	    public bool PropFacingLeft = true;
 	    public string MouseOverText = "none";

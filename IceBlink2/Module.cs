@@ -17,6 +17,9 @@ namespace IceBlink2
         //public int xScroll = 0;
         //public int yScroll = 0;
 
+        public bool allEffectsUseFullSizeIcons = false;
+
+
         public List<Tile> simpleLightTiles = new List<Tile>(); 
         public bool useSimpleLight = false;
 
@@ -272,8 +275,8 @@ namespace IceBlink2
 
         public int poorVisionModifier = 0;
 
-        public int nightFightModifier = -4;
-        public int darkFightModifier = -8; 
+        public int nightFightModifier = 0;
+        public int darkFightModifier = -6; 
 
         public bool alreadyDeleted = false; 
 
