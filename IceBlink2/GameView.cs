@@ -177,6 +177,8 @@ namespace IceBlink2
         public Timer a2Timer = new Timer();
         public Timer combatScrollTimer = new Timer();
         public Timer combatScrollTimerY = new Timer();
+        //public float screenRatioX = 0;
+        //public float screenRatioY = 0;
 
         public GameView()
         {
@@ -236,7 +238,11 @@ namespace IceBlink2
             catch (Exception ex) { errorLog(ex.ToString()); }
 
             //this is the standard way, comment out the next 3 lines if manually forcing a screen resolution for testing UI layouts
+
+            //projektvoll, org restored
+            //this.IsFullscreen = true;
             this.WindowState = FormWindowState.Maximized;
+
             this.Width = Screen.PrimaryScreen.Bounds.Width;
             this.Height = Screen.PrimaryScreen.Bounds.Height;
             
@@ -274,7 +280,11 @@ namespace IceBlink2
             //better for working with half fractions of it (two half ints always form a complete whole)
             //squareSize = 2 * (int)(squareSize / 2f);
             screenDensity = (float)squareSize / (float)squareSizeInPixels;
-            oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
+            
+
+        //projektvoll
+        //oXshift = (screenWidth - (squareSize * squaresInWidth)) / 2;
+        oXshift = 0;
 
             pS = squareSize / 10; //used for small UI and text location adjustments based on squaresize for consistent look on all devices/screen resolutions
 
@@ -2171,6 +2181,7 @@ namespace IceBlink2
 
                 squaresInHeight = screenHeight/squareSize;
                 squaresInWidth = screenWidth / squareSize;
+                
                 double rawOffsetX = squaresInWidth / 2;
                 double rawOffsetY = squaresInHeight / 2;
                 double rawOffset = squaresInHeight / 2 - 1;
@@ -2926,7 +2937,11 @@ namespace IceBlink2
                     ModeDescription =
                         new ModeDescription(this.Width, this.Height,
                                             new Rational(60, 1), Format.R8G8B8A8_UNorm),
+                    //projektvoll, org restored
                     IsWindowed = true,
+                    //IsWindowed = false,
+
+
                     OutputHandle = this.Handle,
                     SampleDescription = new SampleDescription(1, 0),
                     SwapEffect = SwapEffect.Discard,

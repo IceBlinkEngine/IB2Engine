@@ -53,13 +53,42 @@ namespace IceBlink2
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+
+            float xMod = (gv.screenWidth / 1920f);
+            float yMod = (gv.screenHeight / 1080f);
+
+            int spacing = 0;
+            if (this.tag == "port0")
+            {
+                spacing = (int)(7f * yMod);
+            }
+            if (this.tag == "port1")
+            {
+                spacing = (int)(14f * yMod);
+            }
+            if (this.tag == "port2")
+            {
+                spacing = (int)(21f * yMod);
+            }
+            if (this.tag == "port3")
+            {
+                spacing = (int)(28f * yMod);
+            }
+            if (this.tag == "port4")
+            {
+                spacing = (int)(35f * yMod);
+            }
+            if (this.tag == "port5")
+            {
+                spacing = (int)(42f * yMod);
+            }
             if (show)
             {
                 glowOn = false;
 
-                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
+                if ((x >= (int)((parentPanel.currentLocX + X) * xMod)) && (x <= (int)((parentPanel.currentLocX + X + Width) * xMod)))
                 {
-                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod) + spacing) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod) + spacing))
                     {
                         if (!playedHoverSound)
                         {
@@ -77,11 +106,41 @@ namespace IceBlink2
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            float xMod = (gv.screenWidth / 1920f);
+            float yMod = (gv.screenHeight / 1080f);
+          
+
+            int spacing = 0;
+            if (this.tag == "port0")
+            {
+                spacing = (int)(7f * yMod);
+            }
+            if (this.tag == "port1")
+            {
+                spacing = (int)(14f * yMod);
+            }
+            if (this.tag == "port2")
+            {
+                spacing = (int)(21f * yMod);
+            }
+            if (this.tag == "port3")
+            {
+                spacing = (int)(28f * yMod);
+            }
+            if (this.tag == "port4")
+            {
+                spacing = (int)(35f * yMod);
+            }
+            if (this.tag == "port5")
+            {
+                spacing = (int)(42f * yMod);
+            }
+
             if (show)
             {
-                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
+                if ((x >= (int)((parentPanel.currentLocX + X) * xMod)) && (x <= (int)((parentPanel.currentLocX + X + Width) * xMod)))
                 {
-                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod) + spacing) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod) + spacing))
                     {
                         if (!playedHoverSound)
                         {
@@ -100,6 +159,36 @@ namespace IceBlink2
         {
             if (show)
             {
+                float xMod = (gv.screenWidth / 1920f);
+                float yMod = (gv.screenHeight / 1080f);
+
+                int spacing = 0;
+                if (this.tag == "port0")
+                {
+                    spacing = (int)(7f * yMod);
+                }
+                if (this.tag == "port1")
+                {
+                    spacing = (int)(14f * yMod);
+                }
+                if (this.tag == "port2")
+                {
+                    spacing = (int)(21f * yMod);
+                }
+                if (this.tag == "port3")
+                {
+                    spacing = (int)(28f * yMod);
+                }
+                if (this.tag == "port4")
+                {
+                    spacing = (int)(35f * yMod);
+                }
+                if (this.tag == "port5")
+                {
+                    spacing = (int)(42f * yMod);
+                }
+               
+
                 //this.tag
                 int pH = (int)((float)gv.screenHeight / 200.0f);
                 int pW = (int)((float)gv.screenHeight / 200.0f);
@@ -109,15 +198,19 @@ namespace IceBlink2
 
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height);
                 IbRect srcBG = new IbRect(0, 0, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Width, gv.cc.GetFromBitmapList(ImgBGFilename).PixelSize.Height);
-                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
-                IbRect dstBG = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(3 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(3 * gv.screenDensity),
+                //IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * xMod), (int)((parentPanel.currentLocY + this.Y) * yMod + spacing), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                
+                IbRect dstBG = new IbRect((int)((parentPanel.currentLocX + this.X) * xMod) - (int)(3 * xMod),
+                                            (int)((parentPanel.currentLocY + this.Y) * yMod) - (int)(3 * yMod) + spacing,
                                             (int)((float)Width * gv.screenDensity) + (int)(6 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(6 * gv.screenDensity));
+                                            
+
 
                 IbRect srcGlow = new IbRect(0, 0, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Width, gv.cc.GetFromBitmapList(GlowFilename).PixelSize.Height);
-                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(7 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(7 * gv.screenDensity),
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * xMod) - (int)(7 * xMod),
+                                            (int)((parentPanel.currentLocY + this.Y) * yMod) - (int)(7 * yMod) + spacing,
                                             (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
 
@@ -144,8 +237,8 @@ namespace IceBlink2
                 if (gv.mod.useUIBackground)
                 {
                     IbRect srcFrame = new IbRect(0, 0, gv.cc.ui_portrait_frame.PixelSize.Width, gv.cc.ui_portrait_frame.PixelSize.Height);
-                    IbRect dstFrame = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(5 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(5 * gv.screenDensity),
+                    IbRect dstFrame = new IbRect((int)((parentPanel.currentLocX + this.X) * xMod) - (int)(5 * xMod),
+                                            (int)((parentPanel.currentLocY + this.Y) * yMod) - (int)(5 * yMod) + spacing,
                                             (int)((float)Width * gv.screenDensity) + (int)(10 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(10 * gv.screenDensity));
                     gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame, -0.01f, false, 1.0f, true);
@@ -169,7 +262,7 @@ namespace IceBlink2
                 //int ulX = ((int)(this.Width) / 2) - ((int)stringSize / 2);
                 //int ulY = ((int)(this.Height / 2) / 2) + ((int)thisFontHeight / 2);
                 int ulX = pW * 0;
-                int ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 2);
+                int ulY = (int)(Height * yMod) - ((int)thisFontHeight * 2);
                 /*
                 for (int x = -1; x <= 1; x++)
                 {
@@ -184,8 +277,8 @@ namespace IceBlink2
                     }
                 }
                 */
-                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY - pH + spacing);
                 gv.DrawTextOutlined(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
 
                 //DRAW SP/SPmax
@@ -196,7 +289,7 @@ namespace IceBlink2
                 //ulX = ((int)(this.Width / 2)) - ((int)stringSize);
                 //ulY = ((int)(this.Height / 2));
                 ulX = pW * 1;
-                ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 1);
+                ulY = (int)(Height * yMod) - ((int)thisFontHeight * 1);
 
                 /*
                 for (int x = -1; x <= 1; x++)
@@ -212,8 +305,8 @@ namespace IceBlink2
                     }
                 }
                 */
-                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
-                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                int xLoc2 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX - pW);
+                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY - pH + spacing);
                 gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
                 //gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, gv.FontWeight.Normal, scaler, Color.Yellow);
                 //DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);
@@ -221,8 +314,9 @@ namespace IceBlink2
 
                 //draw level up symbol
                 //ulX = (int)(110 * gv.screenDensity) - pW * 9;
-                ulX = (int)(110 * gv.screenDensity) - pW * 24;
-                ulY = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + pH;
+                //ulX = (int)(110 * xMod) - pW * 24;
+                ulX = (int)(110 * 0.05f);
+                ulY = (int)(Height * yMod) - ((int)thisFontHeight * 7) + pH;
 
                 /*
                 for (int x = -1; x <= 1; x++)
@@ -238,15 +332,16 @@ namespace IceBlink2
                     }
                 }
                 */
-                int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - pW);
-                int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY - pH);
+                int xLoc3 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX);
+                int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY - pH + spacing);
                 gv.DrawTextOutlined(levelUpSymbol, xLoc3, yLoc3, scaler*1.2f, Color.CornflowerBlue);
 
-                
+
                 //draw chat symbol
-                int ulX5 = (int)(110 * gv.screenDensity) - pW * 24;
+                //int ulX5 = (int)(110 * xMod) - pW * 24;
                 //int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 7) + 2*pH;
-                int ulY5 = (int)(Height * gv.screenDensity) - ((int)thisFontHeight * 6) + 3 * pH;
+                int ulX5 = (int)(110 * 0.05f);
+                int ulY5 = (int)(Height * yMod) - ((int)thisFontHeight * 6) + 3 * pH;
                 /*
                 for (int x = -1; x <= 1; x++)
                 {
@@ -261,8 +356,8 @@ namespace IceBlink2
                     }
                 }
                 */
-                int xLoc4 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX5 - pW);
-                int yLoc4 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY5 - pH);
+                int xLoc4 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX5 - pW);
+                int yLoc4 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY5 - pH + spacing);
                 gv.DrawTextOutlined(chatSymbol, xLoc4, yLoc4, scaler * 0.25f, Color.Azure);
 
                 //effects on portrait
@@ -272,41 +367,43 @@ namespace IceBlink2
                             {
                                 if ((!ef.isPermanent) && (ef.spriteFilename != "none") && (ef.spriteFilename != "") && (ef.spriteFilename != "None"))
                                 {
+
+                                    //float ggh = Width * gv.screenDensity;
                                     Bitmap fx = gv.cc.LoadBitmap(ef.spriteFilename);
                                     src = new IbRect(0, 0, fx.PixelSize.Width, fx.PixelSize.Width);
-                                    IbRect dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                    IbRect dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 2f), dst.Top, (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     effectCounter++;
                                     if (effectCounter == 2)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 2f), dst.Top + (int)((Width * gv.screenDensity) / 3f * 1f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 3)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 2f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 2f), dst.Top + (int)((Width * gv.screenDensity) / 3f * 2f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 4)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 1f), dst.Top, (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 5)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 1f), dst.Top + (int)((Width * gv.screenDensity) / 3f * 1f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 6)
                                     {
-                                        dst2 = new IbRect(dst.Left + (int)(gv.squareSize / 3f * 1f), dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left + (int)((Width * gv.screenDensity) / 3f * 1f), dst.Top + (int)((Width * gv.screenDensity) / 3f * 2f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 7)
                                     {
-                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 8)
                                     {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 1f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)((Width * gv.screenDensity) / 3f * 1f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     if (effectCounter == 9)
                                     {
-                                        dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
+                                        dst2 = new IbRect(dst.Left, dst.Top + (int)((Width * gv.screenDensity) / 3f * 2f), (int)((Width * gv.screenDensity) / 3f), (int)((Width * gv.screenDensity) / 3f));
                                     }
                                     gv.DrawBitmap(fx, src, dst2, -0.01f, false, 1.0f, true);
                                     gv.cc.DisposeOfBitmap(ref fx);

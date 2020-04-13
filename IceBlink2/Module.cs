@@ -17,6 +17,8 @@ namespace IceBlink2
         //public int xScroll = 0;
         //public int yScroll = 0;
 
+       
+
         public bool allEffectsUseFullSizeIcons = false;
 
 

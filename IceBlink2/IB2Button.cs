@@ -60,20 +60,55 @@ namespace IceBlink2
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            float xMod = (gv.screenWidth / 1920f);
+            float yMod = (gv.screenHeight / 1080f);
+            float adustXForArrows = 0f;
+
+            if (this.tag != "btnToggleArrows")
+            {
+                xMod = gv.screenDensity;
+                yMod = gv.screenDensity;
+                adustXForArrows = 0;
+            }
+
+            if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+            {
+                xMod = (gv.screenWidth / 1920f);
+            }
+
+
             if (show)
             {
                 glowOn = false;
 
-                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
+                if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
                 {
-                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
+                    if ((x >= (int)((X + adustXForArrows) * gv.screenDensity + parentPanel.currentLocX * xMod)) && (x <= (int)((X + adustXForArrows + Width) * gv.screenDensity + parentPanel.currentLocX * xMod)))
                     {
-                        if (!playedHoverSound)
+                        if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod)))
                         {
-                            playedHoverSound = true;
-                            gv.playerButtonEnter.Play();
+                            if (!playedHoverSound)
+                            {
+                                playedHoverSound = true;
+                                gv.playerButtonEnter.Play();
+                            }
+                            glowOn = true;
                         }
-                        glowOn = true;
+                    }
+                }
+                else
+                {
+                    if ((x >= (int)((parentPanel.currentLocX + X + adustXForArrows) * xMod)) && (x <= (int)((parentPanel.currentLocX + X + Width + adustXForArrows) * xMod)))
+                    {
+                        if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod)))
+                        {
+                            if (!playedHoverSound)
+                            {
+                                playedHoverSound = true;
+                                gv.playerButtonEnter.Play();
+                            }
+                            glowOn = true;
+                        }
                     }
                 }
                 playedHoverSound = false;
@@ -84,18 +119,59 @@ namespace IceBlink2
         {
             //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
+            float xMod = (gv.screenWidth / 1920f);
+            float yMod = (gv.screenHeight / 1080f);
+            float adustXForArrows = 0f;
+
+            if (this.tag != "btnToggleArrows")
+            {
+                xMod = gv.screenDensity;
+                yMod = gv.screenDensity;
+                adustXForArrows = 0;
+            }
+            if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+            {
+                xMod = (gv.screenWidth / 1920f);
+            }
+
+            /*
+            if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+            {
+                dst = new IbRect((int)((this.X + adustXForArrows) * gv.screenDensity + (parentPanel.currentLocX * xMod)), (int)((parentPanel.currentLocY + this.Y) * yMod), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+            }
+            */
+
             if (show)
             {
-                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
+
+                if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
                 {
-                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
+                    if ((x >= (int)((X + adustXForArrows) * gv.screenDensity + parentPanel.currentLocX * xMod)) && (x <= (int)((X + adustXForArrows + Width) * gv.screenDensity + parentPanel.currentLocX * xMod)))
                     {
-                        if (!playedHoverSound)
+                        if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod)))
                         {
-                            playedHoverSound = true;
-                            gv.playerButtonEnter.Play();
+                            if (!playedHoverSound)
+                            {
+                                playedHoverSound = true;
+                                gv.playerButtonEnter.Play();
+                            }
+                            return true;
                         }
-                        return true;
+                    }
+                }
+                else
+                {
+                    if ((x >= (int)((parentPanel.currentLocX + X + adustXForArrows) * xMod)) && (x <= (int)((parentPanel.currentLocX + X + Width + adustXForArrows) * xMod)))
+                    {
+                        if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * yMod)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * yMod)))
+                        {
+                            if (!playedHoverSound)
+                            {
+                                playedHoverSound = true;
+                                gv.playerButtonEnter.Play();
+                            }
+                            return true;
+                        }
                     }
                 }
                 playedHoverSound = false;
@@ -270,23 +346,52 @@ namespace IceBlink2
 
             if (show)
             {
-                int pH = (int)((float)gv.screenHeight / 200.0f);
+
+                float xMod = (gv.screenWidth / 1920f);
+                float yMod = (gv.screenHeight / 1080f);
+                float adustXForArrows = 0f;
+
+                if (this.tag != "btnToggleArrows")
+                {
+                    xMod = gv.screenDensity;
+                    yMod = gv.screenDensity;
+                    adustXForArrows = 0;
+                }
+
+                if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+                {
+                    xMod = (gv.screenWidth / 1920f);
+                }
+
+                    int pH = (int)((float)gv.screenHeight / 200.0f);
                 int pW = (int)((float)gv.screenHeight / 200.0f);
                 float fSize = (float)(gv.squareSize / 4) * scaler;
                 //int Width = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Width;
                 //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
 
                 IbRect src = new IbRect(0, 0, Width, Height);
-                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                //IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity), (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                IbRect dst = new IbRect((int)((parentPanel.currentLocX + this.X + adustXForArrows) * xMod), (int)((parentPanel.currentLocY + this.Y) * yMod), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+                {
+                    dst = new IbRect((int)((this.X + adustXForArrows) * gv.screenDensity + (parentPanel.currentLocX * xMod)), (int)((parentPanel.currentLocY + this.Y) * yMod), (int)((float)Width * gv.screenDensity), (int)((float)Height * gv.screenDensity));
+                }
 
                 IbRect srcGlow = new IbRect(0, 0, Width, Height);
-                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X) * gv.screenDensity) - (int)(7 * gv.screenDensity),
-                                            (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity) - (int)(7 * gv.screenDensity),
+                IbRect dstGlow = new IbRect((int)((parentPanel.currentLocX + this.X + adustXForArrows ) * xMod) - (int)(7 * xMod),
+                                            (int)((parentPanel.currentLocY + this.Y) * yMod) - (int)(7 * yMod),
                                             (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
                                             (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
+                if (this.tag == "ctrlUpArrow" || this.tag == "ctrlDownArrow" || this.tag == "ctrlLeftArrow" || this.tag == "ctrlRightArrow" || this.tag == "btnWait")
+                {
+                    dstGlow = new IbRect((int)((this.X + adustXForArrows) * gv.screenDensity + parentPanel.currentLocX * xMod) - (int)(7 * xMod),
+                                            (int)((parentPanel.currentLocY + this.Y) * yMod) - (int)(7 * yMod),
+                                            (int)((float)Width * gv.screenDensity) + (int)(15 * gv.screenDensity),
+                                            (int)((float)Height * gv.screenDensity) + (int)(15 * gv.screenDensity));
+                }
 
-                //draw glow first if on
-                if (glowOn)
+                    //draw glow first if on
+                    if (glowOn)
                 {
                     gv.DrawBitmap(gv.cc.GetFromBitmapList(GlowFilename), srcGlow, dstGlow, -0.01f, false, 1.0f, true);
                     //   gv.DrawBitmap(gv.cc.GetFromBitmapList("tgl_bg"), src2, dst2, -0.01f, false, 0.75f, true);
@@ -331,11 +436,18 @@ namespace IceBlink2
                 }
 
                 // DRAW TEXT
+
+               
+
                 float stringSize = gv.cc.MeasureString(Text, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the center
-                float ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                float ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
+                float ulX = ((Width * xMod) - stringSize) / 2;
+                if (this.tag == "btnWait")
+                {
+                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
+                }
+                    float ulY = ((Height * yMod) - thisFontHeight) / 2;
 
                 if (scaler == 0.4f)
                 {
@@ -372,57 +484,14 @@ namespace IceBlink2
 
                     Text = numberOfLightSources.ToString();
                 }
-                /*
-                    for (int x = -1; x <= 1; x++)
+        
+              
+                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * xMod + ulX);
+                if (this.tag == "btnWait")
                 {
-                    for (int y = -1; y <= 1; y++)
-                    {
-                        if (x != 0 || y != 0)
-                        {
-                            int xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                            int yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                            if (Text.Contains("green") && Text.Contains("Ld"))
-                            {
-                                int length = Text.Length;
-                                string text2 = "";
-                                //Ld 13green:10
-                                //ld 7green:9
-                                if (length == 10)
-                                {
-                                    text2 = Text.Remove(5);
-                                }
-                                if (length == 9)
-                                {
-                                    text2 = Text.Remove(4);
-                                }
-                                // DRAW TEXT
-                                stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
-
-                                //place in the center
-                                ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                                ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
-
-                                if (scaler == 0.4f)
-                                {
-                                    ulY = ((Height * gv.screenDensity));
-                                }
-                                xLoc = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX + x);
-                                yLoc = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY + y);
-                                //int test = text2.Length;
-                                gv.DrawTextOutlined(text2, xLoc, yLoc, scaler, Color.Black);
-                            }
-                            else
-                            {
-                                gv.DrawTextOutlined(Text, xLoc, yLoc, scaler, Color.Black);
-
-                            }
-                            //gv.DrawText(Text, xLoc, yLoc, scaler, Color.Black);
-                        }
-                    }
+                    xLoc1 = (int)((this.X) * gv.screenDensity + parentPanel.currentLocX * xMod + ulX);
                 }
-                */
-                int xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY);
                 if (Text.Contains("green") && Text.Contains("Ld"))
                 {
                     int length = Text.Length;
@@ -441,15 +510,15 @@ namespace IceBlink2
                     stringSize = gv.cc.MeasureString(text2, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                     //place in the center
-                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                    ulY = ((Height * gv.screenDensity) - thisFontHeight) / 2;
+                    ulX = ((Width * xMod) - stringSize) / 2;
+                    ulY = ((Height * yMod) - thisFontHeight) / 2;
 
                     if (scaler == 0.4f)
                     {
                         ulY = ((Height * gv.screenDensity));
                     }
-                    xLoc1 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                    yLoc1 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    xLoc1 = (int)((parentPanel.currentLocX + this.X) * xMod + ulX);
+                    yLoc1 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY);
                     gv.DrawTextOutlined(text2, xLoc1, yLoc1, scaler, Color.Lime);
                 }
                 else
@@ -461,8 +530,8 @@ namespace IceBlink2
                 stringSize = gv.cc.MeasureString(Quantity, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                 //place in the bottom right quadrant
-                ulX = (((Width * gv.screenDensity) - stringSize) / 8) * 7;
-                ulY = (((Height * gv.screenDensity) - thisFontHeight) / 8) * 7;
+                ulX = (((Width * xMod) - stringSize) / 8) * 7;
+                ulY = (((Height * yMod) - thisFontHeight) / 8) * 7;
                 if (this.tag == "btnZoom")
                 {
                     //Quantity = gv.mod.timePerStepAfterSpeedCalc + " min";
@@ -512,16 +581,16 @@ namespace IceBlink2
                         }
                 }
                 */
-                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
+                int xLoc2 = (int)((parentPanel.currentLocX + this.X) * xMod + ulX);
                 int yLoc2 = 0;
                 if (this.tag == "btnZoom")
                 {
-                    xLoc2 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX - 3*pW);
-                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY) - pW;
+                    xLoc2 = (int)((parentPanel.currentLocX + this.X) * xMod + ulX - 3*pW);
+                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY) - pW;
                 }
                 else
                 {
-                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    yLoc2 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY);
                 }
                 //int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
                 if (this.tag == "btnTorch" && gv.mod.partyLightOn)
@@ -592,8 +661,8 @@ namespace IceBlink2
                     stringSize = gv.cc.MeasureString(HotKey, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, thisFontHeight);
 
                     //place in the bottom center
-                    ulX = ((Width * gv.screenDensity) - stringSize) / 2;
-                    ulY = (((Height * gv.screenDensity) - thisFontHeight) / 4) * 3;
+                    ulX = ((Width * xMod) - stringSize) / 2;
+                    ulY = (((Height * yMod) - thisFontHeight) / 4) * 3;
 
                     /*
                     for (int x = -1; x <= 1; x++)
@@ -609,8 +678,8 @@ namespace IceBlink2
                         }
                     }
                     */
-                    int xLoc3 = (int)((parentPanel.currentLocX + this.X) * gv.screenDensity + ulX);
-                    int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * gv.screenDensity + ulY);
+                    int xLoc3 = (int)((parentPanel.currentLocX + this.X) * xMod + ulX);
+                    int yLoc3 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY);
                     gv.DrawTextOutlined(HotKey, xLoc3, yLoc3, scaler, Color.Red);
                 }
             }

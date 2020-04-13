@@ -36,7 +36,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(965, 570);
-            this.MaximumSize = new System.Drawing.Size(1920, 1080);
+            
+            //projektvoll
+            //this.MaximumSize = new System.Drawing.Size(1920, 1080);
+            this.MaximumSize = new System.Drawing.Size(3840, 2060);
+
             this.MinimumSize = new System.Drawing.Size(965, 570);
             this.Name = "GameView";
             this.Text = "IceBlink 2";

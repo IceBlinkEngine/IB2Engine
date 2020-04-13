@@ -129,6 +129,8 @@ namespace IceBlink2
         {
             if (!gv.mod.useMinimalisticUI)
             {
+
+
                 IbRect src = new IbRect(0, 0, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Width, gv.cc.GetFromBitmapList(backgroundImageFilename).PixelSize.Height);
                 IbRect dst = new IbRect((int)(currentLocX * gv.screenDensity), (int)(currentLocY * gv.screenDensity), (int)(Width * gv.screenDensity), (int)(Height * gv.screenDensity));
                 
@@ -175,13 +177,21 @@ namespace IceBlink2
             }
 
             if (!stopDrawing)
-            { 
-                 foreach (IB2Button btn in buttonList)
+            {
+                /*
+                if (this.tag == "arrowPanel")
+                {
+                    float xMod = (gv.screenWidth / 1920f);
+                   
+                }
+                */
+                foreach (IB2Button btn in buttonList)
                 {
                     //if ((btn.X > -gv.squareSize && btn.Y > -gv.squareSize) || (btn.X < gv.screenWidth + gv.squareSize && btn.Y < gv.screenHeight + gv.squareSize))
                     //{
                     if (!gv.mod.currentArea.isOverviewMap)
                     {
+
                         btn.Draw(this);
                     }
                     else
@@ -688,31 +698,37 @@ namespace IceBlink2
 
         public void Update(int elapsed)
         {
+            //float xMod = (gv.screenWidth / 1920f);
+            //float yMod = (gv.screenHeight / 1080f);
+
+            float xMod = 1;
+            float yMod = 1;
+
             //animate hiding panel
             if (hiding)
             {
                 currentLocX += (hidingXIncrement * elapsed/2);
                 currentLocY += (hidingYIncrement * elapsed/2);
                 //hiding left and passed
-                if ((hidingXIncrement < 0) && (currentLocX < hiddenLocX))
+                if ((hidingXIncrement < 0) && (currentLocX < hiddenLocX * xMod))
                 {
                     currentLocX = hiddenLocX;
                     hiding = false;
                 }
                 //hiding right and passed
-                if ((hidingXIncrement > 0) && (currentLocX > hiddenLocX))
+                if ((hidingXIncrement > 0) && (currentLocX > hiddenLocX * xMod))
                 {
                     currentLocX = hiddenLocX;
                     hiding = false;
                 }
                 //hiding down and passed
-                if ((hidingYIncrement > 0) && (currentLocY > hiddenLocY))
+                if ((hidingYIncrement > 0) && (currentLocY > hiddenLocY * yMod))
                 {
                     currentLocY = hiddenLocY;
                     hiding = false;
                 }
                 //hiding up and passed
-                if ((hidingYIncrement < 0) && (currentLocY < hiddenLocY))
+                if ((hidingYIncrement < 0) && (currentLocY < hiddenLocY * yMod))
                 {
                     currentLocY = hiddenLocY;
                     hiding = false;
@@ -723,25 +739,25 @@ namespace IceBlink2
                 currentLocX -= (hidingXIncrement * elapsed);
                 currentLocY -= (hidingYIncrement * elapsed);
                 //showing right and passed
-                if ((hidingXIncrement < 0) && (currentLocX > shownLocX))
+                if ((hidingXIncrement < 0) && (currentLocX > shownLocX * xMod))
                 {
                     currentLocX = shownLocX;
                     showing = false;
                 }
                 //showing left and passed
-                if ((hidingXIncrement > 0) && (currentLocX < shownLocX))
+                if ((hidingXIncrement > 0) && (currentLocX < shownLocX * xMod))
                 {
                     currentLocX = shownLocX;
                     showing = false;
                 }
                 //showing up and passed
-                if ((hidingYIncrement > 0) && (currentLocY < shownLocY))
+                if ((hidingYIncrement > 0) && (currentLocY < shownLocY * yMod))
                 {
                     currentLocY = shownLocY;
                     showing = false;
                 }
                 //showing down and passed
-                if ((hidingYIncrement < 0) && (currentLocY > shownLocY))
+                if ((hidingYIncrement < 0) && (currentLocY > shownLocY * yMod))
                 {
                     currentLocY = shownLocY;
                     showing = false;

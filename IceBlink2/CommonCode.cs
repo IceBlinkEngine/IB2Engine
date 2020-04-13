@@ -3201,6 +3201,14 @@ namespace IceBlink2
 
         public void doUpdate()
         {
+            if (!gv.mod.useLightSystem)
+            {
+                foreach (Area a in gv.mod.moduleAreasObjects)
+                {
+                    a.useLightSystem = false;
+                }
+            }
+
             if (gv.mod.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
             {
                 foreach (Tile t in gv.mod.currentArea.Tiles)
