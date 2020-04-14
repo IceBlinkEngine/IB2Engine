@@ -148,7 +148,7 @@
   "nightTimeDarknessOpacity": 0.6,
   "playFootstepSound": true,
   "heightBlocksSight": true,
-  "allEffectsUseFullSizeIcons": false,
+  "allEffectsUseFullSizeIcons": true,
   "useFlatFootedSystem": true,
   "tagOfStealthMainTrait": "shadow",
   "tagOfMovementSpeedTrait": "traveller",

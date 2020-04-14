@@ -14296,6 +14296,10 @@ namespace IceBlink2
                                             dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
                                         }
                                     }
+                                    else
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize), (int)(gv.squareSize));
+                                    }
 
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
@@ -14494,6 +14498,10 @@ namespace IceBlink2
                                         {
                                             dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
                                         }
+                                    }
+                                    else
+                                    {
+                                        dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize), (int)(gv.squareSize));
                                     }
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
@@ -16788,6 +16796,10 @@ namespace IceBlink2
                                 dst2 = new IbRectF(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
                             }
                         }
+                        else
+                        {
+                            dst2 = new IbRectF(dst.Left, dst.Top, (int)(gv.squareSize), (int)(gv.squareSize));
+                        }
                         gv.DrawBitmap(fx, src, dst2);
                         gv.cc.DisposeOfBitmap(ref fx);
                     }
@@ -17078,6 +17090,10 @@ namespace IceBlink2
                             {
                                 dst2 = new IbRect(dst.Left, dst.Top + (int)(gv.squareSize / 3f * 2f), (int)(gv.squareSize / 3f), (int)(gv.squareSize / 3f));
                             }
+                        }
+                        else
+                        {
+                            dst2 = new IbRect(dst.Left, dst.Top, (int)(gv.squareSize), (int)(gv.squareSize));
                         }
                         gv.DrawBitmap(fx, src, dst2);
                         gv.cc.DisposeOfBitmap(ref fx);

@@ -58,29 +58,59 @@ namespace IceBlink2
             float yMod = (gv.screenHeight / 1080f);
 
             int spacing = 0;
-            if (this.tag == "port0")
+            if (gv.screenType == "main")
             {
-                spacing = (int)(7f * yMod);
+                if (this.tag == "port0")
+                {
+                    spacing = (int)(7f * yMod);
+                }
+                if (this.tag == "port1")
+                {
+                    spacing = (int)(14f * yMod);
+                }
+                if (this.tag == "port2")
+                {
+                    spacing = (int)(21f * yMod);
+                }
+                if (this.tag == "port3")
+                {
+                    spacing = (int)(28f * yMod);
+                }
+                if (this.tag == "port4")
+                {
+                    spacing = (int)(35f * yMod);
+                }
+                if (this.tag == "port5")
+                {
+                    spacing = (int)(42f * yMod);
+                }
             }
-            if (this.tag == "port1")
+            else if (gv.screenType == "combat")
             {
-                spacing = (int)(14f * yMod);
-            }
-            if (this.tag == "port2")
-            {
-                spacing = (int)(21f * yMod);
-            }
-            if (this.tag == "port3")
-            {
-                spacing = (int)(28f * yMod);
-            }
-            if (this.tag == "port4")
-            {
-                spacing = (int)(35f * yMod);
-            }
-            if (this.tag == "port5")
-            {
-                spacing = (int)(42f * yMod);
+                if (this.tag == "port0")
+                {
+                    spacing = (int)(-28f * yMod);
+                }
+                if (this.tag == "port1")
+                {
+                    spacing = (int)(-21f * yMod);
+                }
+                if (this.tag == "port2")
+                {
+                    spacing = (int)(-14f * yMod);
+                }
+                if (this.tag == "port3")
+                {
+                    spacing = (int)(-7f * yMod);
+                }
+                if (this.tag == "port4")
+                {
+                    spacing = (int)(0f * yMod);
+                }
+                if (this.tag == "port5")
+                {
+                    spacing = (int)(7f * yMod);
+                }
             }
             if (show)
             {
@@ -108,32 +138,62 @@ namespace IceBlink2
             //int Height = gv.cc.GetFromBitmapList(ImgFilename).PixelSize.Height;
             float xMod = (gv.screenWidth / 1920f);
             float yMod = (gv.screenHeight / 1080f);
-          
+
 
             int spacing = 0;
-            if (this.tag == "port0")
+            if (gv.screenType == "main")
             {
-                spacing = (int)(7f * yMod);
+                if (this.tag == "port0")
+                {
+                    spacing = (int)(7f * yMod);
+                }
+                if (this.tag == "port1")
+                {
+                    spacing = (int)(14f * yMod);
+                }
+                if (this.tag == "port2")
+                {
+                    spacing = (int)(21f * yMod);
+                }
+                if (this.tag == "port3")
+                {
+                    spacing = (int)(28f * yMod);
+                }
+                if (this.tag == "port4")
+                {
+                    spacing = (int)(35f * yMod);
+                }
+                if (this.tag == "port5")
+                {
+                    spacing = (int)(42f * yMod);
+                }
             }
-            if (this.tag == "port1")
+            else if (gv.screenType == "combat")
             {
-                spacing = (int)(14f * yMod);
-            }
-            if (this.tag == "port2")
-            {
-                spacing = (int)(21f * yMod);
-            }
-            if (this.tag == "port3")
-            {
-                spacing = (int)(28f * yMod);
-            }
-            if (this.tag == "port4")
-            {
-                spacing = (int)(35f * yMod);
-            }
-            if (this.tag == "port5")
-            {
-                spacing = (int)(42f * yMod);
+                if (this.tag == "port0")
+                {
+                    spacing = (int)(-28f * yMod);
+                }
+                if (this.tag == "port1")
+                {
+                    spacing = (int)(-21f * yMod);
+                }
+                if (this.tag == "port2")
+                {
+                    spacing = (int)(-14f * yMod);
+                }
+                if (this.tag == "port3")
+                {
+                    spacing = (int)(-7f * yMod);
+                }
+                if (this.tag == "port4")
+                {
+                    spacing = (int)(0f * yMod);
+                }
+                if (this.tag == "port5")
+                {
+                    spacing = (int)(7f * yMod);
+                }
             }
 
             if (show)
@@ -163,31 +223,61 @@ namespace IceBlink2
                 float yMod = (gv.screenHeight / 1080f);
 
                 int spacing = 0;
-                if (this.tag == "port0")
+                if (gv.screenType == "main")
                 {
-                    spacing = (int)(7f * yMod);
+                    if (this.tag == "port0")
+                    {
+                        spacing = (int)(7f * yMod);
+                    }
+                    if (this.tag == "port1")
+                    {
+                        spacing = (int)(14f * yMod);
+                    }
+                    if (this.tag == "port2")
+                    {
+                        spacing = (int)(21f * yMod);
+                    }
+                    if (this.tag == "port3")
+                    {
+                        spacing = (int)(28f * yMod);
+                    }
+                    if (this.tag == "port4")
+                    {
+                        spacing = (int)(35f * yMod);
+                    }
+                    if (this.tag == "port5")
+                    {
+                        spacing = (int)(42f * yMod);
+                    }
                 }
-                if (this.tag == "port1")
+                else if (gv.screenType == "combat")
                 {
-                    spacing = (int)(14f * yMod);
+                    if (this.tag == "port0")
+                    {
+                        spacing = (int)(-28f * yMod);
+                    }
+                    if (this.tag == "port1")
+                    {
+                        spacing = (int)(-21f * yMod);
+                    }
+                    if (this.tag == "port2")
+                    {
+                        spacing = (int)(-14f * yMod);
+                    }
+                    if (this.tag == "port3")
+                    {
+                        spacing = (int)(-7f * yMod);
+                    }
+                    if (this.tag == "port4")
+                    {
+                        spacing = (int)(0f * yMod);
+                    }
+                    if (this.tag == "port5")
+                    {
+                        spacing = (int)(7f * yMod);
+                    }
                 }
-                if (this.tag == "port2")
-                {
-                    spacing = (int)(21f * yMod);
-                }
-                if (this.tag == "port3")
-                {
-                    spacing = (int)(28f * yMod);
-                }
-                if (this.tag == "port4")
-                {
-                    spacing = (int)(35f * yMod);
-                }
-                if (this.tag == "port5")
-                {
-                    spacing = (int)(42f * yMod);
-                }
-               
+
 
                 //this.tag
                 int pH = (int)((float)gv.screenHeight / 200.0f);
