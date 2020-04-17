@@ -13,7 +13,23 @@ namespace IceBlink2
 {
     public class Area 
     {
-       public bool isOverviewMap = false;
+
+        //area properties:
+        //useDynamicOvergrowthInLayer4
+        //fillLayer4WithThisTile
+        //traitTagForOvergrowth
+        //overgrowthStrength
+        //useSemiTransparentTilesAbovePartyInLayer5
+
+        //public bool useDynamicOvergrowthInLayer4 = true;
+
+        public string fillLayer4WithThisTile = "none";
+        public string traitTagForClearingOvergrowth = "none";
+        public int overgrowthStrength = 0;
+
+        //public bool useSemiTransparentTilesAbovePartyInLayer5 = false;
+
+        public bool isOverviewMap = false;
         
        public bool overviewOwnZoneMapExists = false;
        public bool overviewMotherZoneMapExists = false;

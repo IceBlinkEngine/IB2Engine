@@ -3522,7 +3522,7 @@ namespace IceBlink2
                 //only disable for movers, just in case
                 foreach (Area a in gv.mod.moduleAreasObjects)
                 {
-                    if (a.Filename == gv.mod.currentArea.easternNeighbourArea || a.Filename == gv.mod.currentArea.westernNeighbourArea || a.Filename == gv.mod.currentArea.northernNeighbourArea || a.Filename == gv.mod.currentArea.southernNeighbourArea || a.Filename == NeighbourNE || a.Filename == NeighbourNW || a.Filename == NeighbourSE || a.Filename == NeighbourSW)
+                    if (a.Filename == gv.mod.currentArea.easternNeighbourArea || a.Filename == gv.mod.currentArea.westernNeighbourArea || a.Filename == gv.mod.currentArea.northernNeighbourArea || a.Filename == gv.mod.currentArea.southernNeighbourArea || a.Filename == NeighbourNE || a.Filename == NeighbourNW || a.Filename == NeighbourSE || a.Filename == NeighbourSW || a == gv.mod.currentArea)
                     {
                         for (int i = a.Props.Count - 1; i >= 0; i--)
                         {
@@ -3596,6 +3596,12 @@ namespace IceBlink2
                             {
                                 modY = a.Props[i].LocationY + a.MapSizeY;
                                 modX = a.Props[i].LocationX - a.MapSizeX;
+                            }
+
+                            if (a == gv.mod.currentArea)
+                            {
+                                modY = a.Props[i].LocationY;
+                                modX = a.Props[i].LocationX;
                             }
                             //hooray
 
