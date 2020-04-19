@@ -1946,6 +1946,688 @@ namespace IceBlink2
                 //may not need this(deleted already) as it is not used anywhere, only knownspellstags is used
             }
         }
+
+
+        public void setTargetOpacity()
+        {
+            //new tile.targetOpacity
+            //adjust real opacity towrds targteOpacity while scrolling(get delta and strechover 100 units od scroll timer)
+
+            if (gv.mod.useAllTileSystem)
+            {
+                
+                gv.mod.indexOfNorthernNeighbour = -1;
+                gv.mod.indexOfSouthernNeighbour = -1;
+                gv.mod.indexOfEasternNeighbour = -1;
+                gv.mod.indexOfWesternNeighbour = -1;
+                gv.mod.indexOfNorthEasternNeighbour = -1;
+                gv.mod.indexOfNorthWesternNeighbour = -1;
+                gv.mod.indexOfSouthEasternNeighbour = -1;
+                gv.mod.indexOfSouthWesternNeighbour = -1;
+
+                //hühnchen
+                gv.mod.seamlessModififierMinX = -3;
+                gv.mod.seamlessModififierMaxX = 0;
+                gv.mod.seamlessModififierMinY = -3;
+                gv.mod.seamlessModififierMaxY = 0;
+
+                
+                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY + 1))
+                {
+                    gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.northernNeighbourArea)
+                        {
+                            gv.mod.indexOfNorthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.southernNeighbourArea != "" && gv.mod.currentArea.southernNeighbourArea != "none") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                {
+
+                    gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.southernNeighbourArea)
+                        {
+                            gv.mod.indexOfSouthernNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        {
+                            gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        {
+                            gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX + 1))
+                {
+                    gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.westernNeighbourArea)
+                        {
+                            gv.mod.indexOfWesternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "none")
+                    {
+
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthWesternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "none")
+                    {
+
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthWesternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+
+                if ((gv.mod.currentArea.easternNeighbourArea != "" && gv.mod.currentArea.easternNeighbourArea != "none") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                {
+                    gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
+                    for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                    {
+                        if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.currentArea.easternNeighbourArea)
+                        {
+                            gv.mod.indexOfEasternNeighbour = i;
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        {
+                            gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
+                        }
+
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea)
+                            {
+                                gv.mod.indexOfNorthEasternNeighbour = i;
+                            }
+                        }
+                    }
+
+                    if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "none")
+                    {
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        {
+                            gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
+                        }
+                        for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
+                        {
+                            if (gv.mod.moduleAreasObjects[i].Filename == gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea)
+                            {
+                                gv.mod.indexOfSouthEasternNeighbour = i;
+                            }
+                        }
+                    }
+                }
+                
+                //foreach (Area a in gv.mod.moduleAreasObjects)
+                //mins were -3
+                int minX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minX < -gv.mod.seamlessModififierMinX - 3) { minX = -gv.mod.seamlessModififierMinX - 3; }
+                int LimitMinX = gv.mod.PlayerLocationX - gv.playerOffsetX - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (LimitMinX < -gv.mod.seamlessModififierMinX - 3) { LimitMinX = -gv.mod.seamlessModififierMinX - 3; }
+
+                //was -1
+                //idea: extend the x,y range by 2 min/max, but only draw if under/equal drawLimit
+                int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (minY < -gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
+                int LimitMinY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
+                if (LimitMinY < -gv.mod.seamlessModififierMinY - 3) { LimitMinY = -gv.mod.seamlessModififierMinY - 3; }
+
+
+                int maxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (maxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1) { maxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1; }
+                int LimitMaxX = gv.mod.PlayerLocationX + gv.playerOffsetX + 2;
+                if (LimitMaxX > this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1) { LimitMaxX = this.gv.mod.currentArea.MapSizeX + gv.mod.seamlessModififierMaxX + 1; }
+
+                int maxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+                if (maxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1) { maxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1; }
+                int LimitMaxY = gv.mod.PlayerLocationY + gv.playerOffsetY + 2;
+                if (LimitMaxY > this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1) { LimitMaxY = this.gv.mod.currentArea.MapSizeY + gv.mod.seamlessModififierMaxY + 1; }
+
+                //new system, FAILURE, not used
+
+                //CURRENT SYSTEM, safe
+
+
+
+
+                
+                for (int x = minX; x < maxX; x++)
+                {
+                    for (int y = minY; y < maxY; y++)
+                    {
+                        //Tile tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                        bool situationFound = false;
+                        bool drawTile = true;
+                        int index = -1;
+                        Tile tile = new Tile();
+
+                        //nine situations where a tile can be:
+                        //tile on north-western map (diagonal situation)
+                        if ((x < 0) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthWesternNeighbour != -1)
+                            {
+                                int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + x;
+                                int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-westernmap (diagonal situation)
+                        if ((x < 0) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthWesternNeighbour != -1)
+                            {
+                                int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on south-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on north-easternmap (diagonal situation)
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + y;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on western map
+                        if ((x < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfWesternNeighbour != -1)
+                            {
+                                int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + x;
+                                int transformedY = y;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfWesternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on southern map
+                        if ((y > (gv.mod.currentArea.MapSizeY - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfSouthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = y - gv.mod.currentArea.MapSizeY;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfSouthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on eastern map
+                        if ((x > (gv.mod.currentArea.MapSizeX - 1)) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfEasternNeighbour != -1)
+                            {
+                                int transformedX = x - gv.mod.currentArea.MapSizeX;
+                                int transformedY = y;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfEasternNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile on northern map
+                        if ((y < 0) && (!situationFound))
+                        {
+                            situationFound = true;
+                            if (gv.mod.indexOfNorthernNeighbour != -1)
+                            {
+                                int transformedX = x;
+                                int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + y;
+                                tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
+                                index = gv.mod.indexOfNorthernNeighbour;
+                            }
+                            else
+                            {
+                                drawTile = false;
+                            }
+                        }
+                        //tile is on current map
+                        if (!situationFound)
+                        {
+                            tile = gv.mod.currentArea.Tiles[y * gv.mod.currentArea.MapSizeX + x];
+                            for (int count = 0; count < gv.mod.moduleAreasObjects.Count; count++)
+                            {
+                                if (gv.mod.moduleAreasObjects[count] == gv.mod.currentArea)
+                                {
+                                    index = count;
+                                    break;
+                                }
+                            }
+
+                        }
+
+                        if (index > -1)
+                        {
+                            if (gv.mod.moduleAreasObjects[index].fillLayer4WithThisTile != "none")
+                            {
+                                tile.Layer4Filename = gv.mod.moduleAreasObjects[index].fillLayer4WithThisTile;
+                            }
+                        }
+
+                        if (drawTile && tile.Layer4Filename != "t_a_blank")
+                        {
+
+                            //get distance to player and skip draw if higher than 3
+                            //based on traveller skill comparison
+                            //add module settings to set diffculty and radius
+                            //also amke this totally optional
+
+
+
+
+
+                            Coordinate tileCoord = new Coordinate();
+                            Coordinate partyCoord = new Coordinate();
+                            tileCoord.X = x;
+                            tileCoord.Y = y;
+                            partyCoord.X = gv.mod.PlayerLocationX;
+                            partyCoord.Y = gv.mod.PlayerLocationY;
+
+                            /*
+                               
+        public string fillLayer4WithThisTile = "none"; use in doupate to repalce all layer4
+        public string traitTagForClearingOvergrowth = "none";
+        public int overgrowthStrength = 0;
+        public bool useSemiTransparentTilesAbovePartyInLayer5 = false; 
+                             
+                             * */
+                            float clearingSuccess = 1f;
+
+                            if (gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "none" && gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "None" && gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "none")
+                            {
+                                int i = gv.mod.selectedPartyLeader;
+                                string tag = gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth;
+                                int result = 0;
+
+                                //get power of leader, using traitTagForClearingOvergrowth
+                                int itemMod = 0;
+                                int skillMod = 0;
+                                int attMod = 0;
+                                Trait tr = new Trait();
+
+                                string foundLargest = "none";
+                                int largest = 0;
+                                foreach (string s in gv.mod.playerList[i].knownTraitsTags)
+                                {
+                                    if (s.StartsWith(tag))
+                                    {
+                                        if (s.Equals(tag))
+                                        {
+                                            if (foundLargest.Equals("none"))
+                                            {
+                                                foundLargest = s;
+                                            }
+                                        }
+                                        else //get the number at the end 
+                                        {
+                                            string c = s.Substring(s.Length - 1, 1);
+                                            int j = Convert.ToInt32(c);
+                                            if (j > largest)
+                                            {
+                                                largest = j;
+                                                foundLargest = s;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                skillMod = 0;
+                                //Trait tr = new Trait();
+                                if (!foundLargest.Equals("none"))
+                                {
+                                    //PC has trait skill so do calculation check
+                                    tr = gv.mod.getTraitByTag(foundLargest);
+                                    skillMod = tr.skillModifier;
+                                }
+                                else
+                                {
+
+                                    foreach (Trait t in gv.mod.moduleTraitsList)
+                                    {
+                                        if (t.tag.Contains(tag))
+                                        {
+                                            tr = gv.mod.getTraitByTag(t.tag);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                attMod = 0;
+                                if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
+                                {
+                                    attMod = (gv.mod.playerList[i].strength - 10) / 2;
+                                }
+                                else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
+                                {
+                                    attMod = (gv.mod.playerList[i].dexterity - 10) / 2;
+                                }
+                                else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
+                                {
+                                    attMod = (gv.mod.playerList[i].intelligence - 10) / 2;
+                                }
+                                else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
+                                {
+                                    attMod = (gv.mod.playerList[i].charisma - 10) / 2;
+                                }
+                                else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
+                                {
+                                    attMod = (gv.mod.playerList[i].constitution - 10) / 2;
+                                }
+                                else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
+                                {
+                                    attMod = (gv.mod.playerList[i].wisdom - 10) / 2;
+                                }
+
+                                itemMod = 0;
+
+                                if (gv.mod.playerList[i].BodyRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].BodyRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].RingRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].RingRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].MainHandRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].MainHandRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].OffHandRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].OffHandRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].HeadRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].HeadRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].GlovesRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].GlovesRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].NeckRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].NeckRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].Ring2Refs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].Ring2Refs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                if (gv.mod.playerList[i].FeetRefs.resref != "none")
+                                {
+                                    Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].FeetRefs.resref);
+                                    if (itm != null)
+                                    {
+                                        if (itm.tagOfTraitInfluenced.Contains(tag))
+                                        {
+                                            itemMod += itm.traitSkillRollModifier;
+                                        }
+                                    }
+                                }
+
+                                result = attMod + skillMod + itemMod;
+
+
+                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength + 9)
+                                {
+                                    clearingSuccess = 0.5f;
+                                }
+                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength + 3 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength + 8)
+                                {
+                                    clearingSuccess = 0.75f;
+                                }
+                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength - 2 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength + 2)
+                                {
+                                    clearingSuccess = 1f;
+                                }
+                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength - 8 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength - 3)
+                                {
+                                    clearingSuccess = 1.5f;
+                                }
+                                if (result <= gv.mod.moduleAreasObjects[index].overgrowthStrength - 9)
+                                {
+                                    clearingSuccess = 2f;
+                                }
+                            }
+
+                            float overgrowthTransparency = 1f;
+
+                            if (gv.cc.getDistance(tileCoord, partyCoord) < 2)
+                            {
+                                overgrowthTransparency = 0.0f;
+                            }
+
+                            if (gv.cc.getDistance(tileCoord, partyCoord) == 2)
+                            {
+                                overgrowthTransparency = 0.25f * clearingSuccess;
+                            }
+
+                            if (gv.cc.getDistance(tileCoord, partyCoord) == 3)
+                            {
+                                overgrowthTransparency = 0.5f * clearingSuccess;
+                            }
+
+                            if (gv.cc.getDistance(tileCoord, partyCoord) == 4)
+                            {
+                                overgrowthTransparency = 0.75f * clearingSuccess;
+                            }
+
+                            if (overgrowthTransparency > 1)
+                            {
+                                overgrowthTransparency = 1;
+                            }
+
+                            tile.targetOpacity = overgrowthTransparency;
+                            //refinement
+                            tile.opacityDelta = overgrowthTransparency - tile.Layer4Opacity;
+                        }
+                    }
+                }
+            }
+        }
+
+
         public void updatePartyRosterPlayers()
         {
             //load player Bitmap, race, class, known spells, equipped items

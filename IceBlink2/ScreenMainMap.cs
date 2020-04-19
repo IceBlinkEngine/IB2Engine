@@ -372,6 +372,8 @@ namespace IceBlink2
         //MAIN SCREEN UPDATE
         public void Update(int elapsed)
         {
+
+            //gv.cc.setTargetOpacity();
             //to do: must be done for nearbys
             //flöti
             foreach (int i in gv.cc.getNearbyAreas())
@@ -395,7 +397,8 @@ namespace IceBlink2
                 {
                     if (gv.mod.isScrollingNow)
                     //if (gv.mod.scrollingTimer >= 0)
-                    { 
+                    {
+                        gv.cc.setTargetOpacity();
                         doScrolling(elapsed);
                     }
                     else
@@ -3972,7 +3975,7 @@ namespace IceBlink2
                 //drawPermanentTextOnParty();
 
                 //layers 4 and 5 of worldmap
-                drawOvergrowth();
+                drawOvergrowth(elapsed);
 
                 //fortefake: one blcok lower
                 if (gv.mod.spritesUnderOverlays)
@@ -4636,8 +4639,11 @@ namespace IceBlink2
             }
         }
 
-        public void drawOvergrowth()
+        public void drawOvergrowth(float elapsed)
         {
+            //new tile.targetOpacity
+            //adjust real opacity towrds targteOpacity while scrolling(get delta and strechover 100 units od scroll timer)
+
             if (gv.mod.useAllTileSystem)
             {
                 #region new system
@@ -5032,10 +5038,6 @@ namespace IceBlink2
                             //add module settings to set diffculty and radius
                             //also amke this totally optional
                             
-                       
-                            
-
-
                             Coordinate tileCoord = new Coordinate();
                             Coordinate partyCoord = new Coordinate();
                             tileCoord.X = x;
@@ -5043,262 +5045,102 @@ namespace IceBlink2
                             partyCoord.X = gv.mod.PlayerLocationX;
                             partyCoord.Y = gv.mod.PlayerLocationY;
 
-                            /*
-                               
-        public string fillLayer4WithThisTile = "none"; use in doupate to repalce all layer4
-        public string traitTagForClearingOvergrowth = "none";
-        public int overgrowthStrength = 0;
-        public bool useSemiTransparentTilesAbovePartyInLayer5 = false; 
-                             
-                             * */
-                            float clearingSuccess = 1f;
-
-                            if (gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "none" && gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "None" && gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth != "none")
+                            if (gv.mod.isScrollingNow)
                             {
-                                int i = gv.mod.selectedPartyLeader;
-                                string tag = gv.mod.moduleAreasObjects[index].traitTagForClearingOvergrowth;
-                                int result = 0;
-
-                                //get power of leader, using traitTagForClearingOvergrowth
-                                int itemMod = 0;
-                                int skillMod = 0;
-                                int attMod = 0;
-                                Trait tr = new Trait();
-                               
-                                    string foundLargest = "none";
-                                    int largest = 0;
-                                    foreach (string s in gv.mod.playerList[i].knownTraitsTags)
-                                    {
-                                        if (s.StartsWith(tag))
-                                        {
-                                            if (s.Equals(tag))
-                                            {
-                                                if (foundLargest.Equals("none"))
-                                                {
-                                                    foundLargest = s;
-                                                }
-                                            }
-                                            else //get the number at the end 
-                                            {
-                                                string c = s.Substring(s.Length - 1, 1);
-                                                int j = Convert.ToInt32(c);
-                                                if (j > largest)
-                                                {
-                                                    largest = j;
-                                                    foundLargest = s;
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    skillMod = 0;
-                                    //Trait tr = new Trait();
-                                    if (!foundLargest.Equals("none"))
-                                    {
-                                        //PC has trait skill so do calculation check
-                                        tr = gv.mod.getTraitByTag(foundLargest);
-                                        skillMod = tr.skillModifier;
-                                    }
-                                    else
-                                    {
-
-                                        foreach (Trait t in gv.mod.moduleTraitsList)
-                                        {
-                                            if (t.tag.Contains(tag))
-                                            {
-                                                tr = gv.mod.getTraitByTag(t.tag);
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    attMod = 0;
-                                    if (tr.skillModifierAttribute.Equals("str") || tr.skillModifierAttribute.Equals("strength") || tr.skillModifierAttribute.Equals("Str") || tr.skillModifierAttribute.Equals("Strength"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].strength - 10) / 2;
-                                    }
-                                    else if (tr.skillModifierAttribute.Equals("dex") || tr.skillModifierAttribute.Equals("dexterity") || tr.skillModifierAttribute.Equals("Dex") || tr.skillModifierAttribute.Equals("Dexterity"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].dexterity - 10) / 2;
-                                    }
-                                    else if (tr.skillModifierAttribute.Equals("int") || tr.skillModifierAttribute.Equals("intelligance") || tr.skillModifierAttribute.Equals("Int") || tr.skillModifierAttribute.Equals("Intelligence"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].intelligence - 10) / 2;
-                                    }
-                                    else if (tr.skillModifierAttribute.Equals("cha") || tr.skillModifierAttribute.Equals("charisma") || tr.skillModifierAttribute.Equals("Cha") || tr.skillModifierAttribute.Equals("Charisma"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].charisma - 10) / 2;
-                                    }
-                                    else if (tr.skillModifierAttribute.Equals("con") || tr.skillModifierAttribute.Equals("constitution") || tr.skillModifierAttribute.Equals("Con") || tr.skillModifierAttribute.Equals("Constitution"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].constitution - 10) / 2;
-                                    }
-                                    else if (tr.skillModifierAttribute.Equals("wis") || tr.skillModifierAttribute.Equals("wisdom") || tr.skillModifierAttribute.Equals("Wis") || tr.skillModifierAttribute.Equals("Wisdom"))
-                                    {
-                                        attMod = (gv.mod.playerList[i].wisdom - 10) / 2;
-                                    }
-
-                                    itemMod = 0;
-
-                                    if (gv.mod.playerList[i].BodyRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].BodyRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].RingRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].RingRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].MainHandRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].MainHandRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].OffHandRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].OffHandRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].HeadRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].HeadRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].GlovesRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].GlovesRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].NeckRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].NeckRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].Ring2Refs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].Ring2Refs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    if (gv.mod.playerList[i].FeetRefs.resref != "none")
-                                    {
-                                        Item itm = gv.mod.getItemByResRefForInfo(gv.mod.playerList[i].FeetRefs.resref);
-                                        if (itm != null)
-                                        {
-                                            if (itm.tagOfTraitInfluenced.Contains(tag))
-                                            {
-                                                itemMod += itm.traitSkillRollModifier;
-                                            }
-                                        }
-                                    }
-
-                                    result = attMod + skillMod + itemMod;
-
-
-                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength + 9)
+                                if (tile.opacityDelta != 0)
                                 {
-                                    clearingSuccess = 0.5f;
+                                    int ghg = 0;
                                 }
-                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength +3 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength + 8)
+
+                                //in scroll direction too fast
+                                //agaomst scroll direction too slow
+                                //try 30% directional spped up/delay
+                                //catch if above or below targetopac
+                                float adjustmentSpeed = 1f;
+
+                                /*
+                                if (gv.mod.scrollingDirection == "right")
                                 {
-                                    clearingSuccess = 0.75f;
+                                    if (x < gv.mod.PlayerLocationX)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
+                                    if (x > gv.mod.PlayerLocationX)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
                                 }
-                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength - 2 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength + 2)
+
+                                if (gv.mod.scrollingDirection == "left")
                                 {
-                                    clearingSuccess = 1f;
+                                    if (x > gv.mod.PlayerLocationX)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
+                                    if (x < gv.mod.PlayerLocationX)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
                                 }
-                                if (result >= gv.mod.moduleAreasObjects[index].overgrowthStrength - 8 && result <= gv.mod.moduleAreasObjects[index].overgrowthStrength -3)
+
+                                if (gv.mod.scrollingDirection == "down")
                                 {
-                                    clearingSuccess = 1.5f;
+                                    if (y < gv.mod.PlayerLocationY)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
+                                    if (y > gv.mod.PlayerLocationY)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
                                 }
-                                if (result <= gv.mod.moduleAreasObjects[index].overgrowthStrength - 9)
+
+                                if (gv.mod.scrollingDirection == "up")
                                 {
-                                    clearingSuccess = 2f;
+                                    if (y > gv.mod.PlayerLocationY)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
+                                    if (y < gv.mod.PlayerLocationY)
+                                    {
+                                        adjustmentSpeed = 1.3f;
+                                    }
                                 }
-                            }
+
+                                adjustmentSpeed = 1.0f;
+                            */    
                             
-                            float overgrowthTransparency = 1f;
+                                //tile.Layer4Opacity += tile.opacityDelta * (1f - gv.mod.scrollingTimer / 100f);
+                                tile.Layer4Opacity = tile.targetOpacity - (tile.opacityDelta * (gv.mod.scrollingTimer / 100f) * adjustmentSpeed);
+                                
+                                if (tile.Layer4Opacity > tile.targetOpacity && tile.opacityDelta > 0)
+                                {
+                                    tile.Layer4Opacity = tile.targetOpacity;
+                                }
 
-                            if (gv.cc.getDistance(tileCoord, partyCoord) < 2)
-                            {
-                                overgrowthTransparency = 0.0f;
+                                if (tile.Layer4Opacity < tile.targetOpacity && tile.opacityDelta < 0)
+                                {
+                                    tile.Layer4Opacity = tile.targetOpacity;
+                                }
+                                /*
+                                if (tile.targetOpacity != tile.Layer4Opacity)
+                                { 
+                                    float delta = tile.targetOpacity - tile.Layer4Opacity;
+                                    if (tile.targetOpacity > tile.Layer4Opacity)
+                                    {
+                                        tile.Layer4Opacity += delta * (1f - gv.mod.scrollingTimer / 100f);
+                                    }
+                                    else if (tile.targetOpacity < tile.Layer4Opacity)
+                                    {
+                                        tile.Layer4Opacity += delta * (1f - gv.mod.scrollingTimer / 100f);
+                                    }
+                                }
+                                */
                             }
-
-                            if (gv.cc.getDistance(tileCoord, partyCoord) == 2)
+                            else
                             {
-                                overgrowthTransparency = 0.25f * clearingSuccess;
+                                tile.Layer4Opacity = tile.targetOpacity;
                             }
-
-                            if (gv.cc.getDistance(tileCoord, partyCoord) == 3)
-                            {
-                                overgrowthTransparency = 0.5f * clearingSuccess;
-                            }
-
-                            if (gv.cc.getDistance(tileCoord, partyCoord) == 4)
-                            {
-                                overgrowthTransparency = 0.75f * clearingSuccess;
-                            }
-
-                           if (overgrowthTransparency > 1)
-                           {
-                                overgrowthTransparency = 1;
-                           }
 
                             try
                             {
@@ -5345,7 +5187,7 @@ namespace IceBlink2
 
                                     gv.mod.loadedTileBitmaps.Add(tile.tileBitmap4);
                                     //gv.DrawBitmap(tile.tileBitmap4, src, dst);
-                                    gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
+                                    gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
 
                                 }
                                 else
@@ -5358,10 +5200,22 @@ namespace IceBlink2
                                     int brY = (int)(gv.squareSize * scalerY);
                                     IbRect src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
                                     IbRect dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels, tlY, brX, brY);
+                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity);
 
-                                    //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst);
-                                    gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
-
+                                    
+                                    /*
+                                    if (gv.cc.getDistance(tileCoord, partyCoord) < 4)
+                                    {
+                                        //gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
+                                        gv.DrawBitmapBL(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
+                                    }
+                                    else
+                                    {
+                                        gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
+                                        gv.DrawBitmapBL(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity * overgrowthTransparency);
+                                    }
+                                    */
+                                    
                                 }
 
                                 //gv.DrawBitmap(gv.cc.tileBitmapList[tile.Layer1Filename], src, dst);
@@ -48483,6 +48337,7 @@ if (tile.tileLightSourceTag.Contains("party"))
               
                     else if ((rtn.Equals("port0")) && (gv.mod.playerList.Count > 0))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -48504,6 +48359,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     else if ((rtn.Equals("port1")) && (gv.mod.playerList.Count > 1))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -48526,6 +48382,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     else if ((rtn.Equals("port2")) && (gv.mod.playerList.Count > 2))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -48547,6 +48404,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     else if ((rtn.Equals("port3")) && (gv.mod.playerList.Count > 3))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -48568,6 +48426,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     else if ((rtn.Equals("port4")) && (gv.mod.playerList.Count > 4))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -48590,6 +48449,7 @@ if (tile.tileLightSourceTag.Contains("party"))
 
                     else if ((rtn.Equals("port5")) && (gv.mod.playerList.Count > 5))
                     {
+                        gv.cc.setTargetOpacity();
                         if (!gv.mod.currentArea.isOverviewMap)
                         {
                             if (e.Button == MouseButtons.Left)
@@ -52085,7 +51945,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
-
+                    gv.cc.setTargetOpacity();
                     gv.cc.doPropStealth();
 
                     updateTraitsPanel();
@@ -52138,6 +51998,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
+                    gv.cc.setTargetOpacity();
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -52189,6 +52050,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
+                    gv.cc.setTargetOpacity();
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -52240,7 +52102,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                         }
                     }
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
-
+                    gv.cc.setTargetOpacity();
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
@@ -52293,6 +52155,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
+                    gv.cc.setTargetOpacity();
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -52344,6 +52207,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     }
                     //addFloatyText(gv.mod.PlayerLocationX, gv.mod.PlayerLocationY, gv.mod.playerList[gv.mod.selectedPartyLeader].name, "green", 700);
                     gv.mod.permanentPartyText = gv.mod.playerList[gv.mod.selectedPartyLeader].name + " (" + gv.mod.playerList[gv.mod.selectedPartyLeader].sp + " SP)";
+                    gv.cc.setTargetOpacity();
                     gv.cc.doPropStealth();
                     updateTraitsPanel();
                 }
@@ -54036,6 +53900,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     gv.cc.doIllumination();
 
                 }
+                gv.cc.setTargetOpacity();
             }
         }
         public void moveRight(bool affectTimer)
@@ -54506,6 +54371,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     gv.cc.doIllumination();
 
                 }
+                gv.cc.setTargetOpacity();
             }
         }
         public void moveUp(bool affectTimer)
@@ -54991,6 +54857,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     gv.cc.doIllumination();
 
                 }
+                gv.cc.setTargetOpacity();
             }
             //gv.mod.wasJustCalled = false;
         }
@@ -55463,6 +55330,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                     gv.cc.doIllumination();
 
                 }
+                gv.cc.setTargetOpacity();
             }
         }
         public List<string> wrapList(string str, int wrapLength)

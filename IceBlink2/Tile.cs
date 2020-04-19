@@ -55,6 +55,8 @@ namespace IceBlink2
         public int Layer2Yscale = 0;
         public int Layer3Yscale = 0;
         public int Layer4Yscale = 0;
+        public float targetOpacity = 0;
+        public float opacityDelta = 0;
         public int Layer5Yscale = 0;
         public float Layer1Opacity = 1;
         public float Layer2Opacity = 1;
