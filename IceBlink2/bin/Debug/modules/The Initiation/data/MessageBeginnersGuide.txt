@@ -1,0 +1,52 @@
+BEGINNER’S GUIDE<br> 
+This guide gives you tips on character creation, adventuring, and combat. For more detailed information, consult the Player’s Guide. For less detailed information, play the tutorial!<br>
+<br><br>
+CHARACTER CREATION<br>
+Some of the most important decisions you make are made within the first few minutes of playing the game. How you make your witch can affect the difficulty of encounters, how often they can use powers, and even the story.<br><br>
+<br>
+<i>Roll the Right Stats</i><br>
+Use a combination of “Roll Stats” and Temperament choice to tweak the Stats of your characters. More detailed information can be found in the Player’s Guide, but…<br>
+…characters who engage in melee combat often have Strength scores of at least 14. <br>
+…characters who want survivability often have bonuses to Dexterity and Constitution.<br>
+…characters who want frequent success with non-combat traits have Wisdom scores of at least 14.<br>
+…characters who want to get the upper hand in conversations have Charisma scores of at least 14.<br>
+…characters who use Powers frequently often have Intelligence scores of at least 14.<br>
+ <br>
+<i>Aim for Balanced Traits</i><br>
+The witch will often be in situations in which the traits Folk Magic and Natural Philosophy are useful. Success at these moments can prevent damage to HP and SP, grant XP, give access to treasure, and more. A good rule of thumb is to choose at least one of these traits for your witch. Keep in mind that Wisdom is the Stat that regulates the success of these actions.
+<br><br>
+ADVENTURING</i><br>
+Interacting with the game world is easy, but keeping in mind a few things about it can improve your experience.<br>
+<br>
+<i>Arm Your Witch</i><br>
+Equip the items you have in your inventory. Many weapons and armor give small bonuses or penalties to Stats. Pay attention to these and optimize your characters accordingly. The witch should begin by equipping the Crow and Kernels.<br>
+<br>
+<i>Save Your Game</i><br>
+Disaster can strike at any time. Save your game often and keep multiple saves.<br>
+<br>
+<i>Turn On the Music</i><br>
+It's important.<br>
+<br>
+<i>Explore Everything</i><br>
+The game offers lots of secrets, side quests, and non-critical conversations. Some things are meant to be rewarding in themselves, and others are opportunities for XP growth or treasure.<br> 
+<br>
+<i>Read Your Journal</i><br>
+If you’re stuck or forget what you have to do, review your journal by clicking on the book icon at the bottom of the screen.<br>
+<br>
+COMBAT<br>
+Combat can be challenging, but a little knowledge goes a long way. Consult the Player’s Guide for more detailed information.<br>
+<br>
+<i>Don’t Move Away From Enemies</i><br>
+Moving away from enemies right beside you provokes free attacks.<br>
+<br>
+<i>Use SP Wisely</i><br>
+It’s easy to burn through SP too fast, especially at low levels. Make sure you’re getting the most out of healing spells and that Powers that can have multiple targets hit as many as possible.<br>
+<br>
+<i>Use Ranged Weapons from Far Away</i><br>
+Why get close if you don’t have to?<br>
+<br>
+<i>One at a Time</i><br>
+While it may be tempting to spread out damage (and some characters excel at doing just that), it is often best to focus on one foe.<br>
+<br>
+<i>Take Advantage of Vulnerabilities</i><br>
+Enemies with low HP and enemies who have had their defenses weakened make excellent targets. Also, attacking targets from behind offers a significant bonus to attacks with melee weapons.<br>

@@ -1,0 +1,133 @@
+{
+  "tokenFilename": "tkn_galdor",
+  "portraitFilename": "ptr_galdor",
+  "combatFacingLeft": true,
+  "combatFacing": 4,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "moveDistance": 5,
+  "knownSpellsTags": [
+    "mageBolt",
+    "web",
+    "minorHealing"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [
+    "pointblankshot",
+    "preciseshot",
+    "rapidshot",
+    "spot",
+    "spot2"
+  ],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 0,
+  "will": 0,
+  "reflex": 0,
+  "strength": 10,
+  "dexterity": 10,
+  "intelligence": 10,
+  "charisma": 10,
+  "constitution": 10,
+  "wisdom": 10,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 40,
+  "hpMax": 40,
+  "sp": 35,
+  "spMax": 35,
+  "XPNeeded": 200,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "studdedLeather",
+    "tag": "studdedLeather_10996",
+    "name": "Studded Leather Armor",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "lbow1",
+    "tag": "lbow1_11006",
+    "name": "Long Bow",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "AmmoRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "name": "Galdor",
+  "tag": "galdor",
+  "nonRemoveablePc": false,
+  "raceTag": "elf",
+  "classTag": "ranger",
+  "classLevel": 5,
+  "isMale": true,
+  "baseFortitude": 4,
+  "baseWill": 2,
+  "baseReflex": 2,
+  "baseStr": 12,
+  "baseDex": 18,
+  "baseInt": 14,
+  "baseCha": 10,
+  "baseCon": 12,
+  "baseWis": 10,
+  "ACBase": 10,
+  "XP": 0
+}

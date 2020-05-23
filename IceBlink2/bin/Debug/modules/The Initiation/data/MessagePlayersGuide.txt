@@ -1,0 +1,740 @@
+PLAYER’S GUIDE<br>
+<br>
+1. CHARACTER CREATION<br>
+<br>
+1.a. Name<br>
+1.b. Portrait<br>
+1.c. Temperament<br>
+
+1.d. Gender<br>
+
+1.e. Class<br>
+
+1.f. Stats<br>
+
+1.g. Traits<br>
+
+1.h. Powers<br>
+
+1.i. Adding and Removing Characters<br>
+<br>
+<br>
+
+2. ADVENTURING<br>
+
+2.a. Movement and Time<br>
+
+2.b. Rations<br>
+
+2.c. Conversations<br>
+
+2.d. Encounters<br>
+
+2.e. Equipment<br>
+
+2.f. Leveling Up<br>
+
+2.g. Journal<br>
+
+2.h. Adventure Map Settings<br>
+
+2.i. Saving the Game<br>
+<br>
+ 
+<br>
+3. COMBAT<br>
+
+3.a. Deployment<br>
+
+3.b. Initiative<br>
+
+3.c. Combat Time and Action Types<br>
+
+3.d. Combat Options<br>
+
+3.e. Attack, Power, and Defense Mechanics<br>
+
+3.f. Damage<br>
+
+3.g. Resolution<br>
+
+3.h. Combat Map Settings<br>
+<br>
+ <br>
+
+1. CHARACTER CREATION<br>
+
+ 
+
+In Let's Go Down to Dungeon-Town, you control four characters (also known as PCs, Player Characters, or simply adventurers), all of whom you create at the beginning of the game. Your choices in character creation have a big impact on your experience later.
+<br>
+ <br>
+
+1.a. NAME<br>
+
+Choose any name for your character. Non-player characters in the game (NPCs) sometimes call PCs by their names.
+<br>
+ <br>
+
+1.b. PORTRAIT<br>
+
+You should choose two portraits for your character. The square portrait represents the PC on maps, while the oblong portrait represents the character on the character sheet and on the PC panel.
+
+<br> 
+<br>
+1.c. TEMPERAMENT<br>
+
+There are four Temperaments, each of which gives a unique set of bonuses and penalties to character Stats (1.f.) and Damage Resistance. Rarely, a character's Temperament affects conversation options. You must choose a Temperament.
+<br>
+<br> 
+
+<i>Choleric</i><br>
+
+Yellow bile predominates in this character's system. Choleric characters tend toward irascibility and independence.
+<br>
+ <br>
+
++2 Dexterity<br>
+
++2 Intelligence<br>
+
+-1 Wisdom<br>
+
+-1 Charisma<br>
+
+10% Fire Resistance<br>
+<br>
+ <br>
+
+<i>Sanguine</i><br>
+
+Blood predominates in this character's system. Sanguine characters tend toward enthusiasm and foolhardiness.
+<br>
+ <br>
+
++2 Strength<br>
+
+-1 Intelligence<br>
+
+-1 Wisdom<br>
+
++2 Charisma<br>
+
+10% Electricity Resistance<br>
+<br>
+ <br>
+
+<i>Melancholy</i><br>
+
+Black bile predominates in this character's system. Melancholy characters tend toward gloominess and contemplation.
+<br>
+ <br>
+
+-1 Strength<br>
+
+-1 Constitution<br>
+
++2 Intelligence<br>
+
++2 Wisdom<br>
+
+10% Cold Resistance<br>
+<br>
+ <br>
+
+<i>Phlegmatic</i><br>
+
+Phlegm predominates in this character's system. Phlegmatic characters tend toward stubbornness and stoicism.
+
+ <br>
+<br>
+-1 Dexterity<br>
+
++2 Constitution<br>
+
++2 Wisdom<br>
+
+-1 Charisma<br>
+
+10% Acid Resistance<br>
+<br>
+ <br>
+
+1.d. GENDER<br>
+
+Gender affects the pronouns used to refer to the adventurers but otherwise has no mechanical or narrative impact.
+<br>
+ <br>
+
+1.e. CLASS<br>
+
+Class refers to the character’s profession and is the most important choice you make in character creation. Class helps determine the Traits and Powers to which the character has access as well as the character’s Base Attack Bonus, HP, SP, and defenses (see 1.f. and 3.e.).
+<br>
+ <br>
+
+<i>Alchemist</i><br>
+
+Alchemists have access to costly Powers that can tremendously damage many enemies at once. They are the only class that can use Powerful but difficult-to-aim flintlocks. They are mediocre attackers.
+<br>
+ 
+<br>
+Starting HP/HP per level: 10/+2<br>
+
+Starting SP/SP per level: 8/+2<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 1, 2, 2, 3, 3, 4, 4<br>
+
+Base Fortitude Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Reflex Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Will Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Favored Damage Types: Electrical, Acid, Fire<br>
+
+Recommended Traits at First Level (select two): Natural Philosophy, Mechanical Acuity, Decent Shot<br>
+<br>
+ 
+<br>
+<i>Captain</i><br>
+
+Captains have access to Powers that empower friends and disempower foes. They have very high HP compared to other character classes and impressive defense bonuses, but they have no base SP growth Power level. They can wear the heaviest armor and can wield most weapons.
+<br>
+ <br>
+
+Starting HP/HP per level: 11/+4<br>
+
+Starting SP/SP per level: 8/+0<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 2, 3, 3, 4, 5, 6, 6<br>
+
+Base Fortitude Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Reflex Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Will Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Favored Damage Types: Physical<br>
+
+Recommended Traits at First Level (select two): Tactician of Great Perspicacity, Vigilant Leader, Force of Will<br>
+<br>
+ 
+<br>
+<i>Dilettante</i><br>
+
+Dilettantes are jacks-of-all-trades who excel at nothing in particular. They have poor attack and defense bonuses, their HP and SP at the beginning of the game is lower than other adventurers’, and they have somewhat limited equipment options. That said, they can learn every Trait and Power in the game. You should probably not play a dilettante if it is your first time playing the game.
+<br>
+ <br>
+
+Starting HP/HP per level: 7/+1<br>
+
+Starting SP/SP per level: 7/+1<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 1, 1, 2, 2, 2, 3, 3, 3<br>
+
+Base Fortitude Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Reflex Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Will Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Favored Damage Types: ???<br>
+
+Recommended Traits at First Level: ???<br>
+<br>
+ <br>
+
+<i>Magician</i><br>
+
+Magicians use Powers that can damage single or multiple foes and often rely on synergies to be most effective. Though average attackers and unable to use the equipment of more dedicated warriors, they can rival even the Ronin in melee combat with the right Powers. That said, their SP growth per level is low. They can also use wands, which do little damage but always hit.
+<br>
+ <br>
+
+Starting HP/HP per level: 10/+2<br>
+
+Starting SP/SP per level: 8/+1<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 2, 3, 3, 4, 5, 6, 6<br>
+
+Base Fortitude Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Reflex Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Will Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Favored Damage Types: Magical, Physical<br>
+
+Recommended Traits at First Level (select two): Thaumaturgy, Mechanical Acuity, Improved AC<br>
+<br>
+ 
+<br>
+<i>Ronin</i><br>
+
+Ronin are the game’s best attackers and can use all non-specialized weapons. Their inability to wear the heaviest armor, inferior defenses, and lower HP growth make them weaker defenders than Captains, however. Their Powers tend to do moderate damage to single enemies.
+
+ <br>
+<br>
+Starting HP/HP per level: 10/+2<br>
+
+Starting SP/SP per level: 8/+1<br>
+
+Base Attack Bonus, Levels 1-9: 1, 2, 3, 4, 5, 6, 7, 8, 9<br>
+
+Base Fortitude Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Reflex Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Will Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Favored Damage Types: Physical<br>
+
+Recommended Traits at First Level (select two): Red in Tooth and Claw, Melee Specialist, Tactician of Great Perspicacity<br>
+<br>
+ <br>
+
+<i>Witch</i><br>
+
+Witches have the most versatile class-specific Powers in the game – ones that can debilitate, control, and do moderate damage to foes and others that heal friends and otherwise support them. Their Powers also tend to be less expensive in SP than those of other classes. They are poor attackers and physically vulnerable, but they can use ranged crow familiars in battle. Crows hit automatically and afflict targets with a defense-weakening curse.
+<br>
+ <br>
+
+Starting HP/HP per level: 10/+1<br>
+
+Starting SP/SP per level: 8/+2<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 1, 2, 2, 3, 3, 4, 4<br>
+
+Base Fortitude Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Reflex Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Will Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Favored Damage Types: Poison, Cold<br>
+
+Recommended Traits at First Level (select two): Folk Magic, Natural Philosophy, Will to Live<br>
+<br>
+ <br>
+
+<i>Zealot</i><br>
+
+Zealots have the best healing Powers in the game and access to support Powers and Powers that do moderate damage to enemies. Though they cannot wear armor as heavy as the Ronin or Captain can, their relatively high HP and strong Fortitude and Will saves make them solid defenders in a pinch.
+<br>
+ <br>
+
+Starting HP/HP per level: 10/+3<br>
+
+Starting SP/SP per level: 8/+2<br>
+
+Base Attack Bonus, Levels 1-9: 0, 1, 2, 3, 3, 4, 5, 6, 6<br>
+
+Base Fortitude Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Base Reflex Save: 0, 0, 1, 1, 1, 2, 2, 2<br>
+
+Base Will Save: 2, 3, 3, 4, 4, 5, 5, 6<br>
+
+Favored Damage Types: Physical, Fire<br>
+
+Recommended Traits at First Level (select two): Red in Tooth and Claw, Divine Folly, Improved AC<br>
+<br>
+ <br>
+
+1.f. STATS<br>
+
+Stats or Statistics represent the intellectual and physical potential of the adventurer. They can directly affect the likelihood of an attack’s success, help the character avoid damage, give access to certain Traits, and determine whether a character knows something. Each Stat begins as a randomly generated number or score between 3 and 18. Temperament (1.c.), equipment (2.e.), Traits (1.g.), and Powers (1.h.) can make the score higher or lower. Scores less than 9 give penalties, while scores higher than 11 offer bonuses. For more detailed information on how bonuses and penalties from Stats help determine the success of actions in combat, see Section 3.e. For more information on how bonuses and penalties from Stats help determine the success of actions outside combat, see Sections 2.c. and 2.d.
+<br>
+ <br>
+
+<i>Strength</i><br>
+
+Strength determines how frequently a character successfully hits enemies with non-Power melee attacks and how much damage these attacks do. It has no effect on the damage done by Powers.
+<br>
+ <br>
+
+<i>Dexterity</i><br>
+
+Dexterity determines how frequently a character successfully hits enemies with non-Power ranged attacks and how much damage these attacks do. It has no effect on the damage done by Powers. The bonus from Dexterity is also applied directly to a character’s Armor Class or AC (3.e.), Reflex Save (3.e.), and Initiative rolls (3.b.).
+<br>
+ <br>
+
+<i>Constitution</i><br>
+
+The bonus from Constitution is directly applied to a character’s Fortitude Save (3.e.). Every time the character gains a level (2.f.), this bonus is also added directly to the character’s Hit Points or HP, a measure of how much damage a character can take before falling in battle.
+<br>
+ <br>
+
+<i>Intelligence</i><br>
+
+The bonus from Intelligence is directly applied to a character’s Will Save (3.e.). Every time the character gains a level (2.f.), this bonus is also added directly to the character’s SP, the resource all characters exploit to use Powers (1.h.) in battle.
+<br>
+ <br>
+
+<i>Wisdom</i><br>
+
+Wisdom determines how frequently a character successfully accomplishes non-combat actions, including actions taken right before combat begins. A minimum Wisdom score of 10 is a prerequisite for many Traits (1.g.).
+<br>
+ <br>
+
+<i>Charisma</i><br>
+
+The party's average Charisma score is used to determine Rapport (2.c.). High Charisma can also affect Experience Point (XP) rewards (2.c., 2.d., and 2.f.) and treasure.
+<br>
+ <br>
+
+1.g. TRAITS<br>
+
+Traits are perks that help define your character’s role in combat and in the story. Many Traits come with Powers that can be used combat. Often, Powers that come from Traits can be used as Swift Actions (3.d.). Some Traits can only be learned by specific Classes (1.e.).
+<br>
+ <br>
+
+1.h. POWERS<br>
+
+All Classes (1.e.) except the Dilettante have access to a unique set of Powers. Traits and special equipment can also give a character Powers. Powers are special abilities that cost SP to use and have a variety of potentially game-changing effects.
+<br>
+ <br>
+
+1.i. ADDING AND REMOVING CHARACTERS<br>
+
+To begin the game, you need a party of four characters. After you have made four, cycle through the available characters using the arrow keys and click Add or Remove to compose your party.
+<br>
+ <br>
+
+2. ADVENTURING
+<br>
+<br>
+ 
+
+2.a. MOVEMENT AND TIME<br>
+
+You can move in the game’s non-combat maps by using arrow keys. Alternatively, click on the ship’s wheel icon to bring up a mouse-controlled movement panel. In Hamlet-on-the-Deeps (the town), each square takes 4 minutes of game time to move into. In Ida’s Deeps (the dungeon) each square takes 2 minutes to move into, except in certain areas. Sometimes, the narrative accelerates or freezes time. Outside these moments, time has no impact on the story or behavior of other characters unless otherwise noted. It is there primarily to track the characters’ Ration supply (see below).
+<br>
+<br> 
+
+2.b. RATIONS<br>
+
+Food is an important resource in the game. The party uses 1 Ration every 24 hours of game time (see above). The party can only carry 8 Rations at a time. If no Rations are present when a Ration would be consumed in this way, characters lose 25% of their HP (to a minimum of 1 HP) and SP. Characters automatically consume 1 Ration after battle as well, but if no ration is present at this time, the game does not penalize the party. Rations can be purchased from Vance at the Chilly Catbird Inn. Rations can sometimes be discovered while adventuring.
+
+<br> 
+<br>
+2.c. CONVERSATIONS<br>
+
+To interact with a character, move the party leader’s token onto the NPC. If the character has something to say, a conversation initiates.  (Some conversations take place automatically.) Not all conversations involve other characters. Sometimes, conversations are simply narrated events.
+<br>
+ <br>
+
+Many NPCs in Let’s Go Down to Dungeon-Town evolve over the course of the game. They don’t always populate the same areas, and they don’t always have the same things to say.
+<br>
+ <br>
+
+The selected PC portrait at the bottom of the conversation screen represents the speaking or acting character. This character can be changed at any time by clicking on another character portrait. Sometimes, Traits (1.g.) give other party members other options; if this is the case, a red filter appears over some of the party with a message to that effect. Just because a character has a Trait doesn’t mean that the character will use it to the best of their ability. To determine success, the game generates a number between 1 and 20 and adds it to the Wisdom bonus of the character using the trait. If the resulting number is higher than 7, the character has used the trait successfully.
+<br>
+ <br>
+Another important feature of conversations is the ability to use Rapport. Rapport is a Trait all characters have. It represents how socially adroit the party as a whole is. Unlike other conversation Traits, it uses Charisma, not Wisdom, and not an individual Charisma score, but the average Charisma score of the group. Finally, the option to use Rapport only appears if the game has already determined success for the characters (as above). If the characters fail a Rapport test, no Rapport option appears.
+<br>
+ <br>
+Every combat encounter begins with a conversation and ends with a conversation. Traits like Tactician of Great Perspicacity and Vigilant Leader can be especially useful in pre- and post-combat conversations.
+<br>
+ <br>
+
+2.d. ENCOUNTERS<br>
+
+The Wheel of Fortune icon that appears occasionally represents an opportunity for the party to have an encounter. These encounters can be advantageous, disadvantageous, or neither. Some encounters lead to combat, many are random, and all lead to the conversation screen (above).
+<br>
+ <br>
+
+2.e. EQUIPMENT<br>
+
+The party begins with little equipment but a decent supply of square pieces, the game’s money. One of the first things you should do is buy items appropriate for your characters. All equipment currently in the party’s possession can be viewed by clicking on the sack icon.
+<br>
+ <br>
+
+<i>Shops</i><br>
+
+Certain characters sell equipment. The first one you are likely to meet is named Constance, and she spends most of her time in the common room of the Chilly Catbird.
+<br>
+ 
+<br>
+<i>Clothing, Armor, Weapons, and Ammo</i><br>
+
+Clothing, armor, weapons, and ammunition must all be equipped to be used by your PCs. To equip an item, access the character sheet screen by clicking on the bust icon. On the character sheet screen, click on the part of the adventurer you want to equip. For example, if you want to equip a longsword, click on the right hand: the adventurer uses the right hand to swing (there are no left-handed characters). Only items that can be equipped in the chosen slot appear in the pop-up menu. Note that some characters can’t equip some items: these won’t appear in the pop-up menu. For item restrictions, view the item in the shop window before buying or via the inventory screen. More information on weapons and armor can also be found via the journal (2.g.). 
+<br>
+ 
+<br>
+Ranged weapons require ammunition. Having a ranged weapon equipped and the appropriate ammunition in your inventory isn’t enough: you must equip the ammunition by clicking on the ammunition icon.
+<br>
+ <br>
+
+<i>Rations</i><br>
+
+Rations take up a spot in the party’s inventory but are not used via the character sheet or inventory screens. They are consumed automatically. See 2.b. for more information.
+<br>
+ <br>
+
+<i>Fardel</i><br>
+
+Fardel takes up a spot in the party’s inventory. Do not begrudge him his space.
+<br>
+ <br>
+
+<i>Usable Items</i><br>
+
+Some items can be used in the way Powers are used in combat. Such items do not need to be equipped. To use an item in this way, access the inventory via the sack icon during combat to select it. 
+<br>
+ <br>
+
+<i>2.f. LEVELING UP</i><br>
+
+Characters gain Experience Points (XP) from completing quests and tasks, winning battles, discovering things, and making clever or insightful remarks. Once a certain XP threshold has been reached (see below), the character gains a level, becoming more powerful and often gaining access to new Traits and/or Powers. (See 1.e., 1.g., and 1.h. for more details.) To level up, click the plus icon that appears on the oblong character portrait.
+<br>
+ <br>
+
+Experience needed to reach…<br>
+
+…Level 1: 0<br>
+
+…Level 2: 450<br>
+
+…Level 3: 900<br>
+
+…Level 4: 2700<br>
+
+…Level 5: 4500<br>
+
+…Level 6: 9000<br>
+
+…Level 7: 13,500<br>
+
+…Level 8: 22,500<br>
+
+…Level 9: 40,000<br>
+<br>
+ <br>
+
+2.g. JOURNAL<br>
+
+Clicking on the open book icon opens the journal. The journal keeps track of quests the party has received, information about weapons and armor, and other important data. Each item in the list on the left side of the screen may include multiple entries. Cycle through these entries using the left and right arrow keys.
+
+ <br>
+<br>
+2.h. ADVENTURE MAP SETTINGS<br>
+
+Settings can be adjusted via toggles on the lower left side of the screen. The grid paper toggle turns the walkable and nonwalkable grid overlay off and on. The hourglass icon turns the calendar, time, and Rations display off and on. The lyre icon turns the music off and on.
+<br>
+ <br>
+
+2.i. SAVING THE GAME<br>
+
+To save the game, click on the hard drive icon. You should use multiple slots for saved games in case something goes wrong.
+<br>
+ <br>
+
+3. COMBAT<br>
+<br>
+ <br>
+
+3.a. DEPLOYMENT<br>
+
+By default, characters appear in certain positions on the combat map automatically. A character with the trait Tactician of Great Perspicacity, however, often has the ability to choose between two deployment positions.
+<br>
+ <br>
+
+3.b. INITIATIVE<br>
+
+At the beginning of combat, the game generates a number between 1 and 20 for each participant. This is called an Initiative roll. NPCs have an Initiative statistic that can increase or decrease this value. The computer uses PCs’ Dexterity bonuses (1.f.) to adjust their Initiative rolls; higher is better. The highest roller goes first, then the second, and so on, for each participant in the battle. Turn order can be reviewed via the Initiative Bar at the top of the screen.
+<br>
+ <br>
+
+3.c. COMBAT TIME AND ACTION TYPES<br>
+
+One combat round is supposed to represent about six seconds of narrative time. In game terms, a round of combat is the time it takes for each participant to take a turn and use actions.
+<br>
+<br>
+Anything a PC does to change the game state in some way counts as a kind of action.
+<br>
+ <br>
+
+<i>Standard Action</i><br>
+
+A Standard Action is an action into which the PC is putting all their time. Taking a Standard Action ends the character’s turn. Normal attacks, using most powers, and even skipping one’s turn count as Standard Actions.
+<br>
+ <br>
+
+<i>Swift Action</i><br>
+
+A Swift Action is an action that can be performed efficiently enough not to end the PC’s turn. Many Traits (1.g.) grant Powers that take advantage of Swift Actions, and a few class-based Powers can be used as Swift Actions, too. A PC can only make 1 Swift Action per turn.
+<br>
+ <br>
+
+<i>Free Action</i><br>
+
+A Free Action is an action that can be performed very efficiently – so efficiently that there is no limit on the number of free actions a PC can perform in combat. Free actions aren’t very common, but a few Powers use free actions, as does using certain items (2.e.).
+
+ <br>
+<br>
+<i>Movement</i><br>
+
+Unless afflicted by Immobility or Paralysis, a character can always move into an unblocked square. Movement must take place before the PC uses a Standard Action.
+<br>
+ <br>
+
+3.d. COMBAT OPTIONS<br>
+
+Players engage in battle using the first seven large icons on the combat screen.
+<br>
+ <br>
+
+<i>Character Sheet/Switching Weapons</i><br>
+
+The player can access the character sheet in the same way on the combat map as on the adventuring map, by clicking the bust icon. This can be useful simply for checking a character’s statistics and active effects. A PC can also be equipped with weapons via the character sheet (see 2.e.). However, equipping a weapon in the midst of combat counts as a Standard Action (see above), and a PC can only change weapons, not armor.
+<br>
+ <br>
+
+<i>Inventory</i><br>
+
+The player can access the inventory screen in the same way on the combat map as on the adventuring map, by clicking the sack icon. This is how to access usable items like Adventurer’s Tonics (2.e.).
+<br>
+ <br>
+
+<i>Skip</i><br>
+
+If you find that nothing you do could change the game state to your advantage, you can choose to Skip a PC’s turn. Skipping is a Standard Action (3.c.).
+<br>
+ <br>
+
+<i>Move</i><br>
+
+As noted above, characters unafflicted by Immobility or Paralysis can always move into an unblocked square. All characters have the ability to move 5 squares by default, but equipment and certain powers can modify this number. Moving diagonally counts as moving 1.5 squares. You can move with the arrow keys; alternatively, click the ship’s wheel icon to bring up the mouse-controlled movement panel. A character’s available movement is tracked via the grayed -out button between the ship’s wheel icon and the Trait button.
+<br>
+ 
+<br>
+Moving away from an enemy in combat gives that enemy the opportunity to attack the PC for free. It’s a good idea not to move away from nearby enemies unless you’re confident you’ll survive. PCs get free attacks on enemy NPCs who do the same thing.
+<br>
+ 
+<br>
+Finally, while a character cannot enter a square in which another character is standing, an unconscious PC does not restrict movement in this way. In some instances, therefore – if another party member restores consciousness to a fallen comrade, for example – two characters will occupy the same square.
+
+ <br>
+<br>
+<i>Attack</i><br>
+
+When a PC attacks with a common melee weapon, the target must be within 1 square. Certain uncommon melee weapons (like whips) have a range of 2; in that case, the target must be within 2 squares and the PC must have Line of Sight (see below).
+<br>
+ <br>
+
+When a PC attacks with a ranged weapon, the target must be within the range specified by the weapon. The PC must also be able to see the target. Other combat participants do not obscure the target, but terrain might. Toggle the grid overlay (3.g.) to see what blocks line of sight.
+<br>
+ 
+<br>
+The player selects attack and chooses a valid (red) target, then clicks to execute the attack. An attack is a Standard Action (3.c.). For more information on how the success of an attack is determined, see 3.e.
+<br>
+ 
+<br>
+<i>Power</i><br>
+
+To access class-specific Powers, use this button. Powers given by Traits are accessed via the Trait button. The Power screen has valuable information about targeting, Action type, effects, and cost.
+<br>
+ <br>
+
+<i>Trait</i><br>
+
+To access Traits that come with combat Powers, use this button. The Trait screen has valuable information about targeting, Action type, effects, and cost.
+
+ <br>
+<br>
+3.e. ATTACK, POWER, AND DEFENSE MECHANICS
+<br>
+All attacks and many Powers are not automatically successful. This section describes how the game determines the success of these actions.
+<br>
+ <br>
+
+The core mechanic of this process is to randomly generate a number between 1 and 20, the higher the better. Bonuses are often added to this number.
+
+<br> 
+<br>
+For attacks made with melee and ranged weapons, this number is generated for the attacker and compared to the target’s Armor Class (AC). If the result equals or is higher than the AC of the target, the attack is succesful and damage is determined (3.f.).
+<br>
+ <br>
+
+For Powers, this number is generated for each defender and compared to the Difficulty Class (DC) of the Power. This is called a saving throw or “save,” and it is modified by the Reflex, Will, or Fortitude values of the target character. If the result equals or is higher than the DC of the Power, the Power doesn’t take effect (or doesn’t take effect with full force).
+<br>
+ 
+<br>
+3.f. DAMAGE<br>
+
+There are seven different damage types in the game, Physical, Electricity, Fire, Cold, Poison, Acid, and Magical. The most common type of damage is Physical Damage. Most weapons, for instance, deal Physical Damage exclusively, and many Powers do as well.
+<br>
+ 
+<br>
+Each character in the game has the potential to resist or to become susceptible to a certain damage type, and many have innate resistances or susceptibilities. Resistance is tracked as a percentage.
+<br>
+ 
+<br>
+A positive value (20% Acid Resistance, for example) means that 20% of all damage done by a certain damage type wouldn’t harm the character. Using the example above, this means that 10 Acid Damage becomes 8 Acid Damage. Fractions are rounded down. If a character has a paltry 3% Physical Resistance, 1 Physical Damage does no damage to them at all.
+
+ <br>
+<br>
+A negative resistance value (-20% Acid Resistance, for example) means that the damage done by a certain damage type increases. Using the example above, this means that 10 Acid Damage becomes 12 Acid Damage.  
+<br>
+ 
+<br>
+The game rarely uses a flat number to determine damage from an attack. Instead, Weapons and Powers use a dice-based system to randomly determine damage: the game rolls a number of invisible dice, adds up their value, and the result is the damage output. These theoretical dice are abbreviated as 1d6, 3d4, 1d8 + 3, and so on. The first number stands for the number of dice being rolled and the last number for the type of die being rolled. A 1d6 is therefore one six-sided die, and 3d4 stands for three four-sided dice. Sometimes, as in the example 1d8 + 3, a flat number is added to the randomly generated sum.
+<br>
+ <br>
+
+3.g. RESOLUTION<br>
+
+Once all the players’ enemies have fallen, a conversation will start narrating the aftermath of the fight. PCs’ HP and SP are restored, even for fallen adventurers, and there is sometimes treasure to be had. The party also consumes 1 Ration (2.b.).
+<br>
+ 
+<br>
+If all the characters fall in battle, the game is over!
+
+ <br>
+<br>
+3.h. COMBAT MAP SETTINGS<br>
+
+Settings can be adjusted via toggles on the lower left side of the screen.
+<br>
+ <br>
+
+<i>Grid Paper</i><br>
+
+The grid paper toggle turns the walkable, nonwalkable, and line-of-sight grid overlay off and on.
+<br>
+ <br>
+
+<i>Blood</i><br>
+
+The blood droplet toggle turns the HP display for combat participants off and on.
+<br>
+ 
+<br>
+<i>Lightning</i><br>
+
+The lightning toggle turns the SP display for combat participants off and on.
+<br>
+<br>
+<i>Boot</i><br>
+
+The boot toggle increases and decreases how quickly the game represents movement (1x, 2x, 4x, and 10x).
+<br>
+ <br>
+
+<i>Snake</i><br>
+
+The snake toggle increases and decreases how quickly the game represents attack and Power actions (1x, 2x, 4x, and 10x).
+<br>
+ <br>
+
+<i>Lyre</i><br>
+
+The lyre toggle turns the music on and off.
+
+ <br>
+<br>
+<i>Horn</i><br>
+
+The horn toggle turns sound effects on and off.
+<br>
+<br>

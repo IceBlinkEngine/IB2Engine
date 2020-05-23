@@ -13257,7 +13257,8 @@ namespace IceBlink2
         public void CheckManualKeyboardInput(string correctAnswer1, string correctAnswer2, string correctAnswer3, string topLineText)
         {
             gv.mod.realTimeTimerStopped = true;
-            gv.realTimeTimerMilliSecondsEllapsed = 0;
+            //revolution
+            //gv.realTimeTimerMilliSecondsEllapsed = 0;
             using (TextInputDialog itSel = new TextInputDialog(gv, topLineText))
             {
                 itSel.IceBlinkButtonClose.Visible = true;

@@ -1,0 +1,1427 @@
+[
+  {
+    "shopTag": "constance_shop",
+    "shopName": "Constance's Common Goods",
+    "shopItemRefs": [
+      {
+        "resref": "crossbow01",
+        "tag": "newtag10101010_72754",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "crossbow01",
+        "tag": "newtag10101010_72754",
+        "name": "Crossbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_flintlock",
+        "tag": "newTag_20485_76945",
+        "name": "Flintlock",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_76950",
+        "name": "Longbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lbow1",
+        "tag": "lbow1_76950",
+        "name": "Longbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_76957",
+        "name": "Shortbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_76957",
+        "name": "Shortbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76985",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76940",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76985",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76940",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76985",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76940",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76985",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76940",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76985",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_76940",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_ball",
+        "tag": "newTag_25762_76941",
+        "name": "Ball",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "bolt01",
+        "tag": "newTag_37399_72755",
+        "name": "Bolts",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_kernels",
+        "tag": "newTag_25701_76948",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      }
+    ],
+    "buybackPercent": 20,
+    "sellPercent": 100
+  },
+  {
+    "shopTag": "constance_shop2",
+    "shopName": "Constance's Common Goods",
+    "shopItemRefs": [
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_77056",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "battleaxe",
+        "tag": "battleaxe_77057",
+        "name": "Battle Axe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_club",
+        "tag": "newTag_71969_77059",
+        "name": "Club",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_club",
+        "tag": "newTag_71969_77060",
+        "name": "Club",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_77061",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_77062",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "flail01",
+        "tag": "newTag_37035_77063",
+        "name": "Flail",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "flail01",
+        "tag": "newTag_37035_77064",
+        "name": "Flail",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "greataxe00",
+        "tag": "newTag_73044_77065",
+        "name": "Greataxe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "greataxe00",
+        "tag": "newTag_73044_77066",
+        "name": "Greataxe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "halberd01",
+        "tag": "newTag_36341_77067",
+        "name": "Halberd",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "halberd01",
+        "tag": "newTag_36341_77068",
+        "name": "Halberd",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "handaxe00",
+        "tag": "newTag_73043_77069",
+        "name": "Handaxe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "handaxe00",
+        "tag": "newTag_73043_77070",
+        "name": "Handaxe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "longspear01",
+        "tag": "newTag_75716_77071",
+        "name": "Longspear",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "longspear01",
+        "tag": "newTag_75716_77072",
+        "name": "Longspear",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_77073",
+        "name": "Longsword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lsword01",
+        "tag": "lsword01_77074",
+        "name": "Longsword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace01",
+        "tag": "newTag_36117_77075",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "mace01",
+        "tag": "newTag_36117_77076",
+        "name": "Mace",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_maul",
+        "tag": "tag_maul_77077",
+        "name": "Maul",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_maul",
+        "tag": "tag_maul_77078",
+        "name": "Maul",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "quarterstaff01",
+        "tag": "newTag_18249_77079",
+        "name": "Quarterstaff",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "quarterstaff01",
+        "tag": "newTag_18249_77080",
+        "name": "Quarterstaff",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "rapier01",
+        "tag": "newTag_36810_77081",
+        "name": "Rapier",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "rapier01",
+        "tag": "newTag_36810_77082",
+        "name": "Rapier",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_scythe",
+        "tag": "newTag_60579_77083",
+        "name": "Scythe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_scythe",
+        "tag": "newTag_60579_77084",
+        "name": "Scythe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_77085",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "ssword01",
+        "tag": "ssword01_77086",
+        "name": "Short Sword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sickle01",
+        "tag": "newTag_37336_77087",
+        "name": "Sickle",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "sickle01",
+        "tag": "newTag_37336_77088",
+        "name": "Sickle",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spear01",
+        "tag": "newTag_36344_77089",
+        "name": "Spear",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "spear01",
+        "tag": "newTag_36344_77090",
+        "name": "Spear",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_warhammer",
+        "tag": "newTag_72205_77091",
+        "name": "Warhammer",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_warhammer",
+        "tag": "newTag_72205_77092",
+        "name": "Warhammer",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_whip",
+        "tag": "newTag_60323_77093",
+        "name": "Whip",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_whip",
+        "tag": "newTag_60323_77094",
+        "name": "Whip",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "zweihander00",
+        "tag": "newTag_75721_77095",
+        "name": "Zweihander",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "zweihander00",
+        "tag": "newTag_75721_77096",
+        "name": "Zweihander",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "buybackPercent": 20,
+    "sellPercent": 100
+  },
+  {
+    "shopTag": "constance_shop3",
+    "shopName": "Constance's Common Goods",
+    "shopItemRefs": [
+      {
+        "resref": "chainshirt01",
+        "tag": "newTag_34589_77106",
+        "name": "Chain Shirt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainshirt01",
+        "tag": "newTag_34589_77107",
+        "name": "Chain Shirt",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_77108",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "chainmail",
+        "tag": "chainmail_77109",
+        "name": "Chainmail Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "halfplate00",
+        "tag": "newTag_75718_77110",
+        "name": "Half-Plate Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "halfplate00",
+        "tag": "newTag_75718_77111",
+        "name": "Half-Plate Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_77112",
+        "name": "Heavy Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "largeshield",
+        "tag": "largeshield_77113",
+        "name": "Heavy Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fullplate00",
+        "tag": "newTag_75719_77114",
+        "name": "Full Plate Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "fullplate00",
+        "tag": "newTag_75719_77115",
+        "name": "Full Plate Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_77116",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "larmor1",
+        "tag": "larmor1_77117",
+        "name": "Leather Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lightshield",
+        "tag": "newTag_65398_77118",
+        "name": "Light Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "lightshield",
+        "tag": "newTag_65398_77119",
+        "name": "Light Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "paddedarmor01",
+        "tag": "newTag_52810_77120",
+        "name": "Padded Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "paddedarmor01",
+        "tag": "newTag_52810_77121",
+        "name": "Padded Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_robes",
+        "tag": "tag_it_robes_77122",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_robes",
+        "tag": "tag_it_robes_77123",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_77124",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather",
+        "tag": "studdedLeather_77125",
+        "name": "Studded Leather Armor",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_towershield",
+        "tag": "newTag_66184_77126",
+        "name": "Tower Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "resref_towershield",
+        "tag": "newTag_66184_77127",
+        "name": "Tower Shield",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "buybackPercent": 20,
+    "sellPercent": 100
+  },
+  {
+    "shopTag": "discordium_shop",
+    "shopName": "Discordium",
+    "shopItemRefs": [
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_78331",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_78335",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156726",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156727",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156728",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156729",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156730",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156731",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156732",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156733",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156734",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156735",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156736",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156737",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156738",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156739",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156740",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156741",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156742",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "resref_discordium",
+        "tag": "newTag_25763_156743",
+        "name": "Discordium",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      }
+    ],
+    "buybackPercent": 0,
+    "sellPercent": 100
+  },
+  {
+    "shopTag": "constance_shop4",
+    "shopName": "Constance's Common Goods",
+    "shopItemRefs": [
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127028",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127029",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127030",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127031",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127032",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127033",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127034",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127035",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127036",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127037",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127038",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127039",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127040",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127041",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127042",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127043",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127044",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127045",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127046",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127047",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127048",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_127049",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "buybackPercent": 20,
+    "sellPercent": 100
+  },
+  {
+    "shopTag": "constance_shop5",
+    "shopName": "Constance's Common Goods",
+    "shopItemRefs": [
+      {
+        "resref": "glovesofthesavant",
+        "tag": "newTag_157367_158540",
+        "name": "Gloves of the Savant",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "studdedLeather02",
+        "tag": "newTag_157402_158541",
+        "name": "Armor of the Wild Rose",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "buybackPercent": 20,
+    "sellPercent": 100
+  }
+]

@@ -23,6 +23,8 @@ namespace IceBlink2
 
         //public bool useDynamicOvergrowthInLayer4 = true;
 
+
+        public bool useSimpleDarkness = false;
         public string fillLayer4WithThisTile = "none";
         public string traitTagForClearingOvergrowth = "none";
         public int overgrowthStrength = 0;

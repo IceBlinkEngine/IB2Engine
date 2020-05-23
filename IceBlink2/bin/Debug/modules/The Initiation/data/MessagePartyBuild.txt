@@ -1,0 +1,16 @@
+PARTY BUILD<br>
+<br>
+The 'HELP' button will display this message box again. For more detailed informatio, consult the Player's Guide.
+<br>
+<br>
+Build Your Party<br>
+1. Party Size: You will need four adventurers to begin the game.
+<br>
+<br>
+2. Add: Pressing this button will add the currently selected PC from the available character list to the party.<br>
+<br>
+3. Remove: Pressing this button will remove the currently selected party member from the party and add them to the available character list.<br>
+<br>
+4. Create: This button allows you to create a new character. Created PCs are saved to the available character list even if you don't add them to the party<br>
+<br>
+5. Press "START GAME" when completed. 

@@ -1,0 +1,64 @@
+COMBAT OPTIONS<br>
+
+Players engage in battle using the first seven large icons on the combat screen. For more information about combat, consult the Player's Guide.
+<br>
+ <br>
+
+<i>Character Sheet/Switching Weapons</i><br>
+
+The player can access the character sheet in the same way on the combat map as on the adventuring map, by clicking the bust icon. This can be useful simply for checking a character’s statistics and active effects. A PC can also be equipped with weapons via the character sheet (see 2.e.). However, equipping a weapon in the midst of combat counts as a Standard Action (see above), and a PC can only change weapons, not armor.
+<br>
+ <br>
+
+<i>Inventory</i><br>
+
+The player can access the inventory screen in the same way on the combat map as on the adventuring map, by clicking the sack icon. This is how to access usable items like Adventurer’s Tonics (2.e.).
+<br>
+ <br>
+
+<i>Skip</i><br>
+
+If you find that nothing you do could change the game state to your advantage, you can choose to Skip a PC’s turn. Skipping is a Standard Action (3.c.).
+<br>
+ <br>
+
+<i>Move</i><br>
+
+As noted above, characters unafflicted by Immobility or Paralysis can always move into an unblocked square. All characters have the ability to move 5 squares by default, but equipment and certain powers can modify this number. Moving diagonally counts as moving 1.5 squares. You can move with the arrow keys; alternatively, click the ship’s wheel icon to bring up the mouse-controlled movement panel. A character’s available movement is tracked via the grayed -out button between the ship’s wheel icon and the Trait button.
+<br>
+ 
+<br>
+Moving away from an enemy in combat gives that enemy the opportunity to attack the PC for free. It’s a good idea not to move away from nearby enemies unless you’re confident you’ll survive. PCs get free attacks on enemy NPCs who do the same thing.
+<br>
+ 
+<br>
+Finally, while a character cannot enter a square in which another character is standing, an unconscious PC does not restrict movement in this way. In some instances, therefore – if another party member restores consciousness to a fallen comrade, for example – two characters will occupy the same square.
+
+ <br>
+<br>
+<i>Attack</i><br>
+
+When a PC attacks with a common melee weapon, the target must be within 1 square. Certain uncommon melee weapons (like whips) have a range of 2; in that case, the target must be within 2 squares and the PC must have Line of Sight (see below).
+<br>
+ <br>
+
+When a PC attacks with a ranged weapon, the target must be within the range specified by the weapon. The PC must also be able to see the target. Other combat participants do not obscure the target, but terrain might. Toggle the grid overlay (3.g.) to see what blocks line of sight.
+<br>
+ 
+<br>
+The player selects attack and chooses a valid (red) target, then clicks to execute the attack. An attack is a Standard Action (3.c.). For more information on how the success of an attack is determined, see 3.e.
+<br>
+ 
+<br>
+<i>Power</i><br>
+
+To access class-specific Powers, use this button. Powers given by Traits are accessed via the Trait button. The Power screen has valuable information about targeting, Action type, effects, and cost.
+<br>
+ <br>
+
+<i>Trait</i><br>
+
+To access Traits that come with combat Powers, use this button. The Trait screen has valuable information about targeting, Action type, effects, and cost.
+
+ <br>
+<br>

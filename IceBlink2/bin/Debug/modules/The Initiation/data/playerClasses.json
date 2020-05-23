@@ -1,0 +1,722 @@
+[
+  {
+    "name": "Witch",
+    "labelForCastAction": "CAST",
+    "labelForUseTraitAction": "USE",
+    "modifierFromSPRelevantAttribute": "intelligence",
+    "spellLabelSingular": "Power",
+    "spellLabelPlural": "Powers",
+    "traitLabelSingular": "Trait",
+    "traitLabelPlural": "Traits",
+    "tag": "tag_witchclass",
+    "UsableByPlayer": true,
+    "description": "Witches have access to versatile powers that damage and weaken enemies and heal companions. They also use crows that automatically hit enemies. They are otherwise poor attackers.",
+    "startingHP": 16,
+    "startingSP": 8,
+    "hpPerLevelUp": 1,
+    "spPerLevelUp": 2,
+    "hpRegenTimeNeeded": 0,
+    "spRegenTimeNeeded": 0,
+    "baseFortitudeAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "baseWillAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseReflexAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "babTable": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4
+    ],
+    "xpTable": [
+      0,
+      450,
+      900,
+      2700,
+      4500,
+      9000,
+      13500,
+      22500,
+      40000,
+      81000
+    ],
+    "spellsToLearnAtLevelTable": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "traitsToLearnAtLevelTable": [
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "itemsAllowed": [
+      {
+        "resref": "witcharrow01",
+        "tag": "newtag90893_170828",
+        "name": "Arrows",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "witchclub01",
+        "tag": "newTag_71969_170829",
+        "name": "Club",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchdagger01",
+        "tag": "dagger01sdfadf_170830",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchscythe",
+        "tag": "newTag_60579_170831",
+        "name": "Scythe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchsickle00",
+        "tag": "newTag_37336_170832",
+        "name": "Sickle",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchwhip01",
+        "tag": "newTag_60323_170833",
+        "name": "Whip",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchsickle01",
+        "tag": "newTag_164824_170834",
+        "name": "Sickle of Minor Advantage",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchrobes01",
+        "tag": "newTag_164828_170835",
+        "name": "Robes of the Young Witch",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchcrow01",
+        "tag": "newTag_164832_170836",
+        "name": "Crow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchkernels01",
+        "tag": "newTag_164833_170837",
+        "name": "Kernels",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_170838",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchstaff01",
+        "tag": "newTag_165298_170839",
+        "name": "Quarterstaff",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "robes",
+        "tag": "robes_170840",
+        "name": "Robes",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_170841",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "shortBow",
+        "tag": "shortBow_170842",
+        "name": "Short Bow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "arrow",
+        "tag": "arrow_170843",
+        "name": "Arrow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 20
+      },
+      {
+        "resref": "knott_burlapsack",
+        "tag": "newTag_166223_170844",
+        "name": "Burlap Sack Jacket",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "bishopssatchel01",
+        "tag": "newTag_166659_170845",
+        "name": "Bishop's Satchel",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "wightbonnet01",
+        "tag": "newTag_166721_170846",
+        "name": "Wightbonnet",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "youngwitchrobes02",
+        "tag": "newTag_166765_170847",
+        "name": "Charmed Robes of the Young Witch",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchboots01",
+        "tag": "newTag_166926boots_170848",
+        "name": "Boots of the Flattened Flowers",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchdagger02",
+        "tag": "newTag_167604_170849",
+        "name": "Dagger of Minor Advantage",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchring01",
+        "tag": "newTag_167610_170850",
+        "name": "Gold Ring with Unfaceted Sapphire",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "royaldandywill01s",
+        "tag": "newTag_167846_170851",
+        "name": "Royal Dandywill",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "faeryscordial00",
+        "tag": "newTag_168599_170852",
+        "name": "Faery's Cordial",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witch_shortbow",
+        "tag": "newTag_170209_170853",
+        "name": "Shortbow",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "wlongsword00",
+        "tag": "newTag_170740_170854",
+        "name": "Longsword",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Embattled Egoist",
+        "tag": "trait_defender",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "spell_egoist",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      },
+      {
+        "name": "Natural Philosophy",
+        "tag": "trait_naturalphil",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "none",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      },
+      {
+        "name": "Folk Magic",
+        "tag": "trait_folkmagic",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "spell_folkmagic",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      },
+      {
+        "name": "Woodcraft",
+        "tag": "preciseshot",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "none",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      },
+      {
+        "name": "Swordplay",
+        "tag": "cleave",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "spell_adrenal",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      }
+    ],
+    "spellsAllowed": [
+      {
+        "name": "Ballad of the Frogs",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_balladfrogs",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "OId Meg, She Gave Them Succor",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_oldmeg",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Prithee Sleep, Cruel Babes!",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "pritheesleep",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Ballad of the Jays",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_balladjays",
+        "atWhatLevelIsAvailable": 2,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Red Fox in the Snow",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_redfox",
+        "atWhatLevelIsAvailable": 2,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "The Sweets of Faerylond",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_sweetsoffaerylond",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Warm Skin, Warm Eyes, Cold Heart",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "warmskinwarmeyescoldheart_spell",
+        "atWhatLevelIsAvailable": 3,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "The Storm-Blasted Heath",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "spell_stormblastedheath",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ]
+  },
+  {
+    "name": "Walking Gourd",
+    "labelForCastAction": "CAST",
+    "labelForUseTraitAction": "USE",
+    "modifierFromSPRelevantAttribute": "intelligence",
+    "spellLabelSingular": "Power",
+    "spellLabelPlural": "Powers",
+    "traitLabelSingular": "Trait",
+    "traitLabelPlural": "Traits",
+    "tag": "familiar_class",
+    "UsableByPlayer": false,
+    "description": "",
+    "startingHP": 18,
+    "startingSP": 9,
+    "hpPerLevelUp": 2,
+    "spPerLevelUp": 1,
+    "hpRegenTimeNeeded": 0,
+    "spRegenTimeNeeded": 0,
+    "baseFortitudeAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "baseWillAtLevel": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2
+    ],
+    "baseReflexAtLevel": [
+      0,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5,
+      6
+    ],
+    "babTable": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "xpTable": [
+      0,
+      450,
+      900,
+      2700,
+      4500,
+      9000,
+      13500,
+      26000,
+      40000,
+      81000
+    ],
+    "spellsToLearnAtLevelTable": [
+      0,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "traitsToLearnAtLevelTable": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "itemsAllowed": [
+      {
+        "resref": "witchclub01",
+        "tag": "newTag_71969_170855",
+        "name": "Club",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchdagger01",
+        "tag": "dagger01sdfadf_170856",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchscythe",
+        "tag": "newTag_60579_170857",
+        "name": "Scythe",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchsickle00",
+        "tag": "newTag_37336_170858",
+        "name": "Sickle",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchwhip01",
+        "tag": "newTag_60323_170859",
+        "name": "Whip",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchsickle01",
+        "tag": "newTag_164824_170860",
+        "name": "Sickle of Minor Advantage",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "minorhealpotion",
+        "tag": "minorhealpotion_170861",
+        "name": "Adventurer's Tonic",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchstaff01",
+        "tag": "newTag_165298_170862",
+        "name": "Quarterstaff",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "dagger01",
+        "tag": "dagger01_170863",
+        "name": "Dagger",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "knott_burlapsack",
+        "tag": "newTag_166223_170864",
+        "name": "Burlap Sack Jacket",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "witchdagger02",
+        "tag": "newTag_167604_170865",
+        "name": "Dagger of Minor Advantage",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "royaldandywill01s",
+        "tag": "newTag_167846_170866",
+        "name": "Royal Dandywill",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      },
+      {
+        "resref": "faeryscordial00",
+        "tag": "newTag_168599_170867",
+        "name": "Faery's Cordial",
+        "canNotBeUnequipped": false,
+        "isLightSource": false,
+        "isRation": false,
+        "quantity": 1
+      }
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Force of Will",
+        "tag": "trait_forceofwill",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "spell_forceofwill",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      }
+    ],
+    "spellsAllowed": [
+      {
+        "name": "Wallop",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "knott_wallop_spell",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Unstable Rind",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "knott_rind_spell",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      },
+      {
+        "name": "Invasive Growth",
+        "needsSpecificTrainingToLearn": false,
+        "tag": "knott_growth_spell",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "allow": true
+      }
+    ]
+  }
+]

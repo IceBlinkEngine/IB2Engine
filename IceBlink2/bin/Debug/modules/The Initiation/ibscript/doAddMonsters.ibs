@@ -1,0 +1,15 @@
+~ogGetNumberOfCreaturesInEncounter(NumberCreatures)
+~gaGetGlobalInt(NumberCreatures,@number)
+~gaGetGlobalInt(Summons,@summons)
+
+if (@summons = 3)
+end
+endif 
+
+if (@number = 1)
+   ~gaSetGlobalInt(Summons,++)
+   ~gaShowMessageBox(An enemy comes through the portal.)
+   ~gaAddCreatureToCurrentEncounter(parm(0),parm(1),parm(2),parm(3))
+
+endif
+end

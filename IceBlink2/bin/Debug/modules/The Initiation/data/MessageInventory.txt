@@ -1,0 +1,8 @@
+PARY INVENTORY<br>
+For more information on inventory and equipment, consult the Player's Guide. Note that equipping weapons, armor, and clothing is done through the character sheet.
+<br>
+<br>
+1. Items Pages: Press the left or right arrows to scroll through the equipment item pages.<br>
+<br>
+2. Usable By Identifiers:</b> Al = Alchemist, Ca = Captain, Di = Dilettante, Ma = Magician, Ronin = R, Wi = Witch, Ze = Zealot.<br>
+<br>

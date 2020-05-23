@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Spring",
+    "tag": "race_choleric",
+    "UsableByPlayer": true,
+    "description": "Some witches are attuned to one of the four seasons.",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 5,
+    "strMod": 0,
+    "dexMod": 2,
+    "intMod": 2,
+    "chaMod": -1,
+    "conMod": 0,
+    "wisMod": -1,
+    "damageTypeResistanceValuePoison": 10,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 10,
+    "classesAllowed": [
+      "tag_witchclass",
+      "familiar_class"
+    ],
+    "traitsAllowed": [
+      {
+        "name": "Springtime Blessing",
+        "tag": "newTraitTag_169587",
+        "useableinsituation": "Passive",
+        "associatedSpellTag": "none",
+        "atWhatLevelIsAvailable": 0,
+        "automaticallyLearned": false,
+        "needsSpecificTrainingToLearn": false,
+        "allow": true
+      }
+    ]
+  },
+  {
+    "name": "Summer",
+    "tag": "race_sanguine",
+    "UsableByPlayer": true,
+    "description": "Some witches are attuned to one of the four seasons.",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 5,
+    "strMod": 2,
+    "dexMod": 0,
+    "intMod": -1,
+    "chaMod": 2,
+    "conMod": 0,
+    "wisMod": -1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 10,
+    "damageTypeResistanceValueFire": 10,
+    "classesAllowed": [
+      "tag_witchclass",
+      "familiar_class"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Fall",
+    "tag": "race_melancholy",
+    "UsableByPlayer": true,
+    "description": "Some witches are attuned to one of the four seasons.",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 5,
+    "strMod": -1,
+    "dexMod": 0,
+    "intMod": 2,
+    "chaMod": 0,
+    "conMod": -1,
+    "wisMod": 2,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 10,
+    "damageTypeResistanceValueCold": 10,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "tag_witchclass",
+      "familiar_class"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "Winter",
+    "tag": "race_phlegmatic",
+    "UsableByPlayer": true,
+    "description": "Some witches are attuned to one of the four seasons.",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 5,
+    "strMod": 0,
+    "dexMod": -1,
+    "intMod": 0,
+    "chaMod": -1,
+    "conMod": 2,
+    "wisMod": 2,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 10,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 10,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "tag_witchclass",
+      "familiar_class"
+    ],
+    "traitsAllowed": []
+  },
+  {
+    "name": "No Season",
+    "tag": "race_noseason",
+    "UsableByPlayer": true,
+    "description": "Some witches are attuned to one of the four seasons.",
+    "MoveDistanceLightArmor": 5,
+    "MoveDistanceMediumHeavyArmor": 5,
+    "strMod": 1,
+    "dexMod": 1,
+    "intMod": 1,
+    "chaMod": 1,
+    "conMod": 1,
+    "wisMod": 1,
+    "damageTypeResistanceValuePoison": 0,
+    "damageTypeResistanceValueMagic": 0,
+    "damageTypeResistanceValueNormal": 0,
+    "damageTypeResistanceValueAcid": 0,
+    "damageTypeResistanceValueCold": 0,
+    "damageTypeResistanceValueElectricity": 0,
+    "damageTypeResistanceValueFire": 0,
+    "classesAllowed": [
+      "tag_witchclass"
+    ],
+    "traitsAllowed": []
+  }
+]

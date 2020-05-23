@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "Tutorial",
+    "Tag": "jr_tutorial",
+    "Entries": [
+      {
+        "EntryTitle": "Finish the Tutorial",
+        "EntryText": "The young witch was eager to meet the witches of the coven. It wouldn't be long now...",
+        "Tag": "01",
+        "EntryId": 0,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Tutorial Complete",
+        "EntryText": "The young witch had finally made it to the witches' house.",
+        "Tag": "02",
+        "EntryId": 0,
+        "EndPoint": true
+      }
+    ]
+  },
+  {
+    "Name": "The Three Hunters",
+    "Tag": "jr_mainquest",
+    "Entries": [
+      {
+        "EntryTitle": "The Three Hunters",
+        "EntryText": "Eldest Lady and Middle One sent the young witch and Knott on a grim errand -- to find the hunter who used goose-fletched arrows and to return with a pint of that hunter's blood before August 1 (July 31 at midnight). They would use the blood to bind the young witch to their coven.",
+        "Tag": "main02",
+        "EntryId": 0,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Planting the Seed",
+        "EntryText": "The coven sent the young witch into their back yard. There rested the body of the witch who'd been shot. The young witch was told to plant a seed in the soil of her grave. ",
+        "Tag": "main01",
+        "EntryId": 0,
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "The Three Spirits",
+    "Tag": "jr_spiritquest",
+    "Entries": [
+      {
+        "EntryTitle": "Wee Malkin Was His Name",
+        "EntryText": "After meeting a spirit in the woods, the young witch had a vision. In it, a young man stood on top of a hill and drank from a cup. The spirit said the man's name was \"Wee Malkin\" and told the young witch to mention it to Middle One.",
+        "Tag": "spirit01",
+        "EntryId": 0,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "The Woodcutter's Son",
+        "EntryText": "A second spirit showed the young witch another vision of Wee Malkin. In it, Wee Malkin received a cup from Eldest Lady and Middle One and was told to seek wisdom from the spirits. After the vision faded, the spirit told the young witch that the woodcutter's son knew how to find Wee Malkin.",
+        "Tag": "spirit03",
+        "EntryId": 0,
+        "EndPoint": false
+      },
+      {
+        "EntryTitle": "Middle One's Information",
+        "EntryText": "The young witch asked Middle One about Wee Malkin. The older witch was not forthcoming, but the young witch did learn that Wee Malkin had been in the coven before Nnenne. Perhaps others in the woods knew more.",
+        "Tag": "spirit02",
+        "EntryId": 0,
+        "EndPoint": false
+      }
+    ]
+  },
+  {
+    "Name": "Boons",
+    "Tag": "jr_boons",
+    "Entries": []
+  }
+]

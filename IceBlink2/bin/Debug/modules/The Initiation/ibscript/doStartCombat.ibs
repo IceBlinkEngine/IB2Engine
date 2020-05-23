@@ -1,0 +1,3 @@
+~osSetCreatureSp(parm(0),parm(1),parm(2),parm(3))
+~gaSetGlobalInt(Summons,++)
+~gaForceRestAndRaiseDead()

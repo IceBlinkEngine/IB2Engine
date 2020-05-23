@@ -641,6 +641,11 @@ namespace IceBlink2
                     {
                         consumeLightEnergy = false;
                     }
+
+                    if (gv.mod.currentArea.useSimpleDarkness)
+                    {
+                        consumeLightEnergy = true;
+                    }
                     if (consumeLightEnergy)
                     {
                         gv.DrawTextOutlined(Quantity, xLoc2, yLoc2, scaler, Color.Yellow);

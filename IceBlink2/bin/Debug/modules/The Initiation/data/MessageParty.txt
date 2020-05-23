@@ -1,0 +1,8 @@
+CHARACTER SHEET<br>
+The "HELP" button will display this message box again. For more information, consult the Player's Guide.
+<br>
+1. View Party Members: You can view other characters in your party by tapping on their portraits.<br>
+<br>
+2. Change Equipment: Click on an item slot once to select it and choose from equippable items. Items that cannot be equipped will not be displayed.<br>
+<br>
+3. Level Up: When a character has received enough experience points (XP) to advance a level, a plus icon will appear on the portrait and a "LEVEL UP" button will appear on the character sheet. Press the "LEVEL UP" button to perform the level up.<br>

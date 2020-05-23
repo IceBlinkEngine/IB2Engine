@@ -1,0 +1,4 @@
+ADVENTURING<br>
+1. Move: Move your character by pressing one of the arrow buttons or tapping on a map square (left, right, up, down) adjacent to your character.<br>
+<br>
+2. Toggle Buttons: There are a toggle buttons on the left side of the screen for showing the grid, displaying the clock, and toggling music.<br>

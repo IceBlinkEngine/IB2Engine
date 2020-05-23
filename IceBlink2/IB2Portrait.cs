@@ -112,6 +112,22 @@ namespace IceBlink2
                     spacing = (int)(7f * yMod);
                 }
             }
+
+            if (gv.screenType == "main")
+            {
+                if (parentPanel.Height <= (6 * this.Height + 42f * yMod))
+                {
+                    spacing = 0;
+                }
+            }
+
+            if (gv.screenType == "combat")
+            {
+                if (parentPanel.Height <= (6 * this.Height + 7f * yMod))
+                {
+                    spacing = 0;
+                }
+            }
             if (show)
             {
                 glowOn = false;
@@ -196,6 +212,23 @@ namespace IceBlink2
                 }
             }
 
+
+            if (gv.screenType == "main")
+            {
+                if (parentPanel.Height <= (6 * this.Height + 42f * yMod))
+                {
+                    spacing = 0;
+                }
+            }
+
+            if (gv.screenType == "combat")
+            {
+                if (parentPanel.Height <= (6 * this.Height + 7f * yMod))
+                {
+                    spacing = 0;
+                }
+            }
+
             if (show)
             {
                 if ((x >= (int)((parentPanel.currentLocX + X) * xMod)) && (x <= (int)((parentPanel.currentLocX + X + Width) * xMod)))
@@ -219,6 +252,19 @@ namespace IceBlink2
         {
             if (show)
             {
+                float thisFontHeight = gv.drawFontRegHeight;
+                if (scaler > 1.05f)
+                {
+                    thisFontHeight = gv.drawFontLargeHeight;
+                }
+                else if (scaler < 0.95f)
+                {
+                    thisFontHeight = gv.drawFontSmallHeight;
+                }
+
+                int numberOfLinesOnPortrait = (int)((Height * gv.screenDensity) / thisFontHeight);
+                int pixPerLine = (int)((Height * gv.screenDensity) / numberOfLinesOnPortrait);
+
                 float xMod = (gv.screenWidth / 1920f);
                 float yMod = (gv.screenHeight / 1080f);
 
@@ -278,6 +324,22 @@ namespace IceBlink2
                     }
                 }
 
+                if (gv.screenType == "main")
+                {
+                    if (parentPanel.Height <= (6 * this.Height + 42f * yMod))
+                    {
+                        spacing = 0;
+                    }
+                }
+
+                if (gv.screenType == "combat")
+                {
+                    if (parentPanel.Height <= (6 * this.Height + 7f * yMod))
+                    {
+                        spacing = 0;
+                    }
+                }
+
 
                 //this.tag
                 int pH = (int)((float)gv.screenHeight / 200.0f);
@@ -334,15 +396,7 @@ namespace IceBlink2
                     gv.DrawBitmap(gv.cc.ui_portrait_frame, srcFrame, dstFrame, -0.01f, false, 1.0f, true);
                 }
 
-                float thisFontHeight = gv.drawFontRegHeight;
-                if (scaler > 1.05f)
-                {
-                    thisFontHeight = gv.drawFontLargeHeight;
-                }
-                else if (scaler < 0.95f)
-                {
-                    thisFontHeight = gv.drawFontSmallHeight;
-                }
+              
 
                 //DRAW HP/HPmax
                 // Measure string.
@@ -367,8 +421,9 @@ namespace IceBlink2
                     }
                 }
                 */
+                //(int)((parentPanel.currentLocY + this.Y) * yMod + spacing)
                 int xLoc1 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX);
-                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY - pH + spacing);
+                int yLoc1 = (int)((parentPanel.currentLocY + this.Y) * yMod + spacing + (Height * gv.screenDensity) - pixPerLine *2);
                 gv.DrawTextOutlined(TextHP, xLoc1, yLoc1, scaler, Color.Lime);
 
                 //DRAW SP/SPmax
@@ -396,7 +451,7 @@ namespace IceBlink2
                 }
                 */
                 int xLoc2 = (int)((parentPanel.currentLocX + this.X ) * xMod + ulX - pW);
-                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * yMod + ulY - pH + spacing);
+                int yLoc2 = (int)((parentPanel.currentLocY + this.Y) * yMod + spacing + (Height * gv.screenDensity) - pixPerLine);             
                 gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, scaler, Color.Yellow);
                 //gv.DrawTextOutlined(TextSP, xLoc2, yLoc2, gv.FontWeight.Normal, scaler, Color.Yellow);
                 //DrawText(text, xLoc, yLoc, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, scaler, fontColor, false);

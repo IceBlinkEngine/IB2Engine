@@ -1,0 +1,8 @@
+POWER SELECTION SCREEN<br>
+For more information on Powers, their mechanics, and the difference between Powers and Traits, consult the Player's Guide.
+<br>
+<br>
+1. Power Selection: Click on a Power once to use it.<br>
+<br>
+2. Use Selected Power: Click on the button to cast the currently selected Power.<br>
+<br>

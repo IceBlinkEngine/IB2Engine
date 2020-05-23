@@ -1,0 +1,157 @@
+{
+  "tokenFilename": "tkn_knott",
+  "portraitFilename": "port_knott",
+  "combatFacingLeft": true,
+  "combatFacing": 4,
+  "combatLocX": 0,
+  "combatLocY": 0,
+  "moveDistance": 5,
+  "knownSpellsTags": [
+    "knott_wallop_spell",
+    "knott_rind_spell",
+    "knott_growth_spell"
+  ],
+  "knownSpellsList": [],
+  "knownTraitsTags": [
+    "trait_forceofwill"
+  ],
+  "knownTraitsList": [],
+  "effectsList": [],
+  "charStatus": "Alive",
+  "fortitude": 0,
+  "will": 0,
+  "reflex": 0,
+  "strength": 10,
+  "dexterity": 10,
+  "intelligence": 10,
+  "charisma": 10,
+  "constitution": 10,
+  "wisdom": 10,
+  "AC": 10,
+  "classBonus": 0,
+  "baseAttBonus": 1,
+  "baseAttBonusAdders": 0,
+  "hp": 24,
+  "hpMax": 24,
+  "sp": 10,
+  "spMax": 10,
+  "XPNeeded": 200,
+  "hpRegenTimePassedCounter": 0,
+  "spRegenTimePassedCounter": 0,
+  "HeadRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "NeckRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "BodyRefs": {
+    "resref": "knott_burlapsack",
+    "tag": "newTag_166223_166517",
+    "name": "Burlap Sack Jacket",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "MainHandRefs": {
+    "resref": "witchstaff01",
+    "tag": "newTag_165298_166525",
+    "name": "Quarterstaff",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "OffHandRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "RingRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "Ring2Refs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "FeetRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "AmmoRefs": {
+    "resref": "none",
+    "tag": "none",
+    "name": "none",
+    "canNotBeUnequipped": false,
+    "isLightSource": false,
+    "isRation": false,
+    "quantity": 1
+  },
+  "damageTypeResistanceTotalAcid": 0,
+  "damageTypeResistanceTotalCold": 0,
+  "damageTypeResistanceTotalNormal": 0,
+  "damageTypeResistanceTotalElectricity": 0,
+  "damageTypeResistanceTotalFire": 0,
+  "damageTypeResistanceTotalMagic": 0,
+  "damageTypeResistanceTotalPoison": 0,
+  "knownUsableTraitsTags": [
+    "spell_forceofwill"
+  ],
+  "knownOutsideCombatUsableTraitsTags": [
+    "spell_forceofwill"
+  ],
+  "knownInCombatUsableTraitsTags": [
+    "spell_forceofwill"
+  ],
+  "pcTags": [],
+  "name": "Knott",
+  "tag": "newt",
+  "nonRemoveablePc": true,
+  "raceTag": "race_phlegmatic",
+  "classTag": "familiar_class",
+  "classLevel": 1,
+  "isMale": true,
+  "baseFortitude": 0,
+  "baseWill": 0,
+  "baseReflex": 0,
+  "baseStr": 15,
+  "baseDex": 8,
+  "baseInt": 6,
+  "baseCha": 5,
+  "baseCon": 16,
+  "baseWis": 5,
+  "ACBase": 14,
+  "XP": 0
+}

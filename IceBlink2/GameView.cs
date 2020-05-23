@@ -1499,8 +1499,9 @@ namespace IceBlink2
         }	
 	    public void resetGame()
 	    {
-		    //mod = new Module();
+		    //modb = new Module();
 		    mod = cc.LoadModule(mod.moduleName + ".mod", false);
+            //screenMainMap.updateTraitsPanel();
             log.tagStack.Clear();
             log.logLinesList.Clear();
             log.currentTopLineIndex = 0;
@@ -2756,6 +2757,7 @@ namespace IceBlink2
             }
             */
 
+            //reverselight
             bool isParty = true;
             if (mod.useSimpleLight)
             {
@@ -2852,6 +2854,8 @@ namespace IceBlink2
                     isParty = false;
                 }
             }
+            //reverselight
+            isParty = true;
             DrawD2DBitmap(bitmap, src, tar, angleInRadians, mirror, opacity, isParty);
         }
 
@@ -3256,7 +3260,7 @@ namespace IceBlink2
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opac, Xshift, Yshift, Xscale, Yscale, false, isParty);
         }
-
+        
         public void DrawD2DBitmap(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, int angleInDegrees, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, float opacity)
         {
             //too high
@@ -3270,7 +3274,9 @@ namespace IceBlink2
             //too high
             //convert degrees to radians
             float angleInRadians = (float)(Math.PI * 2 * (float)angleInDegrees / (float)360);
+            //reverselight
             DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, Xshift, Yshift, Xscale, Yscale, false, true);
+            //DrawD2DBitmap(bitmap, source, target, angleInRadians, mirror, opacity, Xshift, Yshift, Xscale, Yscale, false, false);
         }
 
         public void DrawD2DBitmapParallelToPlayer(SharpDX.Direct2D1.Bitmap bitmap, SharpDX.RectangleF source, SharpDX.RectangleF target, float angleInRadians, bool mirror, float opac, int Xshift, int Yshift, int Xscale, int Yscale, bool NearestNeighbourInterpolation, bool isParty)

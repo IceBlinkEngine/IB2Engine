@@ -1,0 +1,9 @@
+
+
+if ~gcCheckIsMale()
+
+{~gaGiveGold(9999)}
+
+else {~gaGiveItem(dagger01, 1)}
+
+end

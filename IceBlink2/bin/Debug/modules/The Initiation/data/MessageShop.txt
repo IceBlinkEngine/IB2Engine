@@ -1,0 +1,10 @@
+SHOP SCREEN<br>
+For more information on equipment, consult the Player's Guide.
+<br>
+<br>
+1. Item Pages: Press the left or right arrows to scroll through the equipment item pages.<br>
+<br>
+2. Item Selection and Action: Click on an item once to select it. Then you may choose to buy or sell it.<br>
+<br>
+3. Usable By Identifiers:</b> Al = Alchemist, Ca = Captain, Di = Dilettante, Ma = Magician, Ronin = R, Wi = Witch, Ze = Zealot.<br>
+<br>

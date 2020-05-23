@@ -1,0 +1,5 @@
+if ~ogGetPlayerHp(,-1,oPCvarx)<1
+
+{~gaEndGame()}
+else {~gaGiveItem(dagger01, 1)}
+end

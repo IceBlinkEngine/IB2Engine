@@ -10,6 +10,7 @@ namespace IceBlink2
     public class Tile
     {
 
+        public bool wasSightBlockedLastMove = true;
         public int visibiltyPosX = 0;
         public int visibiltyPosY = 0;
         //public bool tilesLightSourceIsVisible = false;
@@ -55,7 +56,7 @@ namespace IceBlink2
         public int Layer2Yscale = 0;
         public int Layer3Yscale = 0;
         public int Layer4Yscale = 0;
-        public float targetOpacity = 0;
+        public float targetOpacity = 1;
         public float opacityDelta = 0;
         public int Layer5Yscale = 0;
         public float Layer1Opacity = 1;
