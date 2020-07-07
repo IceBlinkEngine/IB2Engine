@@ -4124,7 +4124,7 @@ namespace IceBlink2
                 }
                 else
                 {
-                    drawFogOfWar();
+                    drawFogOfWar(elapsed);
                 }
 
                 drawMainMapFloatyText();
@@ -5132,20 +5132,28 @@ namespace IceBlink2
 
                                 //tile.Layer4Opacity = tile.targetOpacity - (tile.opacityDelta * (gv.mod.scrollingTimer / 100f) * adjustmentSpeed);
 
-                                
-                                if (tile.opacityDelta > 0)
+                                //if (gv.mod.currentArea.useSimpleDarkness)
+                                //{
+                                    if (tile.opacityDelta > 0)
+                                    {
+                                        tile.Layer4Opacity += (0.03f * elapsed / 30f);
+                                    }
+                                    else if (tile.opacityDelta < 0)
+                                    {
+
+                                        tile.Layer4Opacity -= (0.03f * elapsed / 30f);
+                                    }
+                                //}
+                                /*
+                                else
                                 {
-                                    tile.Layer4Opacity += (0.03f * elapsed/30f);
+                                    tile.Layer4Opacity = tile.targetOpacity - (tile.opacityDelta * (gv.mod.scrollingTimer / 100f) * adjustmentSpeed);
                                 }
-                                else if (tile.opacityDelta < 0)
-                                {
-
-                                    tile.Layer4Opacity -= (0.03f * elapsed/30f);
-                                }
-                                
+                                */
 
 
-                                
+
+
                                 if (tile.Layer4Opacity > tile.targetOpacity && tile.opacityDelta > 0)
                                 {
                                     tile.Layer4Opacity = tile.targetOpacity;
@@ -6068,7 +6076,10 @@ namespace IceBlink2
                                 {
                                     if (!gv.screenMainMap.IsLineOfSightForEachCorner(partycoord, tileCoord))
                                     {
-                                        drawTile = false;
+                                        if (!gv.mod.currentArea.useSimpleDarkness)
+                                        {
+                                            drawTile = false;
+                                        }
                                     }
                                 }
                             }
@@ -37604,7 +37615,7 @@ namespace IceBlink2
             }
         }
 
-        public void drawFogOfWar()
+        public void drawFogOfWar(float elapsed)
         {
             #region new system
             if (gv.mod.useAllTileSystem)
@@ -38018,7 +38029,7 @@ namespace IceBlink2
                                     }
                                     else
                                     {
-                                        if (gv.mod.currentArea.useLightSystem && !gv.mod.currentArea.UseDayNightCycle)
+                                        if ((gv.mod.currentArea.useLightSystem && !gv.mod.currentArea.UseDayNightCycle) || (gv.mod.currentArea.useSimpleDarkness))
                                         {
                                             //public void DrawBitmap(SharpDX.Direct2D1.Bitmap bitmap, IbRect source, IbRect target, float angleInRadians, bool mirror, float opacity)
                                             gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, false, 1.0f, false);
@@ -38051,12 +38062,12 @@ namespace IceBlink2
                                     {
                                         if (chance > 50)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.14f;
+                                            tile.opacity5 = tile.opacity5 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.1f;
-                                        }
+                                            tile.opacity6 = tile.opacity6 - (0.1f * elapsed / 30f);
+            }
                                         gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 1.0f * tile.opacity5);
                                         gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 0.5f * tile.opacity6);
                                         //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity5, false);
@@ -38069,11 +38080,11 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.14f;
+                                            tile.opacity6 = tile.opacity6 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.1f;
+                                            tile.opacity7 = tile.opacity7 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreen6, src, dst, 0, false, 1.0f * tile.opacity6);
                                         gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 0.5f * tile.opacity7);
@@ -38086,18 +38097,18 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.14f;
+                                            tile.opacity7 = tile.opacity7 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.1f;
+                                            tile.opacity5 = tile.opacity5 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreen7, src, dst, 0, false, 1.0f * tile.opacity7);
                                         gv.DrawBitmap(gv.cc.offScreen5, src, dst, 0, false, 0.5f * tile.opacity5);
                                         //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity7, false);
                                         //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity5, false);
                                     }
-                                    tile.opacity = tile.opacity - 0.07f;
+                                    tile.opacity = tile.opacity - (0.07f * elapsed / 30f);
                                 }
 
                                 //code for black tile fade, fade with same speed
@@ -38118,11 +38129,11 @@ namespace IceBlink2
                                     {
                                         if (chance > 50)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.14f;
+                                            tile.opacity5 = tile.opacity5 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.1f;
+                                            tile.opacity6 = tile.opacity6 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity5);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity6);
@@ -38136,11 +38147,11 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.14f;
+                                            tile.opacity6 = tile.opacity6 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.1f;
+                                            tile.opacity7 = tile.opacity7 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity6);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity7);
@@ -38153,18 +38164,18 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.14f;
+                                            tile.opacity7 = tile.opacity7 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.1f;
+                                            tile.opacity5 = tile.opacity5 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity7);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity5);
                                         //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity7, false);
                                         //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity5, false);
                                     }
-                                    tile.opacity = tile.opacity - 0.07f;
+                                    tile.opacity = tile.opacity - (0.07f * elapsed / 30f);
                                 }
 
                                 //semi transparent fog of war
@@ -38185,11 +38196,11 @@ namespace IceBlink2
                                     {
                                         if (chance > 50)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.14f;
+                                            tile.opacity5 = tile.opacity5 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.1f;
+                                            tile.opacity6 = tile.opacity6 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity5 * transparencyFactor);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity6 * transparencyFactor);
@@ -38203,11 +38214,11 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity6 = tile.opacity6 - 0.14f;
+                                            tile.opacity6 = tile.opacity6 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.1f;
+                                            tile.opacity7 = tile.opacity7 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity6 * transparencyFactor);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity7 * transparencyFactor);
@@ -38220,18 +38231,18 @@ namespace IceBlink2
                                         chance = gv.sf.RandInt(75);
                                         if (chance > 50)
                                         {
-                                            tile.opacity7 = tile.opacity7 - 0.14f;
+                                            tile.opacity7 = tile.opacity7 - (0.14f * elapsed / 30f);
                                         }
                                         if (chance > 30)
                                         {
-                                            tile.opacity5 = tile.opacity5 - 0.1f;
+                                            tile.opacity5 = tile.opacity5 - (0.1f * elapsed / 30f);
                                         }
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 1.0f * tile.opacity7 * transparencyFactor);
                                         gv.DrawBitmap(gv.cc.offScreenBlack, src, dst, 0, false, 0.5f * tile.opacity5 * transparencyFactor);
                                         //gv.DrawBitmap(gv.cc.black_tile4, src, dst, false, 1.0f * tile.opacity7, false);
                                         //gv.DrawBitmap(gv.cc.black_tile5, src, dst, false, 0.5f * tile.opacity5, false);
                                     }
-                                    tile.opacity = tile.opacity - 0.07f;
+                                    tile.opacity = tile.opacity - (0.07f * elapsed / 30f);
                                 }
 
                               
@@ -38292,7 +38303,7 @@ namespace IceBlink2
                 if (!gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isNSBridge && !gv.mod.currentArea.Tiles[gv.mod.PlayerLastLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLastLocationX].isEWBridge)
                 {
                     if (gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isNSBridge || gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].isEWBridge)
-                    {
+                    { 
                         underBridge = true;
                     }
                 }
@@ -53735,7 +53746,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 gv.cc.doIBScriptBasedOnFilename(it.onUseItemIBScript, it.onUseItemIBScriptParms);
                                 gv.cc.resetLightAndDarkness();
                                 gv.cc.doIllumination();
-                                gv.cc.setTargetOpacityInstantly();
+                                //einfachereine
+                                gv.cc.setTargetOpacity();
                                 //gv.cc.doUpdate();
                                 break;
                             }
@@ -58354,69 +58366,182 @@ if (tile.tileLightSourceTag.Contains("party"))
         public bool  IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
         {
             //start is at the center of party location square
-            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
+            float halfSquare = (gv.squareSize / 2);
+            //float ninetyPercentSquare = (gv.squareSize * 9 /10);
+           //float tenPercentSquare = (gv.squareSize * 1 / 10);
+            CoordinateF start = new CoordinateF((s.X * gv.squareSize) + halfSquare, (s.Y * gv.squareSize) + halfSquare);
             //check center of all four sides of the end square
-            int halfSquare = (gv.squareSize / 2);
+            
+            
+            
             //center itself
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            
+            
             //left side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //right side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //top side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+            /*
+            //left side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + ninetyPercentSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + ninetyPercentSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + ninetyPercentSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + ninetyPercentSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+
+            //left side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + ninetyPercentSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + ninetyPercentSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + ninetyPercentSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(start, new CoordinateF(e.X * gv.squareSize + ninetyPercentSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            */
+            //check pointsat 90Percent, too
+
+            /*
+            //tryou new model cast cast from middle of sides of start squre to middle of sides of atrget squre, but never to teh same middle of side
+            CoordinateF startTopMiddle = new CoordinateF((s.X * gv.squareSize + halfSquare), (s.Y * gv.squareSize));
+            CoordinateF startRightMiddle = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + halfSquare));
+            CoordinateF startBottomMiddle = new CoordinateF((s.X * gv.squareSize + halfSquare), (s.Y * gv.squareSize + gv.squareSize));
+            CoordinateF startLeftMiddle = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize + halfSquare));
+
+            CoordinateF targetTopMiddle = new CoordinateF((e.X * gv.squareSize + halfSquare), (e.Y * gv.squareSize));
+            CoordinateF targetRightMiddle = new CoordinateF((e.X * gv.squareSize + gv.squareSize), (e.Y * gv.squareSize + halfSquare));
+            CoordinateF targetBottomMiddle = new CoordinateF((e.X * gv.squareSize + halfSquare), (e.Y * gv.squareSize + gv.squareSize));
+            CoordinateF targetLeftMiddle = new CoordinateF((e.X * gv.squareSize), (e.Y * gv.squareSize + halfSquare));
+
+
+            //from topmiddle to the other three of target
+            if (IsVisibleLineOfSight(startTopMiddle, targetRightMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopMiddle, targetBottomMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopMiddle, targetLeftMiddle, e)) { return true; }
+
+            //from rightmiddle to the other three of target
+            if (IsVisibleLineOfSight(startRightMiddle, targetTopMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startRightMiddle, targetBottomMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startRightMiddle, targetLeftMiddle, e)) { return true; }
+
+            //from leftmiddle to the other three of target
+            if (IsVisibleLineOfSight(startLeftMiddle, targetTopMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startLeftMiddle, targetBottomMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startLeftMiddle, targetRightMiddle, e)) { return true; }
+
+            //from bottommiddle to the other three of target
+            if (IsVisibleLineOfSight(startBottomMiddle, targetTopMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomMiddle, targetLeftMiddle, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomMiddle, targetRightMiddle, e)) { return true; }
+            */
 
             //cats rays from the corners of the start square, too
-            Coordinate startTopLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize));
-            Coordinate startTopRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
-            Coordinate startBottomRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
-            Coordinate startBottomLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            
+            /*
+            CoordinateF startTopLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startTopRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startBottomRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            CoordinateF startBottomLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
 
-            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            CoordinateF targetMiddleRight = new CoordinateF((e.X * gv.squareSize + gv.squareSize), (e.Y * gv.squareSize + halfSquare));
+            CoordinateF targetMiddleBottom = new CoordinateF((e.X * gv.squareSize + halfSquare), (e.Y * gv.squareSize + gv.squareSize));
+            CoordinateF targetMiddleLeft = new CoordinateF((e.X * gv.squareSize), (e.Y * gv.squareSize + halfSquare));
+            CoordinateF targetMiddleTop = new CoordinateF((e.X * gv.squareSize + halfSquare), (e.Y * gv.squareSize));
+
+            if (IsVisibleLineOfSight(startTopLeft, targetMiddleRight, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopLeft, targetMiddleBottom, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopLeft, targetMiddleLeft, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopLeft, targetMiddleTop, e)) { return true; }
+
+            if (IsVisibleLineOfSight(startTopRight, targetMiddleRight, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopRight, targetMiddleBottom, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopRight, targetMiddleLeft, e)) { return true; }
+            if (IsVisibleLineOfSight(startTopRight, targetMiddleTop, e)) { return true; }
+
+            if (IsVisibleLineOfSight(startBottomLeft, targetMiddleRight, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, targetMiddleBottom, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, targetMiddleLeft, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, targetMiddleTop, e)) { return true; }
+
+            if (IsVisibleLineOfSight(startBottomRight, targetMiddleRight, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, targetMiddleBottom, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, targetMiddleLeft, e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, targetMiddleTop, e)) { return true; }
+            */
+
+            /*
+          if (IsVisibleLineOfSight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+
+            
             //left side center
-            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //found one culprit
+            if (IsVisibleLineOfSight(startTopLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            
+
+            
             //right side center
-            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //found one culprit
+            if (IsVisibleLineOfSight(startTopLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            
+            
+            
+            
             //top side center
-            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //found one culprit
+            if (IsVisibleLineOfSight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            
+
+            
             //bottom side center
-            if (IsVisibleLineOfSight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            //found one culprit
+            if (IsVisibleLineOfSight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            
 
+            if (IsVisibleLineOfSight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e)) { return true; }
 
-            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            
+             //left side center
+            if (IsVisibleLineOfSight(startTopRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSight(startTopRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            
+
+            if (IsVisibleLineOfSight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+
+            
             //left side center
-            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //right side center
-            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //top side center
-            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            
 
+            if (IsVisibleLineOfSight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e)) { return true; }
 
-            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            
             //left side center
-            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //right side center
-            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
             //top side center
-            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
+            if (IsVisibleLineOfSight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
-
-            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e)) { return true; }
-            //left side center
-            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
-            //right side center
-            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e)) { return true; }
-            //top side center
-            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e)) { return true; }
-            //bottom side center
-            if (IsVisibleLineOfSight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
-
-
+            if (IsVisibleLineOfSight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e)) { return true; }
+            */
 
             return false;
         }
@@ -58424,187 +58549,257 @@ if (tile.tileLightSourceTag.Contains("party"))
         public bool IsLineOfSightForEachCornerPropLight(Coordinate s, Coordinate e)
         {
 
+            //try to turn the input coordinates in coordinetsF actually, to have a correctly working center check for all positions
+            //CoordinateF sf = new CoordinateF();
+            //CoordinateF ef = new CoordinateF();
             //wenn party nicht lichtquelle sieht und e/tile höher las party, return false
-
+            //s is lightcoord
+            //e und t is tilecoord
             Coordinate partyCoord = new Coordinate();
             partyCoord.X = gv.mod.PlayerLocationX;
             partyCoord.Y = gv.mod.PlayerLocationY;
-
+           
             Tile t = new Tile();
             t = gv.mod.currentArea.Tiles[e.Y * gv.mod.currentArea.MapSizeX + e.X];
             int tileHeight = t.heightLevel;
             int partyHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
 
-            if (!IsLineOfSightForEachCorner(partyCoord, s) && tileHeight > partyHeight)
-            {
+            //if (!IsLineOfSightForEachCorner(partyCoord, s) && tileHeight > partyHeight)
+            //{
                 //gv.mod.simpleLightTiles.Add(t);
                 //for (int i = 0; i < t.isLit.Count; i++)
                 //{
                     //t.isLit[i] = false;
 
                 //}
-                return false;
-            }
+                //do we nned this?
+                //return false;
+            //}
             //entling
             //return true;
             
             //start is at the center of party location square
             int lightHeight = gv.mod.currentArea.Tiles[s.Y * gv.mod.currentArea.MapSizeX + s.X].heightLevel;
-            
-            Coordinate start = new Coordinate((s.X * gv.squareSize) + (gv.squareSize / 2), (s.Y * gv.squareSize) + (gv.squareSize / 2));
-            //check center of all four sides of the end square
-            int halfSquare = (gv.squareSize / 2);
-            //center itself
-            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
-            //left side center
-            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
-            //right side center
-            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
-            //top side center
-            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
-            //bottom side center
-            if (IsVisibleLineOfSightPropLight(start, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
 
+            float halfSquare = (gv.squareSize / 2);
+            CoordinateF start = new CoordinateF((s.X * gv.squareSize) + halfSquare, (s.Y * gv.squareSize) + halfSquare);
+            //check center of all four sides of the end square
+           
+            //center itself
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            
             //cats rays from the corners of the start square, too
-            Coordinate startTopLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize));
-            Coordinate startTopRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
-            Coordinate startBottomRight = new Coordinate((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
-            Coordinate startBottomLeft = new Coordinate((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            CoordinateF startTopLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startTopRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startBottomRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            CoordinateF startBottomLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
 
             //halfSquare = gv.squareSize;
 
-            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            
             //left side center
-            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //right side center
-            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //top side center
-            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSightPropLight(startTopLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            
 
-
-            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            
             //left side center
-            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //right side center
-            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //top side center
-            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSightPropLight(startTopRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            
 
-
-            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            
             //left side center
-            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //right side center
-            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //top side center
-            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSightPropLight(startBottomRight, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            
 
-            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + (gv.squareSize / 2), e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            
             //left side center
-            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //right side center
-            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
             //top side center
-            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
             //bottom side center
-            if (IsVisibleLineOfSightPropLight(startBottomLeft, new Coordinate(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
-
-
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+            
 
             return false;
         }
-        public bool IsVisibleLineOfSight(Coordinate s, Coordinate e, Coordinate endSquare)
+        public bool IsVisibleLineOfSight(CoordinateF s, CoordinateF e, Coordinate endSquare)
         {
             // Bresenham Line algorithm
-            Coordinate start = s;
-            Coordinate end = e;
-            int deltax = Math.Abs(end.X - start.X);
-            int deltay = Math.Abs(end.Y - start.Y);
+            CoordinateF start = s;
+            CoordinateF end = e;
+            float deltax = Math.Abs(end.X - start.X);
+            float deltay = Math.Abs(end.Y - start.Y);
             int ystep = 10;
             int xstep = 10;
             int gridx = 0;
             int gridy = 0;
-            int gridXdelayed = s.X;
-            int gridYdelayed = s.Y;
+            float gridXdelayed = s.X;
+            float gridYdelayed = s.Y;
+            bool checkLoSBlock = false;
 
             //gv.DrawLine(end.X + gv.oXshift, end.Y + gv.oYshift, start.X + gv.oXshift, start.Y + gv.oYshift, Color.Lime, 1);
             
             #region low angle version
             if (deltax > deltay) //Low Angle line
             {
-                Coordinate nextPoint = start;
-                int error = deltax / 2;
+                CoordinateF nextPoint = start;
+                float error = deltax / 2;
+                //float error = deltax;
+
 
                 if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
 
                 if (end.X > start.X) //down and right
                 {
-                    for (int x = start.X; x <= end.X; x += xstep)
+                    for (int x = (int)start.X; x <= end.X; x += xstep)
                     {
+                        checkLoSBlock = false;
                         nextPoint.X = x;
                         error -= deltay;
                         if (error < 0)
                         {
-                            nextPoint.Y += ystep;
+                            checkLoSBlock = true;
+                            nextPoint.Y += ystep; 
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-                        if (gridx < 1) { gridx = 0; }
-                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
-                        if (gridy < 1) { gridy = 0; }
-                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        {
-                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
-                            {
-                                //you are on the end square so return true
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
+                        //gridx = (int)(nextPoint.X / gv.squareSize);
+                        //gridy = (int)(nextPoint.Y / gv.squareSize);
+                        //for (int iradx = 0; iradx < 1; iradx++)
+                        //{
+                            //for (int irady = 0; irady < 1; irady++)
+                            //{
+
+                                //iradx = 0;
+                                //irady = 0;
+                                gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                                gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                                if (gridx < 1) { gridx = 0; }
+                                if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                                if (gridy < 1) { gridy = 0; }
+                                if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                                if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                                {
+                                    if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                                    {
+                                        //you are on the end square so return true
+                                        //if (iradx == 0 && irady == 0)
+                                        //{
+                                            return true;
+                                        //}
+                                        //else
+                                        //{
+                                            //return false;
+                                        //}
+                                    }
+                                    else
+                                    {
+                                        //if (nextPoint.X % gv.squareSize != 0 || nextPoint.Y % gv.squareSize != 0)
+                                        {
+                                    //if (checkLoSBlock)
+                                    {
+                                        checkLoSBlock = false;
+                                        return false;
+                                    }
+                                        }
+                                    }
+                                }
+                            //}
+                        //}//end of rad loop
                     }
-                }
+                }//problem bracket
                 else //down and left
                 {
-                    for (int x = start.X; x >= end.X; x -= xstep)
+                    for (int x = (int)start.X; x >= end.X; x -= xstep)
                     {
+                        checkLoSBlock = false;
                         nextPoint.X = x;
-                        error -= deltay;
+                    //float error = deltax / 2;
+                    error -= deltay;
                         if (error < 0)
                         {
+                            checkLoSBlock = true;
                             nextPoint.Y += ystep;
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
-                        if (gridx < 1) { gridx = 0; }
-                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
-                        if (gridy < 1) { gridy = 0; }
-                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        {
-                            if ((gridx == endSquare.X) && (gridy == endSquare.Y))
-                            {
-                                //you are on the end square so return true
-                                return true;
+                        //gridx = (int)(nextPoint.X / gv.squareSize);
+                        //gridy = (int)(nextPoint.Y / gv.squareSize);
+                        //for (int iradx = 0; iradx < 1; iradx++)
+                        //{
+                            //for (int irady = 0; irady < 1; irady++)
+                            //{
+                                //iradx = 0;
+                                //irady = 0;
+                                gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                                gridy = (int)(Math.Floor(nextPoint.Y  / gv.squareSize));
+                                if (gridx < 1) { gridx = 0; }
+                                if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                                if (gridy < 1) { gridy = 0; }
+                                if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                                if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                                {
+                                    if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                                    {
+                                        //you are on the end square so return true
+                                        //if (iradx == 0 && irady == 0)
+                                        //{
+                                            return true;
+                                        //}
+                                        //else
+                                        //{
+                                            //return false;
+                                        //}
+                                    }
+                                    else
+                                    {
+                                //if (nextPoint.X % gv.squareSize != 0 || nextPoint.Y % gv.squareSize != 0)
+                                {
+                                    //if (checkLoSBlock)
+                                    {
+                                        checkLoSBlock = false;
+                                        return false;
+                                    }
+                                }
                             }
-                            else
-                            {
-                                return false;
-                            }
-                        }
+                                }
+                            //}
+                        //}//end of rad loop
                     }
                 }
             }
@@ -58613,25 +58808,35 @@ if (tile.tileLightSourceTag.Contains("party"))
             #region steep version
             else //Low Angle line
             {
-                Coordinate nextPoint = start;
-                int error = deltay / 2;
+                CoordinateF nextPoint = start;
+                float error = deltay / 2;
+                //float error = deltay;
+
 
                 if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
 
                 if (end.Y > start.Y) //up and right
                 {
-                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    for (int y = (int)start.Y; y <= end.Y; y += ystep)
                     {
+                        checkLoSBlock = false;
                         nextPoint.Y = y;
                         error -= deltax;
                         if (error < 0)
                         {
+                            checkLoSBlock = true;
                             nextPoint.X += xstep;
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        //gridx = (int)(nextPoint.X / gv.squareSize);
+                        //gridy = (int)(nextPoint.Y / gv.squareSize);
+
+                        //lets try a loop for cheking a rectangle around teh point
+                        //int xMod = 0;
+                        //int yMod = 0;
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -58641,29 +58846,51 @@ if (tile.tileLightSourceTag.Contains("party"))
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {
                                 //you are on the end square so return true
+                                //if (iradx == 0 && irady == 0)
+                                //{
                                 return true;
+                                //}
+                                //else
+                                //{
+                                //return false;
+                                //}
                             }
                             else
                             {
-                                return false;
+                                //if (nextPoint.X % gv.squareSize != 0 || nextPoint.Y % gv.squareSize != 0)
+                                {
+                                    //if (checkLoSBlock)
+                                    {
+                                        checkLoSBlock = false;
+                                        return false;
+                                    }
+                                }
                             }
                         }
+                        //}
+                        //}//end of rad loop
+
+
                     }
                 }
                 else //up and right
                 {
-                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    for (int y = (int)start.Y; y >= end.Y; y -= ystep)
                     {
+                        checkLoSBlock = false;
                         nextPoint.Y = y;
                         error -= deltax;
                         if (error < 0)
                         {
+                            checkLoSBlock = true;
                             nextPoint.X += xstep;
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        //gridx = (int)(nextPoint.X / gv.squareSize);
+                        //gridy = (int)(nextPoint.Y / gv.squareSize);
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -58673,13 +58900,31 @@ if (tile.tileLightSourceTag.Contains("party"))
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {
                                 //you are on the end square so return true
+                                //if (iradx == 0 && irady == 0)
+                                //{
                                 return true;
+                                //}
+                                //else
+                                //{
+                                //return false;
+                                //}
                             }
                             else
                             {
-                                return false;
+                                //if (nextPoint.X % gv.squareSize != 0 || nextPoint.Y % gv.squareSize != 0)
+                                //{
+
+                                //check whether x +/- xstep and y +/- ystep   
+                                //if (checkLoSBlock)
+                                {
+                                    checkLoSBlock = false;
+                                    return false;
+                                }
+                                //}
                             }
                         }
+                        //}
+                        //}//end of rad loop
                     }
                 }
             }
@@ -58687,33 +58932,33 @@ if (tile.tileLightSourceTag.Contains("party"))
 
             return true;
         }
-        public bool IsVisibleLineOfSightPropLight(Coordinate s, Coordinate e, Coordinate endSquare, int lightHeight)
+        public bool IsVisibleLineOfSightPropLight(CoordinateF s, CoordinateF e, Coordinate endSquare, int lightHeight)
         {
             // Bresenham Line algorithm
-            Coordinate start = s;
-            Coordinate end = e;
-            int deltax = Math.Abs(end.X - start.X);
-            int deltay = Math.Abs(end.Y - start.Y);
+            CoordinateF start = s;
+            CoordinateF end = e;
+            float deltax = Math.Abs(end.X - start.X);
+            float deltay = Math.Abs(end.Y - start.Y);
             int ystep = 10;
             int xstep = 10;
             int gridx = 0;
             int gridy = 0;
-            int gridXdelayed = s.X;
-            int gridYdelayed = s.Y;
+            float gridXdelayed = s.X;
+            float gridYdelayed = s.Y;
 
             //gv.DrawLine(end.X + gv.oXshift, end.Y + gv.oYshift, start.X + gv.oXshift, start.Y + gv.oYshift, Color.Lime, 1);
 
             #region low angle version
             if (deltax > deltay) //Low Angle line
             {
-                Coordinate nextPoint = start;
-                int error = deltax / 2;
+                CoordinateF nextPoint = start;
+                float error = deltax / 2;
 
                 if (end.Y < start.Y) { ystep = -1 * ystep; } //down and right or left
 
                 if (end.X > start.X) //down and right
                 {
-                    for (int x = start.X; x <= end.X; x += xstep)
+                    for (int x = (int)start.X; x <= end.X; x += xstep)
                     {
                         nextPoint.X = x;
                         error -= deltay;
@@ -58723,8 +58968,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = (int)(nextPoint.X / gv.squareSize);
+                        gridy = (int)(nextPoint.Y / gv.squareSize);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -58733,7 +58978,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                         if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
-                                //if ((gridx == endSquare.X) && (gridy == endSquare.Y))
+                                 //if ((gridx == endSquare.X) && (gridy == endSquare.Y))
 
                                 {
                                     //you are on the end square so return true
@@ -58748,7 +58993,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                 }
                 else //down and left
                 {
-                    for (int x = start.X; x >= end.X; x -= xstep)
+                    for (int x = (int)start.X; x >= end.X; x -= xstep)
                     {
                         nextPoint.X = x;
                         error -= deltay;
@@ -58758,8 +59003,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = (int)(nextPoint.X / gv.squareSize);
+                        gridy = (int)(nextPoint.Y / gv.squareSize);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -58785,14 +59030,14 @@ if (tile.tileLightSourceTag.Contains("party"))
             #region steep version
             else //Low Angle line
             {
-                Coordinate nextPoint = start;
-                int error = deltay / 2;
+                CoordinateF nextPoint = start;
+                float error = deltay / 2;
 
                 if (end.X < start.X) { xstep = -1 * xstep; } //up and right or left
 
                 if (end.Y > start.Y) //up and right
                 {
-                    for (int y = start.Y; y <= end.Y; y += ystep)
+                    for (int y = (int)start.Y; y <= end.Y; y += ystep)
                     {
                         nextPoint.Y = y;
                         error -= deltax;
@@ -58802,8 +59047,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = (int)(nextPoint.X / gv.squareSize);
+                        gridy = (int)(nextPoint.Y / gv.squareSize);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
@@ -58825,7 +59070,7 @@ if (tile.tileLightSourceTag.Contains("party"))
                 }
                 else //up and right
                 {
-                    for (int y = start.Y; y >= end.Y; y -= ystep)
+                    for (int y = (int)start.Y; y >= end.Y; y -= ystep)
                     {
                         nextPoint.Y = y;
                         error -= deltax;
@@ -58835,8 +59080,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = nextPoint.X / gv.squareSize;
-                        gridy = nextPoint.Y / gv.squareSize;
+                        gridx = (int)(nextPoint.X / gv.squareSize);
+                        gridy = (int)(nextPoint.Y / gv.squareSize);
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }

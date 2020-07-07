@@ -96,23 +96,28 @@ namespace IceBlink2
 
         public void Update(int elapsed, GameView gv)
         {
+            //float xMod = (gv.screenWidth / 1920f);
+            //float yMod = (gv.screenHeight / 1080f);
             timeToLiveInMilliseconds -= elapsed;
             totalElapsedTime += elapsed;
             if (movementMethod == "linear")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * (gv.squareSize/71f);
+                //todo tst, expand
+                //position.X += velocity.X * elapsed * xMod;
+                //position.Y += velocity.Y * elapsed * yMod;
                 angle += angularVelocity * elapsed;
             }
             else if (movementMethod == "clouds")
             {
-                position += velocity * elapsed * 0.9f;
+                position += velocity * elapsed * 0.9f * (gv.squareSize / 71f);
                 gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1, true, false, 0);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
 
             }
             else if (movementMethod == "fog")
             {
-                position += velocity * elapsed;
+                position += velocity * elapsed * (gv.squareSize / 71f);
                 //scheissbrille4
                 //gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 0.5f, false, true, 0);
                 gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1.2f, true, false, 0);
@@ -121,13 +126,13 @@ namespace IceBlink2
             }
             else if (movementMethod == "rain")
             {
-                position += velocity * elapsed * 1.275f;
+                position += velocity * elapsed * 1.275f * (gv.squareSize / 71f);
                 //gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 1.0f, true, false, 0);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
             else if (movementMethod == "snow")
             {
-                position += velocity * elapsed * 1.1f;
+                position += velocity * elapsed * 1.1f * (gv.squareSize / 71f);
                 float shiftAdder = gv.sf.RandInt(300);
                 float limitAdder = gv.sf.RandInt(300);
 
@@ -148,7 +153,7 @@ namespace IceBlink2
                     reverseXShift = false;
                 }
 
-                position.X += (xShift*0.75f);
+                position.X += (xShift*0.75f) * (elapsed / 30f) * (gv.squareSize / 71f);
                 //old approach with sin, doing it via customized values like above for now
                 //position.X += (float)Math.Sin(position.Y);
                 //gv.cc.transformSpritePixelPositionOnContactWithVisibleMainMapBorders(this, 25.0f, true, false, 0);
@@ -156,11 +161,11 @@ namespace IceBlink2
             }
             else if (movementMethod == "sandstorm")
             {
-                position += velocity * elapsed * 1.4f;
+                position += velocity * elapsed * 1.4f * (gv.squareSize / 71f);
                 opacity = gv.mod.fullScreenEffectOpacityWeather;
             }
 
-            if (this.numberOFFramesForAnimationsMadeFromSeveralBitmaps > 0)
+            if (this.numberOFFramesForAnimationsMadeFromSeveralBitmaps > 0) 
             {
                 numberOfFrames = this.numberOFFramesForAnimationsMadeFromSeveralBitmaps;
             }

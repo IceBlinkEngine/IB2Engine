@@ -784,7 +784,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -798,7 +799,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -812,7 +814,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -826,7 +829,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -840,7 +844,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -854,7 +859,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -868,7 +874,8 @@ namespace IceBlink2
                     if (result)
                     {
                         gv.screenType = "main";
-                        setTargetOpacityInstantly();
+                        //einfachereine
+                        setTargetOpacity();
                         doUpdate();
                     }
                     else
@@ -2368,7 +2375,10 @@ namespace IceBlink2
                             partyCoord.X = gv.mod.PlayerLocationX;
                             partyCoord.Y = gv.mod.PlayerLocationY;
 
-                            if (gv.cc.getDistance(tileCoord, partyCoord) <= 5)
+                            //everything further away than 5 is drawn fully opaque here
+                            //maybe use this branch only for normal overgrowth and create sparate one for light/dark areas?
+                            //trying to integrte the lights here first
+                            if (gv.cc.getDistance(tileCoord, partyCoord) <= 5 || gv.mod.currentArea.useSimpleDarkness)
                             {
 
                                 /*
@@ -2634,7 +2644,15 @@ namespace IceBlink2
 
                                 //new darkness model, geburtstag
 
-                                if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                if (gv.mod.currentArea.useSimpleDarkness && !gv.mod.partyLightOn)
+                                {
+                                    tile.targetOpacity = 1;
+                                    overgrowthTransparency = 1;
+                                }
+
+                                //hide if illuminated square is not visible from party (true for overgrwoth and illiumination)
+                                // never hide overgrowth/darkness on other mpas (in doubt: show overgrowth/make dark)
+                                if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord) || situationFound)
                                 {
                                     tile.targetOpacity = 1;
                                 }
@@ -2642,14 +2660,77 @@ namespace IceBlink2
 
                                 if (gv.mod.currentArea.useSimpleDarkness)
                                 {
-                                    if (gv.cc.getDistance(partyCoord, tileCoord) > 2)
+
+
+                                    //darkens all squares more than 2 away
+                                    //how to solve additive effects of party ligth and other lights
+                                    //higher tile.targetopacity/overgrowth means darker
+                                    //think of corrs map situations
+
+                                    bool tileIsLitOnlyByParty = true;
+
+                                    foreach (Prop p  in gv.mod.currentArea.Props)
                                     {
-                                        tile.targetOpacity = 1;
+                                        if (p.isLight)
+                                        {
+                                            Coordinate lightCoord = new Coordinate();
+                                            lightCoord.X = p.LocationX;
+                                            lightCoord.Y = p.LocationY;
+
+                                            if (gv.cc.getDistance(lightCoord, tileCoord) <= 4)
+                                            {
+                                                if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord))
+                                                {
+                                                    //use extended check here?
+                                                    //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                    {
+                                                        tileIsLitOnlyByParty = false;
+                                                        if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
+                                                        {
+                                                            overgrowthTransparency = 0.0f;
+                                                        }
+
+                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
+                                                        {
+                                                            if (tile.targetOpacity > 0.25f)
+                                                            {
+                                                                overgrowthTransparency = 0.25f;
+                                                            }
+                                                        }
+
+                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
+                                                        {
+                                                            if (tile.targetOpacity > 0.5f)
+                                                            {
+                                                                overgrowthTransparency = 0.5f;
+                                                            }
+                                                        }
+
+                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
+                                                        {
+                                                            if (tile.targetOpacity > 0.75f)
+                                                            {
+                                                                overgrowthTransparency = 0.75f;
+                                                            }
+                                                        }
+                                                        tile.targetOpacity = overgrowthTransparency;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
 
-                                    if (!gv.mod.partyLightOn)
+                                    if (tileIsLitOnlyByParty)
                                     {
-                                        tile.targetOpacity = 1;
+                                        if (gv.cc.getDistance(partyCoord, tileCoord) > 2)
+                                        {
+                                            tile.targetOpacity = 1;
+                                        }
+
+                                        if (!gv.mod.partyLightOn)
+                                        {
+                                            tile.targetOpacity = 1;
+                                        }
                                     }
                                 }
 
@@ -3076,7 +3157,7 @@ namespace IceBlink2
                             partyCoord.X = gv.mod.PlayerLocationX;
                             partyCoord.Y = gv.mod.PlayerLocationY;
 
-                            if (gv.cc.getDistance(tileCoord, partyCoord) <= 5)
+                            //if (gv.cc.getDistance(tileCoord, partyCoord) <= 5)
                             {
 
                                 /*
@@ -3336,6 +3417,7 @@ namespace IceBlink2
                                     overgrowthTransparency = 1;
                                 }
 
+                                //here allsquares five or more squares away go dark
                                 tile.targetOpacity = overgrowthTransparency;
 
                                 //new darkness model, geburtstag
@@ -3350,6 +3432,7 @@ namespace IceBlink2
                                 {
                                     if (gv.cc.getDistance(partyCoord, tileCoord) > 2)
                                     {
+                                        //here all squaeres furtehr tahn 2 go dark
                                         tile.targetOpacity = 1;
                                     }
 
@@ -3358,10 +3441,11 @@ namespace IceBlink2
                                         tile.targetOpacity = 1;
                                     }
                                 }
-                                
+
                                 //refinement
-                                tile.opacityDelta = 0;
-                                tile.Layer4Opacity = tile.targetOpacity;
+                                //tile.opacityDelta = 0;
+                                //tile.Layer4Opacity = tile.targetOpacity;
+                                tile.opacityDelta = tile.targetOpacity - tile.Layer4Opacity;
                             }
                         }
                     }
@@ -11887,10 +11971,7 @@ namespace IceBlink2
                         }
                         p.LocationZ = gv.mod.moduleAreasObjects[i].Tiles[p.LocationY * gv.mod.moduleAreasObjects[i].MapSizeX + p.LocationX].heightLevel;
                     }
-                    if (p.MoverType == "daily")
-                    {
-                        int ghg = 0;
-                    }
+                   
                 }
             }
 
@@ -13245,6 +13326,18 @@ namespace IceBlink2
                 {
                     gv.mod.moduleAreasObjects[h].Props[i].skipNavigationThisTurn = false;
                 }
+
+                        if (h < gv.mod.moduleAreasObjects.Count && h >= 0)
+                        {
+                            if (i < gv.mod.moduleAreasObjects[h].Props.Count && i >= 0)
+                            {
+                                if (gv.mod.moduleAreasObjects[h].Props[i].isLight)
+                                {
+                                    setTargetOpacity();
+                                }
+                            }
+                        }
+
             }
 
         }
