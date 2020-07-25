@@ -58365,6 +58365,10 @@ if (tile.tileLightSourceTag.Contains("party"))
         }
         public bool  IsLineOfSightForEachCorner(Coordinate s, Coordinate e)
         {
+            
+            //s is party coord
+            //e is relative tile coord
+
             //start is at the center of party location square
             float halfSquare = (gv.squareSize / 2);
             //float ninetyPercentSquare = (gv.squareSize * 9 /10);
@@ -58659,6 +58663,12 @@ if (tile.tileLightSourceTag.Contains("party"))
         }
         public bool IsVisibleLineOfSight(CoordinateF s, CoordinateF e, Coordinate endSquare)
         {
+
+            //s is party coord in pix
+            //e is relative tile coord in pix
+            //endsquare is tile square as relative position
+
+
             // Bresenham Line algorithm
             CoordinateF start = s;
             CoordinateF end = e;
@@ -58709,12 +58719,22 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 //irady = 0;
                                 gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
                                 gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
-                                if (gridx < 1) { gridx = 0; }
-                                if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
-                                if (gridy < 1) { gridy = 0; }
-                                if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+
+                        //kanye
+                        /*
+                        if (gridx < 1) { gridx = 0; }
+                        if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
+                        if (gridy < 1) { gridy = 0; }
+                        if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
                                 if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                                {
+                        */
+                        //get tiel across areas via relative x,y coord
+                        //gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy);
+                        //check id´f this tiel is losblocked
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).LoSBlocked)
+                        {
                                     if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                                     {
                                         //you are on the end square so return true
@@ -58768,12 +58788,15 @@ if (tile.tileLightSourceTag.Contains("party"))
                                 //irady = 0;
                                 gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
                                 gridy = (int)(Math.Floor(nextPoint.Y  / gv.squareSize));
+                        /*
                                 if (gridx < 1) { gridx = 0; }
                                 if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                                 if (gridy < 1) { gridy = 0; }
                                 if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
                                 if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                                {
+    */
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).LoSBlocked)
+                        {
                                     if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                                     {
                                         //you are on the end square so return true
@@ -58837,11 +58860,14 @@ if (tile.tileLightSourceTag.Contains("party"))
                         //int yMod = 0;
                         gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
                         gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
                         if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+    */
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).LoSBlocked)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {
@@ -58891,11 +58917,14 @@ if (tile.tileLightSourceTag.Contains("party"))
                         //gridy = (int)(nextPoint.Y / gv.squareSize);
                         gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
                         gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
                         if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+    */
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).LoSBlocked)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {

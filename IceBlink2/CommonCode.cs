@@ -2652,7 +2652,12 @@ namespace IceBlink2
 
                                 //hide if illuminated square is not visible from party (true for overgrwoth and illiumination)
                                 // never hide overgrowth/darkness on other mpas (in doubt: show overgrowth/make dark)
-                                if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord) || situationFound)
+
+                                //kanye: remove situation found, oly darken/inveil overgrowth based on line of sight
+                                //if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord) || situationFound)
+
+                                //tilecoord already is a relative position
+                                if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                 {
                                     tile.targetOpacity = 1;
                                 }
@@ -3722,6 +3727,113 @@ namespace IceBlink2
                 pnlHotkeys.Width = mapSize * gv.squareSize;
             }
         }
+
+
+        public Tile getTileAcrossAllAreasViaRelativePosition(int gridx, int gridy)
+        {
+            Tile t = new Tile();
+            //on current area
+            if (gridx >= 0 && gridy >= 0 && gridx < gv.mod.currentArea.MapSizeX && gridy < gv.mod.currentArea.MapSizeY)
+            {
+                return gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx];
+            }
+            //on northern neighbour
+            if (gv.mod.indexOfNorthernNeighbour > 0)
+            {
+                if (gridx >= 0 && gridy < 0 && gridx < gv.mod.currentArea.MapSizeX && gridy >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY)
+                {
+                    int transformedX = gridx;
+                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY + gridy;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+            //on northeastern neighbour
+            if (gv.mod.indexOfNorthEasternNeighbour > 0)
+            {
+                if (gridx >= gv.mod.currentArea.MapSizeX && gridy < 0 && gridx < gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX*2 && gridy >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY)
+                {
+                    int transformedX = gridx - gv.mod.currentArea.MapSizeX;
+                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + gridy;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+            //on eastern neighbour
+            if (gv.mod.indexOfEasternNeighbour > 0)
+            {
+                if (gridx >= gv.mod.currentArea.MapSizeX && gridy >= 0 && gridx < gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX * 2 && gridy < gv.mod.currentArea.MapSizeY)
+                {
+                    int transformedX = gridx - gv.mod.currentArea.MapSizeX;
+                    int transformedY = gridy;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+            //on southeastern neighbour
+            if (gv.mod.indexOfSouthEasternNeighbour > 0)
+            {
+                if (gridx >= gv.mod.currentArea.MapSizeX && gridy >= gv.mod.currentArea.MapSizeY && gridx < gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX * 2 && gridy < gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeY * 2)
+                {
+                    int transformedX = gridx - gv.mod.currentArea.MapSizeX;
+                    int transformedY = gridy - gv.mod.currentArea.MapSizeY;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthEasternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+
+            //on southern neighbour
+            if (gv.mod.indexOfSouthernNeighbour > 0)
+            {
+                if (gridx >= 0 && gridy >= gv.mod.currentArea.MapSizeY && gridx < gv.mod.currentArea.MapSizeX && gridy < gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeY * 2)
+                {
+                    int transformedX = gridx;
+                    int transformedY = gridy - gv.mod.currentArea.MapSizeY;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+
+            //on southwestern neighbour
+            if (gv.mod.indexOfSouthWesternNeighbour > 0)
+            {
+                if (gridx < 0 && gridy >= gv.mod.currentArea.MapSizeY && gridx >= -gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX && gridy < gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeY * 2)
+                {
+                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + gridx; 
+                    int transformedY = gridy - gv.mod.currentArea.MapSizeY;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfSouthWesternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+
+            //on western neighbour
+            if (gv.mod.indexOfWesternNeighbour > 0)
+            {
+                if (gridx < 0 && gridy >= 0 && gridx >= -gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX && gridy < gv.mod.currentArea.MapSizeY)
+                {
+                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + gridx; 
+                    int transformedY = gridy;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+
+            //on northwestern neighbour
+            if (gv.mod.indexOfNorthWesternNeighbour > 0)
+            {
+                if (gridx < 0 && gridy < 0 && gridx >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX && gridy >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY)
+                {
+                    int transformedX = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + gridx;
+                    int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + gridy;
+                    t = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
+                    return t;
+                }
+            }
+
+            //todo other neighbours
+            return t;
+        }
+
         public void setControlsStart()
         {
             int pH = (int)((float)gv.screenHeight / 100.0f);
