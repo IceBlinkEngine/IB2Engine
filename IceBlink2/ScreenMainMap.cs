@@ -58550,7 +58550,7 @@ if (tile.tileLightSourceTag.Contains("party"))
             return false;
         }
 
-        public bool IsLineOfSightForEachCornerPropLight(Coordinate s, Coordinate e)
+        public bool IsLineOfSightForEachCornerPropLight(Coordinate s, Coordinate e, int lightHeight)
         {
 
             //try to turn the input coordinates in coordinetsF actually, to have a correctly working center check for all positions
@@ -58559,14 +58559,19 @@ if (tile.tileLightSourceTag.Contains("party"))
             //wenn party nicht lichtquelle sieht und e/tile höher las party, return false
             //s is lightcoord
             //e und t is tilecoord
+            
+            /*
             Coordinate partyCoord = new Coordinate();
             partyCoord.X = gv.mod.PlayerLocationX;
             partyCoord.Y = gv.mod.PlayerLocationY;
-           
+           */
+
+            /*
             Tile t = new Tile();
             t = gv.mod.currentArea.Tiles[e.Y * gv.mod.currentArea.MapSizeX + e.X];
             int tileHeight = t.heightLevel;
             int partyHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+            */
 
             //if (!IsLineOfSightForEachCorner(partyCoord, s) && tileHeight > partyHeight)
             //{
@@ -58583,7 +58588,7 @@ if (tile.tileLightSourceTag.Contains("party"))
             //return true;
             
             //start is at the center of party location square
-            int lightHeight = gv.mod.currentArea.Tiles[s.Y * gv.mod.currentArea.MapSizeX + s.X].heightLevel;
+            //int lightHeight = gv.mod.currentArea.Tiles[s.Y * gv.mod.currentArea.MapSizeX + s.X].heightLevel;
 
             float halfSquare = (gv.squareSize / 2);
             CoordinateF start = new CoordinateF((s.X * gv.squareSize) + halfSquare, (s.Y * gv.squareSize) + halfSquare);
@@ -58661,6 +58666,119 @@ if (tile.tileLightSourceTag.Contains("party"))
 
             return false;
         }
+
+        public bool IsLineOfSightForEachCornerPropLight(Coordinate s, Coordinate e)
+        {
+            //NOT REALLY USED, ONLY BY OLD CODE ARMS
+            int lightHeight = 0;
+            //try to turn the input coordinates in coordinetsF actually, to have a correctly working center check for all positions
+            //CoordinateF sf = new CoordinateF();
+            //CoordinateF ef = new CoordinateF();
+            //wenn party nicht lichtquelle sieht und e/tile höher las party, return false
+            //s is lightcoord
+            //e und t is tilecoord
+            Coordinate partyCoord = new Coordinate();
+            partyCoord.X = gv.mod.PlayerLocationX;
+            partyCoord.Y = gv.mod.PlayerLocationY;
+
+            Tile t = new Tile();
+            t = gv.mod.currentArea.Tiles[e.Y * gv.mod.currentArea.MapSizeX + e.X];
+            int tileHeight = t.heightLevel;
+            int partyHeight = gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel;
+
+            //if (!IsLineOfSightForEachCorner(partyCoord, s) && tileHeight > partyHeight)
+            //{
+            //gv.mod.simpleLightTiles.Add(t);
+            //for (int i = 0; i < t.isLit.Count; i++)
+            //{
+            //t.isLit[i] = false;
+
+            //}
+            //do we nned this?
+            //return false;
+            //}
+            //entling
+            //return true;
+
+            //start is at the center of party location square
+            //int lightHeight = gv.mod.currentArea.Tiles[s.Y * gv.mod.currentArea.MapSizeX + s.X].heightLevel;
+
+            float halfSquare = (gv.squareSize / 2);
+            CoordinateF start = new CoordinateF((s.X * gv.squareSize) + halfSquare, (s.Y * gv.squareSize) + halfSquare);
+            //check center of all four sides of the end square
+
+            //center itself
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //left side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(start, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+
+            //cats rays from the corners of the start square, too
+            CoordinateF startTopLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startTopRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize));
+            CoordinateF startBottomRight = new CoordinateF((s.X * gv.squareSize + gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+            CoordinateF startBottomLeft = new CoordinateF((s.X * gv.squareSize), (s.Y * gv.squareSize + gv.squareSize));
+
+            //halfSquare = gv.squareSize;
+
+
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startTopLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startTopRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startBottomRight, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+
+            //left side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //right side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + gv.squareSize, e.Y * gv.squareSize + halfSquare), e, lightHeight)) { return true; }
+            //top side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize), e, lightHeight)) { return true; }
+            //bottom side center
+            if (IsVisibleLineOfSightPropLight(startBottomLeft, new CoordinateF(e.X * gv.squareSize + halfSquare, e.Y * gv.squareSize + gv.squareSize), e, lightHeight)) { return true; }
+
+
+            return false;
+        }
         public bool IsVisibleLineOfSight(CoordinateF s, CoordinateF e, Coordinate endSquare)
         {
 
@@ -58733,6 +58851,8 @@ if (tile.tileLightSourceTag.Contains("party"))
                         //gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy);
                         //check id´f this tiel is losblocked
                         //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
+                        
+                        //add altenrtaive condition: if height level on tile is higher than party
                         if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).LoSBlocked)
                         {
                                     if ((gridx == endSquare.X) && (gridy == endSquare.Y))
@@ -58997,15 +59117,20 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = (int)(nextPoint.X / gv.squareSize);
-                        gridy = (int)(nextPoint.Y / gv.squareSize);
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+    */
                         //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
-                        {
+
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).heightLevel > lightHeight)
+                        
+                            //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                            {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                                  //if ((gridx == endSquare.X) && (gridy == endSquare.Y))
 
@@ -59032,14 +59157,17 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltax;
                         }
                         //do your checks here for LoS blocking
-                        gridx = (int)(nextPoint.X / gv.squareSize);
-                        gridy = (int)(nextPoint.Y / gv.squareSize);
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        */
                         //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).heightLevel > lightHeight)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {
@@ -59076,14 +59204,17 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = (int)(nextPoint.X / gv.squareSize);
-                        gridy = (int)(nextPoint.Y / gv.squareSize);
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        */
                         //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).heightLevel > lightHeight)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {
@@ -59109,14 +59240,17 @@ if (tile.tileLightSourceTag.Contains("party"))
                             error += deltay;
                         }
                         //do your checks here for LoS blocking
-                        gridx = (int)(nextPoint.X / gv.squareSize);
-                        gridy = (int)(nextPoint.Y / gv.squareSize);
+                        gridx = (int)(Math.Floor(nextPoint.X / gv.squareSize));
+                        gridy = (int)(Math.Floor(nextPoint.Y / gv.squareSize));
+                        /*
                         if (gridx < 1) { gridx = 0; }
                         if (gridx > (gv.mod.currentArea.MapSizeX - 1)) { gridx = (gv.mod.currentArea.MapSizeX - 1); }
                         if (gridy < 1) { gridy = 0; }
                         if (gridy > (gv.mod.currentArea.MapSizeY - 1)) { gridy = (gv.mod.currentArea.MapSizeY - 1); }
+                        */
                         //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].LoSBlocked)
-                        if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        //if (gv.mod.currentArea.Tiles[gridy * gv.mod.currentArea.MapSizeX + gridx].heightLevel > lightHeight)
+                        if (gv.cc.getTileAcrossAllAreasViaRelativePosition(gridx, gridy).heightLevel > lightHeight)
                         {
                             if ((gridx == endSquare.X) && (gridy == endSquare.Y))
                             {

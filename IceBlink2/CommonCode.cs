@@ -785,6 +785,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -800,6 +801,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -815,6 +817,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -830,6 +833,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -845,6 +849,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -860,6 +865,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -875,6 +881,7 @@ namespace IceBlink2
                     {
                         gv.screenType = "main";
                         //einfachereine
+                        doUpdate();
                         setTargetOpacity();
                         doUpdate();
                     }
@@ -1237,6 +1244,7 @@ namespace IceBlink2
             gv.screenMainMap.resetMiniMapBitmap();
             gv.cc.resetLightAndDarkness();
             gv.cc.doIllumination();
+            gv.cc.setTargetOpacity();
             return true;
         }
         public Module LoadSaveGameModule(string filename)
@@ -1965,7 +1973,7 @@ namespace IceBlink2
         public void setTargetOpacity()
         {
             //new tile.targetOpacity
-            //adjust real opacity towrds targteOpacity while scrolling(get delta and strechover 100 units od scroll timer)
+            //adjust real opacity towrds targteOpacity Fwhile scrolling(get delta and strechover 100 units od scroll timer)
             
             if (gv.mod.useAllTileSystem)
             {
@@ -1985,8 +1993,8 @@ namespace IceBlink2
                 gv.mod.seamlessModififierMinY = -3;
                 gv.mod.seamlessModififierMaxY = 0;
 
-
-                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY + 1))
+                //change to +3, use same expression in getdistance methd (instead of 8 and 12)
+                if ((gv.mod.currentArea.northernNeighbourArea != "" && gv.mod.currentArea.northernNeighbourArea != "none") && (gv.mod.PlayerLocationY <= gv.playerOffsetY + 3))
                 {
                     gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -1999,7 +2007,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].easternNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 3))
                         {
                             gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                         }
@@ -2014,7 +2022,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].westernNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX + 2)
                         {
                             gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -2029,7 +2037,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.southernNeighbourArea != "" && gv.mod.currentArea.southernNeighbourArea != "none") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1)))
+                if ((gv.mod.currentArea.southernNeighbourArea != "" && gv.mod.currentArea.southernNeighbourArea != "none") && (gv.mod.PlayerLocationY >= (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 3)))
                 {
 
                     gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
@@ -2043,7 +2051,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].easternNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1))
+                        if (gv.mod.PlayerLocationX > (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 3))
                         {
                             gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                         }
@@ -2058,7 +2066,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfSouthernNeighbour].westernNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX)
+                        if (gv.mod.PlayerLocationX <= gv.playerOffsetX + 2)
                         {
                             gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                         }
@@ -2072,7 +2080,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX + 1))
+                if ((gv.mod.currentArea.westernNeighbourArea != "" && gv.mod.currentArea.westernNeighbourArea != "none") && (gv.mod.PlayerLocationX <= gv.playerOffsetX + 3))
                 {
                     gv.mod.seamlessModififierMinX = gv.playerOffsetX - gv.mod.PlayerLocationX;
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -2086,7 +2094,7 @@ namespace IceBlink2
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].northernNeighbourArea != "none")
                     {
 
-                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY + 2)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -2103,7 +2111,7 @@ namespace IceBlink2
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfWesternNeighbour].southernNeighbourArea != "none")
                     {
 
-                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 3))
                         {
                             gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                         }
@@ -2118,7 +2126,7 @@ namespace IceBlink2
                     }
                 }
 
-                if ((gv.mod.currentArea.easternNeighbourArea != "" && gv.mod.currentArea.easternNeighbourArea != "none") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1)))
+                if ((gv.mod.currentArea.easternNeighbourArea != "" && gv.mod.currentArea.easternNeighbourArea != "none") && (gv.mod.PlayerLocationX >= (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 3)))
                 {
                     gv.mod.seamlessModififierMaxX = gv.mod.PlayerLocationX - (gv.mod.currentArea.MapSizeX - gv.playerOffsetX - 1);
                     for (int i = 0; i < gv.mod.moduleAreasObjects.Count; i++)
@@ -2131,7 +2139,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].northernNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY)
+                        if (gv.mod.PlayerLocationY <= gv.playerOffsetY + 2)
                         {
                             gv.mod.seamlessModififierMinY = gv.playerOffsetY - gv.mod.PlayerLocationY;
                         }
@@ -2147,7 +2155,7 @@ namespace IceBlink2
 
                     if (gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "" && gv.mod.moduleAreasObjects[gv.mod.indexOfEasternNeighbour].southernNeighbourArea != "none")
                     {
-                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1))
+                        if (gv.mod.PlayerLocationY > (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 3))
                         {
                             gv.mod.seamlessModififierMaxY = gv.mod.PlayerLocationY - (gv.mod.currentArea.MapSizeY - gv.playerOffsetY - 1);
                         }
@@ -2171,7 +2179,7 @@ namespace IceBlink2
                 //was -1
                 //idea: extend the x,y range by 2 min/max, but only draw if under/equal drawLimit
                 int minY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
-                if (minY < -gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
+                if (minY < - gv.mod.seamlessModififierMinY - 3) { minY = -gv.mod.seamlessModififierMinY - 3; }
                 int LimitMinY = gv.mod.PlayerLocationY - gv.playerOffsetY - 3; //using -2 in case a large tile (3x3) needs to start off the visible map space to be seen
                 if (LimitMinY < -gv.mod.seamlessModififierMinY - 3) { LimitMinY = -gv.mod.seamlessModififierMinY - 3; }
 
@@ -2659,6 +2667,7 @@ namespace IceBlink2
                                 //tilecoord already is a relative position
                                 if (!gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                 {
+                                    //this could be the buggy section on loadsave
                                     tile.targetOpacity = 1;
                                 }
 
@@ -2674,56 +2683,74 @@ namespace IceBlink2
 
                                     bool tileIsLitOnlyByParty = true;
 
-                                    foreach (Prop p  in gv.mod.currentArea.Props)
+                                    //do it for all nearby areas
+                                    //getdistance() needs relative light coords
+                                    //new method: returnRelativeCoord(int lightAbsoluteX, int lightAbsoluteY, string nameOfLightSourceArea)
+                                    // IsLineOfSightForEachCornerPropLight method must be adjusted like IsLineOfSightForEachCorner method in order fidn tiles (and LoS blcoked states) on othe rareas than current area
+                                    //returnRelativeCoord
+
+                                    //gv.cc.getNearbyAreas();
+                                    List<int> nearbyAreaIndices = new List<int>();
+                                    nearbyAreaIndices = getNearbyAreas();
+
+                                    for (int aCounter = 0; aCounter < nearbyAreaIndices.Count; aCounter++)
                                     {
-                                        if (p.isLight)
+                                        //if (gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].useSimpleDarkness)
+                                        { 
+                                        foreach (Prop p in gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].Props)
                                         {
-                                            Coordinate lightCoord = new Coordinate();
-                                            lightCoord.X = p.LocationX;
-                                            lightCoord.Y = p.LocationY;
-
-                                            if (gv.cc.getDistance(lightCoord, tileCoord) <= 4)
+                                            if (p.isLight)
                                             {
-                                                if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord))
+                                                Coordinate lightCoord = returnRelativeCoord(p.LocationX, p.LocationY, nearbyAreaIndices[aCounter]);
+                                                //lightCoord.X = returnRelativeCoord(p.LocationX, p.LocationY; nearbyAreaIndices[aCounter]);
+                                                //lightCoord.Y = p.LocationY;
+                                                int lightHeight = gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].Tiles[p.LocationY * gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].MapSizeX + p.LocationX].heightLevel;
+
+                                                if (gv.cc.getDistance(lightCoord, tileCoord) <= 4)
                                                 {
-                                                    //use extended check here?
-                                                    //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                    if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord, lightHeight))
                                                     {
-                                                        tileIsLitOnlyByParty = false;
-                                                        if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
+                                                        //use extended check here?
+                                                        //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                                         {
-                                                            overgrowthTransparency = 0.0f;
-                                                        }
-
-                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
-                                                        {
-                                                            if (tile.targetOpacity > 0.25f)
+                                                            tileIsLitOnlyByParty = false;
+                                                            if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
                                                             {
-                                                                overgrowthTransparency = 0.25f;
+                                                                overgrowthTransparency = 0.0f;
                                                             }
-                                                        }
 
-                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
-                                                        {
-                                                            if (tile.targetOpacity > 0.5f)
+                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
                                                             {
-                                                                overgrowthTransparency = 0.5f;
+                                                                if (tile.targetOpacity > 0.25f)
+                                                                {
+                                                                    overgrowthTransparency = 0.25f;
+                                                                }
                                                             }
-                                                        }
 
-                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
-                                                        {
-                                                            if (tile.targetOpacity > 0.75f)
+                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
                                                             {
-                                                                overgrowthTransparency = 0.75f;
+                                                                if (tile.targetOpacity > 0.5f)
+                                                                {
+                                                                    overgrowthTransparency = 0.5f;
+                                                                }
                                                             }
+
+                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
+                                                            {
+                                                                if (tile.targetOpacity > 0.75f)
+                                                                {
+                                                                    overgrowthTransparency = 0.75f;
+                                                                }
+                                                            }
+                                                            tile.targetOpacity = overgrowthTransparency;
                                                         }
-                                                        tile.targetOpacity = overgrowthTransparency;
                                                     }
                                                 }
                                             }
                                         }
                                     }
+                                    }
+                                    
 
                                     if (tileIsLitOnlyByParty)
                                     {
@@ -2748,6 +2775,68 @@ namespace IceBlink2
                 }
             }
         }
+
+        public Coordinate returnRelativeCoord(int lightAbsoluteX, int lightAbsoluteY, int indexOfLightSourceArea)
+        {
+            Coordinate returnCoord = new Coordinate();
+            returnCoord.X = lightAbsoluteX;
+            returnCoord.Y = lightAbsoluteY;
+
+            if (indexOfLightSourceArea == gv.mod.indexOfNorthernNeighbour)
+            {
+                returnCoord.X = lightAbsoluteX;
+                returnCoord.Y = lightAbsoluteY - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfNorthEasternNeighbour)
+            {
+                returnCoord.X = gv.mod.currentArea.MapSizeX + lightAbsoluteX;
+                returnCoord.Y = lightAbsoluteY - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfEasternNeighbour)
+            {
+                returnCoord.X = gv.mod.currentArea.MapSizeX + lightAbsoluteX;
+                returnCoord.Y = lightAbsoluteY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfSouthEasternNeighbour)
+            {
+                returnCoord.X = gv.mod.currentArea.MapSizeX + lightAbsoluteX;
+                returnCoord.Y = gv.mod.currentArea.MapSizeY + lightAbsoluteY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfSouthernNeighbour)
+            {
+                returnCoord.X = lightAbsoluteX;
+                returnCoord.Y = gv.mod.currentArea.MapSizeY + lightAbsoluteY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfSouthWesternNeighbour)
+            {
+                
+                returnCoord.X = lightAbsoluteX - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeX;
+                returnCoord.Y = gv.mod.currentArea.MapSizeY + lightAbsoluteY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfWesternNeighbour)
+            {
+
+                returnCoord.X = lightAbsoluteX - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeX;
+                returnCoord.Y = lightAbsoluteY;
+                return returnCoord;
+            }
+            if (indexOfLightSourceArea == gv.mod.indexOfNorthWesternNeighbour)
+            {
+
+                returnCoord.X = lightAbsoluteX - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeX;
+                returnCoord.Y = lightAbsoluteY - gv.mod.moduleAreasObjects[indexOfLightSourceArea].MapSizeY;
+                return returnCoord;
+            }
+
+            return returnCoord;
+        }
+
 
         public void setTargetOpacityInstantly()
         {
@@ -3751,7 +3840,7 @@ namespace IceBlink2
             //on northeastern neighbour
             if (gv.mod.indexOfNorthEasternNeighbour > 0)
             {
-                if (gridx >= gv.mod.currentArea.MapSizeX && gridy < 0 && gridx < gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX*2 && gridy >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthernNeighbour].MapSizeY)
+                if (gridx >= gv.mod.currentArea.MapSizeX && gridy < 0 && gridx < gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeX*2 && gridy >= -gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY)
                 {
                     int transformedX = gridx - gv.mod.currentArea.MapSizeX;
                     int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthEasternNeighbour].MapSizeY + gridy;
@@ -7649,7 +7738,7 @@ namespace IceBlink2
 
         public void resetLightAndDarkness()
         {
-
+            return;
             //if (gv.mod.arrivalSquareX != 1000000)
             //{
             //gv.mod.PlayerLocationX = gv.mod.arrivalSquareX;
@@ -8143,7 +8232,7 @@ namespace IceBlink2
         public void doIllumination()
         {
 
-           
+            return;
 
             int indexOfNorthernNeighbour = -1;
             int indexOfSouthernNeighbour = -1;
