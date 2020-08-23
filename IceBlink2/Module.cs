@@ -305,6 +305,9 @@ namespace IceBlink2
 
         public int partyDistanceToNextLightSource = 3;
 
+        public float lightFluxFactor = 0;
+        public string lightFluxDirection = "getDarker"; //other value getBrighter
+
         public int creatureCounterSubstractor = 0;
         public int moveOrderOfCreatureThatIsBeforeBandChange = 0;
         public bool enteredFirstTime = false;

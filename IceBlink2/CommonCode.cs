@@ -2223,6 +2223,7 @@ namespace IceBlink2
                                 int transformedY = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeY + y;
                                 tile = gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].Tiles[transformedY * gv.mod.moduleAreasObjects[gv.mod.indexOfNorthWesternNeighbour].MapSizeX + transformedX];
                                 index = gv.mod.indexOfNorthWesternNeighbour;
+                                //tile.isLit
                             }
                             else
                             {
@@ -2349,11 +2350,18 @@ namespace IceBlink2
                             {
                                 if (gv.mod.moduleAreasObjects[count] == gv.mod.currentArea)
                                 {
+                                    //tile = gv.mod.currentArea.Tiles[y] 
                                     index = count;
                                     break;
                                 }
                             }
 
+                        }
+
+                        //resetlightanddrakness
+                        if (gv.mod.currentArea.useSimpleDarkness)
+                        {
+                            tile.isLit.Clear();
                         }
 
                         if (index > -1 && index < gv.mod.moduleAreasObjects.Count)
@@ -2710,10 +2718,215 @@ namespace IceBlink2
                                                 {
                                                     if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord, lightHeight))
                                                     {
-                                                        //use extended check here?
-                                                        //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                            //use extended check here?
+                                                            /*
+                                                            if (tile.heightLevel > gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
+                                                        {
+                                                                //tile might be a wall, lit only from one side
+                                                                //perhaps better chekc here wther party1 and light source are at teh same side of tile?
+                                                                //bool sameSide = false;
+                                                                //if ()
+
+
+                                                                //instead of checking whether party can see light source:
+                                                                //1. figure out the lit sides of the tile by comparing tile and light source position
+                                                                //2. figure out the sides of the tile the party can see by comparing tile and party position
+                                                                //3. Does at least one side match?
+
+                                                                List<string> litSides = new List<string>();
+                                                                List<string> seenSides = new List<string>();
+
+                                                                //do not add litSide if tiel to direction of litSide is hihger than light source
+
+                                                                //lit sides
+                                                                //same
+                                                                if (lightCoord.X == x && lightCoord.Y == y)
+                                                                {
+                                                                    litSides.Add("top");
+                                                                    litSides.Add("right");
+                                                                    litSides.Add("bottom");
+                                                                    litSides.Add("left");
+                                                                }
+
+                                                                //north
+                                                                if (lightCoord.X == x && lightCoord.Y < y)
+                                                                {
+                                                                    litSides.Add("top");
+                                                                }
+
+                                                                //northeast
+                                                                if (lightCoord.X > x && lightCoord.Y < y)
+                                                                {
+                                                                    litSides.Add("top");
+                                                                    litSides.Add("right");
+                                                                }
+
+                                                                //east
+                                                                if (lightCoord.X > x && lightCoord.Y == y)
+                                                                {
+                                                                    litSides.Add("right");
+                                                                }
+
+                                                                //southheast
+                                                                if (lightCoord.X > x && lightCoord.Y > y)
+                                                                {
+                                                                    litSides.Add("bottom");
+                                                                    litSides.Add("right");
+                                                                }
+
+                                                                //south
+                                                                if (lightCoord.X == x && lightCoord.Y > y)
+                                                                {
+                                                                    litSides.Add("bottom");
+                                                                }
+
+                                                                //southwest
+                                                                if (lightCoord.X < x && lightCoord.Y > y)
+                                                                {
+                                                                    litSides.Add("bottom");
+                                                                    litSides.Add("left");
+                                                                }
+
+                                                                //west
+                                                                if (lightCoord.X < x && lightCoord.Y == y)
+                                                                {
+                                                                    litSides.Add("left");
+                                                                }
+
+                                                                //northwest
+                                                                if (lightCoord.X < x && lightCoord.Y < y)
+                                                                {
+                                                                    litSides.Add("left");
+                                                                    litSides.Add("top");
+                                                                }
+
+
+                                                                //seen sides
+                                                                if (partyCoord.X == x && partyCoord.Y == y)
+                                                                {
+                                                                    seenSides.Add("top");
+                                                                    seenSides.Add("right");
+                                                                    seenSides.Add("bottom");
+                                                                    seenSides.Add("left");
+                                                                }
+
+                                                                //north
+                                                                if (partyCoord.X == x && partyCoord.Y < y)
+                                                                {
+                                                                    seenSides.Add("top");
+                                                                }
+
+                                                                //northeast
+                                                                if (partyCoord.X > x && partyCoord.Y < y)
+                                                                {
+                                                                    seenSides.Add("top");
+                                                                    seenSides.Add("right");
+                                                                }
+
+                                                                //east
+                                                                if (partyCoord.X > x && partyCoord.Y == y)
+                                                                {
+                                                                    seenSides.Add("right");
+                                                                }
+
+                                                                //southheast
+                                                                if (partyCoord.X > x && partyCoord.Y > y)
+                                                                {
+                                                                    seenSides.Add("bottom");
+                                                                    seenSides.Add("right");
+                                                                }
+
+                                                                //south
+                                                                if (partyCoord.X == x && partyCoord.Y > y)
+                                                                {
+                                                                    seenSides.Add("bottom");
+                                                                }
+
+                                                                //southwest
+                                                                if (partyCoord.X < x && partyCoord.Y > y)
+                                                                {
+                                                                    seenSides.Add("bottom");
+                                                                    seenSides.Add("left");
+                                                                }
+
+                                                                //west
+                                                                if (partyCoord.X < x && partyCoord.Y == y)
+                                                                {
+                                                                    seenSides.Add("left");
+                                                                }
+
+                                                                //northwest
+                                                                if (partyCoord.X < x && partyCoord.Y < y)
+                                                                {
+                                                                    seenSides.Add("left");
+                                                                    seenSides.Add("top");
+                                                                }
+
+
+                                                                bool displayTile = false;
+
+                                                                foreach (String sSeen in seenSides)
+                                                                {
+                                                                    foreach (String sLit in litSides)
+                                                                    {
+                                                                        if (sSeen == sLit)
+                                                                        {
+                                                                            displayTile = true;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+                                                                }
+
+                                                                //availabe: top, right, bottom, left
+
+                                                                if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, lightCoord))
+                                                                //if (displayTile)
+                                                                {
+                                                                    if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                                    {
+                                                                        tileIsLitOnlyByParty = false;
+                                                                        tile.isLit.Add(tileIsLitOnlyByParty);
+
+                                                                        if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
+                                                                        {
+                                                                            overgrowthTransparency = 0.0f;
+                                                                        }
+
+                                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
+                                                                        {
+                                                                            if (tile.targetOpacity > 0.25f)
+                                                                            {
+                                                                                overgrowthTransparency = 0.25f;
+                                                                            }
+                                                                        }
+
+                                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
+                                                                        {
+                                                                            if (tile.targetOpacity > 0.5f)
+                                                                            {
+                                                                                overgrowthTransparency = 0.5f;
+                                                                            }
+                                                                        }
+
+                                                                        if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
+                                                                        {
+                                                                            if (tile.targetOpacity > 0.75f)
+                                                                            {
+                                                                                overgrowthTransparency = 0.75f;
+                                                                            }
+                                                                        }
+                                                                        tile.targetOpacity = overgrowthTransparency;
+                                                                    }//up until here
+                                                                }
+                                                        }
+                                                        //below without else is quite good already 
+                                                        */
+                                                            //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                                         {
                                                             tileIsLitOnlyByParty = false;
+                                                            tile.isLit.Add(tileIsLitOnlyByParty);
+
                                                             if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
                                                             {
                                                                 overgrowthTransparency = 0.0f;
@@ -2743,7 +2956,7 @@ namespace IceBlink2
                                                                 }
                                                             }
                                                             tile.targetOpacity = overgrowthTransparency;
-                                                        }
+                                                        }//up until here
                                                     }
                                                 }
                                             }
@@ -2762,6 +2975,14 @@ namespace IceBlink2
                                         if (!gv.mod.partyLightOn)
                                         {
                                             tile.targetOpacity = 1;
+                                        }
+
+                                        if (gv.cc.getDistance(partyCoord, tileCoord) <= 2 && gv.mod.partyLightOn)
+                                        {
+                                            if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                            {
+                                                tile.isLit.Add(tileIsLitOnlyByParty);
+                                            }
                                         }
                                     }
                                 }
@@ -7738,7 +7959,13 @@ namespace IceBlink2
 
         public void resetLightAndDarkness()
         {
-            return;
+
+            if (gv.mod.currentArea.useSimpleDarkness)
+            {
+                return;
+            }
+            
+            
             //if (gv.mod.arrivalSquareX != 1000000)
             //{
             //gv.mod.PlayerLocationX = gv.mod.arrivalSquareX;
@@ -8232,7 +8459,10 @@ namespace IceBlink2
         public void doIllumination()
         {
 
-            return;
+            if (gv.mod.currentArea.useSimpleDarkness)
+            {
+                return;
+            }
 
             int indexOfNorthernNeighbour = -1;
             int indexOfSouthernNeighbour = -1;
@@ -21962,8 +22192,32 @@ namespace IceBlink2
                     gv.screenMainMap.setExplored();
                     gv.screenMainMap.setExploredForConnectedDiscoveryTriggers();
 
-                    //doOnEnterAreaUpdate = true;
-                    if (!gv.mod.isBreathingWorld)
+
+                    //upadte props pixel loc
+            
+                    foreach (int h in getNearbyAreas())
+                    {
+                        for (int i = gv.mod.moduleAreasObjects[h].Props.Count - 1; i >= 0; i--)
+                        //foreach (Prop p in gv.mod.moduleAreasObjects[i].Props)
+                        {
+                            //projekt20
+                            //0174 4601748
+                            recalcReloc(gv.mod.moduleAreasObjects[h].Props[i] );
+                            int xOffSetInSquares = gv.mod.moduleAreasObjects[h].Props[i].relocX - gv.mod.PlayerLocationX;
+                            int yOffSetInSquares = gv.mod.moduleAreasObjects[h].Props[i].relocY - gv.mod.PlayerLocationY;
+
+
+                            //int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
+                            //int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
+                            int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                            int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+                            gv.mod.moduleAreasObjects[h].Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                            gv.mod.moduleAreasObjects[h].Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                         }
+                    }
+
+                            //doOnEnterAreaUpdate = true;
+                            if (!gv.mod.isBreathingWorld)
                     {
                         doPropMoves();
                     }
