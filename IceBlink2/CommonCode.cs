@@ -2735,69 +2735,161 @@ namespace IceBlink2
 
                                                                 List<string> litSides = new List<string>();
                                                                 List<string> seenSides = new List<string>();
-
-                                                                //do not add litSide if tiel to direction of litSide is hihger than light source
+                                                               
+                                                                //do not add litSide if tile to direction of litSide is hihger than party
 
                                                                 //lit sides
                                                                 //same
                                                                 if (lightCoord.X == x && lightCoord.Y == y)
                                                                 {
-                                                                    litSides.Add("top");
-                                                                    litSides.Add("right");
-                                                                    litSides.Add("bottom");
-                                                                    litSides.Add("left");
+                                                                    //if (getTileAcrossAllAreasViaRelativePosition(x, y - 1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        //compare aprty and ligth soeuce height, both must be e
+                                                                        litSides.Add("top");
+                                                                    }
+                                                                    //if (getTileAcrossAllAreasViaRelativePosition(x+1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
+                                                                    //if (getTileAcrossAllAreasViaRelativePosition(x, y+1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
+                                                                    //if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
                                                                 }
 
                                                                 //north
                                                                 if (lightCoord.X == x && lightCoord.Y < y)
                                                                 {
-                                                                    litSides.Add("top");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y-1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("top");
+                                                                    }
+
+
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x + 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
+
+                                                                    //todo: also add left and right, if free
+                                                                    //also left and right, if free
                                                                 }
 
                                                                 //northeast
                                                                 if (lightCoord.X > x && lightCoord.Y < y)
                                                                 {
-                                                                    litSides.Add("top");
-                                                                    litSides.Add("right");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y-1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("top");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x + 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
                                                                 }
 
                                                                 //east
                                                                 if (lightCoord.X > x && lightCoord.Y == y)
                                                                 {
-                                                                    litSides.Add("right");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x + 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
+
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y - 1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("top");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y + 1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
+
+
                                                                 }
 
                                                                 //southheast
                                                                 if (lightCoord.X > x && lightCoord.Y > y)
                                                                 {
-                                                                    litSides.Add("bottom");
-                                                                    litSides.Add("right");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y+1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x + 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
                                                                 }
 
                                                                 //south
                                                                 if (lightCoord.X == x && lightCoord.Y > y)
                                                                 {
-                                                                    litSides.Add("bottom");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y+1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
+
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x + 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("right");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
                                                                 }
 
                                                                 //southwest
                                                                 if (lightCoord.X < x && lightCoord.Y > y)
                                                                 {
-                                                                    litSides.Add("bottom");
-                                                                    litSides.Add("left");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y+1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
                                                                 }
 
                                                                 //west
                                                                 if (lightCoord.X < x && lightCoord.Y == y)
                                                                 {
-                                                                    litSides.Add("left");
+
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
+
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y - 1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("top");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y + 1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("bottom");
+                                                                    }
                                                                 }
 
                                                                 //northwest
                                                                 if (lightCoord.X < x && lightCoord.Y < y)
                                                                 {
-                                                                    litSides.Add("left");
-                                                                    litSides.Add("top");
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x - 1, y).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("left");
+                                                                    }
+                                                                    if (getTileAcrossAllAreasViaRelativePosition(x, y-1).heightLevel < tile.heightLevel)
+                                                                    {
+                                                                        litSides.Add("top");
+                                                                    }
                                                                 }
 
 
@@ -2814,6 +2906,9 @@ namespace IceBlink2
                                                                 if (partyCoord.X == x && partyCoord.Y < y)
                                                                 {
                                                                     seenSides.Add("top");
+
+                                                                    seenSides.Add("right");
+                                                                    seenSides.Add("left");
                                                                 }
 
                                                                 //northeast
@@ -2827,6 +2922,10 @@ namespace IceBlink2
                                                                 if (partyCoord.X > x && partyCoord.Y == y)
                                                                 {
                                                                     seenSides.Add("right");
+
+
+                                                                    seenSides.Add("top");
+                                                                    seenSides.Add("bottom");
                                                                 }
 
                                                                 //southheast
@@ -2840,6 +2939,10 @@ namespace IceBlink2
                                                                 if (partyCoord.X == x && partyCoord.Y > y)
                                                                 {
                                                                     seenSides.Add("bottom");
+
+
+                                                                    seenSides.Add("right");
+                                                                    seenSides.Add("left");
                                                                 }
 
                                                                 //southwest
@@ -2853,6 +2956,10 @@ namespace IceBlink2
                                                                 if (partyCoord.X < x && partyCoord.Y == y)
                                                                 {
                                                                     seenSides.Add("left");
+
+
+                                                                    seenSides.Add("top");
+                                                                    seenSides.Add("bottom");
                                                                 }
 
                                                                 //northwest
@@ -2880,10 +2987,10 @@ namespace IceBlink2
 
                                                                 //availabe: top, right, bottom, left
 
-                                                                if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, lightCoord))
-                                                                //if (displayTile)
+                                                                //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, lightCoord))
+                                                                if (displayTile)
                                                                 {
-                                                                    if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                                    if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partyCoord, tileCoord, lightHeight))
                                                                     {
                                                                         tileIsLitOnlyByParty = false;
                                                                         tile.isLit.Add(tileIsLitOnlyByParty);
@@ -2920,9 +3027,11 @@ namespace IceBlink2
                                                                     }//up until here
                                                                 }
                                                         }
-                                                        //below without else is quite good already 
-                                                        */
-                                                            //if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
+                                                          */  
+
+                                                        //below without else is quite good already (remove condition lien below to restore
+                                                        
+                                                        //else if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partyCoord, tileCoord, lightHeight))
                                                         {
                                                             tileIsLitOnlyByParty = false;
                                                             tile.isLit.Add(tileIsLitOnlyByParty);
