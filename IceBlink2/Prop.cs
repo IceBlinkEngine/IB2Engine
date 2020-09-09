@@ -68,6 +68,9 @@ namespace IceBlink2
         //b. upon failure
         //messaging to log and as floaty
 
+        public int lightRadius = 4;
+        public string lightColor = "yellow";
+
         public bool allowEnteringOccupiedSquare = false;
         public bool skippedPathfinding = false;
 
@@ -459,6 +462,8 @@ namespace IceBlink2
     	    Prop copy = new Prop();
 
             //TODO
+            copy.lightRadius = lightRadius;
+            copy.lightColor = lightColor;
             copy.allowEnteringOccupiedSquare = allowEnteringOccupiedSquare;
             copy.stealthModifier = this.stealthModifier;
             copy.skippedPathfinding = skippedPathfinding;

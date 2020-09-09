@@ -10,6 +10,8 @@ namespace IceBlink2
     public class Tile
     {
 
+        public List<string> lightColors = new List<string>();
+        //public string lightColor = "yellow";
         public bool wasSightBlockedLastMove = true;
         public int visibiltyPosX = 0;
         public int visibiltyPosY = 0;

@@ -2633,12 +2633,33 @@ namespace IceBlink2
 
                                 if (gv.cc.getDistance(tileCoord, partyCoord) < 2)
                                 {
-                                    overgrowthTransparency = 0.0f;
+                                    if (gv.mod.currentArea.useSimpleDarkness)
+                                    {
+                                        if (gv.cc.getDistance(tileCoord, partyCoord) == 0)
+                                        {
+                                            overgrowthTransparency = 0.0f;
+                                        }
+                                        if (gv.cc.getDistance(tileCoord, partyCoord) == 1)
+                                        {
+                                            overgrowthTransparency = 0.2f;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        overgrowthTransparency = 0.0f;
+                                    }
                                 }
 
                                 if (gv.cc.getDistance(tileCoord, partyCoord) == 2)
                                 {
-                                    overgrowthTransparency = 0.25f * clearingSuccess;
+                                    if (gv.mod.currentArea.useSimpleDarkness)
+                                    {
+                                            overgrowthTransparency = 0.4f;
+                                    }
+                                    else
+                                    {
+                                        overgrowthTransparency = 0.25f * clearingSuccess;
+                                    }
                                 }
 
                                 if (gv.cc.getDistance(tileCoord, partyCoord) == 3)
@@ -2701,6 +2722,9 @@ namespace IceBlink2
                                     List<int> nearbyAreaIndices = new List<int>();
                                     nearbyAreaIndices = getNearbyAreas();
 
+                                    //colorworld
+                                    tile.lightColors.Clear();
+
                                     for (int aCounter = 0; aCounter < nearbyAreaIndices.Count; aCounter++)
                                     {
                                         //if (gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].useSimpleDarkness)
@@ -2714,10 +2738,41 @@ namespace IceBlink2
                                                 //lightCoord.Y = p.LocationY;
                                                 int lightHeight = gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].Tiles[p.LocationY * gv.mod.moduleAreasObjects[nearbyAreaIndices[aCounter]].MapSizeX + p.LocationX].heightLevel;
 
-                                                if (gv.cc.getDistance(lightCoord, tileCoord) <= 4)
+                                                if (gv.cc.getDistance(lightCoord, tileCoord) <= p.lightRadius && gv.cc.getDistance(lightCoord, tileCoord) <= 4)
                                                 {
-                                                    if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord, lightHeight))
+                                                    if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(lightCoord, tileCoord, lightHeight) || tileCoord == lightCoord)
                                                     {
+                                                            
+                                                            //need list of tiel colors for mutiple colors on one square
+                                                            if (p.lightColor.Contains("yellow"))
+                                                            {
+                                                                tile.lightColors.Add("yellow");
+                                                            }
+                                                            if (p.lightColor.Contains("green"))
+                                                            {
+                                                                tile.lightColors.Add("green");
+                                                            }
+                                                            if (p.lightColor.Contains("red"))
+                                                            {
+                                                                tile.lightColors.Add("red");
+                                                            }
+                                                            if (p.lightColor.Contains("blue"))
+                                                            {
+                                                                tile.lightColors.Add("blue");
+                                                            }
+                                                            if (p.lightColor.Contains("purple"))
+                                                            {
+                                                                tile.lightColors.Add("purple");
+                                                            }
+                                                            if (p.lightColor.Contains("orange"))
+                                                            {
+                                                                tile.lightColors.Add("orange");
+                                                            }
+                                                           
+
+
+
+
                                                             //use extended check here?
                                                             /*
                                                             if (tile.heightLevel > gv.mod.currentArea.Tiles[gv.mod.PlayerLocationY * gv.mod.currentArea.MapSizeX + gv.mod.PlayerLocationX].heightLevel)
@@ -3027,44 +3082,141 @@ namespace IceBlink2
                                                                     }//up until here
                                                                 }
                                                         }
-                                                          */  
+                                                          */
 
-                                                        //below without else is quite good already (remove condition lien below to restore
-                                                        
-                                                        //else if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partyCoord, tileCoord, lightHeight))
-                                                        {
+                                                            //below without else is quite good already (remove condition lien below to restore
+
+                                                            //else if (gv.screenMainMap.IsLineOfSightForEachCornerPropLight(partyCoord, tileCoord, lightHeight))
+                                                            {
                                                             tileIsLitOnlyByParty = false;
                                                             tile.isLit.Add(tileIsLitOnlyByParty);
 
-                                                            if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
-                                                            {
-                                                                overgrowthTransparency = 0.0f;
-                                                            }
-
-                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
-                                                            {
-                                                                if (tile.targetOpacity > 0.25f)
+                                                                if (p.lightRadius >= 4)
                                                                 {
-                                                                    overgrowthTransparency = 0.25f;
-                                                                }
-                                                            }
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) < 2)
+                                                                    {
+                                                                        overgrowthTransparency = 0.0f;
+                                                                    }
 
-                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
-                                                            {
-                                                                if (tile.targetOpacity > 0.5f)
-                                                                {
-                                                                    overgrowthTransparency = 0.5f;
-                                                                }
-                                                            }
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.25f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.25f;
+                                                                        }
+                                                                    }
 
-                                                            if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
-                                                            {
-                                                                if (tile.targetOpacity > 0.75f)
-                                                                {
-                                                                    overgrowthTransparency = 0.75f;
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.5f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.5f;
+                                                                        }
+                                                                    }
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 4)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.75f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.75f;
+                                                                        }
+                                                                    }
                                                                 }
-                                                            }
-                                                            tile.targetOpacity = overgrowthTransparency;
+
+
+
+                                                                if (p.lightRadius == 3)
+                                                                {
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) < 1)
+                                                                    {
+                                                                        //if (tile.targetOpacity < 0.125f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.125f;
+                                                                        }
+                                                                    }
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 1)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.25f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.25f;
+                                                                        }
+                                                                    }
+
+                                                                  
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.5f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.5f;
+                                                                        }
+                                                                    }
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 3)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.75f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.75f;
+                                                                        }
+                                                                    }
+
+                                                                }
+
+                                                                if (p.lightRadius == 2)
+                                                                {
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) < 1)
+                                                                    {
+                                                                        //if (gv.cc.getDistance(tileCoord, lightCoord) == 1)
+                                                                        {
+                                                                            if (tile.targetOpacity > 0.19f)
+                                                                            {
+                                                                                overgrowthTransparency = 0.19f;
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 1)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.375f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.375f;
+                                                                        }
+                                                                    }
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 2)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.75f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.75f;
+                                                                        }
+                                                                    }
+
+
+                                                                }
+
+                                                                if (p.lightRadius == 1)
+                                                                {
+
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) < 1)
+                                                                    {
+                                                                        //if (tile.targetOpacity < 0.375f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.375f;
+                                                                        }
+                                                                    }
+                                                                    if (gv.cc.getDistance(tileCoord, lightCoord) == 1)
+                                                                    {
+                                                                        if (tile.targetOpacity > 0.75f)
+                                                                        {
+                                                                            overgrowthTransparency = 0.75f;
+                                                                        }
+                                                                    }
+
+                                                                }
+
+
+                                                                tile.targetOpacity = overgrowthTransparency;
                                                         }//up until here
                                                     }
                                                 }
@@ -3086,13 +3238,42 @@ namespace IceBlink2
                                             tile.targetOpacity = 1;
                                         }
 
+                                        
                                         if (gv.cc.getDistance(partyCoord, tileCoord) <= 2 && gv.mod.partyLightOn)
                                         {
                                             if (gv.screenMainMap.IsLineOfSightForEachCorner(partyCoord, tileCoord))
                                             {
                                                 tile.isLit.Add(tileIsLitOnlyByParty);
+                                                //need list of tiel colors for mutiple colors on one square
+                                                /*
+                                                if (gv.mod.partyLightColor.Contains("yellow"))
+                                                {
+                                                    tile.lightColors.Add("yellow");
+                                                }
+                                                if (gv.mod.partyLightColor.Contains("green"))
+                                                {
+                                                    tile.lightColors.Add("green");
+                                                }
+                                                if (gv.mod.partyLightColor.Contains("red"))
+                                                {
+                                                    tile.lightColors.Add("red");
+                                                }
+                                                if (gv.mod.partyLightColor.Contains("blue"))
+                                                {
+                                                    tile.lightColors.Add("blue");
+                                                }
+                                                if (gv.mod.partyLightColor.Contains("purple"))
+                                                {
+                                                    tile.lightColors.Add("purple");
+                                                }
+                                                if (gv.mod.partyLightColor.Contains("orange"))
+                                                {
+                                                    tile.lightColors.Add("orange");
+                                                }
+                                                */
                                             }
                                         }
+                                        
                                     }
                                 }
 

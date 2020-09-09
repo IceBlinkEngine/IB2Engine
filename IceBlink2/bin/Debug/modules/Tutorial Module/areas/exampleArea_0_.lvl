@@ -35397,6 +35397,7 @@
   ],
   "Props": [
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -35599,6 +35600,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": true,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": true,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -35610,6 +35613,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -35812,6 +35816,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": true,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": true,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -35823,6 +35829,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -36025,6 +36032,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": true,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": true,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -36036,6 +36045,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -36238,6 +36248,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": true,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": true,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -36249,6 +36261,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -36451,6 +36464,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": true,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -36462,6 +36477,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -36664,6 +36680,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -36675,6 +36693,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -36877,6 +36896,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -36888,6 +36909,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -37090,6 +37112,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -37101,6 +37125,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -37303,6 +37328,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -37314,6 +37341,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -37516,6 +37544,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -37527,6 +37557,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -37729,6 +37760,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -37740,6 +37773,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -37942,6 +37976,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -37953,6 +37989,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -38155,6 +38192,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -38166,6 +38205,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -38368,6 +38408,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -38379,6 +38421,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -38581,6 +38624,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -38592,6 +38637,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -38794,6 +38840,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -38805,6 +38853,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -39007,6 +39056,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -39018,6 +39069,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -39220,6 +39272,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -39231,6 +39285,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -39433,6 +39488,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -39444,6 +39501,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -39646,6 +39704,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -39657,6 +39717,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -39859,6 +39920,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -39870,6 +39933,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -40072,6 +40136,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -40083,6 +40149,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -40285,6 +40352,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -40296,6 +40365,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -40498,6 +40568,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -40509,6 +40581,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -40711,6 +40784,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -40722,6 +40797,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -40924,6 +41000,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -40935,6 +41013,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -41137,6 +41216,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -41148,6 +41229,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -41350,6 +41432,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -41361,6 +41445,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -41563,6 +41648,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -41574,6 +41661,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -41776,6 +41864,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -41787,6 +41877,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -41989,6 +42080,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -42000,6 +42093,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -42202,6 +42296,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -42213,6 +42309,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -42415,6 +42512,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -42426,6 +42525,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -42628,6 +42728,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -42639,6 +42741,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -42841,6 +42944,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -42852,6 +42957,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -43054,6 +43160,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -43065,6 +43173,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -43267,6 +43376,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -43278,6 +43389,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -43480,6 +43592,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -43491,6 +43605,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -43693,6 +43808,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -43704,6 +43821,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -43906,6 +44024,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -43917,6 +44037,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -44119,6 +44240,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -44130,6 +44253,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -44332,6 +44456,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -44343,6 +44469,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -44545,6 +44672,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -44556,6 +44685,7 @@
       "OnHeartBeatIBScriptParms": ""
     },
     {
+      "_lightColor": "yellow",
       "counterStages": 0,
       "timerTurnsBeforeGridResets": 0,
       "_challengeLevelAssignedForEncounterInConvo": 0,
@@ -44758,6 +44888,8 @@
       "movementSpeed": -1,
       "isChaser": false,
       "isLight": false,
+      "lightRadius": 4,
+      "lightColor": "yellow",
       "hasHalo": false,
       "focalIntensity": 1.0,
       "ringIntensity": 1.0,
@@ -45073,7 +45205,7 @@
   "AreaSounds": "none",
   "AreaSoundsDelay": 0,
   "AreaSoundsDelayRandomAdder": 0,
-  "NextIdNumber": 1580,
+  "NextIdNumber": 1584,
   "OnHeartBeatIBScript": "none",
   "OnHeartBeatIBScriptParms": "",
   "AreaLocalInts": [],

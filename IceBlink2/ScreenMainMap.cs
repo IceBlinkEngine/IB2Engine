@@ -5295,6 +5295,46 @@ namespace IceBlink2
                                     */
                                     if (gv.mod.currentArea.useSimpleDarkness && tile.isLit.Count > 0)
                                     {
+                                        if (tile.lightColors.Count > 0)
+                                        {
+                                            //todo
+                                            int opacityDivider = tile.lightColors.Count;
+                                            src = new IbRect((int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width * 4f / 10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height * 4f / 10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width / 10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height / 10f));
+                                            float flickerFactor = ((gv.mod.lightFluxFactor * 33.3f + 50f) / 200f + 0.5f)*3f;
+                                            //flickerFactor = 1;
+
+                                            foreach (string color in tile.lightColors)
+                                            {
+                                                //colorworld
+                                                if (color == "yellow")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "green")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "red")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "blue")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "orange")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "purple")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+
+                                            }
+                                            src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
+
+                                        }
                                         gv.DrawBitmap(tile.tileBitmap4, src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity + gv.mod.lightFluxFactor);
                                     }
                                     else
@@ -5316,6 +5356,46 @@ namespace IceBlink2
 
                                     if (gv.mod.currentArea.useSimpleDarkness && tile.isLit.Count > 0)
                                     {
+                                        if (tile.lightColors.Count > 0)
+                                        {
+                                            src = new IbRect((int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width * 4f / 10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height * 4f / 10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width/10f), (int)(gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height/10f));
+                                            //todo
+                                            int opacityDivider = tile.lightColors.Count;
+                                            float flickerFactor = ((gv.mod.lightFluxFactor * 33.3f + 50f) / 200f + 0.5f) * 3f;
+                                            //flickerFactor = 1f;
+
+                                            foreach (string color in tile.lightColors)
+                                            {
+                                                //colorworld
+                                                if (color == "yellow")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "green")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "red")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "blue")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "orange")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+                                                if (color == "purple")
+                                                {
+                                                    gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, 0.06f / opacityDivider * flickerFactor, false);
+                                                }
+
+                                            }
+                                            src = new IbRect(0, 0, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Width, gv.mod.loadedTileBitmaps[indexOfLoadedTile].PixelSize.Height);
+
+                                        }
                                         gv.DrawBitmap(gv.mod.loadedTileBitmaps[indexOfLoadedTile], src, dst, tile.Layer4Rotate, tile.Layer4Mirror, tile.Layer4Xshift, tile.Layer4Yshift, tile.Layer4Xscale, tile.Layer4Yscale, tile.Layer4Opacity + gv.mod.lightFluxFactor);
                                     }
                                     else
@@ -39679,45 +39759,46 @@ namespace IceBlink2
                                         //dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f), tlY + shifterY - (int)((scaler - 1) * brY * 0.5f), (int)(brX * scaler), (int)(brY * scaler));
                                         if ((x == gv.mod.PlayerLocationX) && (y == gv.mod.PlayerLocationY) && gv.mod.partyLightOn)
                                         {
-                                            flicker = 25 + gv.mod.lightFluxFactor * 100; 
+                                            float flicker2 = (25 + gv.mod.lightFluxFactor * 100)*(2.0f);
+                                            flicker = (25 + gv.mod.lightFluxFactor * 100);
                                             int extension = 6 - (int)(flicker / 7f);
                                             int extension2 = 13 - (int)(flicker / 3f);
                                             dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension + 5 - 2 * gv.squareSize, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension + 5 - 2 * gv.squareSize, (int)(brX * scaler) + 2 * extension - 10 + 4 * gv.squareSize, (int)(brY * scaler) + 2 * extension - 10 + 4 * gv.squareSize);
                                             if (gv.mod.partyLightColor.Contains("yellow"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider,true);
+                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider,true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightYellow, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("blue"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightBlue, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("green"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightGreen, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("red"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightRed, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("orange"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                 gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider, true);
+                                                 gv.DrawBitmap(gv.cc.prp_lightOrange, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider, true);
                                             }
                                             else if (gv.mod.partyLightColor.Contains("purple"))
                                             {
-                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker / 200f) / opacityDivider, true);
+                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, gv.mod.partyRingHaloIntensity * 0.45f * 0.75f * (0.425f - flicker2 / 200f) / opacityDivider, true);
                                                 dst = new IbRect(tlX + gv.oXshift + mapStartLocXinPixels + shifter - (int)((scaler - 1) * brX * 0.5f) - extension2, tlY + shifterY - (int)((scaler - 1) * brY * 0.5f) - extension2, (int)(brX * scaler) + 2 * extension2, (int)(brY * scaler) + 2 * extension2);
-                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker / 200f))) / opacityDivider,true);
+                                                gv.DrawBitmap(gv.cc.prp_lightPurple, src, dst, 0, false, ((0.25f * gv.mod.partyFocalHaloIntensity) + (gv.mod.partyFocalHaloIntensity) * (2.25f * 0.75f * (0.425f - flicker2 / 200f))) / opacityDivider,true);
                                             }
                                         }
 
