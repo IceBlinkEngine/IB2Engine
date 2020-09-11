@@ -47886,6 +47886,7 @@ namespace IceBlink2
 
         public void updateTraitsPanel()
         {
+            /*
             gv.mod.showIdlingFrame = false;
             gv.mod.idleAnimationDelayCounter = 0;
             gv.mod.showBreathingFrame = false;
@@ -47921,7 +47922,7 @@ namespace IceBlink2
             gv.mod.idleAnimationDelayCounter5 = 0;
             gv.mod.showBreathingFrame5 = false;
             gv.mod.breathAnimationDelayCounter5 = 0;
-
+            */
             for (int i = 0; i <= gv.mod.playerList.Count - 1; i++)
             {
                 if (gv.mod.playerList[gv.mod.selectedPartyLeader].hp <= 0)

@@ -2641,7 +2641,7 @@ namespace IceBlink2
                                         }
                                         if (gv.cc.getDistance(tileCoord, partyCoord) == 1)
                                         {
-                                            overgrowthTransparency = 0.2f;
+                                            overgrowthTransparency = 0.15f;
                                         }
                                     }
                                     else
@@ -2654,7 +2654,7 @@ namespace IceBlink2
                                 {
                                     if (gv.mod.currentArea.useSimpleDarkness)
                                     {
-                                            overgrowthTransparency = 0.4f;
+                                            overgrowthTransparency = 0.5f;
                                     }
                                     else
                                     {
