@@ -80,6 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="AI\ScriptedAttacker.cs" />
+    <Compile Include="AI\GeneralCaster.cs" />
+    <Compile Include="AI\BasicAttacker.cs" />
+    <Compile Include="AI\IModel.cs" />
+    <Compile Include="AI\ModelFactory.cs" />
     <Compile Include="AnimationSequence.cs" />
     <Compile Include="AnimationStackGroup.cs" />
     <Compile Include="AnimationState.cs" />
@@ -115,6 +120,9 @@
     <Compile Include="LocalImmunityString.cs" />
     <Compile Include="ScreenTraitUseSelector.cs" />
     <Compile Include="Faction.cs" />
+    <Compile Include="Scripting\ScriptEngine.cs" />
+    <Compile Include="Scripting\ScriptOutputs.cs" />
+    <Compile Include="Scripting\ScriptInputs.cs" />
     <Compile Include="WeatherTypeListItem.cs" />
     <Compile Include="WeatherTypeList.cs" />
     <Compile Include="WeatherEffect.cs" />
