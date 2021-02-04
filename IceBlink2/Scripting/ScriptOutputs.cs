@@ -9,9 +9,9 @@ namespace IceBlink2.Scripting
     {
         // This is meant to be the only method that scripts can call
         // Eventually, find a way to restrict the set methods
-        public string SetValue(string key)
+        public void SetValue(string key, string value)
         {
-            return this[key];
+            this[key] = value;
         }
     }
 }

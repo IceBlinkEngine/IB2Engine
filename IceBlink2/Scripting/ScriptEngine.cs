@@ -17,13 +17,22 @@ namespace IceBlink2.Scripting
 
         public static ScriptEngine getEngine()
         {
+            if (m_singleton == null)
+            {
+                m_singleton = new ScriptEngine();
+            }
             return m_singleton;
         }
 
         public ScriptOutputs RunScript(string scriptContent, ScriptInputs scriptInputs)
         {
             ScriptOutputs outputs = new ScriptOutputs();
-            m_JintEngine.Execute(scriptContent).SetValue("inputs", scriptInputs).SetValue("outputs", outputs);
+            try { 
+                m_JintEngine.SetValue("inputs", scriptInputs).SetValue("outputs", outputs).Execute(scriptContent);
+            } catch (Exception ex)
+            {
+                throw new ScriptException(ex);
+            }
             return outputs;
 
         }

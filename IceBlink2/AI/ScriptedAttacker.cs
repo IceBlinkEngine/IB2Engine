@@ -19,19 +19,38 @@ namespace IceBlink2.AI
             // Collect a ton of information here that is relevant to the AI Script like closest PC,
             // damage of weapons - todo
             Scripting.ScriptInputs scriptInputs = new Scripting.ScriptInputs();
-            scriptInputs["closestPC"] = sc.targetClosestPC(crt).name;
+            Player pc = sc.targetClosestPC(crt);
+            scriptInputs["closestPC"] = pc.name;
+            scriptInputs["distToClosestPC"] = "" + sc.CalcDistance(crt, crt.combatLocX, crt.combatLocY, pc.combatLocX, pc.combatLocY);
 
             // Grab the script engine and pass in the parameters as well as the script (crt.aiScript)
             Scripting.ScriptEngine engine = Scripting.ScriptEngine.getEngine();
 
             // Run the script and grab the outputs
-            Scripting.ScriptOutputs scriptOutputs = engine.RunScript(getScript(crt.ai_script), scriptInputs);
+            string aiScriptFullPath = gv.cc.GetModulePath() + "\\ibscript\\" + crt.ai_script;
+            string scriptContent = null;
+            try
+            {
+                scriptContent = getScript(aiScriptFullPath);
+            } catch (Exception ex)
+            {
+            }
+            if (scriptContent == null)
+            {
+                //todo - log or throw exception
+                new BasicAttacker().InvokeAI(gv, sc, crt);
+                return;
+            }
+            Scripting.ScriptOutputs scriptOutputs = engine.RunScript(scriptContent, scriptInputs);
 
             // Check the outputs for validity - todo
+            // Make sure that scriptOutputs["ActionToTake"] is not null and that the "ActionToTake"
+            // key is in the dictionary and that it is in the allowed values
+            // If we are going to use player names, check them here against the roster for validity 
 
             // Set necessary parameters on GV and SC objects based on the output
             gv.sf.ActionToTake = scriptOutputs["ActionToTake"];
-            gv.sf.CombatTarget = scriptOutputs["CombatTarget"];
+            gv.sf.CombatTarget = sc.GetPlayerByName(scriptOutputs["CombatTarget"]);
 
         }
 

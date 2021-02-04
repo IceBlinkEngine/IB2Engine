@@ -13,6 +13,7 @@ namespace IceBlink2.AI
             {
                 case "BasicAttacker":
                     return new BasicAttacker();
+                    //return new ScriptedAttacker();    You can use this line to turn every BasicAttacker into a ScriptedAttacker
                 case "GeneralCaster":
                     return new GeneralCaster();
                 case "ScriptedAttacker":
