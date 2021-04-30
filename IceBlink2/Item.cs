@@ -42,6 +42,7 @@ namespace IceBlink2
 	    public int charges = 0; //useful for items like wand of mage bolts
         public string ammoType = "none"; //typically arrow, stone, bolt 
 	    public bool twoHanded = false; //true if item requires the use of two hands
+        public bool isLightWeapon = false; //true if it is a light weapon
         public bool canNotBeUnequipped = false;
         public bool isStackable = false;
         public bool automaticallyHitsTarget = false; //does not require a successful to hit roll, always hits target (ex. mage bolt wand)
@@ -171,6 +172,7 @@ namespace IceBlink2
 		    copy.charges = this.charges;
 		    copy.ammoType = this.ammoType;
 		    copy.twoHanded = this.twoHanded;
+            copy.isLightWeapon = this.isLightWeapon;
 		    copy.canNotBeUnequipped = this.canNotBeUnequipped; 
 		    copy.isStackable = this.isStackable;
             copy.automaticallyHitsTarget = this.automaticallyHitsTarget;
