@@ -1359,6 +1359,7 @@ namespace IceBlink2
 
             //2. calculate attack modifier with current weapon (attackMod)
             int attackMod = 0;
+            int attackModOffHand = 0;
             int modifier = 0;
             /*
             if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
@@ -1412,13 +1413,26 @@ namespace IceBlink2
                 }
             }
 
-            attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
+            int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            int attackBonusOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            if (hasWeaponInOffHand(pc))
+            {
+                attackBonus = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, true);
+                //attackBonus -= 4; //lower if using two weapons
+                //attackBonusOffHand -= 10; //lower if using two weapons
+                attackBonusOffHand = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, false);
+            }  
+
+            attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true) + gv.mod.poorVisionModifier;
+            attackModOffHand = modifier + pc.baseAttBonus + attackBonusOffHand + gv.sf.CalcAttackBonusesNoAmmo(pc, false) + gv.mod.poorVisionModifier;
 
             //3. Calculate damage with current weapon (numberOfDiceRolled, typeOfDieRolled, dammodifier)  
             int numberOfDiceRolled = 0;
             int typeOfDieRolled = 0;
             int dammodifier = 0;
+            int damModifierOffHand = 0;
             string damageType = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage;
+            string damageTypeOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage;
 
             if (gv.sf.isMeleeAttack(pc))
             {
@@ -1435,6 +1449,7 @@ namespace IceBlink2
                 }
                 */
                 dammodifier = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
+                damModifierOffHand = gv.sf.CalcPcMeleeDamageAttributeModifier(pc);
             }
             else //ranged weapon used
             {
@@ -1470,28 +1485,51 @@ namespace IceBlink2
             dammodifier += gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
             numberOfDiceRolled = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice;
             typeOfDieRolled = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
-
+            int range = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange;
+            int numberOfDiceRolledOffHand = 0;
+            int typeOfDieRolledOffHand = 0;
+            int rangeOffHAnd = 0;
+            if (hasWeaponInOffHand(pc))
+            {
+                damModifierOffHand += gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageAdder;
+                numberOfDiceRolledOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageNumDice;
+                typeOfDieRolledOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageDie;
+                rangeOffHAnd = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackRange;
+            }
             //4. Draw TextBox with info from abvoe about attack and damage
             //Description
             string textToSpan2 = "";
-            textToSpan2 = "<b>Current Attack and Damage</b>" + "<BR>";
-            textToSpan2 += "Number of attacks: " + numAtt + "<BR>";
-            //Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
-            if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange > 1)
+            if (hasWeaponInOffHand(pc))
             {
-                textToSpan2 += "Attack range: " + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange + "<BR>";
-            }
-            textToSpan2 += "Attack bonus: " + (attackMod + gv.mod.poorVisionModifier).ToString() +"<BR>";
-            if (numberOfDiceRolled > 0)
-            {
-                textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "<BR>";
+                textToSpan2 += "<b>Current Attack and Damage</b>" + "<BR>";
+                textToSpan2 += "<gy>(MainHand/OffHand)</gy>" + "<BR>";
+                textToSpan2 += "Number of attacks: " + numAtt + "/1<BR>";
+                //Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                //if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackRange > 1)
+                //{
+                textToSpan2 += "Attack range: " + range + "/" + rangeOffHAnd + "<BR>";
+                //}
+                textToSpan2 += "Attack bonus: " + attackMod + "/" + attackModOffHand +"<BR>";
+                //if (numberOfDiceRolled > 0)
+                //{
+                    textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "/" + numberOfDiceRolledOffHand + "d" + typeOfDieRolledOffHand + "+" + damModifierOffHand + "<BR>";
+                //}
+                //else
+                //{
+                //    textToSpan2 += "Damage: " + dammodifier + "<BR>";
+                //}
+                textToSpan2 += "Damage type: " + damageType + "/" + damageTypeOffHand + "<BR>";
             }
             else
             {
-                textToSpan2 += "Damage: " + dammodifier + "<BR>";
+                textToSpan2 += "<b>Current Attack and Damage</b>" + "<BR>";
+                textToSpan2 += "<gy>(MainHand/OffHand)</gy>" + "<BR>";
+                textToSpan2 += "Number of attacks: " + numAtt + "/1<BR>";
+                textToSpan2 += "Attack range: " + range + "/--<BR>";
+                textToSpan2 += "Attack bonus: " + attackMod + "/--<BR>";
+                textToSpan2 += "Damage: " + numberOfDiceRolled + "d" + typeOfDieRolled + "+" + dammodifier + "/--<BR>";
+                textToSpan2 += "Damage type: " + damageType + "/--<BR>";
             }
-            textToSpan2 += "Damage type: " + damageType + "<BR>";
-
             /*
                locY = btnBody.Y + btnBody.Height + (pH * 2);
 
@@ -1952,6 +1990,14 @@ namespace IceBlink2
             p.portrait = gv.cc.LoadBitmap(p.portraitFilename);
             btnPortrait.Img = p.portrait;
         }
+        public bool hasWeaponInOffHand(Player pc)
+        {
+            if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Melee"))
+            {
+                return true;
+            }
+            return false;
+        }
         public String isUseableBy(Item it)
         {
             string strg = "";
@@ -2163,11 +2209,14 @@ namespace IceBlink2
                             allowedItems.Add(itRef);
                         }
                     }
-                    else if ((it.category.Equals("Shield")) && (gv.cc.partyItemSlotIndex == 3))
+                    else if (gv.cc.partyItemSlotIndex == 3)
                     {
-                        if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                        if ((it.category.Equals("Melee")) || (it.category.Equals("Shield")))
                         {
-                            allowedItems.Add(itRef);
+                            if (pc.playerClass.containsItemRefsWithResRef(itRef.resref))
+                            {
+                                allowedItems.Add(itRef);
+                            }
                         }
                     }
                     else if ((it.category.Equals("Ring")) && (gv.cc.partyItemSlotIndex == 4))

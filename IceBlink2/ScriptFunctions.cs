@@ -17813,12 +17813,22 @@ namespace IceBlink2
             return armBonuses;
         }
 
-        public int CalcAttackBonusesNoAmmo(Player pc)
+        public int CalcAttackBonusesNoAmmo(Player pc, bool isMainHand)
         {
             int armBonuses = 0;
             armBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attackBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            if (isMainHand)
+            {
+                armBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Shield"))
+                {
+                    armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+                }
+            }
+            else
+            {
+                armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            }            
             armBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attackBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attackBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attackBonus;
@@ -18344,7 +18354,84 @@ namespace IceBlink2
             //********************************************************
             return damModifier + additionalDamModifier;  
          }
-
+        public int CalcPcMeleeTwoWeaponModifier(Player pc, bool isMainHand)
+        {
+            if (gv.sf.hasTrait(pc, "twoweaponfighting2"))
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+            }
+            else if (gv.sf.hasTrait(pc, "twoweaponfighting1"))
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -2;
+                    }
+                    else
+                    {
+                        return -4;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -2;
+                    }
+                    else
+                    {
+                        return -4;
+                    }
+                }
+            }
+            else
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -4;
+                    }
+                    else
+                    {
+                        return -6;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -8;
+                    }
+                    else
+                    {
+                        return -10;
+                    }
+                }
+            }
+        }
         public bool canNegateAdjacentAttackPenalty(Player pc)
          {  
              bool cancelAttackPenalty = false;  

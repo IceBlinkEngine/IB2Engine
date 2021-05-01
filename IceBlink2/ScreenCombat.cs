@@ -4923,7 +4923,7 @@ namespace IceBlink2
 
                             //if ((gv.sf.hasTrait(pc, "cleave")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                             {
-                                attResult = doActualCombatAttack(pc, crt, 0);
+                                attResult = doActualCombatAttack(pc, crt, 0, true);
                                 if (attResult > 0) { attResultHit = true; }
                                 for (int j = 1; j < numSweep; j++)
                                 {
@@ -4933,7 +4933,7 @@ namespace IceBlink2
                                         crtLocX = crt2.combatLocX;
                                         crtLocY = crt2.combatLocY;
                                         gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "sweep", "green");
-                                        int attResult2 = doActualCombatAttack(pc, crt2, 0);
+                                        int attResult2 = doActualCombatAttack(pc, crt2, 0, true);
                                         if (attResult2 > 0) { attResultHit = true; }
                                     }
                                 }
@@ -4949,7 +4949,7 @@ namespace IceBlink2
                                     //do cleave attacks if any                          
                                     if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
                                     {
-                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        attResult = doActualCombatAttack(pc, crt, i, true);
                                         if (attResult > 0) { attResultHit = true; }
                                         if (attResult == 2) //2=killed, 1=hit, 0=missed  
                                         {
@@ -4961,7 +4961,7 @@ namespace IceBlink2
                                                     crtLocX = crt2.combatLocX;
                                                     crtLocY = crt2.combatLocY;
                                                     gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                                    int attResult2 = doActualCombatAttack(pc, crt2, i);
+                                                    int attResult2 = doActualCombatAttack(pc, crt2, i, true);
                                                     if (attResult2 > 0) { attResultHit = true; }
                                                     if (attResult2 != 2)
                                                     {
@@ -4979,12 +4979,20 @@ namespace IceBlink2
 
                                     else
                                     {
-                                        attResult = doActualCombatAttack(pc, crt, i);
+                                        attResult = doActualCombatAttack(pc, crt, i, true);
                                         if (attResult > 0) { attResultHit = true; }
                                         if (attResult == 2) //2=killed, 1=hit, 0=missed  
                                         {
                                             break; //do not try and attack same creature that was just killed  
                                         }
+                                    }
+                                }
+                                if (hasWeaponInOffHand(pc))
+                                {
+                                    if (attResult != 2)
+                                    {
+                                        attResult = doActualCombatAttack(pc, crt, numAtt + 1, false);
+                                        if (attResult > 0) { attResultHit = true; }                                        
                                     }
                                 }
                             }
@@ -5015,7 +5023,7 @@ namespace IceBlink2
             }
         }
 
-        public int doActualCombatAttack(Player pc, Creature crt, int attackNumber)
+        public int doActualCombatAttack(Player pc, Creature crt, int attackNumber, bool isMainHand)
         {
             //always decrement ammo by one whether a hit or miss
             this.decrementAmmo(pc);
@@ -5051,7 +5059,7 @@ namespace IceBlink2
             }
 
             int attackRoll = gv.sf.RandInt(20);
-            int attackMod = CalcPcAttackModifier(pc, crt);
+            int attackMod = CalcPcAttackModifier(pc, crt, isMainHand);
             if (attackPenaltyForCostNotPaid)
             {
                 attackMod -= 10;
@@ -5063,6 +5071,10 @@ namespace IceBlink2
             int damage = 0;
             bool automaticallyHits = false;
             Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+            if (!isMainHand)
+            {
+                itChk = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref);
+            }
             if (itChk != null)
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
@@ -5071,7 +5083,7 @@ namespace IceBlink2
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {
-                damage = CalcPcDamageToCreature(pc, crt);
+                damage = CalcPcDamageToCreature(pc, crt, isMainHand);
                 crt.hp = crt.hp - damage;
                 if (paidHpCost)
                 {
@@ -5104,6 +5116,10 @@ namespace IceBlink2
                 }
 
                 Item it = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
+                if (!isMainHand)
+                {
+                    it = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref);
+                }
                 if (it != null)
                 {
                     doOnHitScriptBasedOnFilename(it.onScoringHit, crt, pc);
@@ -5124,11 +5140,20 @@ namespace IceBlink2
                 }
 
                 //play attack sound for melee (not ranged)
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (isMainHand)
                 {
-                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    {
+                        gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    }
                 }
-
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Melee"))
+                    {
+                        gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemOnUseSound);
+                    }
+                }
                 //Draw floaty text showing damage above Creature
                 int txtH = (int)gv.drawFontRegHeight;
                 int shiftUp = 0 - (attackNumber * txtH);
@@ -5153,9 +5178,19 @@ namespace IceBlink2
             else //MISSED
             {
                 //play attack sound for melee (not ranged)
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                if (isMainHand)
                 {
-                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    {
+                        gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Melee"))
+                    {
+                        gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).itemOnUseSound);
+                    }
                 }
                 if (paidHpCost)
                 {
@@ -24676,7 +24711,7 @@ namespace IceBlink2
                         modifier += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
                     }
                 }
-                attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
+                attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true);
 
                 bool autoHit = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).automaticallyHitsTarget;
 
@@ -26865,6 +26900,14 @@ namespace IceBlink2
             }
             return null;
         }
+        public bool hasWeaponInOffHand(Player pc)
+        {
+            if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Melee"))
+            {
+                return true;
+            }
+            return false;
+        }
         public void LeaveThreatenedCheck(Player pc, int futurePlayerLocationX, int futurePlayerLocationY)
         {
 
@@ -26961,7 +27004,7 @@ namespace IceBlink2
             //gv.mod.numberOfAoOAttackers = 0;
     }
 
-        public int CalcPcAttackModifier(Player pc, Creature crt)
+        public int CalcPcAttackModifier(Player pc, Creature crt, bool isMainHand)
         {
             int modifier = 0;
             int situationalModifier = 0;
@@ -27066,7 +27109,22 @@ namespace IceBlink2
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "white");
             }
 
-            int attackMod = modifier + pc.baseAttBonus + gv.sf.CalcAttackBonusesNoAmmo(pc);
+            int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            if (hasWeaponInOffHand(pc)) 
+            { 
+                attackBonus -= 6; //lower if using two weapons
+            }
+            if (!isMainHand)
+            {
+                attackBonus = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+                attackBonus -= 10; //lower if using two weapons
+            }
+
+            int attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true);
+            if (!isMainHand) 
+            {
+                attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, false);
+            }
             Item it = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
             if (it != null)
             {
@@ -27088,7 +27146,7 @@ namespace IceBlink2
 
             return defense;
         }
-        public int CalcPcDamageToCreature(Player pc, Creature crt)
+        public int CalcPcDamageToCreature(Player pc, Creature crt, bool isMainHand)
         {
             int damModifier = 0;
             int adder = 0;
@@ -27147,6 +27205,11 @@ namespace IceBlink2
 
             int dDam = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageDie;
             float damage = (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).damageAdder;
+            if (!isMainHand)
+            {
+                dDam = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageDie;
+                damage = (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageNumDice * gv.sf.RandInt(dDam)) + damModifier + adder + gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).damageAdder;
+            }
             if (damage < 0)
             {
                 damage = 0;
@@ -27169,35 +27232,69 @@ namespace IceBlink2
                 //forahc entry, compare wtherer pc perks are matched
                 //if case, do damage
                 //if liszt = 0, do dmaage
-
-                if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
-                    //gv.cc.addLogText("<font color='white'>Acid resistance: +" + adding + "%</font><BR>");
+                if (isMainHand)
+                { 
+                    if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Acid"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
+                        //gv.cc.addLogText("<font color='white'>Acid resistance: +" + adding + "%</font><BR>");
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
+                    }
                 }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Normal"))
+                else //OFF-HAND
                 {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
-                }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Cold"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
-                }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Electricity"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
-                }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Fire"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
-                }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Magic"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
-                }
-                else if (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).typeOfDamage.Equals("Poison"))
-                {
-                    resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Acid"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueAcid() / 100f));
+                        //gv.cc.addLogText("<font color='white'>Acid resistance: +" + adding + "%</font><BR>");
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Normal"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueNormal() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Cold"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueCold() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Electricity"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueElectricity() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Fire"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueFire() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Magic"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValueMagic() / 100f));
+                    }
+                    else if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).typeOfDamage.Equals("Poison"))
+                    {
+                        resist = (float)(1f - ((float)crt.getDamageTypeResistanceValuePoison() / 100f));
+                    }
                 }
             }
             else //ranged weapon so use ammo gv.mods  
