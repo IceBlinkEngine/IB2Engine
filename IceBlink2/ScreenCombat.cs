@@ -5098,7 +5098,15 @@ namespace IceBlink2
                     gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> could not pay cost for attack, -10 to hit." + "</font><BR>");
                 }
 
-                gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + "</font>");
+                if(isMainHand)
+                {
+                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Main Hand)</font>");
+                }
+                else
+                {
+                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Off Hand)</font>");
+                }
+                
                 if (!automaticallyHits)
                 {
                     if (attackMod >= 0)
@@ -27111,13 +27119,15 @@ namespace IceBlink2
 
             int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
             if (hasWeaponInOffHand(pc)) 
-            { 
-                attackBonus -= 6; //lower if using two weapons
-            }
-            if (!isMainHand)
             {
-                attackBonus = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
-                attackBonus -= 10; //lower if using two weapons
+                if (isMainHand)
+                {
+                    attackBonus += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, true);
+                }
+                else
+                {
+                    attackBonus += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, false);
+                }
             }
 
             int attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true);
