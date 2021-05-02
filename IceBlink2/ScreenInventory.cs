@@ -1105,7 +1105,7 @@ namespace IceBlink2
             weaponFilterOn = false;
             inventorySlotIndex = 0;
             inventoryPageIndex = 0;
-            btnPageIndex.Text = "1/20";
+            //btnPageIndex.Text = "1/20";
         }
 	
 	    public void doItemAction(bool inCombat)

@@ -20675,6 +20675,15 @@ namespace IceBlink2
                     }
                 }
 
+                if (it.isLightWeapon)
+                {
+                    if (lineCount < 10)
+                    {
+                        lineCount++;
+                        textToSpan += "Light Weapon: " + it.isLightWeapon + "<BR>";
+                    }
+                }
+
                 if (it.twoHanded)
                 {
                     if (lineCount < 10)

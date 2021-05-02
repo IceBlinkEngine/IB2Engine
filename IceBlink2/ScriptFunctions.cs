@@ -17813,12 +17813,22 @@ namespace IceBlink2
             return armBonuses;
         }
 
-        public int CalcAttackBonusesNoAmmo(Player pc)
+        public int CalcAttackBonusesNoAmmo(Player pc, bool isMainHand)
         {
             int armBonuses = 0;
             armBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).attackBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
-            armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            if (isMainHand)
+            {
+                armBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).category.Equals("Shield"))
+                {
+                    armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+                }
+            }
+            else
+            {
+                armBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            }            
             armBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).attackBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).attackBonus;
             armBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).attackBonus;
@@ -18344,7 +18354,159 @@ namespace IceBlink2
             //********************************************************
             return damModifier + additionalDamModifier;  
          }
+        public int CalcPcMeleeTwoWeaponModifier(Player pc, bool isMainHand)
+        {
+            int mod = 0;
+            int highestNonStackable = -99;
+            if (isMainHand)
+            {
+                foreach (string str in pc.knownTraitsTags)
+                {
+                    //Trait tr = gv.mod.getTraitByTag(str);
+                    foreach (EffectTagForDropDownList eftag in gv.mod.getTraitByTag(str).traitEffectTagList)
+                    {
+                        Effect ef = gv.mod.getEffectByTag(eftag.tag);
+                        if (ef.isStackableEffect)
+                        {
+                            mod += ef.twoWeaponFightingMainHandModifier;
+                        }
+                        else
+                        {
+                            if ((ef.twoWeaponFightingMainHandModifier != 0) && (ef.twoWeaponFightingMainHandModifier > highestNonStackable))
+                            {
+                                highestNonStackable = ef.twoWeaponFightingMainHandModifier;
+                            }
+                        }
+                    }
+                }                
+                if (highestNonStackable > mod)
+                {
+                    mod = highestNonStackable;
+                }
+            }
+            else
+            {
+                foreach (string str in pc.knownTraitsTags)
+                {
+                    //Trait tr = gv.mod.getTraitByTag(str);
+                    foreach (EffectTagForDropDownList eftag in gv.mod.getTraitByTag(str).traitEffectTagList)
+                    {
+                        Effect ef = gv.mod.getEffectByTag(eftag.tag);
+                        if (ef.isStackableEffect)
+                        {
+                            mod += ef.twoWeaponFightingOffHandModifier;
+                        }
+                        else
+                        {
+                            if ((ef.twoWeaponFightingOffHandModifier != 0) && (ef.twoWeaponFightingOffHandModifier > highestNonStackable))
+                            {
+                                highestNonStackable = ef.twoWeaponFightingOffHandModifier;
+                            }
+                        }
+                    }
+                }
+                if (highestNonStackable > mod)
+                {
+                    mod = highestNonStackable;
+                }
+            }
 
+            //if off-hand is a light weapon, add 2
+            if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+            {
+                mod += 2;
+            }
+                        
+            if (isMainHand) //if main hand, start at -6 and add bonuses
+            {
+                return mod - 6;
+            }
+            else //if off-hand, start at -10
+            {
+                return mod - 10;
+            }
+
+            //  (no trait, twfL1, twfL2)        
+            //main hand (-6, -4, -2) light weapon in off hand (-4, -2, 0)
+            //off hand  (-10, -4, -2) light weapon in off hand (-8, -2, 0)
+
+            /*if (gv.sf.hasTrait(pc, "twoweaponfighting2"))
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return -2;
+                    }
+                }
+            }
+            else if (gv.sf.hasTrait(pc, "twoweaponfighting1"))
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -2;
+                    }
+                    else
+                    {
+                        return -4;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -2;
+                    }
+                    else
+                    {
+                        return -4;
+                    }
+                }
+            }
+            else
+            {
+                if (isMainHand)
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -4;
+                    }
+                    else
+                    {
+                        return -6;
+                    }
+                }
+                else
+                {
+                    if (gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isLightWeapon)
+                    {
+                        return -8;
+                    }
+                    else
+                    {
+                        return -10;
+                    }
+                }
+            }
+            */
+        }
         public bool canNegateAdjacentAttackPenalty(Player pc)
          {  
              bool cancelAttackPenalty = false;  

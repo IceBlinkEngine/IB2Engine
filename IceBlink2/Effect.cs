@@ -138,6 +138,8 @@ namespace IceBlink2
         public bool negateAttackPenaltyForAdjacentEnemyWithRangedAttack = false;
         public bool allowCastingWithoutTriggeringAoO = false;
         public bool allowCastingWithoutRiskOfInterruption = false;
+        public int twoWeaponFightingMainHandModifier = 0;
+        public int twoWeaponFightingOffHandModifier = 0;
 
         public bool useEvasion = false; //not used at all so far
 
@@ -243,6 +245,8 @@ namespace IceBlink2
             copy.useEvasion = this.useEvasion;
             copy.modifyShopBuyBackPrice = this.modifyShopBuyBackPrice;
             copy.modifyShopSellPrice = this.modifyShopSellPrice;
+            copy.twoWeaponFightingMainHandModifier = this.twoWeaponFightingMainHandModifier;
+            copy.twoWeaponFightingOffHandModifier = this.twoWeaponFightingOffHandModifier;
 
 
             copy.isPermanent = this.isPermanent;
