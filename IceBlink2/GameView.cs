@@ -241,11 +241,34 @@ namespace IceBlink2
 
             //projektvoll, org restored
             //this.IsFullscreen = true;
-            this.WindowState = FormWindowState.Maximized;
-
-            this.Width = Screen.PrimaryScreen.Bounds.Width;
-            this.Height = Screen.PrimaryScreen.Bounds.Height;
             
+            //this.WindowState = FormWindowState.Maximized;
+
+            //this.Width = Screen.PrimaryScreen.Bounds.Width;
+            //this.Height = Screen.PrimaryScreen.Bounds.Height;
+
+            #region screen size selection
+            using (Config itSel = new Config(this))
+            {
+                var ret = itSel.ShowDialog();
+
+                if (ret == DialogResult.OK)
+                {
+                    if (itSel.width == -1)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        this.Width = Screen.PrimaryScreen.Bounds.Width;
+                        this.Height = Screen.PrimaryScreen.Bounds.Height;
+                    }
+                    else
+                    {
+                        this.Width = itSel.width;
+                        this.Height = itSel.height;
+                    }
+                }
+            }
+            #endregion
+
             //for testing other screen sizes, manually enter a resolution here
             //typical resolutions: 1366x768, 1920x1080, 1280x1024, 1280x800, 1024x768, 800x600, 1440x900
             //this.Width = 1366;
@@ -4052,7 +4075,12 @@ namespace IceBlink2
                     }
                 }
             }
-        } 
+        }
+
+        //INPUT STUFF
+        public bool formMoveable = false;
+        public System.Drawing.Point currentPosition;
+        public System.Drawing.Point startPosition;
 
         private void GameView_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -4064,6 +4092,14 @@ namespace IceBlink2
         }
         private void GameView_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Y < 15)
+            {
+                Cursor.Current = Cursors.NoMove2D;
+                formMoveable = true;
+                startPosition.X = e.X;
+                startPosition.Y = e.Y;
+                return;
+            }
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseDown(sender, e);
@@ -4072,6 +4108,9 @@ namespace IceBlink2
         }
         private void GameView_MouseUp(object sender, MouseEventArgs e)
         {
+            formMoveable = false;
+            Cursor.Current = Cursors.Default;
+
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 //TODO log.onMouseUp(sender, e);
@@ -4080,6 +4119,21 @@ namespace IceBlink2
         }
         private void GameView_MouseMove(object sender, MouseEventArgs e)
         {
+            if ((e.Y < 15) || (formMoveable))
+            {
+                Cursor.Current = Cursors.NoMove2D;
+            }
+            if (formMoveable)
+            {
+                System.Drawing.Point newPosition = this.Location;
+                currentPosition.X = e.X;
+                currentPosition.Y = e.Y;
+                newPosition.X = newPosition.X - (startPosition.X - currentPosition.X); // .Offset(mouseOffset.X, mouseOffset.Y);                
+                newPosition.Y = newPosition.Y - (startPosition.Y - currentPosition.Y);
+                this.Location = newPosition;
+                return;
+            }
+
             if ((screenType.Equals("main")) || (screenType.Equals("combat")))
             {
                 mousePositionX = e.X;

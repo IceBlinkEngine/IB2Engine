@@ -89,6 +89,12 @@
     <Compile Include="buttonState.cs" />
     <Compile Include="CommonCode.cs" />
     <Compile Include="Condition.cs" />
+    <Compile Include="Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config.Designer.cs">
+          <DependentUpon>Config.cs</DependentUpon>
+    </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="ContentNode.cs" />
     <Compile Include="Convo.cs" />
@@ -234,6 +240,7 @@
     <Compile Include="TraitAllowed.cs" />
     <Compile Include="Trigger.cs" />
     <Compile Include="WayPoint.cs" />
+    <EmbeddedResource Include="Config.resx" />
     <EmbeddedResource Include="GameView.resx">
       <DependentUpon>GameView.cs</DependentUpon>
     </EmbeddedResource>
