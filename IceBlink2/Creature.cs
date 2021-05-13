@@ -83,7 +83,9 @@ namespace IceBlink2
 	    public string cr_spriteEndingFilename = "none"; //sprite to use for end effect of projectiles
 	    public string cr_attackSound = "none"; //Filename of sound to play when the creature attacks (no extension)
 	    public int cr_numberOfAttacks = 1;
-	    public string cr_ai = "BasicAttacker";
+        public int threatRange = 20;
+        public int criticalMultiplier = 2;
+        public string cr_ai = "BasicAttacker";
 	    public int fortitude = 0;
 	    public int will = 0;
 	    public int reflex = 0; 
@@ -216,7 +218,9 @@ namespace IceBlink2
 		    copy.cr_spriteEndingFilename = this.cr_spriteEndingFilename;
 		    copy.cr_attackSound = this.cr_attackSound;
 		    copy.cr_numberOfAttacks = this.cr_numberOfAttacks;
-		    copy.cr_ai = this.cr_ai;
+            copy.threatRange = this.threatRange;
+            copy.criticalMultiplier = this.criticalMultiplier;
+            copy.cr_ai = this.cr_ai;
 		    copy.fortitude = this.fortitude;
 		    copy.will = this.will;
 		    copy.reflex = this.reflex;

@@ -1381,7 +1381,7 @@ namespace IceBlink2
                     }
                 }
                 */
-                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);
+                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, true);
             }
             else //ranged weapon used
             {
@@ -1397,14 +1397,14 @@ namespace IceBlink2
 
                 //else
                 //{
-                    if (gv.sf.hasTrait(pc, "preciseshot2"))
-                    {
-                        modifier += 2;
-                    }
-                    else if (gv.sf.hasTrait(pc, "preciseshot"))
-                    {
-                        modifier++;
-                    }
+                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                {
+                    modifier += 2;
+                }
+                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                {
+                    modifier++;
+                }
                 //}
                 Item it2 = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
                 if (it2 != null)
@@ -1417,10 +1417,10 @@ namespace IceBlink2
             int attackBonusOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
             if (hasWeaponInOffHand(pc))
             {
-                attackBonus = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, true);
+                attackBonus += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, true);
                 //attackBonus -= 4; //lower if using two weapons
                 //attackBonusOffHand -= 10; //lower if using two weapons
-                attackBonusOffHand = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, false);
+                attackBonusOffHand += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, false);
             }  
 
             attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true) + gv.mod.poorVisionModifier;

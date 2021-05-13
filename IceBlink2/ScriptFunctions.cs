@@ -58,227 +58,248 @@ namespace IceBlink2
                     }
                 }
             }
-                if (it.attackBonus != 0)
-                {
-                    textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
-                }
-                if (it.attackRange > 1)
-                {
-                    textToSpan += "Attack Range: " + it.attackRange + "<BR>";
-                }
+            if (it.attackBonus != 0)
+            {
+                textToSpan += "Attack Modifier: " + it.attackBonus + "<BR>";
+            }
+            if (it.attackRange > 1)
+            {
+                textToSpan += "Attack Range: " + it.attackRange + "<BR>";
+            }
 
-                if (it.AreaOfEffect > 0)
-                {
-                    textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
-                    textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
-                }
+            if (it.AreaOfEffect > 0)
+            {
+                textToSpan += "Area of Effect radius/length: " + it.AreaOfEffect + "<BR>";
+                textToSpan += "Area of Effect shape: " + it.aoeShape + "<BR>";
+            }
 
-                if (it.typeOfDamage != "Normal")
-                {
-                    textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
-                }
+            if (it.typeOfDamage != "Normal")
+            {
+                textToSpan += "Type of Damage: " + it.typeOfDamage + "<BR>";
+            }
 
-                if ((it.ammoType != "none") && (it.category != "Ammo"))
+            if ((it.ammoType != "none") && (it.category != "Ammo"))
+            {
+                string ammoName = "none";
+                foreach (Item itA in gv.mod.moduleItemsList)
                 {
-                    string ammoName = "none";
-                    foreach (Item itA in gv.mod.moduleItemsList)
+                    if (itA.tag == it.ammoType)
                     {
-                        if (itA.tag == it.ammoType)
-                        {
-                            ammoName = itA.name;
-                        }
+                        ammoName = itA.name;
                     }
-                    textToSpan += "Required Ammo: " + ammoName + "<BR>";
                 }
-                if (it.armorBonus != 0)
-                {
-                    textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
-                }
+                textToSpan += "Required Ammo: " + ammoName + "<BR>";
+            }
+            if (it.armorBonus != 0)
+            {
+                textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
+            }
 
-                if (it.twoHanded)
-                {
-                    textToSpan += "Two handed: " + it.twoHanded + "<BR>";
-                }
-             
-                if (it.category == "Armor")
-                {
-                    textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
-                }
+            if (it.twoHanded)
+            {
+                textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+            }
 
-                if (it.maxDexBonus != 99)
-                {
-                    textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
-                }
+            if (it.isLightWeapon)
+            {
+                textToSpan += "Light Weapon: " + it.isLightWeapon + "<BR>";
+            }
 
-                if (it.automaticallyHitsTarget)
-                {
-                    textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
-                }
+            if (it.isFinesseWeapon)
+            {
+                textToSpan += "Finesse Weapon: " + it.isFinesseWeapon + "<BR>";
+            }
 
-                if (it.canNotBeChangedInCombat)
-                {
-                    textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
-                }
+            if (it.threatRange == 20)
+            {
+                textToSpan += "Threat Range: 20<BR>";
+            }
+            else
+            {
+                textToSpan += "Threat Range: " + it.threatRange + " - 20<BR>";
+            }
 
-                if (it.canNotBeUnequipped)
-                {
-                    textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
-                }
+            textToSpan += "Critical Multiplier: x" + it.criticalMultiplier + "<BR>";
+            
+            if (it.category == "Armor")
+            {
+                textToSpan += "Armor type: " + it.ArmorWeightType + "<BR>";
+            }
 
-                if (!it.endTurnAfterEquipping)
-                {
-                    textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
-                }
+            if (it.maxDexBonus != 99)
+            {
+                textToSpan += "Max dexterity bonus: " + it.maxDexBonus + "<BR>";
+            }
+
+            if (it.automaticallyHitsTarget)
+            {
+                textToSpan += "Always hits: " + it.automaticallyHitsTarget + "<BR>";
+            }
+
+            if (it.canNotBeChangedInCombat)
+            {
+                textToSpan += "Not changeable in combat: " + it.canNotBeChangedInCombat + "<BR>";
+            }
+
+            if (it.canNotBeUnequipped)
+            {
+                textToSpan += "Can never be changed: " + it.canNotBeUnequipped + "<BR>";
+            }
+
+            if (!it.endTurnAfterEquipping)
+            {
+                textToSpan += "Changing is free action: " + it.endTurnAfterEquipping + "<BR>";
+            }
 
               
-                if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" )
+            if (it.onUseItemCastSpellTag != "none" || it.onUseItemIBScript != "none" || it.onUseItem != "none" )
+            {
+                textToSpan += "Allows USE action: true" + "<BR>";
+                if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
                 {
-                    textToSpan += "Allows USE action: true" + "<BR>";
-                    if (it.destroyItemAfterOnUseItemCastSpell || it.destroyItemAfterOnUseItemIBScript || it.destroyItemAfterOnUseItemScript)
+                    textToSpan += "Item is destroyed after use (of last charge if charged): true" + "<BR>";
+                }
+            }
+
+            if (it.onUseItemCastSpellTag != "none")
+            {
+                string spellName = "none";
+                foreach (Spell sp in gv.mod.moduleSpellsList)
+                {
+                    if (sp.tag == it.onUseItemCastSpellTag)
                     {
-                        textToSpan += "Item is destroyed after use (of last charge if charged): true" + "<BR>";
+                        spellName = sp.name;
+                        break;
                     }
                 }
 
-                if (it.onUseItemCastSpellTag != "none")
-                {
-                    string spellName = "none";
-                    foreach (Spell sp in gv.mod.moduleSpellsList)
-                    {
-                        if (sp.tag == it.onUseItemCastSpellTag)
-                        {
-                            spellName = sp.name;
-                            break;
-                        }
-                    }
+                textToSpan += "Spell to cast on use: " + spellName + "<BR>";
+                textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
+            }
 
-                    textToSpan += "Spell to cast on use: " + spellName + "<BR>";
-                    textToSpan += "Item on use caster level: " + it.levelOfItemForCastSpell + "<BR>";
+            if (it.onlyUseableWhenEquipped)
+            {
+                textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+            }
+
+            if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
+            {
+                if (it.useableInSituation == "InCombat")
+                {
+                    textToSpan += "Only useable in combat: true" + "<BR>";
                 }
 
-                if (it.onlyUseableWhenEquipped)
+                else if (it.useableInSituation == "OutOfCombat")
                 {
-                    textToSpan += "Must be equipped to use: " + it.onlyUseableWhenEquipped + "<BR>";
+                    textToSpan += "Only useable out of combat: true" + "<BR>";
                 }
+            }
 
-                if (it.useableInSituation != "Passive" && it.useableInSituation != "Always")
-                {
-                    if (it.useableInSituation == "InCombat")
-                    {
-                        textToSpan += "Only useable in combat: true" + "<BR>";
-                    }
-
-                    else if (it.useableInSituation == "OutOfCombat")
-                    {
-                        textToSpan += "Only useable out of combat: true" + "<BR>";
-                    }
-                }
-
-                if (it.onScoringHitCastSpellTag != "none")
-                {
-                    textToSpan += "Special effect on hit: true" + "<BR>";
-                }
+            if (it.onScoringHitCastSpellTag != "none")
+            {
+                textToSpan += "Special effect on hit: true" + "<BR>";
+            }
                 
 
-                if (it.entriesForPcTags.Count > 0)
+            if (it.entriesForPcTags.Count > 0)
+            {
+                string pcTags = "";
+                foreach (LocalImmunityString ls in it.entriesForPcTags)
                 {
-                    string pcTags = "";
-                    foreach (LocalImmunityString ls in it.entriesForPcTags)
-                    {
-                        pcTags += ls.Value + ", ";
-                    }
-                    textToSpan += "Item perks: " + pcTags + "<BR>";
+                    pcTags += ls.Value + ", ";
                 }
+                textToSpan += "Item perks: " + pcTags + "<BR>";
+            }
 
-                if (it.isRation)
-                {
-                    textToSpan += "Is ration: " + it.isRation + "<BR>";
-                }
+            if (it.isRation)
+            {
+                textToSpan += "Is ration: " + it.isRation + "<BR>";
+            }
 
-                if (it.isLightSource)
-                {
-                    textToSpan += "Is light source: " + it.isLightSource + "<BR>";
-                }
+            if (it.isLightSource)
+            {
+                textToSpan += "Is light source: " + it.isLightSource + "<BR>";
+            }
 
-                if (it.attributeBonusModifierStr != 0)
-                {
-                    textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
-                }
+            if (it.attributeBonusModifierStr != 0)
+            {
+                textToSpan += "STR modifier: " + it.attributeBonusModifierStr + "<BR>";
+            }
 
-                if (it.attributeBonusModifierDex != 0)
-                {
-                    textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
-                }
+            if (it.attributeBonusModifierDex != 0)
+            {
+                textToSpan += "DEX modifier: " + it.attributeBonusModifierDex + "<BR>";
+            }
 
-                if (it.attributeBonusModifierCon != 0)
-                {
-                    textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
-                }
+            if (it.attributeBonusModifierCon != 0)
+            {
+                textToSpan += "CON modifier: " + it.attributeBonusModifierCon + "<BR>";
+            }
 
-                if (it.attributeBonusModifierInt != 0)
-                {
-                    textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
-                }
+            if (it.attributeBonusModifierInt != 0)
+            {
+                textToSpan += "INT modifier: " + it.attributeBonusModifierInt + "<BR>";
+            }
 
-                if (it.attributeBonusModifierWis != 0)
-                {
-                    textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
-                }
+            if (it.attributeBonusModifierWis != 0)
+            {
+                textToSpan += "WIS modifier: " + it.attributeBonusModifierWis + "<BR>";
+            }
 
-                if (it.attributeBonusModifierCha != 0)
-                {
-                    textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
-                }
+            if (it.attributeBonusModifierCha != 0)
+            {
+                textToSpan += "CHA modifier: " + it.attributeBonusModifierCha + "<BR>";
+            }
 
-                if (it.hpRegenPerRoundInCombat != 0)
-                {
-                    textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>"; 
-                }
+            if (it.hpRegenPerRoundInCombat != 0)
+            {
+                textToSpan += "HP reg per round in combat: " + it.hpRegenPerRoundInCombat + "<BR>"; 
+            }
 
-                if (it.spRegenPerRoundInCombat != 0)
-                {
-                    textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
-                }
+            if (it.spRegenPerRoundInCombat != 0)
+            {
+                textToSpan += "SP reg per round in combat: " + it.spRegenPerRoundInCombat + "<BR>";
+            }
 
-                if (it.minutesPerHpRegenOutsideCombat != 0)
-                {
-                    textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
-                }
+            if (it.minutesPerHpRegenOutsideCombat != 0)
+            {
+                textToSpan += "+1 HP outside combat every: " + it.minutesPerHpRegenOutsideCombat + " minutes" + "<BR>";
+            }
 
-                if (it.minutesPerSpRegenOutsideCombat != 0)
-                {
-                    textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
-                }
+            if (it.minutesPerSpRegenOutsideCombat != 0)
+            {
+                textToSpan += "+1 SP outside combat every: " + it.minutesPerSpRegenOutsideCombat + " minutes" + "<BR>";
+            }
 
-                if (it.MovementPointModifier != 0)
-                {
-                    textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
-                }
+            if (it.MovementPointModifier != 0)
+            {
+                textToSpan += "Effect on movement points: " + it.MovementPointModifier + "<BR>";
+            }
 
-                if (it.savingThrowModifierFortitude != 0)
-                {
-                    textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
-                }
+            if (it.savingThrowModifierFortitude != 0)
+            {
+                textToSpan += "Fortitude save modifier: " + it.savingThrowModifierFortitude + "<BR>";
+            }
 
-                if (it.savingThrowModifierReflex != 0)
-                {
-                    textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
-                }
+            if (it.savingThrowModifierReflex != 0)
+            {
+                textToSpan += "Reflex save modifier: " + it.savingThrowModifierReflex + "<BR>";
+            }
 
-                if (it.savingThrowModifierFortitude != 0)
-                {
-                    textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
-                }
+            if (it.savingThrowModifierFortitude != 0)
+            {
+                textToSpan += "Will save modifier: " + it.savingThrowModifierWill + "<BR>";
+            }
 
-                if (it.damageTypeResistanceValueNormal != 0)
-                {
-                    textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
-                }
+            if (it.damageTypeResistanceValueNormal != 0)
+            {
+                textToSpan += "Resistance physical modifier: " + it.damageTypeResistanceValueNormal + "<BR>";
+            }
 
-                if (it.damageTypeResistanceValueAcid != 0)
-                {
-                    textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
-                }
+            if (it.damageTypeResistanceValueAcid != 0)
+            {
+                textToSpan += "Resistance acid modifier: " + it.damageTypeResistanceValueAcid + "<BR>";
+            }
 
             if (it.damageTypeResistanceValueElectricity != 0)
             {
@@ -18214,10 +18235,27 @@ namespace IceBlink2
                  return 0;  
              }  
          }
-        public int CalcPcMeleeAttackAttributeModifier(Player pc)
-        {  
-             int modifier = (pc.strength - 10) / 2;  
-             bool useDexModifier = false;  
+        public int CalcPcMeleeAttackAttributeModifier(Player pc, bool isMainHand)
+        {
+            //int modifier = (pc.strength - 10) / 2;  
+            //bool useDexModifier = false;  
+            int modifierStr = (pc.strength - 10) / 2;
+            int modifierDex = (pc.dexterity - 10) / 2;
+
+            if (isMainHand)
+            {
+                if (mod.getItemByResRefForInfo(pc.MainHandRefs.resref).isFinesseWeapon)
+                {
+                    return modifierDex;
+                }
+            }
+            else
+            {
+                if (mod.getItemByResRefForInfo(pc.OffHandRefs.resref).isFinesseWeapon)
+                {
+                    return modifierDex;
+                }
+            }
             /*
  5197 +            //go through all traits and see if has passive criticalstrike type trait  
  5198 +            foreach (string taTag in pc.knownTraitsTags)  
@@ -18233,54 +18271,40 @@ namespace IceBlink2
  5208 +                }  
  5209 +            }
  */
-   
-             //go through each effect and see if has a buff type like criticalstrike  
-             foreach (Effect ef in pc.effectsList)  
-             {  
-                 if (ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength)  
-                 {
+
+            //go through each effect and see if has a buff type like criticalstrike  
+            foreach (Effect ef in pc.effectsList)  
+            {  
+                if (ef.useDexterityForMeleeAttackModifierIfGreaterThanStrength)  
+                {
                     if (isPassiveTraitApplied(ef, pc))
                     {
-                        useDexModifier = true;
-                    }
-                 }  
-             }  
-             //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier  
-             if ((pc.knownTraitsTags.Contains("criticalstrike")) || (useDexModifier))  
-             {  
-                int modifierDex = (pc.dexterity - 10) / 2;  
-                 if (modifierDex > modifier)  
-                 {  
-                     modifier = (pc.dexterity - 10) / 2;  
-                 }  
-             }
-
-            //******************************************************
-            int highestNonStackable = -99;
-            foreach (Effect ef in pc.effectsList)
-            {
-                if (isPassiveTraitApplied(ef, pc))
-                {
-                    if (ef.isStackableEffect)
-                    {
-                        modifier += ef.babModifierForMeleeAttack;
-                    }
-                    else
-                    {
-                        if ((ef.babModifierForMeleeAttack != 0) && (ef.babModifierForMeleeAttack > highestNonStackable))
+                        if (modifierDex > modifierStr)
                         {
-                            highestNonStackable = ef.babModifierForMeleeAttack;
+                            return modifierDex;
+                        }
+                        else
+                        {
+                            return modifierStr;
                         }
                     }
+                }  
+            }  
+            //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier  
+            if (pc.knownTraitsTags.Contains("criticalstrike"))  
+            {
+                if (modifierDex > modifierStr)
+                {
+                    return modifierDex;
+                }
+                else
+                {
+                    return modifierStr;
                 }
             }
-            if (highestNonStackable > modifier) { modifier = highestNonStackable; }
-
-
-            //*******************************************************
-
-            return modifier;  
-         }
+                        
+            return modifierStr;
+        }
 
         public int CalcPcMeleeDamageAttributeModifier(Player pc)
         {  
@@ -18506,6 +18530,34 @@ namespace IceBlink2
                 }
             }
             */
+        }
+        public int CalcPcThreatRange(Player pc, bool isMainHand)
+        {
+            int threatrange = 20;
+            if (isMainHand)
+            {
+                threatrange = mod.getItemByResRefForInfo(pc.MainHandRefs.resref).threatRange;
+            }
+            else
+            {
+                threatrange = mod.getItemByResRefForInfo(pc.OffHandRefs.resref).threatRange;
+            }
+            if (gv.sf.hasTrait(pc, "improvedcritical"))
+            {
+                if (threatrange == 20)
+                {
+                    threatrange = 19;
+                }
+                else if (threatrange == 19)
+                {
+                    threatrange = 17;
+                }
+                else if (threatrange == 18)
+                {
+                    threatrange = 15;
+                }
+            }
+            return threatrange;
         }
         public bool canNegateAdjacentAttackPenalty(Player pc)
          {  
