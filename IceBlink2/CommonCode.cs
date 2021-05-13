@@ -20529,6 +20529,40 @@ namespace IceBlink2
                             }
                         }
                     }
+
+                    if (it.isLightWeapon)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Light Weapon: " + it.isLightWeapon + "<BR>";
+                        }
+                    }
+
+                    if (it.twoHanded)
+                    {
+                        if (lineCount < 10)
+                        {
+                            lineCount++;
+                            textToSpan += "Two handed: " + it.twoHanded + "<BR>";
+                        }
+                    }
+
+                    if (it.isFinesseWeapon)
+                    {
+                        textToSpan += "Finesse Weapon: " + it.isFinesseWeapon + "<BR>";
+                    }
+
+                    if (it.threatRange == 20)
+                    {
+                        textToSpan += "Threat Range: 20<BR>";
+                    }
+                    else
+                    {
+                        textToSpan += "Threat Range: " + it.threatRange + " - 20<BR>";
+                    }
+
+                    textToSpan += "Critical Multiplier: x" + it.criticalMultiplier + "<BR>";
                 }
 
                 if (it.maxStrengthBonusAllowedForWeapon != 100)
@@ -20674,24 +20708,7 @@ namespace IceBlink2
                         textToSpan += "AC Modifier: " + it.armorBonus + "<BR>";
                     }
                 }
-
-                if (it.isLightWeapon)
-                {
-                    if (lineCount < 10)
-                    {
-                        lineCount++;
-                        textToSpan += "Light Weapon: " + it.isLightWeapon + "<BR>";
-                    }
-                }
-
-                if (it.twoHanded)
-                {
-                    if (lineCount < 10)
-                    {
-                        lineCount++;
-                        textToSpan += "Two handed: " + it.twoHanded + "<BR>";
-                    }
-                }
+                                
 
                 if (it.category == "Armor")
                 {

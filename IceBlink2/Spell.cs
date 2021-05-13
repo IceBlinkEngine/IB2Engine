@@ -23,8 +23,9 @@ namespace IceBlink2
 	    public string spellStartSound = "none";
         public string spellEndSound = "none";
 	    public int costSP = 10;
-        public int costHP = 10;	
-	    public string spellTargetType = "Enemy"; //Self, Enemy, Friend, PointLocation
+        public int costHP = 10;
+        public bool requiresHit = false;
+        public string spellTargetType = "Enemy"; //Self, Enemy, Friend, PointLocation
 	    public string spellEffectType = "Damage"; //Damage, Heal, Buff, Debuff
         public AreaOfEffectShape aoeShape = AreaOfEffectShape.Circle;
 	    public int aoeRadius = 1;
@@ -83,6 +84,7 @@ namespace IceBlink2
 		    copy.spellEndSound = this.spellEndSound;
 		    copy.costSP = this.costSP;
             copy.costHP = this.costHP;
+            copy.requiresHit = this.requiresHit;
             copy.spellTargetType = this.spellTargetType;
 		    copy.spellEffectType = this.spellEffectType;
             copy.aoeShape = this.aoeShape;
