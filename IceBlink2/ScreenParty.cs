@@ -1325,7 +1325,7 @@ namespace IceBlink2
 
             int xLoc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift + (int)(gv.squareSize * 0.75f);
             int yLoc = startSlotsY - pH;
-            int width = pW * 80;
+            int width = pW * 30;
             int height = pH * 50;
             DrawTextLayout(description, textToSpan, xLoc, yLoc, width, height);
 

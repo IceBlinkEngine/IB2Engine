@@ -17092,9 +17092,20 @@ namespace IceBlink2
 
                 //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
-                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                int height = width; // for normal and large creatures
+                
                 //1=normal, 2=wide, 3=tall, 4=large  
                 int crtSize = crt.creatureSize;
+                
+                if (crtSize == 2) //wide
+                {
+                    height = width / 2;
+                } 
+                if (crtSize == 3) //tall
+                {
+                    height = width * 2;
+                }
+                
                 IbRect src = new IbRect(0, 0, width, height / 2);
 
                 //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
@@ -17117,8 +17128,10 @@ namespace IceBlink2
                         attackAnimationFrameCounter = maxUsableCounterValue;
                         blockAnimationBridge = false;
                     }
-                    src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    src = new IbRect(0, height * attackAnimationFrameCounter, width, height);
                     //src = new IbRect(0, height / 2, width, height / 2);
+                    //wide  
+                    
                 }
 
                 //normal

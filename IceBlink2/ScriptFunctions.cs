@@ -16872,7 +16872,8 @@ namespace IceBlink2
             int iMod = modifierFromSPRelevantAttribute;
             pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc) + CalcModifierMaxSP(pc);
             pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc) + CalcModifierMaxHP(pc);
-
+            if (pc.spMax < 0) { pc.spMax = 0; }
+            
             pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
 
             int dMod = (pc.dexterity - 10) / 2;
@@ -18387,10 +18388,12 @@ namespace IceBlink2
             {
                 foreach (string str in pc.knownTraitsTags)
                 {
-                    //Trait tr = gv.mod.getTraitByTag(str);
-                    foreach (EffectTagForDropDownList eftag in gv.mod.getTraitByTag(str).traitEffectTagList)
+                    Trait tr = gv.mod.getTraitByTag(str);
+                    if (tr == null) { continue; }
+                    foreach (EffectTagForDropDownList eftag in tr.traitEffectTagList)
                     {
                         Effect ef = gv.mod.getEffectByTag(eftag.tag);
+                        if (ef == null) { continue; }
                         if (ef.isStackableEffect)
                         {
                             mod += ef.twoWeaponFightingMainHandModifier;
@@ -18413,10 +18416,12 @@ namespace IceBlink2
             {
                 foreach (string str in pc.knownTraitsTags)
                 {
-                    //Trait tr = gv.mod.getTraitByTag(str);
-                    foreach (EffectTagForDropDownList eftag in gv.mod.getTraitByTag(str).traitEffectTagList)
+                    Trait tr = gv.mod.getTraitByTag(str);
+                    if (tr == null) { continue; }
+                    foreach (EffectTagForDropDownList eftag in tr.traitEffectTagList)
                     {
                         Effect ef = gv.mod.getEffectByTag(eftag.tag);
+                        if (ef == null) { continue; }
                         if (ef.isStackableEffect)
                         {
                             mod += ef.twoWeaponFightingOffHandModifier;
