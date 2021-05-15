@@ -298,7 +298,7 @@ namespace IceBlink2
                                         grid[cr.combatLocX - 1, cr.combatLocY + 1] = 1;
                                     }
                                 }
-                                if (cr.combatLocY > 0)
+                                if ((cr.combatLocX > 0) && (cr.combatLocY > 0))
                                 {
                                     if (grid[cr.combatLocX - 1, cr.combatLocY] != 4)
                                     {

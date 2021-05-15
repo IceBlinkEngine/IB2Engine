@@ -91,6 +91,17 @@ namespace IceBlink2
         public int healActionsAfterLevelN = 0; //(E)
         public int healActionsUpToNLevelsTotal = 0; //(F)
 
+        //TRANSFER (hp/sp)
+        public bool doTransfer = false;
+        public bool transferHP = true; //if true, heals HP. If false, heals SP
+        //(for reference) HealActions: AdB+C for every D levels after level E up to F levels total
+        public int transferNumOfDice = 0; //(A)how many dice to roll
+        public int transferDie = 0; //(B)type of die to roll such as 4 sided or 10 sided, etc.
+        public int transferAdder = 0; //(C)integer adder to total damage such as the "1" in 2d4+1
+        public int transferActionsEveryNLevels = 0; //(D)
+        public int transferActionsAfterLevelN = 0; //(E)
+        public int transferActionsUpToNLevelsTotal = 0; //(F)
+
         //BUFF and DEBUFF
         public bool doBuff = false;//should be redundant, use effect duration greater 0 instead
         public bool doDeBuff = false;//should be redundant, use effect duration greater 0 instead
@@ -210,6 +221,14 @@ namespace IceBlink2
             copy.healActionsEveryNLevels = this.healActionsEveryNLevels;
             copy.healActionsAfterLevelN = this.healActionsAfterLevelN;
             copy.healActionsUpToNLevelsTotal = this.healActionsUpToNLevelsTotal;
+            copy.doTransfer = this.doTransfer;
+            copy.transferHP = this.transferHP;
+            copy.transferNumOfDice = this.transferNumOfDice;
+            copy.transferDie = this.transferDie;
+            copy.transferAdder = this.transferAdder;
+            copy.transferActionsEveryNLevels = this.transferActionsEveryNLevels;
+            copy.transferActionsAfterLevelN = this.transferActionsAfterLevelN;
+            copy.transferActionsUpToNLevelsTotal = this.transferActionsUpToNLevelsTotal;
             copy.statusType = this.statusType;
             copy.modifyFortitude = this.modifyFortitude;
             copy.modifyWill = this.modifyWill;

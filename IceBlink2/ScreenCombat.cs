@@ -5067,14 +5067,47 @@ namespace IceBlink2
 
             int attack = attackRoll + attackMod;
             int defense = CalcCreatureDefense(pc, crt);
+            int damage = CalcPcDamageToCreature(pc, crt, isMainHand);
             //int damage = CalcPcDamageToCreature(pc, crt);
-            int damage = 0;
-            bool automaticallyHits = false;
+            //int damage = 0;            
+            bool criticalHit = false;
+            int critAttackRoll = gv.sf.RandInt(20);
+            int threatRange = 20;
+
             Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
             if (!isMainHand)
             {
                 itChk = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref);
             }
+            /*if (itChk != null)
+            {
+                threatRange = itChk.threatRange;
+                //threatRange = 15;
+            }*/
+
+            if (isMainHand)
+            {
+                threatRange = gv.sf.CalcPcThreatRange(pc, true);
+            }
+            else
+            {
+                threatRange = gv.sf.CalcPcThreatRange(pc, false);
+            }
+
+            if (attackRoll >= threatRange)
+            {
+                //determine if a critical hit is applied
+                if (critAttackRoll + attackMod >= defense)
+                {
+                    criticalHit = true;
+                    if (itChk != null)
+                    {
+                        damage *= itChk.criticalMultiplier;
+                    }
+                }
+            }
+
+            bool automaticallyHits = false;
             if (itChk != null)
             {
                 automaticallyHits = itChk.automaticallyHitsTarget;
@@ -5082,8 +5115,7 @@ namespace IceBlink2
 
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
-            {
-                damage = CalcPcDamageToCreature(pc, crt, isMainHand);
+            {                
                 crt.hp = crt.hp - damage;
                 if (paidHpCost)
                 {
@@ -5100,23 +5132,38 @@ namespace IceBlink2
 
                 if(isMainHand)
                 {
-                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Main Hand)</font>");
+                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Main Hand)</font><br>");
                 }
                 else
                 {
-                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Off Hand)</font>");
+                    gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Off Hand)</font><br>");
                 }
                 
                 if (!automaticallyHits)
                 {
-                    if (attackMod >= 0)
+                    if (criticalHit)
+                    {
+                        gv.cc.addLogText("<gn>CRITICAL HIT (-" + damage + "hp)</gn><br>");
+                        gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                        gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<gn>HITS (-" + damage + "hp)</gn><br>");
+                        gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                        if (attackRoll >= threatRange)
+                        {
+                            gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + " < " + defense + "</wh><BR>");
+                        }
+                    }
+                    /*if (attackMod >= 0)
                     {
                         gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "<font color='white'>hp</font>");
                     }
                     else
                     {
                         gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "<font color='white'>hp</font>");
-                    }
+                    }*/
                 }
                 else
                 {
@@ -8282,14 +8329,40 @@ namespace IceBlink2
             int defense = CalcPcDefense(pc, crt);
             int damage = CalcCreatureDamageToPc(pc, crt);
             int attack = attackRoll + attackMod;
+            bool criticalHit = false;
+            int critAttackRoll = gv.sf.RandInt(20);
+            if (attackRoll >= crt.threatRange)
+            {
+                //determine if a critical hit is applied
+                if (critAttackRoll + attackMod >= defense)
+                {
+                    criticalHit = true;
+                    damage *= crt.criticalMultiplier;
+                }
+            }
 
             if ((attack >= defense) || (attackRoll == 20))
             {
                 //attackAnimationTimeElapsed = 500;
                 pc.hp = pc.hp - damage;
-                gv.cc.addLogText("Attacks " +
-                        "<font color='lime'>" + pc.name + "</font><BR>");
-                if (attackMod >= 0)
+                gv.cc.addLogText("Attacks " + "<font color='lime'>" + pc.name + "</font><BR>");
+                if (criticalHit)
+                {
+                    gv.cc.addLogText("<rd>" + "CRITICAL HIT (-" + damage + "hp)</rd><BR>");
+                    gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                    gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                }
+                else
+                {
+                    gv.cc.addLogText("<rd>" + "HITS (-" + damage + "hp)</rd><BR>");
+                    gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                    if (attackRoll >= crt.threatRange)
+                    {
+                        gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + " < " + defense + "</wh><BR>");
+                    }
+                }
+                
+                /*if (attackMod >= 0)
                 {
                     gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
                             "<font color='white'>" + "hp" + "</font>");
@@ -8298,7 +8371,7 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
                             "<font color='white'>" + "hp" + "</font>");
-                }
+                }*/
 
                 doOnHitScriptBasedOnFilename(crt.onScoringHit, crt, pc);
                 if (!crt.onScoringHitCastSpellTag.Equals("none"))
@@ -10941,9 +11014,10 @@ namespace IceBlink2
                 drawTargetHighlight();
                 drawLosTrail();
             }
-            drawFloatyText();
+            
             drawHPText();
             drawSPText();
+            drawFloatyText();
             drawFloatyTextList(elapsed);
             drawActorFloatyOnMouseOver();
 
@@ -17018,9 +17092,20 @@ namespace IceBlink2
 
                 //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
                 int width = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Width;
-                int height = gv.cc.GetFromBitmapList(crt.cr_tokenFilename).PixelSize.Height;
+                int height = width; // for normal and large creatures
+                
                 //1=normal, 2=wide, 3=tall, 4=large  
                 int crtSize = crt.creatureSize;
+                
+                if (crtSize == 2) //wide
+                {
+                    height = width / 2;
+                } 
+                if (crtSize == 3) //tall
+                {
+                    height = width * 2;
+                }
+                
                 IbRect src = new IbRect(0, 0, width, height / 2);
 
                 //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
@@ -17043,8 +17128,10 @@ namespace IceBlink2
                         attackAnimationFrameCounter = maxUsableCounterValue;
                         blockAnimationBridge = false;
                     }
-                    src = new IbRect(0, crt.token.PixelSize.Width * attackAnimationFrameCounter, crt.token.PixelSize.Width, crt.token.PixelSize.Width);
+                    src = new IbRect(0, height * attackAnimationFrameCounter, width, height);
                     //src = new IbRect(0, height / 2, width, height / 2);
+                    //wide  
+                    
                 }
 
                 //normal
@@ -24691,7 +24778,7 @@ namespace IceBlink2
                 
                 if (gv.sf.isMeleeAttack(pc))
                 { 
-                    modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);
+                    modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, true);
                 }
                 else //ranged weapon used
                 {
@@ -27019,7 +27106,7 @@ namespace IceBlink2
 
             if (gv.sf.isMeleeAttack(pc))
             {
-                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc);
+                modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, isMainHand);
                 //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
                 /*
                 if (pc.knownTraitsTags.Contains("criticalstrike"))

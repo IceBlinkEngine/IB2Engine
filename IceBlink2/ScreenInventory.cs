@@ -829,7 +829,7 @@ namespace IceBlink2
                 string textToSpan = gv.cc.buildItemInfoText(it, -3);
                 description.tbXloc = (11 * gv.squareSize) + (pW * 5) + gv.oXshift;
                 description.tbYloc = 2 * gv.squareSize;
-                description.tbWidth = pW * 80;
+                description.tbWidth = pW * 30;
                 description.tbHeight = pH * 50;
                 description.logLinesList.Clear();
                 description.AddHtmlTextToLog(textToSpan);

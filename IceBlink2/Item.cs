@@ -43,6 +43,9 @@ namespace IceBlink2
         public string ammoType = "none"; //typically arrow, stone, bolt 
 	    public bool twoHanded = false; //true if item requires the use of two hands
         public bool isLightWeapon = false; //true if it is a light weapon
+        public bool isFinesseWeapon = false; //if true, use dex modifier for attack roll, else use strength modifier
+        public int threatRange = 20;
+        public int criticalMultiplier = 2;
         public bool canNotBeUnequipped = false;
         public bool isStackable = false;
         public bool automaticallyHitsTarget = false; //does not require a successful to hit roll, always hits target (ex. mage bolt wand)
@@ -173,7 +176,10 @@ namespace IceBlink2
 		    copy.ammoType = this.ammoType;
 		    copy.twoHanded = this.twoHanded;
             copy.isLightWeapon = this.isLightWeapon;
-		    copy.canNotBeUnequipped = this.canNotBeUnequipped; 
+            copy.isFinesseWeapon = this.isFinesseWeapon;
+            copy.threatRange = this.threatRange;
+            copy.criticalMultiplier = this.criticalMultiplier;
+            copy.canNotBeUnequipped = this.canNotBeUnequipped; 
 		    copy.isStackable = this.isStackable;
             copy.automaticallyHitsTarget = this.automaticallyHitsTarget;
 		    copy.attackBonus = this.attackBonus;
