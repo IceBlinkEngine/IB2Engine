@@ -1078,6 +1078,7 @@ namespace IceBlink2
                                 for (int counter = pc.learningTraitsTags.Count-1; counter >= 0; counter--)
                                 {
                                     pc.knownTraitsTags.Add(pc.learningTraitsTags[counter]);
+                                    pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(pc.learningTraitsTags[counter]).numberOfUsesPerDay[pc.classLevel]);
                                     //TODO: must get trait by ts string
                                     foreach (Trait t in gv.mod.moduleTraitsList)
                                     {
@@ -1142,6 +1143,7 @@ namespace IceBlink2
                                             }
                                             //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                             pc.knownTraitsTags.RemoveAt(i);
+                                            pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                                         }
                                     }
 
@@ -1231,8 +1233,8 @@ namespace IceBlink2
                                         }
                                     }
                     
-                    //add permanent effects of trait to effect list of this pc
-                    foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
+                                    //add permanent effects of trait to effect list of this pc
+                                    foreach (EffectTagForDropDownList efTag in tr.traitEffectTagList)
                     {//1
                         foreach (Effect ef in gv.mod.moduleEffectsList)
                         {//2
@@ -1421,6 +1423,7 @@ namespace IceBlink2
                                 for (int counter = pc.learningTraitsTags.Count - 1; counter >= 0; counter--)
                                 {
                                     pc.knownTraitsTags.Add(pc.learningTraitsTags[counter]);
+                                    pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(pc.learningTraitsTags[counter]).numberOfUsesPerDay[pc.classLevel]);
                                     //TODO: must get trait by ts string
                                     foreach (Trait t in gv.mod.moduleTraitsList)
                                     {
@@ -1487,6 +1490,7 @@ namespace IceBlink2
                                             }
                                             //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                             pc.knownTraitsTags.RemoveAt(i);
+                                            pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                                         }
                                     }
 

@@ -151,6 +151,9 @@ namespace IceBlink2
         public bool allowCastingWithoutRiskOfInterruption = false;
         public int twoWeaponFightingMainHandModifier = 0;
         public int twoWeaponFightingOffHandModifier = 0;
+        public int numberOfMirrorImagesLeft = 0;
+        public int numberOfHitPointDamageAbsorptionLeft = 0;
+
 
         public bool useEvasion = false; //not used at all so far
 
@@ -266,6 +269,8 @@ namespace IceBlink2
             copy.modifyShopSellPrice = this.modifyShopSellPrice;
             copy.twoWeaponFightingMainHandModifier = this.twoWeaponFightingMainHandModifier;
             copy.twoWeaponFightingOffHandModifier = this.twoWeaponFightingOffHandModifier;
+            copy.numberOfHitPointDamageAbsorptionLeft = this.numberOfHitPointDamageAbsorptionLeft;
+            copy.numberOfMirrorImagesLeft = this.numberOfMirrorImagesLeft;
 
 
             copy.isPermanent = this.isPermanent;

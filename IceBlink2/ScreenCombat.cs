@@ -4529,6 +4529,16 @@ namespace IceBlink2
                                 crtr.cr_effectsList.RemoveAt(i);
                             }
                         }
+                        else if (crtr.cr_effectsList[i].numberOfHitPointDamageAbsorptionLeft < 0)
+                        {
+                            gv.cc.addLogText("<font color='white'>" + "The " + crtr.cr_effectsList[i].name + " effect on <font color='red'>" + crtr.cr_name + " <font color='white'>has just ended." + " </font><BR>");
+                            crtr.cr_effectsList.RemoveAt(i);
+                        }
+                        else if (crtr.cr_effectsList[i].numberOfMirrorImagesLeft < 0)
+                        {
+                            gv.cc.addLogText("<font color='white'>" + "The " + crtr.cr_effectsList[i].name + " effect on <font color='red'>" + crtr.cr_name + " <font color='white'>has just ended." + " </font><BR>");
+                            crtr.cr_effectsList.RemoveAt(i);
+                        }
                         //}
                         /*
                         else
@@ -4673,6 +4683,16 @@ namespace IceBlink2
                                 gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended" + " </font><BR>");
                                 pc.effectsList.RemoveAt(i);
                             }
+                        }
+                        else if (pc.effectsList[i].numberOfHitPointDamageAbsorptionLeft < 0)
+                        {
+                            gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended" + " </font><BR>");
+                            pc.effectsList.RemoveAt(i);
+                        }
+                        else if (pc.effectsList[i].numberOfMirrorImagesLeft < 0)
+                        {
+                            gv.cc.addLogText("<font color='white'>" + "The " + pc.effectsList[i].name + " effect on <font color='lime'>" + pc.name + " <font color='white'>has just ended" + " </font><BR>");
+                            pc.effectsList.RemoveAt(i);
                         }
                         //}
 
@@ -5116,7 +5136,7 @@ namespace IceBlink2
             //natural 20 always hits
             if ((attack >= defense) || (attackRoll == 20) || (automaticallyHits == true)) //HIT
             {                
-                crt.hp = crt.hp - damage;
+                //crt.hp = crt.hp - damage;
                 if (paidHpCost)
                 {
                     gv.cc.addLogText("<font color='lime'>" + pc.name + "</font><font color='white'> is damaged for " + itChk.hpCostPerAttack + "HP by attacking." + "</font><BR>");
@@ -5138,22 +5158,40 @@ namespace IceBlink2
                 {
                     gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + " (Off Hand)</font><br>");
                 }
-                
+
+                //check if have mirror image
+                if (gv.sf.removeOneMirrorImageIfHasOne(null, crt))
+                {
+                    gv.cc.addLogText("<font color='red'>" + "HITS (one mirror image removed)</font><BR>");
+                    gv.cc.addLogText("<font color='white'>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</font><BR>");
+                    return 1;
+                }
+                //check if has damage absorption
+                int ret = gv.sf.removeHitPointDamageAbsorptionIfHasAny(null, crt, damage);
+                if (ret != -1)
+                {
+                    int absorbed = damage - ret;
+                    damage = ret;
+                    gv.cc.addLogText("<font color='red'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                }
+
+                crt.hp = crt.hp - damage;
+
                 if (!automaticallyHits)
                 {
                     if (criticalHit)
                     {
-                        gv.cc.addLogText("<gn>CRITICAL HIT (-" + damage + "hp)</gn><br>");
-                        gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
-                        gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                        gv.cc.addLogText("<font color='lime'>CRITICAL HIT (-" + damage + "hp)</font><br>");
+                        gv.cc.addLogText("<font color='white'>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</font><BR>");
+                        gv.cc.addLogText("<font color='white'>CRIT: " + critAttackRoll + "+" + attackMod + ">=" + defense + "</font><BR>");
                     }
                     else
                     {
-                        gv.cc.addLogText("<gn>HITS (-" + damage + "hp)</gn><br>");
-                        gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                        gv.cc.addLogText("<font color='lime'>HITS (-" + damage + "hp)</font><br>");
+                        gv.cc.addLogText("<font color='white'>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</font><BR>");
                         if (attackRoll >= threatRange)
                         {
-                            gv.cc.addLogText("<wh>CRIT: " + critAttackRoll + "+" + attackMod + " < " + defense + "</wh><BR>");
+                            gv.cc.addLogText("<font color='white'>CRIT: " + critAttackRoll + "+" + attackMod + " < " + defense + "</font><BR>");
                         }
                     }
                     /*if (attackMod >= 0)
@@ -5262,11 +5300,25 @@ namespace IceBlink2
                 gv.cc.addLogText("Attacks <font color='red'>" + crt.cr_name + "</font>");
                 if (attackMod >= 0)
                 {
-                    gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss</font><BR>");
+                    if (isMainHand)
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss (Main Hand)</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " < " + defense + ", miss (Off Hand)</font><BR>");
+                    }
                 }
                 else
                 {
-                    gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss</font><BR>");
+                    if (isMainHand)
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss (Main Hand)</font><BR>");
+                    }
+                    else
+                    {
+                        gv.cc.addLogText("<font color='white'>" + attackRoll + " " + attackMod + " < " + defense + ", miss (Off Hand)</font><BR>");
+                    }                    
                 }
                 return 0; //missed
             }
@@ -7271,7 +7323,7 @@ namespace IceBlink2
                 newSeq.AnimationSeq.Add(newGroup);
                 launchProjectile(filename, startX, startY, endX, endY, newGroup);
                 //gv.PlaySound(gv.sf.SpellToCast.spellEndSound);
-                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false, false);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.sf.SpellToCast, crt, gv.sf.CombatTarget, false, false, null);
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -8344,8 +8396,26 @@ namespace IceBlink2
             if ((attack >= defense) || (attackRoll == 20))
             {
                 //attackAnimationTimeElapsed = 500;
-                pc.hp = pc.hp - damage;
+                //pc.hp = pc.hp - damage;
                 gv.cc.addLogText("Attacks " + "<font color='lime'>" + pc.name + "</font><BR>");
+                //check if have mirror image
+                if (gv.sf.removeOneMirrorImageIfHasOne(pc, null))
+                {
+                    gv.cc.addLogText("<rd>" + "HITS (one mirror image removed)</rd><BR>");
+                    gv.cc.addLogText("<wh>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</wh><BR>");
+                    return true;
+                }
+                //check if has damage absorption
+                int ret = gv.sf.removeHitPointDamageAbsorptionIfHasAny(pc, null, damage);
+                if (ret != -1)
+                {
+                    int absorbed = damage - ret;
+                    damage = ret;
+                    gv.cc.addLogText("<gn>" + "(absorbed " + absorbed + " damage)</gn><BR>");
+                }
+
+                pc.hp = pc.hp - damage;
+
                 if (criticalHit)
                 {
                     gv.cc.addLogText("<rd>" + "CRITICAL HIT (-" + damage + "hp)</rd><BR>");
@@ -8422,9 +8492,27 @@ namespace IceBlink2
 
             if ((attack >= defense) || (attackRoll == 20))
             {
+                //pc.hp = pc.hp - damage;
+                gv.cc.addLogText("Attacks " + "<font color='lime'>" + pc.name + "</font><BR>");
+                
+                //check if have mirror image
+                if (gv.sf.removeOneMirrorImageIfHasOne(pc, null))
+                {
+                    gv.cc.addLogText("<font color='red'>" + "HITS (one mirror image removed)</font><BR>");
+                    gv.cc.addLogText("<font color='white'>ATT: " + attackRoll + "+" + attackMod + ">=" + defense + "</font><BR>");
+                    return true;
+                }
+                //check if has damage absorption
+                int ret = gv.sf.removeHitPointDamageAbsorptionIfHasAny(pc, null, damage);
+                if (ret != -1)
+                {
+                    int absorbed = damage - ret;
+                    damage = ret;
+                    gv.cc.addLogText("<font color='lime'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                }
+
                 pc.hp = pc.hp - damage;
-                gv.cc.addLogText("Attacks " +
-                        "<font color='lime'>" + pc.name + "</font><BR>");
+                
                 if (attackMod >= 0)
                 {
                     gv.cc.addLogText("<font color='white'>" + attackRoll + " + " + attackMod + " >= " + defense + ", hit for <font color='red'>" + damage + "</font>" +
@@ -8706,7 +8794,7 @@ namespace IceBlink2
         {
             Spell sp = gv.mod.getSpellByTag(crt.onScoringHitCastSpellTag);
             if (sp == null) { return; }
-            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false, false);
+            gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false, false, null);
         }
         public bool checkEndEncounter()
         {
@@ -9735,7 +9823,7 @@ namespace IceBlink2
             //if spell target type is coor, use coor...else use creature or PC on square  
             if (sp.spellTargetType.Equals("PointLocation"))
             {
-                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false, false);
+                gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, srcCoor, false, false, null);
             }
             else
             {
@@ -9743,14 +9831,14 @@ namespace IceBlink2
                 {
                     if ((crt.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (crt.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
                     {
-                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false, false);
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, crt, false, false, null);
                     }
                 }
                 foreach (Player pc in gv.mod.playerList)
                 {
                     if ((pc.combatLocX == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocX) && (pc.combatLocY == gv.mod.currentEncounter.triggerScriptCalledFromSquareLocY))
                     {
-                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false, false);
+                        gv.cc.doSpellBasedOnScriptOrEffectTag(sp, srcCoor, pc, false, false, null);
                     }
                 }
             }
@@ -14421,6 +14509,46 @@ namespace IceBlink2
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
                                 }
+                                if (ef.numberOfMirrorImagesLeft > 0)
+                                {
+                                    int locX = getPixelLocX(pc.combatLocX);
+                                    int locX2 = getPixelLocX(pc.combatLocX) + (int)(gv.squareSize * 0.666f);
+                                    int locY = getPixelLocY(pc.combatLocY);
+                                    int shiftY1 = (int)(gv.squareSize * 0.333f);
+                                    int shiftY2 = (int)(gv.squareSize * 0.666f);
+                                    int mini = (int)(gv.squareSize / 3);
+                                    IbRect dst2 = new IbRect(locX, locY, mini, mini);
+                                    if (ef.numberOfMirrorImagesLeft >= 1)
+                                    {
+                                        dst2 = new IbRect(locX, locY, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 2)
+                                    {
+                                        dst2 = new IbRect(locX2, locY, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 3)
+                                    {
+                                        dst2 = new IbRect(locX, locY + shiftY1, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 4)
+                                    {
+                                        dst2 = new IbRect(locX2, locY + shiftY1, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 5)
+                                    {
+                                        dst2 = new IbRect(locX, locY + shiftY2, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 6)
+                                    {
+                                        dst2 = new IbRect(locX2, locY + shiftY2, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                }
                             }
                         }
                         if ((pc.isDead()) || (pc.isUnconcious()))
@@ -14622,6 +14750,47 @@ namespace IceBlink2
                                     }
                                     gv.DrawBitmap(fx, src, dst2);
                                     gv.cc.DisposeOfBitmap(ref fx);
+                                }
+                                if (ef.numberOfMirrorImagesLeft > 0)
+                                {
+                                    int locX = getPixelLocX(pc.combatLocX);
+                                    int locX2 = getPixelLocX(pc.combatLocX) + (int)(gv.squareSize * 0.666f);
+                                    int locY = getPixelLocY(pc.combatLocY);
+                                    int shiftY1 = (int)(gv.squareSize * 0.333f);
+                                    int shiftY2 = (int)(gv.squareSize * 0.666f);
+                                    int mini = (int)(gv.squareSize / 3);
+                                    IbRect dst2 = new IbRect(locX, locY, mini, mini);
+                                    src = new IbRect(0, 0, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width, gv.cc.GetFromBitmapList(pc.tokenFilename).PixelSize.Width);
+                                    if (ef.numberOfMirrorImagesLeft >= 1)
+                                    {
+                                        dst2 = new IbRect(locX, locY, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 2)
+                                    {
+                                        dst2 = new IbRect(locX2, locY, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 3)
+                                    {
+                                        dst2 = new IbRect(locX, locY + shiftY1, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 4)
+                                    {
+                                        dst2 = new IbRect(locX2, locY + shiftY1, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 5)
+                                    {
+                                        dst2 = new IbRect(locX, locY + shiftY2, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
+                                    if (ef.numberOfMirrorImagesLeft >= 6)
+                                    {
+                                        dst2 = new IbRect(locX2, locY + shiftY2, mini, mini);
+                                        gv.DrawBitmap(gv.cc.GetFromBitmapList(pc.tokenFilename), src, dst2, !pc.combatFacingLeft);
+                                    }
                                 }
                             }
                         }
@@ -24113,21 +24282,23 @@ namespace IceBlink2
 
                 if (gv.cc.isTraitUsage)
                 {
+                    Trait thisTrait = null;
                     gv.cc.isTraitUsage = false;
                     string traitName = "";
                     foreach (Trait t in gv.mod.moduleTraitsList)
                     {
                         if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
                         {
+                            thisTrait = t;
                             traitName = t.name;
                             break;
                         }
                     }
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, true, traitName);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, true, traitName, thisTrait);
                 }
                 else
                 {
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, false);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, false, null);
                 }
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
@@ -24223,21 +24394,23 @@ namespace IceBlink2
 
                 if (gv.cc.isTraitUsage)
                 {
+                    Trait thisTrait = null;
                     gv.cc.isTraitUsage = false;
                     string traitName = "";
                     foreach (Trait t in gv.mod.moduleTraitsList)
                     {
                         if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
                         {
+                            thisTrait = t;
                             traitName = t.name;
                             break;
                         }
                     }
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, true, traitName);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, true, traitName, thisTrait);
                 }
                 else
                 {
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, false);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, false, null);
                 }
 
                 //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, false);
@@ -27204,7 +27377,7 @@ namespace IceBlink2
                 gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "white");
             }
 
-            int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            int attackBonus = 0;
             if (hasWeaponInOffHand(pc)) 
             {
                 if (isMainHand)
@@ -27214,6 +27387,7 @@ namespace IceBlink2
                 else
                 {
                     attackBonus += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, false);
+
                 }
             }
 

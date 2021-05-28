@@ -67,11 +67,12 @@ namespace IceBlink2
         public List<string> learningTraitsTags = new List<string>();
         public List<Effect> learningEffects = new List<Effect>();
 
-
         public List<string> knownUsableTraitsTags = new List<string>();
         public List<string> knownInCombatUsableTraitsTags = new List<string>();
         public List<string> knownOutsideCombatUsableTraitsTags = new List<string>();
         public List<Effect> effectsList = new List<Effect>();
+        public List<int> numberOfTraitUsesLeftForToday = new List<int>();
+        
         public List<string> pcTags = new List<string>();
         public int classLevel = 1;
         public bool isMale = true;
@@ -317,6 +318,12 @@ namespace IceBlink2
                 copy.knownTraitsTags.Add(s);
             }
 
+            copy.numberOfTraitUsesLeftForToday = new List<int>();
+            foreach (int x in this.numberOfTraitUsesLeftForToday)
+            {
+                copy.numberOfTraitUsesLeftForToday.Add(x);
+            }
+
             copy.knownInCombatUsableTraitsTags = new List<string>();
             foreach (string s in this.knownInCombatUsableTraitsTags)
             {
@@ -466,6 +473,105 @@ namespace IceBlink2
                 }
             }
             return false;
+        }
+
+        public int getUsesLeftTodayFromTraitTag(string tag)
+        {
+            //check that the two lists are the same size and if not, adjust the list size to match the knownTraitsTags size
+            if (numberOfTraitUsesLeftForToday.Count != knownTraitsTags.Count)
+            {
+                if (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.RemoveAt(numberOfTraitUsesLeftForToday.Count - 1);
+                    }
+                }
+                else if (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.Add(0);
+                    }
+                }
+            }
+
+            int ret = 0;
+            int cnt = 0;
+            foreach (string trtag in this.knownTraitsTags)
+            {
+                if (trtag.Equals(tag))
+                {
+                    return numberOfTraitUsesLeftForToday[cnt];
+                }
+                cnt++;
+            }
+
+            return ret;
+        }
+        public void setUsesLeftTodayFromTraitTag(string tag, int value)
+        {
+            //check that the two lists are the same size and if not, adjust the list size to match the knownTraitsTags size
+            if (numberOfTraitUsesLeftForToday.Count != knownTraitsTags.Count)
+            {
+                if (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.RemoveAt(numberOfTraitUsesLeftForToday.Count - 1);
+                    }
+                }
+                else if (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.Add(0);
+                    }
+                }
+            }
+
+            int cnt = 0;
+            foreach (string trtag in this.knownTraitsTags)
+            {
+                if (trtag.Equals(tag))
+                {
+                    numberOfTraitUsesLeftForToday[cnt] = value;
+                    return;
+                }
+                cnt++;
+            }
+        }
+        public void resetAllUsesForToday(GameView gv)
+        {
+            //call this at the start of each new day or when a force rest
+
+
+            //check that the two lists are the same size and if not, adjust the list size to match the knownTraitsTags size
+            if (numberOfTraitUsesLeftForToday.Count != knownTraitsTags.Count)
+            {
+                if (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count > knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.RemoveAt(numberOfTraitUsesLeftForToday.Count - 1);
+                    }
+                }
+                else if (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                {
+                    while (numberOfTraitUsesLeftForToday.Count < knownTraitsTags.Count)
+                    {
+                        numberOfTraitUsesLeftForToday.Add(0);
+                    }
+                }
+            }
+
+            //go through all knowntraits and reset the uses for today
+            int cnt = 0;
+            foreach (string s in this.knownTraitsTags)
+            {
+                numberOfTraitUsesLeftForToday[cnt] = gv.mod.getTraitByTag(s).numberOfUsesPerDay[this.classLevel];
+                cnt++;
+            }
         }
 
         public List<string> getSpellsToLearn()

@@ -2071,6 +2071,7 @@ namespace IceBlink2
                                     if ((ta.automaticallyLearned) && (ta.atWhatLevelIsAvailable == pc.classLevel || ta.atWhatLevelIsAvailable == 0))
                                     {
                                         pc.knownTraitsTags.Add(ta.tag);
+                                        pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(ta.tag).numberOfUsesPerDay[pc.classLevel]);
                                         //code for eventually adding permamnet effect
                                         foreach (Trait t in gv.mod.moduleTraitsList)
                                         {

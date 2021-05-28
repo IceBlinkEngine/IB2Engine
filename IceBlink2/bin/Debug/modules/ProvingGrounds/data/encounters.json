@@ -2288,30 +2288,6 @@
         "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
       },
       {
-        "creatureResRef": "giantlizard",
-        "creatureTag": "giantlizard_1314",
-        "creatureStartLocationX": 6,
-        "creatureStartLocationY": 4,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "koboldleader",
-        "creatureTag": "koboldleader_1315",
-        "creatureStartLocationX": 0,
-        "creatureStartLocationY": 5,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
-        "creatureResRef": "koboldchampion",
-        "creatureTag": "koboldchampion_1316",
-        "creatureStartLocationX": 6,
-        "creatureStartLocationY": 7,
-        "spawnAtStartOfRoundX": 1,
-        "spawnAnotherEveryXRoundsAfterFirstSpawn": 0
-      },
-      {
         "creatureResRef": "wyvern",
         "creatureTag": "wyvern_1319",
         "creatureStartLocationX": 2,

@@ -1494,7 +1494,7 @@
     "spriteEndingFilename": "fx_heal1x1end",
     "spellStartSound": "buffer",
     "spellEndSound": "buffer",
-    "costSP": 10,
+    "costSP": 0,
     "costHP": 0,
     "requiresHit": false,
     "castTimeInTurns": 0,
@@ -1509,9 +1509,13 @@
     "spellScriptParm1": "none",
     "spellScriptParm2": "none",
     "additionalCustomLogTextOnCast": "none",
-    "spellEffectTag": "layonhands",
+    "spellEffectTag": "none",
     "removeEffectTagList": [],
-    "spellEffectTagList": []
+    "spellEffectTagList": [
+      {
+        "tag": "layonhands"
+      }
+    ]
   },
   {
     "traitWorksOnlyWhen": [],

@@ -980,6 +980,7 @@ namespace IceBlink2
                             for (int counter = pc.learningTraitsTags.Count - 1; counter >= 0; counter--)
                             {
                                 pc.knownTraitsTags.Add(pc.learningTraitsTags[counter]);
+                                pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(pc.learningTraitsTags[counter]).numberOfUsesPerDay[pc.classLevel]);
                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                 //adding trait-effect system code here
                                 //TODO: must get trait by ts string
@@ -1048,6 +1049,7 @@ namespace IceBlink2
                                         }
                                         //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
+                                        pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                                     }
                                 }
 
@@ -1303,7 +1305,7 @@ namespace IceBlink2
                             //}//2 (is 1 actually)
 
                             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                        }//end of the graet for loo for traits
+                            }//end of the graet for loo for traits
 
 
                             //pc.learningTraitsTags.Clear();
@@ -1362,6 +1364,7 @@ namespace IceBlink2
                             for (int counter = pc.learningTraitsTags.Count - 1; counter >= 0; counter--)
                             {
                                 pc.knownTraitsTags.Add(pc.learningTraitsTags[counter]);
+                                pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(pc.learningTraitsTags[counter]).numberOfUsesPerDay[pc.classLevel]);
                                 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                 //adding trait-effect system code here
                                 //TODO: must get trait by ts string
@@ -1430,6 +1433,7 @@ namespace IceBlink2
                                         }
                                         //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
+                                        pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                                     }
                                 }
 
