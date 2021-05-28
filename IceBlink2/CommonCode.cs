@@ -16436,7 +16436,15 @@ namespace IceBlink2
                                 {
                                     pc.effectsList.RemoveAt(i - 1);
                                 }
-                            } 
+                            }
+                            else if (pc.effectsList[i - 1].numberOfHitPointDamageAbsorptionLeft < 0)
+                            {
+                                pc.effectsList.RemoveAt(i - 1);
+                            }
+                            else if (pc.effectsList[i - 1].numberOfMirrorImagesLeft < 0)
+                            {
+                                pc.effectsList.RemoveAt(i - 1);
+                            }
                         }
                     }
                 }
@@ -19662,11 +19670,11 @@ namespace IceBlink2
             //this sorts the three possible effect sources in the order: tag list for generic, single tag for generic (compatibility with old spells) and finally specific script
             if (spell.spellEffectTagList.Count > 0)
             {
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction, null);
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastingAction, null);
                 //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
@@ -19816,7 +19824,7 @@ namespace IceBlink2
             {
                 //burning man
                 string logTextForCastAction = "none";
-                gv.sf.spGeneric(spell, triggerCoord, triggerCoord, outsideCombat, logTextForCastAction, casterLevelInt, remove);
+                gv.sf.spGeneric(spell, triggerCoord, triggerCoord, outsideCombat, logTextForCastAction, casterLevelInt, remove, null);
             }
 
 
@@ -19973,7 +19981,7 @@ namespace IceBlink2
 
 
         //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage)
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage, Trait thisTrait)
         {
             //int powerLevel = 0;
             if (source is Creature)
@@ -20056,13 +20064,13 @@ namespace IceBlink2
             if (spell.spellEffectTagList.Count > 0)
             {
                 string logTextForCastAction = "none";
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction, thisTrait);
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
                 string logTextForCastAction = "none";
                 //gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction, thisTrait);
                 //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 
@@ -20158,7 +20166,7 @@ namespace IceBlink2
         }
 
         //overload for getting trait name
-        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage, string traitName)
+        public void doSpellBasedOnScriptOrEffectTag(Spell spell, object source, object target, bool outsideCombat, bool isTraitUsage, string traitName, Trait thisTrait)
         {
             //int powerLevel = 0;
             if (source is Creature)
@@ -20240,12 +20248,12 @@ namespace IceBlink2
             if (spell.spellEffectTagList.Count > 0)
             {
                 string logTextForCastAction = "none";
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction, thisTrait);
             }
             else if (!spell.spellEffectTag.Equals("none"))
             {
                 string logTextForCastAction = "none";
-                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction);
+                gv.sf.spGeneric(spell, source, target, outsideCombat, logTextForCastAction, thisTrait);
                 //gv.sf.spGenericUsingOldSingleEffectTag(spell, source, target, outsideCombat);
             }
 

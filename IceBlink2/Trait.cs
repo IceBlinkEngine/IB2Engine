@@ -44,6 +44,8 @@ namespace IceBlink2
         public int requiredWisdom = 0;
         public int requiredCharisma = 0;
         public string traitToReplaceByTag = "none";
+        public bool useNumberOfUsesPerDaySystem = false;
+        public int[] numberOfUsesPerDay = new int[] { 0, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4 };
 
         public Trait()
 	    {
@@ -74,6 +76,8 @@ namespace IceBlink2
             copy.associatedSpellTag = this.associatedSpellTag;
             copy.showOnMainMap = this.showOnMainMap;
             copy.methodOfChecking = this.methodOfChecking;
+            copy.useNumberOfUsesPerDaySystem = this.useNumberOfUsesPerDaySystem;
+            copy.numberOfUsesPerDay = (int[])this.numberOfUsesPerDay.Clone();
 
             copy.traitWorksOnlyWhen = new List<LocalImmunityString>();
             foreach (LocalImmunityString s in this.traitWorksOnlyWhen)

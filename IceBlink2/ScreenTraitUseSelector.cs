@@ -12,6 +12,7 @@ namespace IceBlink2
     {
 	    //private gv.module gv.mod;
 	    private GameView gv;
+        public Trait thisTrait;
 	
 	    public int castingPlayerIndex = 0;
 	    private int spellSlotIndex = 0;
@@ -507,21 +508,22 @@ namespace IceBlink2
                                     //found out that our current spell is the associated spell of this trait
                                     if (t.associatedSpellTag.Equals(sp.tag))
                                     {
-                                    //built the lists on runtime for our current spell from the trait's template
-                                    foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
-                                    {
-                                        LocalImmunityString ls2 = ls.DeepCopy();
-                                        sp.traitWorksOnlyWhen.Add(ls2);
-                                    }
+                                        thisTrait = t;
+                                        //built the lists on runtime for our current spell from the trait's template
+                                        foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
+                                        {
+                                            LocalImmunityString ls2 = ls.DeepCopy();
+                                            sp.traitWorksOnlyWhen.Add(ls2);
+                                        }
 
-                                    foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
-                                    {
-                                        LocalImmunityString ls2 = ls.DeepCopy();
-                                        sp.traitWorksNeverWhen.Add(ls2);
+                                        foreach (LocalImmunityString ls in t.traitWorksNeverWhen)
+                                        {
+                                            LocalImmunityString ls2 = ls.DeepCopy();
+                                            sp.traitWorksNeverWhen.Add(ls2);
+                                        }
+                                        //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
+                                        //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
                                     }
-                                    //sp.traitWorksNeverWhen = t.traitWorksNeverWhen;
-                                    //sp.traitWorksOnlyWhen = t.traitWorksOnlyWhen;
-                                }
                             }
                         }
                     }
@@ -592,26 +594,36 @@ namespace IceBlink2
                             gv.DrawText("This is still cooling down for " + coolDownTime + " turn(s).", noticeX, noticeY, 1.0f, Color.Red);
                         }
 
-                       else if (swiftBlocked)
+                        else if (swiftBlocked)
                         {
                             gv.DrawText("Swift action already used this turn.", noticeX, noticeY, 1.0f, Color.Red);
                         }
-
+                        else if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                        {
+                            if (pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) > 0)
+                            {
+                                gv.DrawText("Available to Use", noticeX, noticeY, 1.0f, Color.Lime);
+                            }
+                            else
+                            {
+                                gv.DrawText("No More Uses Available Today", noticeX, noticeY, 1.0f, Color.Yellow);
+                            }
+                        }
                         else if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP) && !gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag))
-                    {
-                        //gv.mSheetTextPaint.setColor(Color.GREEN);
-                        gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.GREEN);
+                            gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
+                        }
+                        else if (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                            gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
+                        }
+                        else
+                        {
+                                gv.DrawText("This can only be used once per turn.", noticeX, noticeY, 1.0f, Color.Red);
+                        }
                     }
-                    else if (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) //if known but not enough spell points, "Insufficient SP to Cast" in yellow
-                    {
-                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                        gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
-                    }
-                    else
-                    {
-                            gv.DrawText("This can only be used once per turn.", noticeX, noticeY, 1.0f, Color.Red);
-                    }
-                }
                     else
                     {
                         gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Red);
@@ -686,6 +698,7 @@ namespace IceBlink2
                                 //found out that our current spell is the associated spell of this trait
                                 if (t.associatedSpellTag.Equals(sp.tag))
                                 {
+                                    thisTrait = t;
                                     //built the lists on runtime for our current spell from the trait's template
                                     foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
                                     {
@@ -745,17 +758,28 @@ namespace IceBlink2
                     //eventually add max dex bonus allowed when wearing armor
                     if (traitWorksForThisPC)
                     {
-                        if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP))
-                    {
-                        //gv.mSheetTextPaint.setColor(Color.GREEN);
-                        gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
+                        if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                        {
+                            if (pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) > 0)
+                            {
+                                gv.DrawText("Available to Use", noticeX, noticeY, 1.0f, Color.Lime);
+                            }
+                            else
+                            {
+                                gv.DrawText("No More Uses Available Today", noticeX, noticeY, 1.0f, Color.Yellow);
+                            }
+                        }
+                        else if ((pc.sp >= sp.costSP) && ((pc.hp - 1) >= sp.costHP))
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.GREEN);
+                            gv.DrawText("Available", noticeX, noticeY, 1.0f, Color.Lime);
+                        }
+                        else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
+                        {
+                            //gv.mSheetTextPaint.setColor(Color.YELLOW);
+                            gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
+                        }
                     }
-                    else //if known but not enough spell points, "Insufficient SP to Cast" in yellow
-                    {
-                        //gv.mSheetTextPaint.setColor(Color.YELLOW);
-                        gv.DrawText("Insufficient SP or HP", noticeX, noticeY, 1.0f, Color.Yellow);
-                    }
-                }
                     else
                     {
                         gv.DrawText("Specific requirements like e.g. worn equipment not met", noticeX, noticeY, 1.0f, Color.Yellow);
@@ -928,6 +952,7 @@ namespace IceBlink2
                     {
                         if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
                         {
+                            thisTrait = t;
                             traitName = t.name;
                             break;
                         }
@@ -965,6 +990,11 @@ namespace IceBlink2
                     textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                     textToSpan += "Target Range: " + sp.range + "<BR>";
                     textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
+                    if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                    {
+                        textToSpan += "Uses Per Day: " + thisTrait.numberOfUsesPerDay[pc.classLevel] + "<BR>";
+                        textToSpan += "Remaining Uses Today: " + pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) + "<BR>";
+                    }
                     if (sp.spellTargetType.Contains("Enemy"))
                     {
                         textToSpan += "Affects only enemies" + "<BR>";
@@ -1012,6 +1042,7 @@ namespace IceBlink2
                     {
                         if (t.associatedSpellTag == gv.cc.currentSelectedSpell.tag)
                         {
+                            thisTrait = t;
                             traitName = t.name;
                             break;
                         }
@@ -1049,6 +1080,11 @@ namespace IceBlink2
                     textToSpan += "HP Cost: " + sp.costHP + "<BR>";
                     textToSpan += "Target Range: " + sp.range + "<BR>";
                     textToSpan += "Area of Effect Radius: " + sp.aoeRadius + "<BR>";
+                    if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                    {
+                        textToSpan += "Uses Per Day: " + thisTrait.numberOfUsesPerDay[pc.classLevel] + "<BR>";
+                        textToSpan += "Remaining Uses Today: " + pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) + "<BR>";
+                    }
                     //textToSpan += "Available at Level: " + getLevelAvailable(sp.tag) + "<BR>";
                     textToSpan += "<BR>";
                     textToSpan += sp.description;
@@ -1214,11 +1250,11 @@ namespace IceBlink2
                 }
                 if (traitName == "" || traitName == "none" || traitName == "None")
                 {
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, thisTrait);
                 }
                 else
                 {
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, traitName);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, traitName, thisTrait);
                 }
                 gv.screenType = "main";
                 doCleanUp();
@@ -1265,6 +1301,7 @@ namespace IceBlink2
                                 //found out that our current spell is the associated spell of this trait
                                 if (t.associatedSpellTag.Equals(sp.tag))
                                 {
+                                    thisTrait = t;
                                     //built the lists on runtime for our current spell from the trait's template
                                     foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
                                     {
@@ -1339,7 +1376,21 @@ namespace IceBlink2
                             }
                         }
 
-                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP) && (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) && !swiftBlocked && !coolBlocked)
+                        bool hasUsesLeft = true;
+                        if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                        {
+                            if (pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) > 0)
+                            {
+                                hasUsesLeft = true;
+                            }
+                            else
+                            {
+                                //send message that you have no more uses today
+                                hasUsesLeft = false;
+                            }
+                        }
+                        
+                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP) && (!gv.mod.nonRepeatableFreeActionsUsedThisTurnBySpellTag.Contains(sp.tag)) && !swiftBlocked && !coolBlocked && hasUsesLeft)
                         {
                             /*
                             if (sp.onlyOncePerTurn)
@@ -1366,7 +1417,7 @@ namespace IceBlink2
                         else
                         {
                             //Toast.makeText(gv.gameContext, "Not Enough SP for that spell", Toast.LENGTH_SHORT).show();
-                        }
+                        }                        
                     }
                 }
             }
@@ -1398,6 +1449,7 @@ namespace IceBlink2
                                 //found out that our current spell is the associated spell of this trait
                                 if (t.associatedSpellTag.Equals(sp.tag))
                                 {
+                                    thisTrait = t;
                                     //built the lists on runtime for our current spell from the trait's template
                                     foreach (LocalImmunityString ls in t.traitWorksOnlyWhen)
                                     {
@@ -1456,7 +1508,21 @@ namespace IceBlink2
                     //eventually add max dex bonus allowed when wearing armor
                     if (traitWorksForThisPC)
                     {
-                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP))
+                        bool hasUsesLeft = true;
+                        if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                        {
+                            if (pc.getUsesLeftTodayFromTraitTag(thisTrait.tag) > 0)
+                            {
+                                hasUsesLeft = true;
+                            }
+                            else
+                            {
+                                //send message that you have no more uses today
+                                hasUsesLeft = false;
+                            }
+                        }
+
+                        if ((pc.sp >= sp.costSP) && (pc.hp > sp.costHP) && (hasUsesLeft))
                         {
                             gv.cc.currentSelectedSpell = sp;
 
@@ -1498,11 +1564,11 @@ namespace IceBlink2
                                         }
                                         if (traitName == "" || traitName == "none" || traitName == "None")
                                         {
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, isInCombat, true);
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, !isInCombat, true, thisTrait);
                                         }
                                         else
                                         {
-                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, isInCombat, true, traitName);
+                                            gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, !isInCombat, true, traitName, thisTrait);
                                         }
                                         //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, target, target, inCombat, true);
                                         gv.screenType = "main";
@@ -1534,11 +1600,11 @@ namespace IceBlink2
                                             }
                                             if (traitName == "" || traitName == "none" || traitName == "None")
                                             {
-                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, isInCombat, true);
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, thisTrait);
                                             }
                                             else
                                             {
-                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, isInCombat, true, traitName);
+                                                gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, !isInCombat, true, traitName, thisTrait);
                                             }
                                             //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, inCombat, true);
                                             gv.screenType = "main";

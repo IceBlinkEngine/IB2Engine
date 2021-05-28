@@ -163,7 +163,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "This is a proving grounds for testing new features.",
   "moduleCredits": "<big><b>Proving Grounds</b></big><BR>\r\n<BR>\r\n-coding and art by <b>slowdive_fan</b><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 1323,
+  "nextIdNumber": 1381,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 0,

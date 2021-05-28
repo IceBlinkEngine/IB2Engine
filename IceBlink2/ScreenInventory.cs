@@ -1736,7 +1736,7 @@ namespace IceBlink2
                     Spell sp = gv.mod.getSpellByTag(it.onUseItemCastSpellTag);
                     Player pc = gv.mod.playerList[pcIndex];
                     gv.mod.indexOfPCtoLastUseItem = pcIndex;
-                    gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false);
+                    gv.cc.doSpellBasedOnScriptOrEffectTag(sp, it, pc, outsideCombat, false, null);
                     if (it.destroyItemAfterOnUseItemCastSpell && itRef.quantity == 1)
                     {
                         gv.screenItemSelector.unequipItemOnDestroy(it, gv.mod.playerList[pcIndex], itRef);

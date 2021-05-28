@@ -1413,8 +1413,8 @@ namespace IceBlink2
                 }
             }
 
-            int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
-            int attackBonusOffHand = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            int attackBonus = 0;
+            int attackBonusOffHand = 0;
             if (hasWeaponInOffHand(pc))
             {
                 attackBonus += gv.sf.CalcPcMeleeTwoWeaponModifier(pc, true);
@@ -1739,7 +1739,21 @@ namespace IceBlink2
                                 if (!ef.isPermanent)
                                 {
                                     int left = ef.durationInUnits;
-                                    allEffects += ef.name + " (" + left + ")" + "<br>";
+                                    int num = ef.numberOfMirrorImagesLeft;
+                                    int num2 = ef.numberOfHitPointDamageAbsorptionLeft;
+                                    if (num > 0)
+                                    {
+                                        allEffects += ef.name + " (" + left + ")(images: " + num + ")<br>";
+                                    }
+                                    else if (num2 > 0)
+                                    {
+                                        allEffects += ef.name + " (" + left + ")(absorb: " + num2 + ")<br>";
+                                    }
+                                    else
+                                    {
+                                        allEffects += ef.name + " (" + left + ")" + "<br>";
+                                    }
+                                    //allEffects += ef.name + " (" + left + ")" + "<br>";
                                 }
                             }
                             gv.sf.MessageBoxHtml("<big><b>CURRENT EFFECTS</b></big><br><b><small>(#) denotes effect time left</small></b><br><br>" + allEffects);
@@ -2328,6 +2342,7 @@ namespace IceBlink2
                             {
                                 traitGained += ta.name + ", ";
                                 pc.knownTraitsTags.Add(ta.tag);
+                                pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(ta.tag).numberOfUsesPerDay[pc.classLevel]);
                                 //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
                                 if (!ta.associatedSpellTag.Equals("none"))
                                 {
@@ -2412,6 +2427,7 @@ namespace IceBlink2
                                         }
                                         //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                                         pc.knownTraitsTags.RemoveAt(i);
+                                        pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                                     }
                                 }
 

@@ -101,7 +101,7 @@
     "itemsAllowed": [
       {
         "resref": "chainmail",
-        "tag": "chainmail_1127",
+        "tag": "chainmail_1328",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -110,7 +110,7 @@
       },
       {
         "resref": "largeshield",
-        "tag": "largeshield_1128",
+        "tag": "largeshield_1329",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -119,7 +119,7 @@
       },
       {
         "resref": "larmor1",
-        "tag": "larmor1_1129",
+        "tag": "larmor1_1330",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -128,7 +128,7 @@
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_1130",
+        "tag": "studdedLeather_1331",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -137,7 +137,7 @@
       },
       {
         "resref": "platemail",
-        "tag": "platemail_1131",
+        "tag": "platemail_1332",
         "name": "Platemail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -146,7 +146,7 @@
       },
       {
         "resref": "robes",
-        "tag": "robes_1132",
+        "tag": "robes_1333",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -155,7 +155,7 @@
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_1133",
+        "tag": "campingKit_1334",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -164,7 +164,7 @@
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_1134",
+        "tag": "ringOfProtection_1335",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -173,7 +173,7 @@
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_1135",
+        "tag": "ringOfFireResist_1336",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -182,7 +182,7 @@
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_1136",
+        "tag": "healingPotion_1337",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -191,7 +191,7 @@
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_1137",
+        "tag": "healingPotionExtra_1338",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -200,7 +200,7 @@
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_1138",
+        "tag": "spPotion_1339",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -209,7 +209,7 @@
       },
       {
         "resref": "mace",
-        "tag": "mace_1139",
+        "tag": "mace_1340",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -218,7 +218,7 @@
       },
       {
         "resref": "sling",
-        "tag": "sling_1140",
+        "tag": "sling_1341",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -227,7 +227,7 @@
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_1141",
+        "tag": "fireSling_1342",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -236,7 +236,7 @@
       },
       {
         "resref": "stone",
-        "tag": "stone_1142",
+        "tag": "stone_1343",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -245,7 +245,7 @@
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_1143",
+        "tag": "stonefire_1344",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -254,7 +254,7 @@
       },
       {
         "resref": "torch",
-        "tag": "newTag_9931_1144",
+        "tag": "newTag_9931_1345",
         "name": "Torch",
         "canNotBeUnequipped": false,
         "isLightSource": true,
@@ -263,7 +263,7 @@
       },
       {
         "resref": "ration",
-        "tag": "newTag_9963_1145",
+        "tag": "newTag_9963_1346",
         "name": "Ration",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -275,7 +275,7 @@
       {
         "name": "Diplomacy (L1)",
         "tag": "diplomacy",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -285,7 +285,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -295,7 +295,7 @@
       {
         "name": "Diplomacy (L2)",
         "tag": "diplomacy2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -900,7 +900,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -910,7 +910,7 @@
       {
         "name": "Intimidate (L1)",
         "tag": "intimidate",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -920,7 +920,7 @@
       {
         "name": "Cleave",
         "tag": "cleave",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -930,7 +930,7 @@
       {
         "name": "Power Attack",
         "tag": "powerattack",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -940,7 +940,7 @@
       {
         "name": "Sweep Attack",
         "tag": "sweepattack",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -950,7 +950,7 @@
       {
         "name": "Two Attacks",
         "tag": "twoAttack",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -960,7 +960,7 @@
       {
         "name": "Intimidate (L2)",
         "tag": "intimidate2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -1072,7 +1072,7 @@
     "itemsAllowed": [
       {
         "resref": "chainmail",
-        "tag": "chainmail_1179",
+        "tag": "chainmail_1347",
         "name": "Chainmail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1081,7 +1081,7 @@
       },
       {
         "resref": "largeshield",
-        "tag": "largeshield_1180",
+        "tag": "largeshield_1348",
         "name": "Large Shield",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1090,7 +1090,7 @@
       },
       {
         "resref": "larmor1",
-        "tag": "larmor1_1181",
+        "tag": "larmor1_1349",
         "name": "Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1099,7 +1099,7 @@
       },
       {
         "resref": "studdedLeather",
-        "tag": "studdedLeather_1182",
+        "tag": "studdedLeather_1350",
         "name": "Studded Leather Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1108,7 +1108,7 @@
       },
       {
         "resref": "platemail",
-        "tag": "platemail_1183",
+        "tag": "platemail_1351",
         "name": "Platemail Armor",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1117,7 +1117,7 @@
       },
       {
         "resref": "robes",
-        "tag": "robes_1184",
+        "tag": "robes_1352",
         "name": "Robes",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1126,7 +1126,7 @@
       },
       {
         "resref": "campingKit",
-        "tag": "campingKit_1185",
+        "tag": "campingKit_1353",
         "name": "Camping Kit",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1135,7 +1135,7 @@
       },
       {
         "resref": "ringOfProtection",
-        "tag": "ringOfProtection_1186",
+        "tag": "ringOfProtection_1354",
         "name": "Ring of Protection",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1144,7 +1144,7 @@
       },
       {
         "resref": "ringOfFireResist",
-        "tag": "ringOfFireResist_1187",
+        "tag": "ringOfFireResist_1355",
         "name": "Ring of Fire Resistance",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1153,7 +1153,7 @@
       },
       {
         "resref": "healingPotion",
-        "tag": "healingPotion_1188",
+        "tag": "healingPotion_1356",
         "name": "Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1162,7 +1162,7 @@
       },
       {
         "resref": "healingPotionExtra",
-        "tag": "healingPotionExtra_1189",
+        "tag": "healingPotionExtra_1357",
         "name": "Extra Healing Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1171,7 +1171,7 @@
       },
       {
         "resref": "spPotion",
-        "tag": "spPotion_1190",
+        "tag": "spPotion_1358",
         "name": "Spell Points Potion",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1180,7 +1180,7 @@
       },
       {
         "resref": "battleaxe",
-        "tag": "battleaxe_1191",
+        "tag": "battleaxe_1359",
         "name": "Battle Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1189,7 +1189,7 @@
       },
       {
         "resref": "crossbow",
-        "tag": "crossbow_1192",
+        "tag": "crossbow_1360",
         "name": "Crossbow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1198,7 +1198,7 @@
       },
       {
         "resref": "dagger01",
-        "tag": "dagger01_1193",
+        "tag": "dagger01_1361",
         "name": "Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1207,7 +1207,7 @@
       },
       {
         "resref": "elvishshortsword",
-        "tag": "elvishshortsword_1194",
+        "tag": "elvishshortsword_1362",
         "name": "Elvish Short Sword +1",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1216,7 +1216,7 @@
       },
       {
         "resref": "fireDagger",
-        "tag": "fireDagger_1195",
+        "tag": "fireDagger_1363",
         "name": "Fire Dagger",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1225,7 +1225,7 @@
       },
       {
         "resref": "fireLongSword",
-        "tag": "fireLongSword_1196",
+        "tag": "fireLongSword_1364",
         "name": "Flaming Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1234,7 +1234,7 @@
       },
       {
         "resref": "handaxe",
-        "tag": "handaxe_1197",
+        "tag": "handaxe_1365",
         "name": "Hand Axe",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1243,7 +1243,7 @@
       },
       {
         "resref": "lbow1",
-        "tag": "lbow1_1198",
+        "tag": "lbow1_1366",
         "name": "Long Bow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1252,7 +1252,7 @@
       },
       {
         "resref": "lsword01",
-        "tag": "lsword01_1199",
+        "tag": "lsword01_1367",
         "name": "Long Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1261,7 +1261,7 @@
       },
       {
         "resref": "mace",
-        "tag": "mace_1200",
+        "tag": "mace_1368",
         "name": "Mace",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1270,7 +1270,7 @@
       },
       {
         "resref": "shortBow",
-        "tag": "shortBow_1201",
+        "tag": "shortBow_1369",
         "name": "Short Bow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1279,7 +1279,7 @@
       },
       {
         "resref": "ssword01",
-        "tag": "ssword01_1202",
+        "tag": "ssword01_1370",
         "name": "Short Sword",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1288,7 +1288,7 @@
       },
       {
         "resref": "sling",
-        "tag": "sling_1203",
+        "tag": "sling_1371",
         "name": "Sling",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1297,7 +1297,7 @@
       },
       {
         "resref": "fireSling",
-        "tag": "fireSling_1204",
+        "tag": "fireSling_1372",
         "name": "Sling of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1306,7 +1306,7 @@
       },
       {
         "resref": "spear",
-        "tag": "spear_1205",
+        "tag": "spear_1373",
         "name": "Spear",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1315,7 +1315,7 @@
       },
       {
         "resref": "arrow",
-        "tag": "arrow_1206",
+        "tag": "arrow_1374",
         "name": "Arrow",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1324,7 +1324,7 @@
       },
       {
         "resref": "stone",
-        "tag": "stone_1207",
+        "tag": "stone_1375",
         "name": "Stone",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1333,7 +1333,7 @@
       },
       {
         "resref": "stonefire",
-        "tag": "stonefire_1208",
+        "tag": "stonefire_1376",
         "name": "Stone of Fire",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1342,7 +1342,7 @@
       },
       {
         "resref": "bolt",
-        "tag": "bolt_1209",
+        "tag": "bolt_1377",
         "name": "Bolt",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1351,7 +1351,7 @@
       },
       {
         "resref": "torch",
-        "tag": "newTag_9931_1210",
+        "tag": "newTag_9931_1378",
         "name": "Torch",
         "canNotBeUnequipped": false,
         "isLightSource": true,
@@ -1360,7 +1360,7 @@
       },
       {
         "resref": "ration",
-        "tag": "newTag_9963_1211",
+        "tag": "newTag_9963_1379",
         "name": "Ration",
         "canNotBeUnequipped": false,
         "isLightSource": false,
@@ -1372,7 +1372,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -1382,7 +1382,7 @@
       {
         "name": "Diplomacy (L1)",
         "tag": "diplomacy",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -1392,8 +1392,8 @@
       {
         "name": "Lay on Hands",
         "tag": "layonhands",
-        "useableinsituation": "Passive",
-        "associatedSpellTag": "none",
+        "useableinsituation": "Always",
+        "associatedSpellTag": "layonhands",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
         "needsSpecificTrainingToLearn": false,
@@ -1402,7 +1402,7 @@
       {
         "name": "Diplomacy (L2)",
         "tag": "diplomacy2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -1412,7 +1412,7 @@
       {
         "name": "Power Attack",
         "tag": "powerattack",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -1422,7 +1422,7 @@
       {
         "name": "Battle Regeneration",
         "tag": "battleregen",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 6,
         "automaticallyLearned": false,
@@ -1431,14 +1431,6 @@
       }
     ],
     "spellsAllowed": [
-      {
-        "name": "Lay on Hands",
-        "needsSpecificTrainingToLearn": false,
-        "tag": "layonhands",
-        "atWhatLevelIsAvailable": 1,
-        "automaticallyLearned": true,
-        "allow": true
-      },
       {
         "name": "Cure Minor Wounds",
         "needsSpecificTrainingToLearn": false,
@@ -1914,7 +1906,7 @@
       {
         "name": "Two-Weapon Fighting (L1)",
         "tag": "twoweaponfighting1",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -1924,7 +1916,7 @@
       {
         "name": "Intimidate (L1)",
         "tag": "intimidate",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -1932,9 +1924,9 @@
         "allow": true
       },
       {
-        "name": "Spot",
+        "name": "Spot (L1)",
         "tag": "spot",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -1944,7 +1936,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -1954,7 +1946,7 @@
       {
         "name": "Two-Weapon Defense (L1)",
         "tag": "twoweapondefense1",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -1964,7 +1956,7 @@
       {
         "name": "Point Blank Shot",
         "tag": "pointblankshot",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -1974,7 +1966,7 @@
       {
         "name": "Precise Shot (L1)",
         "tag": "preciseshot",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -1984,7 +1976,7 @@
       {
         "name": "Rapid Shot (L1)",
         "tag": "rapidshot",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -1994,7 +1986,7 @@
       {
         "name": "Spot (L2)",
         "tag": "spot2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2004,7 +1996,7 @@
       {
         "name": "Intimidate (L2)",
         "tag": "intimidate2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2014,7 +2006,7 @@
       {
         "name": "Two-Weapon Fighting (L2)",
         "tag": "twoweaponfighting2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2024,7 +2016,7 @@
       {
         "name": "Two-Weapon Defense (L2)",
         "tag": "twoweapondefense2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 5,
         "automaticallyLearned": false,
@@ -2034,7 +2026,7 @@
       {
         "name": "Precise Shot (L2)",
         "tag": "preciseshot2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 7,
         "automaticallyLearned": false,
@@ -2044,7 +2036,7 @@
       {
         "name": "Rapid Shot (L2)",
         "tag": "rapidshot2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 8,
         "automaticallyLearned": false,
@@ -2474,7 +2466,7 @@
       {
         "name": "Diplomacy (L1)",
         "tag": "diplomacy",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2484,7 +2476,7 @@
       {
         "name": "Bluff (L1)",
         "tag": "bluff",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2494,7 +2486,7 @@
       {
         "name": "Disable Device (L1)",
         "tag": "disabledevice",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2504,7 +2496,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -2514,7 +2506,7 @@
       {
         "name": "Pick Pocket (L1)",
         "tag": "pickpocket",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2524,7 +2516,7 @@
       {
         "name": "Spot (L1)",
         "tag": "spot",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2534,7 +2526,7 @@
       {
         "name": "Stealth (L1)",
         "tag": "stealth",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2544,7 +2536,7 @@
       {
         "name": "Evasion",
         "tag": "evasion",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -2552,9 +2544,9 @@
         "allow": true
       },
       {
-        "name": "Backstab",
+        "name": "Sneak Attack",
         "tag": "sneakattack",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 2,
         "automaticallyLearned": false,
@@ -2564,7 +2556,7 @@
       {
         "name": "Two-Weapon Fighting (L1)",
         "tag": "twoweaponfighting1",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2574,7 +2566,7 @@
       {
         "name": "Stealth (L2)",
         "tag": "stealth2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2584,7 +2576,7 @@
       {
         "name": "Disable Device (L2)",
         "tag": "disabledevice2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2594,7 +2586,7 @@
       {
         "name": "Spot (L2)",
         "tag": "spot2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2604,7 +2596,7 @@
       {
         "name": "Critical Strike",
         "tag": "criticalstrike",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2614,7 +2606,7 @@
       {
         "name": "Pick Pocket (L2)",
         "tag": "pickpocket2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 3,
         "automaticallyLearned": false,
@@ -2624,7 +2616,7 @@
       {
         "name": "Bluff (L2)",
         "tag": "bluff2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2634,7 +2626,7 @@
       {
         "name": "Diplomacy (L2)",
         "tag": "diplomacy2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2644,7 +2636,7 @@
       {
         "name": "Improved Backstab",
         "tag": "improvedbackstab",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2654,7 +2646,7 @@
       {
         "name": "Two-Weapon Defense (L1)",
         "tag": "twoweapondefense1",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2664,7 +2656,7 @@
       {
         "name": "Two-Weapon Fighting (L2)",
         "tag": "twoweaponfighting2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 7,
         "automaticallyLearned": false,
@@ -2674,7 +2666,7 @@
       {
         "name": "Two-Weapon Defense (L2)",
         "tag": "twoweapondefense2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 8,
         "automaticallyLearned": false,
@@ -2942,7 +2934,7 @@
       {
         "name": "Bluff (L1)",
         "tag": "bluff",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2952,7 +2944,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -2962,7 +2954,7 @@
       {
         "name": "Diplomacy (L1)",
         "tag": "diplomacy",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -2972,7 +2964,7 @@
       {
         "name": "Bluff (L2)",
         "tag": "bluff2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -2982,7 +2974,7 @@
       {
         "name": "Diplomacy (L2)",
         "tag": "diplomacy2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,
@@ -3435,7 +3427,7 @@
       {
         "name": "Diplomacy (L1)",
         "tag": "diplomacy",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": false,
@@ -3445,7 +3437,7 @@
       {
         "name": "Bandage",
         "tag": "bandage",
-        "useableinsituation": "Passive",
+        "useableinsituation": "InCombat",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 1,
         "automaticallyLearned": true,
@@ -3455,7 +3447,7 @@
       {
         "name": "Diplomacy (L2)",
         "tag": "diplomacy2",
-        "useableinsituation": "Passive",
+        "useableinsituation": "Always",
         "associatedSpellTag": "none",
         "atWhatLevelIsAvailable": 4,
         "automaticallyLearned": false,

@@ -14632,6 +14632,7 @@ namespace IceBlink2
             if (tr != null)
             {
                 pc.knownTraitsTags.Add(tr.tag);
+                pc.numberOfTraitUsesLeftForToday.Add(gv.mod.getTraitByTag(tr.tag).numberOfUsesPerDay[pc.classLevel]);
                 //public string useableInSituation = "Always"; //InCombat, OutOfCombat, Always, Passive
 
                 //**************************************************************************
@@ -14688,6 +14689,7 @@ namespace IceBlink2
                         }
                         //pc.replacedTraitsOrSpellsByTag.Add(tr.traitToReplaceByTag);
                         pc.knownTraitsTags.RemoveAt(i);
+                        pc.numberOfTraitUsesLeftForToday.RemoveAt(i);
                     }
                 }
 
@@ -18600,7 +18602,95 @@ namespace IceBlink2
              }  
              return false;  
          }
-
+        public bool removeOneMirrorImageIfHasOne(Player pc, Creature crt)
+        {
+            if (pc != null)
+            {
+                //go through each effect and see if has a buff type like pointblankshot
+                foreach (Effect ef in pc.effectsList)
+                {
+                    if (ef.numberOfMirrorImagesLeft > 0)
+                    {
+                        ef.numberOfMirrorImagesLeft--;
+                        //check if need to remove mirror image effect
+                        if (ef.numberOfMirrorImagesLeft <= 0)
+                        {
+                            ef.numberOfMirrorImagesLeft = -1; //-1 flags this to be removed from effect list
+                        }
+                        return true;
+                    }
+                }
+            }
+            else if (crt != null)
+            {
+                //go through each effect and see if has a buff type like pointblankshot
+                foreach (Effect ef in crt.cr_effectsList)
+                {
+                    if (ef.numberOfMirrorImagesLeft > 0)
+                    {
+                        ef.numberOfMirrorImagesLeft--;
+                        //check if need to remove mirror image effect
+                        if (ef.numberOfMirrorImagesLeft <= 0)
+                        {
+                            ef.numberOfMirrorImagesLeft = -1; //-1 flags this to be removed from effect list
+                        }
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public int removeHitPointDamageAbsorptionIfHasAny(Player pc, Creature crt, int hpToRemove)
+        {
+            //return -1 if currently has no such effect
+            //return 0 if all damage was absoped
+            //return a number if some damage was absorped, but the remaining will come from pc/crt's HP
+            if (pc != null)
+            {
+                //go through each effect and see if has a buff type like pointblankshot
+                foreach (Effect ef in pc.effectsList)
+                {
+                    if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                    {
+                        ef.numberOfHitPointDamageAbsorptionLeft -= hpToRemove;
+                        if (ef.numberOfHitPointDamageAbsorptionLeft <= 0)
+                        {
+                            int toReturn = Math.Abs(ef.numberOfHitPointDamageAbsorptionLeft);
+                            ef.numberOfHitPointDamageAbsorptionLeft = -1; //-1 flags this to be removed from effect list
+                            //check if need to remove this effect
+                            return toReturn;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            else if (crt != null)
+            {
+                //go through each effect and see if has a buff type like pointblankshot
+                foreach (Effect ef in crt.cr_effectsList)
+                {
+                    if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                    {
+                        ef.numberOfHitPointDamageAbsorptionLeft -= hpToRemove;
+                        if (ef.numberOfHitPointDamageAbsorptionLeft < 0)
+                        {
+                            int toReturn = Math.Abs(ef.numberOfHitPointDamageAbsorptionLeft);
+                            ef.numberOfHitPointDamageAbsorptionLeft = -1; //-1 flags this to be removed from effect list
+                            //check if need to remove this effect
+                            return toReturn;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
         public int CalcPcRangedAttackModifier(Player pc)
          {  
              int preciseShotAdder = 0;
@@ -19062,6 +19152,18 @@ namespace IceBlink2
                 mod.WorldTime += mod.timePerStepAfterSpeedCalc;
             }
 
+            //check if new day midnight
+            int timeofday = gv.mod.WorldTime % (24 * 60);
+            int hour = timeofday / 60;
+            int minute = timeofday % 60;
+            if ((hour == 0) && (minute == 0))
+            {
+                foreach (Player pc in gv.mod.playerList)
+                {
+                    pc.resetAllUsesForToday(gv);
+                }
+            }
+
             foreach (Prop p in gv.mod.propsWaitingForRespawn)
             {
                 if (!gv.mod.currentArea.isOverviewMap)
@@ -19359,6 +19461,11 @@ namespace IceBlink2
 
         public void itForceRest()
         {
+            foreach (Player pc in gv.mod.playerList)
+            {
+                pc.resetAllUsesForToday(gv);
+            }
+
             if (gv.mod.useRationSystem)
             {
                 if (gv.mod.numberOfRationsRemaining > 0)
@@ -19384,6 +19491,7 @@ namespace IceBlink2
                             pc.sp = pc.spMax;
                         }
                     }
+
                     if (gv.mod.showRestMessagesInBox)
                     {
                         MessageBox(gv.mod.messageOnRest);
@@ -19427,8 +19535,13 @@ namespace IceBlink2
         }
 
         public void itForceRestNoRations()
-        {  
-             foreach (Player pc in mod.playerList)  
+        {
+            foreach (Player pc in gv.mod.playerList)
+            {
+                pc.resetAllUsesForToday(gv);
+            }
+
+            foreach (Player pc in mod.playerList)  
              {  
                  if (pc.hp > -20)  
                  {  
@@ -19449,6 +19562,10 @@ namespace IceBlink2
 
         public void itForceRestAndRaiseDead()
         {
+            foreach (Player pc in gv.mod.playerList)
+            {
+                pc.resetAllUsesForToday(gv);
+            }
             //MessageBox.Show("Heal Light Wounds");
             foreach (Player pc in mod.playerList)
             {
@@ -19468,6 +19585,11 @@ namespace IceBlink2
 
         public void itForceRestAndRaiseDeadRequireRations()
         {
+            foreach (Player pc in gv.mod.playerList)
+            {
+                pc.resetAllUsesForToday(gv);
+            }
+
             if (gv.mod.useRationSystem)
             {
                 if (gv.mod.numberOfRationsRemaining > 0)
@@ -21244,7 +21366,7 @@ namespace IceBlink2
         }
 
         //overloads for spells from enocunter triggers
-        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction, int casterLevel, bool remove)
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction, int casterLevel, bool remove, Trait thisTrait)
         {
 
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
@@ -21291,6 +21413,11 @@ namespace IceBlink2
                 sourceName = source.name;
                 if (!source.thisCastIsFreeOfCost)
                 {
+                    if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                    {
+                        int num = source.getUsesLeftTodayFromTraitTag(thisTrait.tag);
+                        source.setUsesLeftTodayFromTraitTag(thisTrait.tag, num - 1);
+                    }
                     source.sp -= thisSpell.costSP;
                     if (source.sp < 0) { source.sp = 0; }
                     if (source.hp > thisSpell.costHP)
@@ -22427,7 +22554,7 @@ namespace IceBlink2
             }
         }
 
-        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction)
+        public void spGeneric(Spell thisSpell, object src, object trg, bool outsideCombat, string logTextForCastAction, Trait thisTrait)
         {
            
             //Effect thisSpellEffect = gv.mod.getEffectByTag(thisSpell.spellEffectTag);
@@ -22474,6 +22601,11 @@ namespace IceBlink2
                 sourceName = source.name;
                 if (!source.thisCastIsFreeOfCost)
                 {
+                    if ((thisTrait != null) && (thisTrait.useNumberOfUsesPerDaySystem))
+                    {
+                        int num = source.getUsesLeftTodayFromTraitTag(thisTrait.tag);
+                        source.setUsesLeftTodayFromTraitTag(thisTrait.tag, num - 1);
+                    }
                     source.sp -= thisSpell.costSP;
                     if (source.sp < 0) { source.sp = 0; }
                     if (source.hp > thisSpell.costHP)
