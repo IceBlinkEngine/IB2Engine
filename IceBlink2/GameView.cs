@@ -31,6 +31,7 @@ namespace IceBlink2
 {
     public partial class GameView : IBForm
     {
+        public string version = "1.0.200";
         public SolidColorBrush scb;
         public bool textFormatSet = false;
         //this class is handled differently than Android version

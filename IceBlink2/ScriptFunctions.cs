@@ -16830,7 +16830,14 @@ namespace IceBlink2
             
             if (pc.playerClass.babTable.Length > 0)//SD_20131115
             {
-                pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
+                if (pc.playerClass.babTable.Length > pc.classLevel)
+                {
+                    pc.baseAttBonus = pc.playerClass.babTable[pc.classLevel] + CalcBABAdders(pc); //SD_20131115
+                }
+                else
+                {
+                    pc.baseAttBonus = pc.playerClass.babTable[pc.playerClass.babTable.Length - 1] + CalcBABAdders(pc);
+                }
             }
 
             int modifierFromSPRelevantAttribute = 0;
@@ -16875,8 +16882,15 @@ namespace IceBlink2
             pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc) + CalcModifierMaxSP(pc);
             pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc) + CalcModifierMaxHP(pc);
             if (pc.spMax < 0) { pc.spMax = 0; }
-            
-            pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
+
+            if (pc.playerClass.xpTable.Length > pc.classLevel)
+            {
+                pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
+            }
+            else
+            {
+                pc.XPNeeded = pc.playerClass.xpTable[pc.playerClass.xpTable.Length - 1];
+            }
 
             int dMod = (pc.dexterity - 10) / 2;
             int maxDex = CalcMaxDexBonus(pc);
@@ -16906,9 +16920,32 @@ namespace IceBlink2
         {
             if (!pc.playerClass.name.Equals("newClass"))
             {
-                pc.baseFortitude = pc.playerClass.baseFortitudeAtLevel[pc.classLevel];
-                pc.baseReflex = pc.playerClass.baseReflexAtLevel[pc.classLevel];
-                pc.baseWill = pc.playerClass.baseWillAtLevel[pc.classLevel];
+                if (pc.playerClass.baseFortitudeAtLevel.Length > pc.classLevel)
+                {
+                    pc.baseFortitude = pc.playerClass.baseFortitudeAtLevel[pc.classLevel];
+                }
+                else
+                {
+                    pc.baseFortitude = pc.playerClass.baseFortitudeAtLevel[pc.playerClass.baseFortitudeAtLevel.Length - 1];
+                }
+                
+                if (pc.playerClass.baseReflexAtLevel.Length > pc.classLevel)
+                {
+                    pc.baseReflex = pc.playerClass.baseReflexAtLevel[pc.classLevel];
+                }
+                else
+                {
+                    pc.baseReflex = pc.playerClass.baseReflexAtLevel[pc.playerClass.baseReflexAtLevel.Length - 1];
+                }
+                
+                if (pc.playerClass.baseWillAtLevel.Length > pc.classLevel)
+                {
+                    pc.baseWill = pc.playerClass.baseWillAtLevel[pc.classLevel];
+                }
+                else
+                {
+                    pc.baseWill = pc.playerClass.baseWillAtLevel[pc.playerClass.baseWillAtLevel.Length - 1];
+                }                
             }
         }
 
