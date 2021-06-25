@@ -354,7 +354,15 @@ namespace IceBlink2
         }
         public bool IsReadyToAdvanceLevel()
         {
-            XPNeeded = this.playerClass.xpTable[this.classLevel];
+            if (this.playerClass.xpTable.Length > this.classLevel)
+            {
+                this.XPNeeded = this.playerClass.xpTable[this.classLevel];
+            }
+            else
+            {
+                return false;
+            }
+            //XPNeeded = this.playerClass.xpTable[this.classLevel];
             if (this.XP >= XPNeeded)
             {
                 return true;
@@ -569,7 +577,23 @@ namespace IceBlink2
             int cnt = 0;
             foreach (string s in this.knownTraitsTags)
             {
-                numberOfTraitUsesLeftForToday[cnt] = gv.mod.getTraitByTag(s).numberOfUsesPerDay[this.classLevel];
+                try
+                {
+                    int sizeOfArray = gv.mod.getTraitByTag(s).numberOfUsesPerDay.Length;
+                    if (sizeOfArray > this.classLevel)
+                    {
+                        numberOfTraitUsesLeftForToday[cnt] = gv.mod.getTraitByTag(s).numberOfUsesPerDay[this.classLevel];
+                    }
+                    else if (sizeOfArray > 0)
+                    {
+                        numberOfTraitUsesLeftForToday[cnt] = gv.mod.getTraitByTag(s).numberOfUsesPerDay[sizeOfArray - 1];
+                    }
+                    else
+                    {
+                        numberOfTraitUsesLeftForToday[cnt] = 0;
+                    }
+                }
+                catch { }
                 cnt++;
             }
         }

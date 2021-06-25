@@ -144,6 +144,15 @@ namespace IceBlink2
                 btnModuleName.Text = moduleList[moduleIndex].moduleLabelName;
 	    	    drawLauncherControls();
 		    }
+
+            int pW = (int)((float)gv.screenWidth / 100.0f);
+            int pH = (int)((float)gv.screenHeight / 100.0f);
+                        
+            int textH = (int)gv.drawFontRegHeight;
+            int spacing = textH;            
+
+            //DRAW TEXT		
+            gv.DrawText("IB v" + gv.version, gv.screenWidth - (textH * 7), gv.screenHeight - (textH * 4));
         }
         public void drawLauncherControls()
 	    {    	
