@@ -17275,7 +17275,7 @@ namespace IceBlink2
                     height = width * 2;
                 }
                 
-                IbRect src = new IbRect(0, 0, width, height / 2);
+                IbRect src = new IbRect(0, 0, width, height);
 
                 //if ((creatureToAnimate != null) && (creatureToAnimate == crt))
                 if ((creatureToAnimate.Count > 0) && (creatureToAnimate.Contains(crt)))
