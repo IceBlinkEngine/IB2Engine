@@ -38,6 +38,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numHeight = new System.Windows.Forms.NumericUpDown();
             this.btnCustom = new System.Windows.Forms.Button();
+            this.lbl_version = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numWidth)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -182,12 +183,22 @@
             this.btnCustom.UseVisualStyleBackColor = true;
             this.btnCustom.Click += new System.EventHandler(this.btnCustom_Click);
             // 
+            // lbl_version
+            // 
+            this.lbl_version.AutoSize = true;
+            this.lbl_version.Location = new System.Drawing.Point(432, 230);
+            this.lbl_version.Name = "lbl_version";
+            this.lbl_version.Size = new System.Drawing.Size(62, 13);
+            this.lbl_version.TabIndex = 6;
+            this.lbl_version.Text = "IB v1.0.202";
+            // 
             // Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(497, 246);
             this.ControlBox = false;
+            this.Controls.Add(this.lbl_version);
             this.Controls.Add(this.btnCustom);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -206,6 +217,7 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -221,5 +233,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NumericUpDown numHeight;
         private System.Windows.Forms.Button btnCustom;
+        private System.Windows.Forms.Label lbl_version;
     }
 }

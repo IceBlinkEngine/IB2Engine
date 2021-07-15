@@ -226,7 +226,12 @@
     "knownSpellsTags": [
       "web"
     ],
-    "castChances": [],
+    "castChances": [
+      {
+        "Key": "web",
+        "Value": 0
+      }
+    ],
     "percentChanceToCastSpell": 100,
     "percentRequirementOfTargetInjuryForHealSpells": 50,
     "percentRequirementOfTargetSPLossForRestoreSPSpells": 50,

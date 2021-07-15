@@ -23,6 +23,7 @@ namespace IceBlink2
         {
             InitializeComponent();
             gv = g;
+            lbl_version.Text = "IB v" + gv.version;
             mainDirectory = Directory.GetCurrentDirectory();            
         }
 
