@@ -3,3 +3,5 @@
 //parm2 = (int) event number to enable/disable
 //parm3 = (bool) true = enable, false = disable
 //parm4 = not used
+
+//Note: works in encounter,too

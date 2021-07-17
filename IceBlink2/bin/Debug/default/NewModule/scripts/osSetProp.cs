@@ -11,3 +11,5 @@
 //c = isChaser
 //h = HasCollisions
 //i = enter image file name without extension
+
+//Note: works in encounter,too; thisProp will use the prop that this script is attached to in combat, too

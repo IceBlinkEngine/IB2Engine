@@ -3,3 +3,6 @@
 //parm2 = (bool) true = enable, false = disable
 //parm3 = not used
 //parm4 = not used
+
+//Note: works in encounter,too
+

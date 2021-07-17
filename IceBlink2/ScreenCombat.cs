@@ -5352,12 +5352,12 @@ namespace IceBlink2
             */
 
             updateStatsAllCreatures();
-            currentMoves = 0;
-            creatureMoves = 0;
+            
             //if (currentCombatMode != "cast")
             if ((!gv.cc.currentSelectedSpell.usesTurnToActivate && currentCombatMode == "cast") || currentCombatMode != "cast")
             {
-
+                currentMoves = 0;
+                creatureMoves = 0;
                 /*
                 while (animationSeqStack.Count > 0)
                 {

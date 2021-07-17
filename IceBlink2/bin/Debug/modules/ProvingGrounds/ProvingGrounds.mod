@@ -28,7 +28,8 @@
   ],
   "moduleConvosList": [
     "Jaden",
-    "Marissa"
+    "Marissa",
+    "Giver"
   ],
   "moduleLogicTreesList": [],
   "moduleIBScriptsList": [
@@ -163,7 +164,7 @@
   "MaxPartySize": 6,
   "moduleDescription": "This is a proving grounds for testing new features.",
   "moduleCredits": "<big><b>Proving Grounds</b></big><BR>\r\n<BR>\r\n-coding and art by <b>slowdive_fan</b><BR>\r\n<BR>\r\n-visit the forums for more info:<BR>\r\nwww.iceblinkengine.com/forums",
-  "nextIdNumber": 1388,
+  "nextIdNumber": 1391,
   "realTimeTimerLengthInMilliSeconds": 1500,
   "borderAreaSize": 0,
   "WorldTime": 0,
@@ -182,7 +183,7 @@
   "showAI": true,
   "showSpells": true,
   "useManualCombatCam": true,
-  "useCombatSmoothMovement": false,
+  "useCombatSmoothMovement": true,
   "useMathGridFade": false,
   "durationInStepsOfPartyLightItems": 250,
   "resistanceMaxValue": 85
