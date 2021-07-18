@@ -357,7 +357,7 @@ namespace IceBlink2
                 }
             }
             */
-            if (inventoryPageIndex == 0)
+            if (inventoryPageIndex >= 0)
             {
                 int insertCounter = 0;
 
