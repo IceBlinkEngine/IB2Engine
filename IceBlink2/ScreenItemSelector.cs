@@ -482,6 +482,7 @@ namespace IceBlink2
 	    {
             try
             {
+                if (btnInventoryLeft == null) { return; }
                 btnInventoryLeft.glowOn = false;
                 btnInventoryRight.glowOn = false;
                 btnInfo.glowOn = false;
@@ -1292,6 +1293,12 @@ namespace IceBlink2
             }
             else if (gv.cc.partyItemSlotIndex == 3) //Off Hand
             {
+                Item itm = gv.mod.getItemByResRef(GetCurrentlySelectedItemRefs().resref);
+                if ((itm != null) && (itm.twoHanded))
+                {
+                    gv.sf.MessageBoxHtml("Sorry, you may not equip a two-handed weapon in the off-hand slot.");
+                    return;
+                }
                 if (!pc.OffHandRefs.resref.Equals("none"))
                 {
                     gv.mod.partyInventoryRefsList.Add(pc.OffHandRefs.DeepCopy());

@@ -1361,6 +1361,7 @@ namespace IceBlink2
             int attackMod = 0;
             int attackModOffHand = 0;
             int modifier = 0;
+            int modifierOffHand = 0;
             /*
             if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
                     || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
@@ -1382,6 +1383,7 @@ namespace IceBlink2
                 }
                 */
                 modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, true);
+                modifierOffHand = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, false);
             }
             else //ranged weapon used
             {
@@ -1424,7 +1426,7 @@ namespace IceBlink2
             }  
 
             attackMod = modifier + pc.baseAttBonus + attackBonus + gv.sf.CalcAttackBonusesNoAmmo(pc, true) + gv.mod.poorVisionModifier;
-            attackModOffHand = modifier + pc.baseAttBonus + attackBonusOffHand + gv.sf.CalcAttackBonusesNoAmmo(pc, false) + gv.mod.poorVisionModifier;
+            attackModOffHand = modifierOffHand + pc.baseAttBonus + attackBonusOffHand + gv.sf.CalcAttackBonusesNoAmmo(pc, false) + gv.mod.poorVisionModifier;
 
             //3. Calculate damage with current weapon (numberOfDiceRolled, typeOfDieRolled, dammodifier)  
             int numberOfDiceRolled = 0;

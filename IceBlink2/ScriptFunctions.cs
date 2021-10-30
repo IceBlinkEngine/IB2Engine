@@ -11,6 +11,9 @@ namespace IceBlink2
         public Module mod;
         public string ActionToTake = "Attack";  //Attack, Cast, Move 
         public Spell SpellToCast = null;        //Spell that the creature is casting, make sure to null out after use
+        public Spell SpellToUseAfterMoveCloser = null; //Spell to use once the caster moves into range
+        public Coordinate CasterLocationAfterMoveCloser = new Coordinate(-1, -1);
+        public bool useMoveBeforeCastingSpell = false;
         public Prop ThisProp = null;            //Prop that is calling the current script, convo, or encounter when using 'thisProp' in script or convo, make sure to null out after use
         public Creature ThisCreature = null;    //Creature that is calling the current script, when using 'thisCreature' in script, make sure to null out after use
         public object CombatTarget = null;
@@ -16877,12 +16880,18 @@ namespace IceBlink2
                 }
             }
 
-            int cMod = (pc.constitution - 10) / 2;
-            int iMod = modifierFromSPRelevantAttribute;
-            pc.spMax = pc.playerClass.startingSP + iMod + ((pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod)) + CalcAttributeModifierSpMax(pc) + CalcModifierMaxSP(pc);
-            pc.hpMax = pc.playerClass.startingHP + cMod + ((pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod)) + CalcAttributeModifierHpMax(pc) + CalcModifierMaxHP(pc);
+            
+            int iMod = modifierFromSPRelevantAttribute;            
+            int startSP = pc.playerClass.startingSP + iMod;
+            int levelSP = (pc.classLevel - 1) * (pc.playerClass.spPerLevelUp + iMod);
+            pc.spMax = startSP + levelSP + CalcEffectsModifierSpMax(pc) + CalcItemModifierMaxSP(pc);
             if (pc.spMax < 0) { pc.spMax = 0; }
 
+            int cMod = (pc.constitution - 10) / 2;
+            int startHP = pc.playerClass.startingHP + cMod;
+            int levelHP = (pc.classLevel - 1) * (pc.playerClass.hpPerLevelUp + cMod);
+            pc.hpMax = startHP + levelHP + CalcEffectsModifierHpMax(pc) + CalcItemModifierMaxHP(pc);
+            
             if (pc.playerClass.xpTable.Length > pc.classLevel)
             {
                 pc.XPNeeded = pc.playerClass.xpTable[pc.classLevel];
@@ -17107,19 +17116,10 @@ namespace IceBlink2
         }
         */
 
-        public int CalcAttributeModifierHpMax(Player pc)
+        public int CalcEffectsModifierHpMax(Player pc)
         {
             int hpMaxBonuses = 0;
-            /*
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
-            */
+            
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -17142,19 +17142,10 @@ namespace IceBlink2
             return hpMaxBonuses;
         }
 
-        public int CalcAttributeModifierSpMax(Player pc)
+        public int CalcEffectsModifierSpMax(Player pc)
         {
             int spMaxBonuses = 0;
-            /*
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.MainHandRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.OffHandRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.RingRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.HeadRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).savingThrowModifierReflex;
-            hpMaxBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).savingThrowModifierReflex;
-            */
+            
             int highestNonStackable = -99;
             foreach (Effect ef in pc.effectsList)
             {
@@ -17311,7 +17302,7 @@ namespace IceBlink2
             return attBonuses;
         }
 
-        public int CalcModifierMaxHP(Player pc)
+        public int CalcItemModifierMaxHP(Player pc)
         {
             int attBonuses = 0;
             attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).modifierMaxHP;
@@ -17322,30 +17313,11 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxHP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxHP;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxHP;
-            int highestNonStackable = -99;
-            foreach (Effect ef in pc.effectsList)
-            {
-                if (isPassiveTraitApplied(ef, pc))
-                {
-                    if (ef.isStackableEffect)
-                    {
-                        attBonuses += ef.modifyHpMax;
-                    }
-                    else
-                    {
-                        if ((ef.modifyHpMax != 0) && (ef.modifyHpMax > highestNonStackable))
-                        {
-                            highestNonStackable = ef.modifyHpMax;
-                        }
-                    }
-                }
-            }
-            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxHP;            
             return attBonuses;
         }
 
-        public int CalcModifierMaxSP(Player pc)
+        public int CalcItemModifierMaxSP(Player pc)
         {
             int attBonuses = 0;
             attBonuses += mod.getItemByResRefForInfo(pc.BodyRefs.resref).modifierMaxSP;
@@ -17356,26 +17328,7 @@ namespace IceBlink2
             attBonuses += mod.getItemByResRefForInfo(pc.GlovesRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.NeckRefs.resref).modifierMaxSP;
             attBonuses += mod.getItemByResRefForInfo(pc.Ring2Refs.resref).modifierMaxSP;
-            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxSP;
-            int highestNonStackable = -99;
-            foreach (Effect ef in pc.effectsList)
-            {
-                if (isPassiveTraitApplied(ef, pc))
-                {
-                    if (ef.isStackableEffect)
-                    {
-                        attBonuses += ef.modifySpMax;
-                    }
-                    else
-                    {
-                        if ((ef.modifySpMax != 0) && (ef.modifySpMax > highestNonStackable))
-                        {
-                            highestNonStackable = ef.modifySpMax;
-                        }
-                    }
-                }
-            }
-            if (highestNonStackable > -99) { attBonuses = highestNonStackable; }
+            attBonuses += mod.getItemByResRefForInfo(pc.FeetRefs.resref).modifierMaxSP;            
             return attBonuses;
         }
 
@@ -17834,6 +17787,48 @@ namespace IceBlink2
             }
             if (highestNonStackable > -99) { adder = highestNonStackable; }
             return adder;
+        }
+        public int CalcEffectsBABForMeleeAdders(Player pc)
+        {
+            int adder = 0;
+            int highestNonStackable = -99;
+            foreach (Effect ef in pc.effectsList)
+            {
+                if (isPassiveTraitApplied(ef, pc))
+                {
+                    if (ef.isStackableEffect)
+                    {
+                        adder += ef.babModifierForMeleeAttack;
+                    }
+                    else
+                    {
+                        if ((ef.babModifierForMeleeAttack != 0) && (ef.babModifierForMeleeAttack > highestNonStackable))
+                        {
+                            highestNonStackable = ef.babModifierForMeleeAttack;
+                        }
+                    }
+                }
+            }
+            if (highestNonStackable > -99) { adder = highestNonStackable; }
+            return adder;
+        }
+        public int CalcTotalEffectBABModifier(Player pc)
+        {
+            int babEffectsMod = CalcBABAdders(pc); //author may have used this property
+            int babEffectsForMeleeMod = CalcEffectsBABForMeleeAdders(pc); //or the author may have used this property
+            
+            if ((babEffectsMod == 0) && (babEffectsForMeleeMod != 0)) //checking to see which property author used
+            {
+               return babEffectsForMeleeMod;
+            }
+            else if ((babEffectsMod != 0) && (babEffectsForMeleeMod == 0))
+            {
+                return babEffectsMod;
+            }
+            else
+            {
+                return 0;
+            }
         }
         public int CalcACModifiers(Player pc)
         {
@@ -21811,7 +21806,17 @@ namespace IceBlink2
                                         wasDeadAlready = true;
                                     }
 
+                                    //check if has damage absorption
+                                    int ret = this.removeHitPointDamageAbsorptionIfHasAny(null, crt, damageTotal);
+                                    if (ret != -1)
+                                    {
+                                        int absorbed = damageTotal - ret;
+                                        damageTotal = ret;
+                                        gv.cc.addLogText("<font color='red'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                                    }
+
                                     crt.hp -= damageTotal;
+                                    
                                     if (crt.hp <= 0 && !wasDeadAlready)
                                     {
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
@@ -22307,7 +22312,17 @@ namespace IceBlink2
                                         }
                                     }
 
+                                    //check if has damage absorption
+                                    int ret = this.removeHitPointDamageAbsorptionIfHasAny(pc, null, damageTotal);
+                                    if (ret != -1)
+                                    {
+                                        int absorbed = damageTotal - ret;
+                                        damageTotal = ret;
+                                        gv.cc.addLogText("<font color='green'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                                    }
+
                                     pc.hp -= damageTotal;
+                                    
                                     if (pc.hp <= 0)
                                     {
                                         if (pc.hp <= -20)
@@ -23082,7 +23097,17 @@ namespace IceBlink2
                                         wasDeadAlready = true;
                                     }
 
+                                    //check if has damage absorption
+                                    int ret = this.removeHitPointDamageAbsorptionIfHasAny(null, crt, damageTotal);
+                                    if (ret != -1)
+                                    {
+                                        int absorbed = damageTotal - ret;
+                                        damageTotal = ret;
+                                        gv.cc.addLogText("<font color='red'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                                    }
+
                                     crt.hp -= damageTotal;
+                                    
                                     if (crt.hp <= 0 && !wasDeadAlready)
                                     {
                                         //gv.screenCombat.deathAnimationLocations.Add(new Coordinate(crt.combatLocX, crt.combatLocY));
@@ -23684,7 +23709,17 @@ namespace IceBlink2
                                         }
                                     }
 
+                                    //check if has damage absorption
+                                    int ret = this.removeHitPointDamageAbsorptionIfHasAny(pc, null, damageTotal);
+                                    if (ret != -1)
+                                    {
+                                        int absorbed = damageTotal - ret;
+                                        damageTotal = ret;
+                                        gv.cc.addLogText("<font color='green'>" + "(absorbed " + absorbed + " damage)</font><BR>");
+                                    }
+
                                     pc.hp -= damageTotal;
+                                    
                                     if (pc.hp <= 0)
                                     {
                                         if (pc.hp <= -20)

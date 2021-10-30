@@ -2631,13 +2631,79 @@
     "sp": 50,
     "AC": 13,
     "knownSpellsTags": [
-      "mageBolt",
-      "mageArmor",
-      "web",
+      "bless",
+      "cureminorwounds",
+      "fireball",
+      "greatermirrorimage",
+      "hold",
       "iceStorm",
-      "hold"
+      "lightning",
+      "mageArmor",
+      "mageBolt",
+      "masscureminorwounds",
+      "sleep",
+      "stinkingcloud",
+      "StoneSkin",
+      "web"
     ],
-    "castChances": [],
+    "castChances": [
+      {
+        "Key": "hold",
+        "Value": 0
+      },
+      {
+        "Key": "iceStorm",
+        "Value": 0
+      },
+      {
+        "Key": "mageArmor",
+        "Value": 0
+      },
+      {
+        "Key": "mageBolt",
+        "Value": 0
+      },
+      {
+        "Key": "web",
+        "Value": 0
+      },
+      {
+        "Key": "fireball",
+        "Value": 0
+      },
+      {
+        "Key": "greatermirrorimage",
+        "Value": 0
+      },
+      {
+        "Key": "lightning",
+        "Value": 0
+      },
+      {
+        "Key": "masscureminorwounds",
+        "Value": 0
+      },
+      {
+        "Key": "sleep",
+        "Value": 0
+      },
+      {
+        "Key": "stinkingcloud",
+        "Value": 0
+      },
+      {
+        "Key": "StoneSkin",
+        "Value": 0
+      },
+      {
+        "Key": "cureminorwounds",
+        "Value": 0
+      },
+      {
+        "Key": "bless",
+        "Value": 0
+      }
+    ],
     "percentChanceToCastSpell": 100,
     "percentRequirementOfTargetInjuryForHealSpells": 50,
     "percentRequirementOfTargetSPLossForRestoreSPSpells": 50,
@@ -2708,7 +2774,20 @@
       "hold",
       "massMinorHealing"
     ],
-    "castChances": [],
+    "castChances": [
+      {
+        "Key": "blastOfLight",
+        "Value": 0
+      },
+      {
+        "Key": "hold",
+        "Value": 0
+      },
+      {
+        "Key": "massMinorHealing",
+        "Value": 0
+      }
+    ],
     "percentChanceToCastSpell": 100,
     "percentRequirementOfTargetInjuryForHealSpells": 50,
     "percentRequirementOfTargetSPLossForRestoreSPSpells": 50,

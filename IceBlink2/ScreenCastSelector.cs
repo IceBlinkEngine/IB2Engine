@@ -545,6 +545,7 @@ namespace IceBlink2
         }
         public void onTouchCastSelector(MouseEventArgs e, MouseEventType.EventType eventType, bool inCombat)
 	    {
+            if (btnHelp == null) { return; }
 		    btnHelp.glowOn = false;
 		    btnExit.glowOn = false;
 		    btnSelect.glowOn = false;

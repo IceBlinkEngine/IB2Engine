@@ -77,7 +77,7 @@ namespace IceBlink2
 	    public int cr_attRange = 1;
 	    public int cr_damageNumDice = 1; //number of dice to roll for damage
 	    public int cr_damageDie = 4; //type of dice to roll for damage
-	    public int cr_damageAdder = 0;
+	    public int damageAdder = 0;
 	    public string cr_category = "Melee"; //catergory type (Ranged, Melee)
 	    public string cr_projSpriteFilename = "none"; //sprite filename including .spt
 	    public string cr_spriteEndingFilename = "none"; //sprite to use for end effect of projectiles
@@ -212,7 +212,7 @@ namespace IceBlink2
 		    copy.cr_attRange = this.cr_attRange;
 		    copy.cr_damageNumDice = this.cr_damageNumDice;
 		    copy.cr_damageDie = this.cr_damageDie;
-		    copy.cr_damageAdder = this.cr_damageAdder;
+		    copy.damageAdder = this.damageAdder;
 		    copy.cr_category = this.cr_category;
 		    copy.cr_projSpriteFilename = this.cr_projSpriteFilename;
 		    copy.cr_spriteEndingFilename = this.cr_spriteEndingFilename;
@@ -569,23 +569,23 @@ namespace IceBlink2
              int highestNonStackable = -99;  
              foreach (Effect ef in this.cr_effectsList)  
              {
-                    if (ef.isStackableEffect)
-                        {
-         moveBonuses += ef.modifyMoveDistance;
-                        }
-                    else  
+                 if (ef.isStackableEffect)
                  {
-                            if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
-                                {
-             highestNonStackable = ef.modifyMoveDistance;
-                                }
-                        }
-                }  
+                     moveBonuses += ef.modifyMoveDistance;
+                 }
+                 else
+                 {
+                     if ((ef.modifyMoveDistance != 0) && (ef.modifyMoveDistance > highestNonStackable))
+                     {
+                         highestNonStackable = ef.modifyMoveDistance;
+                     }
+                 }
+             }
              if (highestNonStackable > -99) { moveBonuses = highestNonStackable; }  
    
-             int moveDist = this.moveDistance + moveBonuses;  
-             if (moveDist < 0) { moveDist = 0; }  
-             return moveDist;  
+             int moveDist = this.moveDistance + moveBonuses;
+             if (moveDist < 0) { moveDist = 0; }
+             return moveDist;
          }  
          public int getAc()
          {  

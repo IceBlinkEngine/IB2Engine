@@ -132,6 +132,7 @@ namespace IceBlink2
         public string currentCombatMode = "info"; //info, move, cast, attack
         public Coordinate targetHighlightCenterLocation = new Coordinate();
         public Coordinate creatureTargetLocation = new Coordinate();
+        public List<Coordinate> currentCreaturePathNodes = new List<Coordinate>();
         public int encounterXP = 0;
         private List<Creature> creatureToAnimate = new List<Creature>();
         private Player playerToAnimate = null;
@@ -179,11 +180,45 @@ namespace IceBlink2
         public int attackAnimationTimeElapsed = 0;
         public int attackAnimationLengthInMilliseconds = 250;
 
+        //D20 SCREEN
+        public IbbButton btnD20RollReturn = null;
+        public int d20ScreenImageWidth = 0;
+        public int d20ScreenImageHeight = 0;
+        public int d20ScreenWidth = 344;
+        public int d20ScreenHeight = 220;
+        public int d20ScreenTopX = 10;
+        public int d20ScreenTopY = 20;
+        public int d20X = 0;
+        public int d20Y = 0;
+        public Creature currentCreatureBeingAttacked = null;
+        public Player currentPlayerAttacking = null;
+        public bool useD20Screen = false;
+        public bool showD20Screen = false;
+        public bool d20AnimationOn = false;
+        public int d20AnimationTimeElapsed = 0;
+        public int d20AnimationLengthInMilliseconds = 250;
+        public int attackRollResult = 0;
+        public int critAttackRollResult = 0;
+        private IbbHtmlTextBox pcAttackInfo;
+        private IbbHtmlTextBox crtDefendInfo;
+        public int remainingNumberAttacks = 0;
+        public bool currentAttackIsMainHand = true;
+        public bool madeEndTurnAction = false;
+        public int indexOfD20Image = 0;
+        public string PosText = "";
+        public string BtnHoverText = "";
+
         public ScreenCombat(Module m, GameView g)
         {
             //mod = m;
             gv = g;
             mapStartLocXinPixels = 0 * gv.squareSize;
+            d20ScreenImageWidth = gv.cc.GetFromBitmapList("ui_bg_fullscreen").PixelSize.Width;
+            d20ScreenImageHeight = gv.cc.GetFromBitmapList("ui_bg_fullscreen").PixelSize.Height;
+            pcAttackInfo = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            pcAttackInfo.showBoxBorder = false;
+            crtDefendInfo = new IbbHtmlTextBox(gv, 320, 100, 500, 300);
+            crtDefendInfo.showBoxBorder = false;
             loadMainUILayout();
             //CalculateUpperLeft();
             //setControlsStart();
@@ -269,6 +304,9 @@ namespace IceBlink2
                         }
                     }
                 }
+                createD20Panel();
+                //useD20Screen = tglD20.toggleOn;
+
             }
             catch (Exception ex)
             {
@@ -508,6 +546,30 @@ namespace IceBlink2
                 tglSoundFx.toggleOn = false;
             }
         }*/
+        public void createD20Panel()
+        {
+            d20ScreenWidth = (int)(gv.squareSize * 10);
+            d20ScreenHeight = (int)(gv.squareSize * 7);
+            d20ScreenTopX = (int)(gv.squareSize * 4);
+            d20ScreenTopY = (int)(gv.squareSize * 2);
+
+            d20X = (int)(d20ScreenTopX) + (int)((d20ScreenWidth) / 2) - (int)(gv.squareSize);
+            d20Y = (int)(d20ScreenTopY) + (int)(gv.squareSize);
+
+            if (btnD20RollReturn == null)
+            {
+                btnD20RollReturn = new IbbButton(gv, 1.0f);
+            }
+            btnD20RollReturn.Img = gv.cc.LoadBitmap("btn_large");
+            btnD20RollReturn.Glow = gv.cc.LoadBitmap("btn_large_glow");
+            btnD20RollReturn.Text = "ROLL (ENTER)";
+            //btnD20RollReturn.Height = (int)(gv.ibbheight);
+            //btnD20RollReturn.Width = (int)(gv.ibbwidthL);
+            btnD20RollReturn.Height = (int)(gv.ibbheight * gv.screenDensity);
+            btnD20RollReturn.Width = (int)(gv.ibbwidthL * gv.screenDensity);
+            btnD20RollReturn.X = (int)(d20ScreenTopX) + (int)((d20ScreenWidth) / 2) - (int)((gv.ibbwidthL * gv.screenDensity) / 2);
+            btnD20RollReturn.Y = (int)(d20ScreenTopY) + (int)(d20ScreenHeight) - (int)(gv.ibbheight * gv.screenDensity) - (int)((gv.ibbheight * gv.screenDensity / 4));
+        }
         public void tutorialMessageCombat(bool helpCall)
         {
             if ((gv.mod.showTutorialCombat) || (helpCall))
@@ -4840,6 +4902,22 @@ namespace IceBlink2
                 Player pc = gv.mod.playerList[currentPlayerIndex];
                 gv.sf.UpdateStats(pc);
                 currentMoves = 0;
+
+                //**** D20 ADDITIONS *****
+                remainingNumberAttacks = gv.sf.CalcNumberOfAttacks(pc);
+                if (remainingNumberAttacks < 1)
+                {
+                    remainingNumberAttacks = 0;
+                }
+                // if has off hand weapon, add one more attack
+                if (hasWeaponInOffHand(pc))
+                {
+                    remainingNumberAttacks++;
+                }
+                currentAttackIsMainHand = true;
+                madeEndTurnAction = false;
+                //***** END D20 ADDITIONS *****
+
                 if (gv.mod.currentEncounter.onlyOneMoveModifier)
                 {
                     currentMoves = pc.moveDistance - 1.5f;
@@ -4885,6 +4963,340 @@ namespace IceBlink2
                 }
             }
         }
+        public void doCombatAttackGate(Player pc)
+        {
+            if (remainingNumberAttacks < 1) { return; }
+            if (hasWeaponInOffHand(pc))
+            {
+                if (remainingNumberAttacks == 1)
+                {
+                    currentAttackIsMainHand = false;
+                }
+            }
+            if (useD20Screen) //use the new d20 system
+            {
+                //createD20Panel();
+                doCombatAttackRollSetup(pc);
+            }
+            else //use the old system
+            {
+                attackRollResult = gv.sf.RandInt(20);
+                critAttackRollResult = gv.sf.RandInt(20);
+
+                gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
+                if (isValidAttackTarget(pc))
+                {
+                    if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                    {
+                        pc.combatFacingLeft = true;
+                    }
+                    else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                    {
+                        pc.combatFacingLeft = false;
+                    }
+                    doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                    gv.touchEnabled = false;
+                    creatureToAnimate.Clear();
+                    playerToAnimate = pc;
+                    //set attack animation and do a delay
+                    attackAnimationTimeElapsed = 0;
+                    attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                    //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)pc.token.PixelSize.Height / 100f));
+                    //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
+                    if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                            || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                            || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                    {
+                        //do melee attack stuff and animations  
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        doCombatAttack(pc);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+                        animationsOn = true;
+                    }
+                    else //Ranged Attack
+                    {
+                        //play attack sound for ranged
+                        gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                        //do ranged attack stuff and animations
+                        //add projectile animation
+                        int startX = getPixelLocX(pc.combatLocX);
+                        int startY = getPixelLocY(pc.combatLocY);
+                        int endX = getPixelLocX(targetHighlightCenterLocation.X);
+                        int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                        string filename = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
+                        AnimationSequence newSeq = new AnimationSequence();
+                        animationSeqStack.Add(newSeq);
+                        AnimationStackGroup newGroup = new AnimationStackGroup();
+                        newSeq.AnimationSeq.Add(newGroup);
+                        launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                        //add ending projectile animation  
+                        doCombatAttack(pc);
+                        //add hit or miss animation
+                        //add floaty text
+                        //add death animations
+                        newGroup = new AnimationStackGroup();
+                        animationSeqStack[0].AnimationSeq.Add(newGroup);
+                        foreach (Coordinate coor in deathAnimationLocations)
+                        {
+                            if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                            {
+                                continue;
+                            }
+                            addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                        }
+                        animationsOn = true;
+                    }
+                }
+
+                /*if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.combatFacingLeft = false;
+                }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                gv.touchEnabled = false;
+                creatureToAnimate = null;
+                playerToAnimate = pc;
+                //set attack animation and do a delay
+                attackAnimationTimeElapsed = 0;
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
+                if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none")))
+                {
+                    //do melee attack stuff and animations  
+                    AnimationSequence newSeq = new AnimationSequence();
+                    animationSeqStack.Add(newSeq);
+                    doCombatAttack(pc);
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations
+                    AnimationStackGroup newGroup = new AnimationStackGroup();
+                    animationSeqStack[0].AnimationSeq.Add(newGroup);
+                    foreach (Coordinate coor in deathAnimationLocations)
+                    {
+                        addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                    }
+                    animationsOn = true;
+                }
+                else //Ranged Attack
+                {
+                    //play attack sound for ranged
+                    gv.PlaySound(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    //do ranged attack stuff and animations
+                    //add projectile animation
+                    int startX = getPixelLocX(pc.combatLocX);
+                    int startY = getPixelLocY(pc.combatLocY);
+                    int endX = getPixelLocX(targetHighlightCenterLocation.X);
+                    int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                    string filename = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).projectileSpriteFilename;
+                    AnimationSequence newSeq = new AnimationSequence();
+                    animationSeqStack.Add(newSeq);
+                    AnimationStackGroup newGroup = new AnimationStackGroup();
+                    newSeq.AnimationSeq.Add(newGroup);
+                    launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                    //add ending projectile animation  
+                    doCombatAttack(pc);
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations
+                    newGroup = new AnimationStackGroup();
+                    animationSeqStack[0].AnimationSeq.Add(newGroup);
+                    foreach (Coordinate coor in deathAnimationLocations)
+                    {
+                        addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                    }
+                    animationsOn = true;
+                }*/
+            }
+        }
+
+        #region D20 Additions
+        public void doCombatAttackRollSetup(Player pc)
+        {
+            showD20Screen = true;
+            btnD20RollReturn.Text = "ROLL (ENTER)";
+            //setup the Player doing the attack for the draw routine to use
+            currentPlayerAttacking = pc;
+            //determine the Creature being attacked for the draw routine to use
+            foreach (Creature crt in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                foreach (Coordinate coor in crt.tokenCoveredSquares)
+                {
+                    if ((coor.X == targetHighlightCenterLocation.X) && (coor.Y == targetHighlightCenterLocation.Y))
+                    {
+                        currentCreatureBeingAttacked = crt;
+                    }
+                }
+            }
+        }
+        public void doCombatAttackRoll()
+        {
+            btnD20RollReturn.Text = "RETURN (ENTER)"; //RETURN
+            //do actual attack roll here and store for other methods to use
+            attackRollResult = gv.sf.RandInt(20);
+            critAttackRollResult = gv.sf.RandInt(20);
+        }
+        public void doFinishD20Roll()
+        {
+            Player pc = currentPlayerAttacking;
+            gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
+            if (isValidAttackTarget(pc))
+            {
+                if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+                {
+                    pc.combatFacingLeft = true;
+                }
+                else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+                {
+                    pc.combatFacingLeft = false;
+                }
+                doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+                gv.touchEnabled = false;
+                creatureToAnimate.Clear();
+                playerToAnimate = pc;
+                //set attack animation and do a delay
+                attackAnimationTimeElapsed = 0;
+                attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.attackAnimationSpeed);
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) * (-1 + (int)pc.token.PixelSize.Height / 100f));
+                //attackAnimationLengthInMilliseconds = (int)((5f * gv.mod.attackAnimationSpeed) + (-1 + (int)pc.token.PixelSize.Height / 100f) * 100);
+                if ((gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                        || (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none"))
+                        || (gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).name.Equals("none")))
+                {
+                    //do melee attack stuff and animations  
+                    AnimationSequence newSeq = new AnimationSequence();
+                    animationSeqStack.Add(newSeq);
+                    doCombatAttack(pc);
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations
+                    AnimationStackGroup newGroup = new AnimationStackGroup();
+                    animationSeqStack[0].AnimationSeq.Add(newGroup);
+                    foreach (Coordinate coor in deathAnimationLocations)
+                    {
+                        if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                        {
+                            continue;
+                        }
+                        addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                    }
+                    animationsOn = true;
+                }
+                else //Ranged Attack
+                {
+                    //play attack sound for ranged
+                    gv.PlaySound(gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                    //do ranged attack stuff and animations
+                    //add projectile animation
+                    int startX = getPixelLocX(pc.combatLocX);
+                    int startY = getPixelLocY(pc.combatLocY);
+                    int endX = getPixelLocX(targetHighlightCenterLocation.X);
+                    int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                    string filename = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).projectileSpriteFilename;
+                    AnimationSequence newSeq = new AnimationSequence();
+                    animationSeqStack.Add(newSeq);
+                    AnimationStackGroup newGroup = new AnimationStackGroup();
+                    newSeq.AnimationSeq.Add(newGroup);
+                    launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                    //add ending projectile animation  
+                    doCombatAttack(pc);
+                    //add hit or miss animation
+                    //add floaty text
+                    //add death animations
+                    newGroup = new AnimationStackGroup();
+                    animationSeqStack[0].AnimationSeq.Add(newGroup);
+                    foreach (Coordinate coor in deathAnimationLocations)
+                    {
+                        if (!IsInVisibleCombatWindow(coor.X, coor.Y))
+                        {
+                            continue;
+                        }
+                        addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                    }
+                    animationsOn = true;
+                }
+            }
+            /*if ((targetHighlightCenterLocation.X < pc.combatLocX) && (!pc.combatFacingLeft)) //attack left
+            {
+                pc.combatFacingLeft = true;
+            }
+            else if ((targetHighlightCenterLocation.X > pc.combatLocX) && (pc.combatFacingLeft)) //attack right
+            {
+                pc.combatFacingLeft = false;
+            }
+            doPlayerCombatFacing(pc, targetHighlightCenterLocation.X, targetHighlightCenterLocation.Y);
+            gv.touchEnabled = false;
+            creatureToAnimate = null;
+            playerToAnimate = pc;
+            //set attack animation and do a delay
+            attackAnimationTimeElapsed = 0;
+            attackAnimationLengthInMilliseconds = (int)(5f * gv.mod.combatAnimationSpeed);
+            if ((gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee"))
+                    || (gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).name.Equals("none")))
+            {
+                //do melee attack stuff and animations  
+                AnimationSequence newSeq = new AnimationSequence();
+                animationSeqStack.Add(newSeq);
+                doCombatAttack(pc);
+                //add hit or miss animation
+                //add floaty text
+                //add death animations
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in deathAnimationLocations)
+                {
+                    addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                }
+                animationsOn = true;
+            }
+            else //Ranged Attack
+            {
+                //play attack sound for ranged
+                gv.PlaySound(gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).itemOnUseSound);
+                //do ranged attack stuff and animations
+                //add projectile animation
+                int startX = getPixelLocX(pc.combatLocX);
+                int startY = getPixelLocY(pc.combatLocY);
+                int endX = getPixelLocX(targetHighlightCenterLocation.X);
+                int endY = getPixelLocY(targetHighlightCenterLocation.Y);
+                string filename = gv.cc.getItemByResRefForInfo(pc.MainHandRefs.resref).projectileSpriteFilename;
+                AnimationSequence newSeq = new AnimationSequence();
+                animationSeqStack.Add(newSeq);
+                AnimationStackGroup newGroup = new AnimationStackGroup();
+                newSeq.AnimationSeq.Add(newGroup);
+                launchProjectile(filename, startX, startY, endX, endY, newGroup);
+                //add ending projectile animation  
+                doCombatAttack(pc);
+                //add hit or miss animation
+                //add floaty text
+                //add death animations
+                newGroup = new AnimationStackGroup();
+                animationSeqStack[0].AnimationSeq.Add(newGroup);
+                foreach (Coordinate coor in deathAnimationLocations)
+                {
+                    addDeathAnimation(newGroup, new Coordinate(getPixelLocX(coor.X), getPixelLocY(coor.Y)));
+                }
+                animationsOn = true;
+            }*/
+        }
+        #endregion
+
         public void doCombatAttack(Player pc)
         {
             //requiredWeaponTypesToHarmCreature
@@ -4922,17 +5334,16 @@ namespace IceBlink2
                         {
                             int attResult = 0; //0=missed, 1=hit, 2=killed
                             bool attResultHit = false;
-                            int numAtt = 1;
+                            //int numAtt = 1;
                             int crtLocX = crt.combatLocX;
                             int crtLocY = crt.combatLocY;
 
                             //if ((gv.sf.hasTrait(pc, "twoAttack")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
-                            numAtt = gv.sf.CalcNumberOfAttacks(pc);
-                            if (numAtt < 1)
-                            {
-                                //???
-                                numAtt = 1;
-                            }
+                            //D20 numAtt = gv.sf.CalcNumberOfAttacks(pc);
+                            //D20 if (numAtt < 1)
+                            //D20 {
+                            //D20   numAtt = 1;
+                            //D20 }
                             //if ((gv.sf.hasTrait(pc, "rapidshot")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Ranged")))
 
                             //reset the already targeted creatures list  
@@ -4964,57 +5375,67 @@ namespace IceBlink2
                             {
                                 //if ((gv.sf.hasTrait(pc, "cleave")) && (gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).category.Equals("Melee")))
                                 int numCleave = gv.sf.CalcNumberOfCleaveAttackTargets(pc);
-                                for (int i = 0; i < numAtt; i++)
+                                //D20 for (int i = 0; i < numAtt; i++)
+                                //D20 {
+                                //D20 ADDITIONS
+                                if ((hasWeaponInOffHand(pc)) && (remainingNumberAttacks == 1))
                                 {
-                                    //do cleave attacks if any                          
-                                    if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
+                                    if (!currentAttackIsMainHand)
                                     {
-                                        attResult = doActualCombatAttack(pc, crt, i, true);
+                                        attResult = doActualCombatAttack(pc, crt, 1, false);
                                         if (attResult > 0) { attResultHit = true; }
-                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
-                                        {
-                                            for (int j = 0; j < numCleave; j++)
-                                            {
-                                                Creature crt2 = GetNextAdjacentCreature(pc);
-                                                if (crt2 != null && crt2 != crt)
-                                                {
-                                                    crtLocX = crt2.combatLocX;
-                                                    crtLocY = crt2.combatLocY;
-                                                    gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
-                                                    int attResult2 = doActualCombatAttack(pc, crt2, i, true);
-                                                    if (attResult2 > 0) { attResultHit = true; }
-                                                    if (attResult2 != 2)
-                                                    {
-                                                        //didn't kill this creature so stop with the cleaves  
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            break; //do not try and attack same creature that was just killed  
-
-                                        }
-
-                                    }
-
-
-                                    else
-                                    {
-                                        attResult = doActualCombatAttack(pc, crt, i, true);
-                                        if (attResult > 0) { attResultHit = true; }
-                                        if (attResult == 2) //2=killed, 1=hit, 0=missed  
-                                        {
-                                            break; //do not try and attack same creature that was just killed  
-                                        }
                                     }
                                 }
-                                if (hasWeaponInOffHand(pc))
+                                //END D20 ADDITIONS
+                                //do cleave attacks if any                          
+                                else if ((numCleave > 0) && (gv.sf.isMeleeAttack(pc)))
+                                {
+                                    attResult = doActualCombatAttack(pc, crt, 1, true);
+                                    //attResult = doActualCombatAttack(pc, crt, i, true);
+                                    if (attResult > 0) { attResultHit = true; }
+                                    if (attResult == 2) //2=killed, 1=hit, 0=missed  
+                                    {
+                                        for (int j = 0; j < numCleave; j++)
+                                        {
+                                            Creature crt2 = GetNextAdjacentCreature(pc);
+                                            if (crt2 != null && crt2 != crt)
+                                            {
+                                                crtLocX = crt2.combatLocX;
+                                                crtLocY = crt2.combatLocY;
+                                                gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "cleave", "green");
+                                                int attResult2 = doActualCombatAttack(pc, crt2, 1, true);
+                                                //int attResult2 = doActualCombatAttack(pc, crt2, i, true);
+                                                if (attResult2 > 0) { attResultHit = true; }
+                                                if (attResult2 != 2)
+                                                {
+                                                    //didn't kill this creature so stop with the cleaves  
+                                                    //D20 break;
+                                                }
+                                            }
+                                        }
+                                        //D20 break; //do not try and attack same creature that was just killed  
+
+                                    }
+                                }
+                                else
+                                {
+                                    attResult = doActualCombatAttack(pc, crt, 1, true);
+                                    //attResult = doActualCombatAttack(pc, crt, i, true);
+                                    if (attResult > 0) { attResultHit = true; }
+                                    if (attResult == 2) //2=killed, 1=hit, 0=missed  
+                                    {
+                                        break; //do not try and attack same creature that was just killed  
+                                    }
+                                }
+                                //D20 }
+                                /*D20 if (hasWeaponInOffHand(pc))
                                 {
                                     if (attResult != 2)
                                     {
                                         attResult = doActualCombatAttack(pc, crt, numAtt + 1, false);
                                         if (attResult > 0) { attResultHit = true; }                                        
                                     }
-                                }
+                                }*/
                             }
                             //if (attResult > 0) //2=killed, 1=hit, 0=missed  
                             if (attResultHit) //2=killed, 1=hit, 0=missed 
@@ -5077,21 +5498,24 @@ namespace IceBlink2
                     attackPenaltyForCostNotPaid = true;
                 }
             }
-
-            int attackRoll = gv.sf.RandInt(20);
+            
+            isMainHand = currentAttackIsMainHand;
+            //D20 int attackRoll = gv.sf.RandInt(20);
+            int attackRoll = attackRollResult;
             int attackMod = CalcPcAttackModifier(pc, crt, isMainHand);
             if (attackPenaltyForCostNotPaid)
             {
                 attackMod -= 10;
             }
-
+            remainingNumberAttacks--;
             int attack = attackRoll + attackMod;
             int defense = CalcCreatureDefense(pc, crt);
             int damage = CalcPcDamageToCreature(pc, crt, isMainHand);
             //int damage = CalcPcDamageToCreature(pc, crt);
             //int damage = 0;            
             bool criticalHit = false;
-            int critAttackRoll = gv.sf.RandInt(20);
+            int critAttackRoll = critAttackRollResult;
+            //D20 int critAttackRoll = gv.sf.RandInt(20);
             int threatRange = 20;
 
             Item itChk = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref);
@@ -5519,6 +5943,7 @@ namespace IceBlink2
             {
                 int g = 0;
             }
+            resetAdvancedGeneralCasterSettings();
             doCreatureNextAction();
         }
         public void doCreatureNextAction()
@@ -5606,9 +6031,11 @@ namespace IceBlink2
                 }
             }
             //Creature crt = gv.mod.currentEncounter.encounterCreatureList[creatureIndex];
-
-            gv.sf.ActionToTake = null;
-            gv.sf.SpellToCast = null;
+            if (!gv.sf.useMoveBeforeCastingSpell)
+            {
+                gv.sf.ActionToTake = null;
+                gv.sf.SpellToCast = null;
+            }
 
             if (crt.isImmobile())
             {
@@ -5616,14 +6043,39 @@ namespace IceBlink2
             }
 
             //determine the action to take
-            doCreatureAI(crt);
+            if (!gv.sf.useMoveBeforeCastingSpell)
+            {
+                doCreatureAI(crt);
+            }
 
+            //if at the best casting location then switch to action Cast
+            if (gv.sf.useMoveBeforeCastingSpell)
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.cc.addLogText("<wh>now(" + crt.combatLocX + "," + crt.combatLocY + "):end(" + gv.sf.CasterLocationAfterMoveCloser.X + "," + gv.sf.CasterLocationAfterMoveCloser.Y + ")</wh><br>");
+                }
+                //check to see if already arrived at optimal casting location
+                if ((gv.sf.CasterLocationAfterMoveCloser.X == crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y == crt.combatLocY))
+                {
+                    //since we are at the casting location, change to casting spell
+                    gv.sf.useMoveBeforeCastingSpell = false;
+                    gv.sf.CasterLocationAfterMoveCloser = new Coordinate(-1, -1);
+                    gv.sf.ActionToTake = "Cast";
+                }
+            }
+            
             //do the action (melee/ranged, cast spell, use trait, etc.)
             if (gv.sf.ActionToTake == null)
             {
                 endCreatureTurn(crt);
+                return;
             }
-            else if (gv.sf.ActionToTake.Equals("Attack"))
+            if (gv.mod.debugMode)
+            {
+                gv.cc.addLogText("<gy>" + crt.cr_name + "</gy><wh>:" + gv.sf.ActionToTake + "</wh><br>");
+            }
+            if (gv.sf.ActionToTake.Equals("Attack"))
             {
                 Player pc = targetClosestPC(crt);
                 if (crt.cr_ai == "bloodHunter")
@@ -5658,6 +6110,10 @@ namespace IceBlink2
             {
                 if ((gv.sf.SpellToCast != null) && (gv.sf.CombatTarget != null))
                 {
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<br><gy>" + crt.cr_name + "</gy><wh> Casts: " + gv.sf.SpellToCast.name + "</wh><br><br>");
+                    }
                     CreatureCastsSpell(crt);
                 }
             }
@@ -5729,567 +6185,588 @@ namespace IceBlink2
                     }
                 }
                 */
-
-                Player pc = targetClosestPC(crt);
-                Coordinate newCoor = new Coordinate(-1, -1);
-                float shortestPath = 999;
-                List<Coordinate> InterimPath = new List<Coordinate>();
-                List<Coordinate> InterimPath2 = new List<Coordinate>();
-
-                if ((crt.cr_ai == "BasicAttacker") || (crt.cr_ai == "simpleHunter") || (crt.cr_ai == "GeneralCaster"))
+                if (currentCreaturePathNodes.Count > 0) //csater is moving to optimal location
                 {
-                    foreach (Player p in gv.mod.playerList)
-                    {
-                        //EXPI: add stealth to the conditions
-                        if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                        {
-                            //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                            //{
-                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                            //run pathFinder to get new location
-                            pf.resetGrid(crt);
-                            InterimPath.Clear();
-                            InterimPath2.Clear();
-                            InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                            foreach (Coordinate cord in InterimPath2)
-                            {
-                                InterimPath.Add(cord);
-                            }
-                            if (InterimPath != null)
-                            {
-                                if ((InterimPath.Count < shortestPath) && (InterimPath.Count > 0))
-                                {
-                                    //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    shortestPath = InterimPath.Count;
-                                    pc = p;
-                                    storedPathOfCurrentCreature.Clear();
-                                    foreach (Coordinate c in InterimPath)
-                                    {
-                                        storedPathOfCurrentCreature.Add(c);
-                                    }
-                                }//if inner
-                            }//if outer
-                             //}//if
-                        }//if
-                    }//foreach
-                }
-                //new AI, start with bloodHunter
-                else if ((crt.cr_ai == "bloodHunter"))
-                {
-                    //determine move range and add melee/ranged attack range
-                    float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
-                    int lowestHPFound = 1000000;
-                    float interimPathCountAdjustForDiagonalMoves = 999;
-
-                    if (crt.targetPcTag == "none")
-                    {
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            //only still conscious targets
-                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                            {
-                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                //{
-                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                //run pathFinder to get new location
-                                pf.resetGrid(crt);
-                                InterimPath.Clear();
-                                InterimPath2.Clear();
-                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                foreach (Coordinate cord in InterimPath2)
-                                {
-                                    InterimPath.Add(cord);
-                                }
-                                if (InterimPath != null)
-                                {
-                                    interimPathCountAdjustForDiagonalMoves = 0;
-                                    if (InterimPath.Count > 2)
-                                    {
-                                        for (int i = 1; i < InterimPath.Count - 1; i++)
-                                        {
-                                            //it a horizontal/vertical move
-                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves++;
-                                            }
-                                            //it is a diagonal move
-                                            else
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                            }
-                                        }
-                                    }
-
-                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.hp < lowestHPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
-                                    {
-                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                        lowestHPFound = p.hp;
-                                        pc = p;
-                                        crt.targetPcTag = pc.tag;
-                                        storedPathOfCurrentCreature.Clear();
-                                        foreach (Coordinate c in InterimPath)
-                                        {
-                                            storedPathOfCurrentCreature.Add(c);
-                                        }
-                                    }//if inner
-                                }//if outer
-                                 //}//if
-                            }//if
-                        }
-                    }
-                    //known target
-                    else
-                    {
-                        //TODO: path to original target!
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            if (p.tag == crt.targetPcTag)
-                            {
-                                //only still conscious targets
-                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                                {
-                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                    //{
-                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //run pathFinder to get new location
-                                    pf.resetGrid(crt);
-                                    InterimPath.Clear();
-                                    InterimPath2.Clear();
-                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                    foreach (Coordinate cord in InterimPath2)
-                                    {
-                                        InterimPath.Add(cord);
-                                    }
-                                    if (InterimPath != null)
-                                    {
-                                        interimPathCountAdjustForDiagonalMoves = 0;
-                                        if (InterimPath.Count > 2)
-                                        {
-                                            for (int i = 1; i < InterimPath.Count - 1; i++)
-                                            {
-                                                //it a horizontal/vertical move
-                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves++;
-                                                }
-                                                //it is a diagonal move
-                                                else
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                                }
-                                            }
-                                        }
-
-                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
-                                        {
-                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                            pc = p;
-                                            crt.targetPcTag = pc.tag;
-                                            storedPathOfCurrentCreature.Clear();
-                                            foreach (Coordinate c in InterimPath)
-                                            {
-                                                storedPathOfCurrentCreature.Add(c);
-                                            }
-                                        }//if inner
-                                    }//if outer
-                                     //}//if
-                                }//if
-                            }
-                        }
-                    }
-                    //if only one, target this pc
-
-                    //if more than one, target the pc with lowest hp in this group
-
-                    //if none,jump to check below
-
-                    //check all player characters on the battlefield and target nearest (nomral routine below)
-                }
-
-                //mindHunter AI
-                else if ((crt.cr_ai == "mindHunter"))
-                {
-                    //determine move range and add melee/ranged attack range
-                    float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
-                    int highestSPFound = 1000000;
-                    float interimPathCountAdjustForDiagonalMoves = 999;
-
-                    if (crt.targetPcTag == "none")
-                    {
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            //only still conscious targets
-                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                            {
-                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                //{
-                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                //run pathFinder to get new location
-                                pf.resetGrid(crt);
-                                InterimPath.Clear();
-                                InterimPath2.Clear();
-                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                foreach (Coordinate cord in InterimPath2)
-                                {
-                                    InterimPath.Add(cord);
-                                }
-                                if (InterimPath != null)
-                                {
-                                    interimPathCountAdjustForDiagonalMoves = 0;
-                                    if (InterimPath.Count > 2)
-                                    {
-                                        for (int i = 1; i < InterimPath.Count - 1; i++)
-                                        {
-                                            //it a horizontal/vertical move
-                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves++;
-                                            }
-                                            //it is a diagonal move
-                                            else
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                            }
-                                        }
-                                    }
-
-                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.sp > highestSPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
-                                    {
-                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                        highestSPFound = p.sp;
-                                        pc = p;
-                                        crt.targetPcTag = pc.tag;
-                                        storedPathOfCurrentCreature.Clear();
-                                        foreach (Coordinate c in InterimPath)
-                                        {
-                                            storedPathOfCurrentCreature.Add(c);
-                                        }
-                                    }//if inner
-                                }//if outer
-                                 //}//if
-                            }//if
-                        }
-                    }
-                    //known target
-                    else
-                    {
-                        //TODO: path to original target!
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            if (p.tag == crt.targetPcTag)
-                            {
-                                //only still conscious targets
-                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                                {
-                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                    //{
-                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //run pathFinder to get new location
-                                    pf.resetGrid(crt);
-                                    InterimPath.Clear();
-                                    InterimPath2.Clear();
-                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                    foreach (Coordinate cord in InterimPath2)
-                                    {
-                                        InterimPath.Add(cord);
-                                    }
-                                    if (InterimPath != null)
-                                    {
-                                        interimPathCountAdjustForDiagonalMoves = 0;
-                                        if (InterimPath.Count > 2)
-                                        {
-                                            for (int i = 1; i < InterimPath.Count - 1; i++)
-                                            {
-                                                //it a horizontal/vertical move
-                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves++;
-                                                }
-                                                //it is a diagonal move
-                                                else
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                                }
-                                            }
-                                        }
-
-                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
-                                        {
-                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                            pc = p;
-                                            crt.targetPcTag = pc.tag;
-                                            storedPathOfCurrentCreature.Clear();
-                                            foreach (Coordinate c in InterimPath)
-                                            {
-                                                storedPathOfCurrentCreature.Add(c);
-                                            }
-                                        }//if inner
-                                    }//if outer
-                                     //}//if
-                                }//if
-                            }
-                        }
-                    }
-                    //if only one, target this pc
-
-                    //if more than one, target the pc with lowest hp in this group
-
-                    //if none,jump to check below
-
-                    //check all player characters on the battlefield and target nearest (nomral routine below)
-                }
-                //softTargetHunter AI
-                else if ((crt.cr_ai == "softTargetHunter"))
-                {
-                    //determine move range and add melee/ranged attack range
-                    float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
-                    int worstACFound = 1000000;
-                    float interimPathCountAdjustForDiagonalMoves = 999;
-
-                    if (crt.targetPcTag == "none")
-                    {
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            //only still conscious targets
-                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                            {
-                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                //{
-                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                //run pathFinder to get new location
-                                pf.resetGrid(crt);
-                                InterimPath.Clear();
-                                InterimPath2.Clear();
-                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                foreach (Coordinate cord in InterimPath2)
-                                {
-                                    InterimPath.Add(cord);
-                                }
-                                if (InterimPath != null)
-                                {
-                                    interimPathCountAdjustForDiagonalMoves = 0;
-                                    if (InterimPath.Count > 2)
-                                    {
-                                        for (int i = 1; i < InterimPath.Count - 1; i++)
-                                        {
-                                            //it a horizontal/vertical move
-                                            if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves++;
-                                            }
-                                            //it is a diagonal move
-                                            else
-                                            {
-                                                interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                            }
-                                        }
-                                    }
-
-                                    if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.AC < worstACFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
-                                    {
-                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                        //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                        worstACFound = p.AC;
-                                        pc = p;
-                                        crt.targetPcTag = pc.tag;
-                                        storedPathOfCurrentCreature.Clear();
-                                        foreach (Coordinate c in InterimPath)
-                                        {
-                                            storedPathOfCurrentCreature.Add(c);
-                                        }
-                                    }//if inner
-                                }//if outer
-                                 //}//if
-                            }//if
-                        }
-                    }
-                    //known target
-                    else
-                    {
-                        //TODO: path to original target!
-                        //check players in range (facor in attack range)
-                        foreach (Player p in gv.mod.playerList)
-                        {
-                            if (p.tag == crt.targetPcTag)
-                            {
-                                //only still conscious targets
-                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
-                                {
-                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
-                                    //{
-                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    //run pathFinder to get new location
-                                    pf.resetGrid(crt);
-                                    InterimPath.Clear();
-                                    InterimPath2.Clear();
-                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
-                                    foreach (Coordinate cord in InterimPath2)
-                                    {
-                                        InterimPath.Add(cord);
-                                    }
-                                    if (InterimPath != null)
-                                    {
-                                        interimPathCountAdjustForDiagonalMoves = 0;
-                                        if (InterimPath.Count > 2)
-                                        {
-                                            for (int i = 1; i < InterimPath.Count - 1; i++)
-                                            {
-                                                //it a horizontal/vertical move
-                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves++;
-                                                }
-                                                //it is a diagonal move
-                                                else
-                                                {
-                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
-                                                }
-                                            }
-                                        }
-
-                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
-                                        {
-                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
-                                            pc = p;
-                                            crt.targetPcTag = pc.tag;
-                                            storedPathOfCurrentCreature.Clear();
-                                            foreach (Coordinate c in InterimPath)
-                                            {
-                                                storedPathOfCurrentCreature.Add(c);
-                                            }
-                                        }//if inner
-                                    }//if outer
-                                     //}//if
-                                }//if
-                            }
-                        }
-                    }
-                    //if only one, target this pc
-
-                    //if more than one, target the pc with lowest hp in this group
-
-                    //if none,jump to check below
-
-                    //check all player characters on the battlefield and target nearest (nomral routine below)
-                }
-
-
-                if (storedPathOfCurrentCreature.Count > 1)
-                {
-                    if (!containsPCorCrt(storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].X, storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].Y, crt))
-                    {
-                        crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
-                    }
-                    else
+                    Coordinate newCoor = new Coordinate(currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].X, currentCreaturePathNodes[currentCreaturePathNodes.Count - 1].Y);
+                    //remove the current node from list since we are moving there and are queueing up the next node for the next move
+                    currentCreaturePathNodes.RemoveAt(currentCreaturePathNodes.Count - 1);
+                    if (isSquareOccupied(newCoor.X, newCoor.Y, crt))
                     {
                         blockAnimationBridge = false;
                         endCreatureTurn(crt);
                         return;
                     }
-                }
-                else//add pathfinding toward target while ignoring temporaryobstacles
-                {
-                    //***************************************************
-                    pc = targetClosestPC(crt);
-                    newCoor = new Coordinate(-1, -1);
-                    shortestPath = 999;
-                    InterimPath = new List<Coordinate>();
-                    InterimPath2 = new List<Coordinate>();
-                    //if ((crt.cr_ai == "BasicAttacker") || (crt.cr_ai == "simpleHunter") || (crt.cr_ai == "GeneralCaster"))
-                    //{
-                    foreach (Player p in gv.mod.playerList)
+                    if (gv.mod.debugMode)
                     {
-                        //EXPI: add stealth to the conditions
-                        if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                        gv.cc.addLogText("<yl>newCoor:" + newCoor.X + "," + newCoor.Y + "</yl><BR>");
+                    }
+                    #region it's a diagonal move
+                    if ((crt.combatLocX != newCoor.X) && (crt.combatLocY != newCoor.Y))
+                    {
+                        //enough  move points availbale to do the diagonal move
+                        if ((crt.getMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
                         {
-                            //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                            if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                            {
+                                crt.combatFacingLeft = true;
+                            }
+                            else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                            {
+                                crt.combatFacingLeft = false;
+                            }
+                            //CHANGE FACING BASED ON MOVE
+                            doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                            moveCost = gv.mod.diagonalMoveCost;
+                            //crt.combatLocX = newCoor.X;
+                            //crt.combatLocY = newCoor.Y;
+                            //canMove = false;
+                            //animationState = AnimationState.CreatureMove;
+                            //gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+
+                            //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
                             //{
-                            coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                            coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                            //run pathFinder to get new location
-                            pf.resetGrid(crt);
-                            InterimPath.Clear();
-                            InterimPath2.Clear();
-                            InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), true);
-                            foreach (Coordinate cord in InterimPath2)
-                            {
-                                InterimPath.Add(cord);
-                            }
-
-                            //InterimPath = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), true);
-                            if (InterimPath != null)
-                            {
-                                if ((InterimPath.Count < shortestPath) && (InterimPath.Count > 0))
-                                {
-                                    //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
-                                    //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
-                                    shortestPath = InterimPath.Count;
-                                    pc = p;
-                                    crt.targetPcTag = pc.tag;
-
-                                    //trying jers way
-                                    //storedPathOfCurrentCreature.Clear();
-                                    //foreach (Coordinate c in InterimPath)
-                                    //{
-                                    //storedPathOfCurrentCreature.Add(c);
-                                    //}
-
-
-                                }//if inner
-                            }//if outer
-                             //}//if
-                        }//if
-                    }//foreach
-
-
-                    List<Coordinate> bestPath = new List<Coordinate>();
-                    for (int i = 0; i < InterimPath.Count - 2; i++)
-                    {
-                        //bestPath.Clear();
-                        pf.resetGrid(crt);
-                        foreach (Coordinate c in pf.findNewPoint(crt, new Coordinate(InterimPath[i].X, InterimPath[i].Y), false))
-                        {
-                            bestPath.Add(c);
+                            //    blockAnimationBridge = true;
+                            //}
+                            //else
+                            //{
+                                blockAnimationBridge = false;
+                                //crt.combatLocX = newCoor.X;
+                                //crt.combatLocY = newCoor.Y;
+                                crt.newCoor.X = newCoor.X;
+                                crt.newCoor.Y = newCoor.Y;
+                            //}                                                        
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            //hurgh20!
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                            
                         }
-                        //pf.resetGrid(crt);
-                        //bestPath = pf.findNewPoint(crt, InterimPath[i], false);
-                        if (bestPath.Count > 1)
+                        //try to move horizontally or vertically instead if most points are not enough for diagonal move
+                        else if ((crt.getMoveDistance() - creatureMoves) >= 1)
                         {
-                            storedPathOfCurrentCreature.Clear();
-                            foreach (Coordinate c in bestPath)
-                            {
-                                storedPathOfCurrentCreature.Add(c);
-                            }
-                            break;
+                            //don't move horizontally/vertically, just give up
+                            endCreatureTurn(crt);
+                            return;
+                        }
+                        //less than one move point, no move
+                        else
+                        {
+                            canMove = false;
+                            animationState = AnimationState.CreatureMove;
+                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                            
                         }
                     }
-                    //}
+                    #endregion
+                    #region it's a horizontal or vertical move
+                    else
+                    {
+                        if ((newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                        {
+                            crt.combatFacingLeft = true;
+                        }
+                        else if ((newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                        {
+                            crt.combatFacingLeft = false;
+                        }
+                        //CHANGE FACING BASED ON MOVE
+                        doCreatureCombatFacing(crt, newCoor.X, newCoor.Y);
+                        //crt.combatLocX = newCoor.X;
+                        //crt.combatLocY = newCoor.Y;
+                        //canMove = false;
+                        //animationState = AnimationState.CreatureMove;
+                        //gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
 
-                    //*************************************************
+                        //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
+                        //{
+                        //    blockAnimationBridge = true;
+                        //}
+                        //else
+                        //{
+                            blockAnimationBridge = false;
+                            //crt.combatLocX = newCoor.X;
+                            //crt.combatLocY = newCoor.Y;
+                            crt.newCoor.X = newCoor.X;
+                            crt.newCoor.Y = newCoor.Y;
+                        //}
+
+                        canMove = false;
+                        animationState = AnimationState.CreatureMove;
+                        gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                        
+                    }
+                    #endregion
+                }
+                else //caster is at right location or not a caster
+                {
+                    Player pc = targetClosestPC(crt);
+                    Coordinate newCoor = new Coordinate(-1, -1);
+                    float shortestPath = 999;
+                    List<Coordinate> InterimPath = new List<Coordinate>();
+                    List<Coordinate> InterimPath2 = new List<Coordinate>();
+
+                    if ((crt.cr_ai == "BasicAttacker") || (crt.cr_ai == "simpleHunter") || (crt.cr_ai == "GeneralCaster"))
+                    {
+                        foreach (Player p in gv.mod.playerList)
+                        {
+                            //EXPI: add stealth to the conditions
+                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                            {
+                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                //{
+                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                //run pathFinder to get new location
+                                pf.resetGrid(crt);
+                                InterimPath.Clear();
+                                InterimPath2.Clear();
+                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                foreach (Coordinate cord in InterimPath2)
+                                {
+                                    InterimPath.Add(cord);
+                                }
+                                if (InterimPath != null)
+                                {
+                                    if ((InterimPath.Count < shortestPath) && (InterimPath.Count > 0))
+                                    {
+                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        shortestPath = InterimPath.Count;
+                                        pc = p;
+                                        storedPathOfCurrentCreature.Clear();
+                                        foreach (Coordinate c in InterimPath)
+                                        {
+                                            storedPathOfCurrentCreature.Add(c);
+                                        }
+                                    }//if inner
+                                }//if outer
+                                 //}//if
+                            }//if
+                        }//foreach
+                    }
+                    //new AI, start with bloodHunter
+                    else if ((crt.cr_ai == "bloodHunter"))
+                    {
+                        //determine move range and add melee/ranged attack range
+                        float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
+                        int lowestHPFound = 1000000;
+                        float interimPathCountAdjustForDiagonalMoves = 999;
+
+                        if (crt.targetPcTag == "none")
+                        {
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.hp < lowestHPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            lowestHPFound = p.hp;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
+                        //known target
+                        else
+                        {
+                            //TODO: path to original target!
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                if (p.tag == crt.targetPcTag)
+                                {
+                                    //only still conscious targets
+                                    if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                    {
+                                        //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                        //{
+                                        coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //run pathFinder to get new location
+                                        pf.resetGrid(crt);
+                                        InterimPath.Clear();
+                                        InterimPath2.Clear();
+                                        InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                        foreach (Coordinate cord in InterimPath2)
+                                        {
+                                            InterimPath.Add(cord);
+                                        }
+                                        if (InterimPath != null)
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = 0;
+                                            if (InterimPath.Count > 2)
+                                            {
+                                                for (int i = 1; i < InterimPath.Count - 1; i++)
+                                                {
+                                                    //it a horizontal/vertical move
+                                                    if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves++;
+                                                    }
+                                                    //it is a diagonal move
+                                                    else
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                            {
+                                                //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                                //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                                //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                                pc = p;
+                                                crt.targetPcTag = pc.tag;
+                                                storedPathOfCurrentCreature.Clear();
+                                                foreach (Coordinate c in InterimPath)
+                                                {
+                                                    storedPathOfCurrentCreature.Add(c);
+                                                }
+                                            }//if inner
+                                        }//if outer
+                                         //}//if
+                                    }//if
+                                }
+                            }
+                        }
+                        //if only one, target this pc
+
+                        //if more than one, target the pc with lowest hp in this group
+
+                        //if none,jump to check below
+
+                        //check all player characters on the battlefield and target nearest (nomral routine below)
+                    }
+
+                    //mindHunter AI
+                    else if ((crt.cr_ai == "mindHunter"))
+                    {
+                        //determine move range and add melee/ranged attack range
+                        float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
+                        int highestSPFound = 1000000;
+                        float interimPathCountAdjustForDiagonalMoves = 999;
+
+                        if (crt.targetPcTag == "none")
+                        {
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.sp > highestSPFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            highestSPFound = p.sp;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
+                        //known target
+                        else
+                        {
+                            //TODO: path to original target!
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                if (p.tag == crt.targetPcTag)
+                                {
+                                    //only still conscious targets
+                                    if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                    {
+                                        //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                        //{
+                                        coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //run pathFinder to get new location
+                                        pf.resetGrid(crt);
+                                        InterimPath.Clear();
+                                        InterimPath2.Clear();
+                                        InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                        foreach (Coordinate cord in InterimPath2)
+                                        {
+                                            InterimPath.Add(cord);
+                                        }
+                                        if (InterimPath != null)
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = 0;
+                                            if (InterimPath.Count > 2)
+                                            {
+                                                for (int i = 1; i < InterimPath.Count - 1; i++)
+                                                {
+                                                    //it a horizontal/vertical move
+                                                    if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves++;
+                                                    }
+                                                    //it is a diagonal move
+                                                    else
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                            {
+                                                //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                                //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                                //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                                pc = p;
+                                                crt.targetPcTag = pc.tag;
+                                                storedPathOfCurrentCreature.Clear();
+                                                foreach (Coordinate c in InterimPath)
+                                                {
+                                                    storedPathOfCurrentCreature.Add(c);
+                                                }
+                                            }//if inner
+                                        }//if outer
+                                         //}//if
+                                    }//if
+                                }
+                            }
+                        }
+                        //if only one, target this pc
+
+                        //if more than one, target the pc with lowest hp in this group
+
+                        //if none,jump to check below
+
+                        //check all player characters on the battlefield and target nearest (nomral routine below)
+                    }
+                    //softTargetHunter AI
+                    else if ((crt.cr_ai == "softTargetHunter"))
+                    {
+                        //determine move range and add melee/ranged attack range
+                        float range = crt.moveDistance + crt.cr_attRange - creatureMoves;
+                        int worstACFound = 1000000;
+                        float interimPathCountAdjustForDiagonalMoves = 999;
+
+                        if (crt.targetPcTag == "none")
+                        {
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                //only still conscious targets
+                                if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                {
+                                    //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                    //{
+                                    coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                    coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                    //run pathFinder to get new location
+                                    pf.resetGrid(crt);
+                                    InterimPath.Clear();
+                                    InterimPath2.Clear();
+                                    InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                    foreach (Coordinate cord in InterimPath2)
+                                    {
+                                        InterimPath.Add(cord);
+                                    }
+                                    if (InterimPath != null)
+                                    {
+                                        interimPathCountAdjustForDiagonalMoves = 0;
+                                        if (InterimPath.Count > 2)
+                                        {
+                                            for (int i = 1; i < InterimPath.Count - 1; i++)
+                                            {
+                                                //it a horizontal/vertical move
+                                                if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves++;
+                                                }
+                                                //it is a diagonal move
+                                                else
+                                                {
+                                                    interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                }
+                                            }
+                                        }
+
+                                        if ((interimPathCountAdjustForDiagonalMoves > 0) && (p.AC < worstACFound) && ((interimPathCountAdjustForDiagonalMoves + 1) <= range) && p.hp > 0 && !p.steathModeOn)
+                                        {
+                                            //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                            //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                            //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                            worstACFound = p.AC;
+                                            pc = p;
+                                            crt.targetPcTag = pc.tag;
+                                            storedPathOfCurrentCreature.Clear();
+                                            foreach (Coordinate c in InterimPath)
+                                            {
+                                                storedPathOfCurrentCreature.Add(c);
+                                            }
+                                        }//if inner
+                                    }//if outer
+                                     //}//if
+                                }//if
+                            }
+                        }
+                        //known target
+                        else
+                        {
+                            //TODO: path to original target!
+                            //check players in range (facor in attack range)
+                            foreach (Player p in gv.mod.playerList)
+                            {
+                                if (p.tag == crt.targetPcTag)
+                                {
+                                    //only still conscious targets
+                                    if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
+                                    {
+                                        //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                        //{
+                                        coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        //run pathFinder to get new location
+                                        pf.resetGrid(crt);
+                                        InterimPath.Clear();
+                                        InterimPath2.Clear();
+                                        InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), false);
+                                        foreach (Coordinate cord in InterimPath2)
+                                        {
+                                            InterimPath.Add(cord);
+                                        }
+                                        if (InterimPath != null)
+                                        {
+                                            interimPathCountAdjustForDiagonalMoves = 0;
+                                            if (InterimPath.Count > 2)
+                                            {
+                                                for (int i = 1; i < InterimPath.Count - 1; i++)
+                                                {
+                                                    //it a horizontal/vertical move
+                                                    if ((InterimPath[i].X == InterimPath[i + 1].X) || (InterimPath[i].Y == InterimPath[i + 1].Y))
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves++;
+                                                    }
+                                                    //it is a diagonal move
+                                                    else
+                                                    {
+                                                        interimPathCountAdjustForDiagonalMoves = interimPathCountAdjustForDiagonalMoves + gv.mod.diagonalMoveCost;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((interimPathCountAdjustForDiagonalMoves > 0) && p.hp > 0 && !p.steathModeOn)
+                                            {
+                                                //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                                //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                                //shortestPath = interimPathCountAdjustForDiagonalMoves;
+                                                pc = p;
+                                                crt.targetPcTag = pc.tag;
+                                                storedPathOfCurrentCreature.Clear();
+                                                foreach (Coordinate c in InterimPath)
+                                                {
+                                                    storedPathOfCurrentCreature.Add(c);
+                                                }
+                                            }//if inner
+                                        }//if outer
+                                         //}//if
+                                    }//if
+                                }
+                            }
+                        }
+                        //if only one, target this pc
+
+                        //if more than one, target the pc with lowest hp in this group
+
+                        //if none,jump to check below
+
+                        //check all player characters on the battlefield and target nearest (nomral routine below)
+                    }
+
+
                     if (storedPathOfCurrentCreature.Count > 1)
                     {
                         if (!containsPCorCrt(storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].X, storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].Y, crt))
@@ -6303,248 +6780,413 @@ namespace IceBlink2
                             return;
                         }
                     }
-                    else
+                    else//add pathfinding toward target while ignoring temporaryobstacles
                     {
-                        //didn't find a path, don't move
-                        //KArl
-                        blockAnimationBridge = false;
-                        endCreatureTurn(crt);
-                        return;
-                    }
-                }
-
-
-                if (pc != null)
-                {
-                    //pf.resetGrid();
-                    //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
-                    if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
-                    {
-                        //didn't find a path, don't move
-                        //blockAnimationBridge = false;
-                        //endCreatureTurn(crt);
-                        //return;
-
-                        //didn't find a path, try other PCs
-                        //EXPI: set this to true (below=  
-                        bool foundOne = true;
-
-                        //EXPI: disable the redundnat search
-                        /*
-                        //try each PC  
-                        for (int d = 0; d < gv.mod.playerList.Count; d++)
+                        //***************************************************
+                        pc = targetClosestPC(crt);
+                        newCoor = new Coordinate(-1, -1);
+                        shortestPath = 999;
+                        InterimPath = new List<Coordinate>();
+                        InterimPath2 = new List<Coordinate>();
+                        //if ((crt.cr_ai == "BasicAttacker") || (crt.cr_ai == "simpleHunter") || (crt.cr_ai == "GeneralCaster"))
+                        //{
+                        foreach (Player p in gv.mod.playerList)
                         {
-                            if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
+                            //EXPI: add stealth to the conditions
+                            if (p.isAlive() && !p.steathModeOn && !p.isInvisible())
                             {
+                                //if ((p.combatLocX != coordinatesOfPcTheCreatureMovesTowards.X) || (p.combatLocY != coordinatesOfPcTheCreatureMovesTowards.Y))
+                                //{
+                                coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                //run pathFinder to get new location
                                 pf.resetGrid(crt);
-                                storedPathOfCurrentCreature.Clear();
-
-                                storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
-
-                                if (storedPathOfCurrentCreature.Count > 1)
+                                InterimPath.Clear();
+                                InterimPath2.Clear();
+                                InterimPath2 = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), true);
+                                foreach (Coordinate cord in InterimPath2)
                                 {
-                                    crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                    InterimPath.Add(cord);
                                 }
 
-                                //newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
-                                if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                                //InterimPath = pf.findNewPoint(crt, new Coordinate(coordinatesOfPcTheCreatureMovesTowards.X, coordinatesOfPcTheCreatureMovesTowards.Y), true);
+                                if (InterimPath != null)
                                 {
-                                    //didn't find a path so keep searching  
-                                }
-                                else
-                                {
-                                    //found a path so break 
-                                    if (gv.mod.debugMode)
+                                    if ((InterimPath.Count < shortestPath) && (InterimPath.Count > 0))
                                     {
-                                        gv.cc.addLogText("<yl>player " + d + ":" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
-                                    }
+                                        //coordinatesOfPcTheCreatureMovesTowards.X = p.combatLocX;
+                                        //coordinatesOfPcTheCreatureMovesTowards.Y = p.combatLocY;
+                                        shortestPath = InterimPath.Count;
+                                        pc = p;
+                                        crt.targetPcTag = pc.tag;
 
-                                    foundOne = true;
-                                    break;
-                                }
-                            }
-                        }
-                        */
+                                        //trying jers way
+                                        //storedPathOfCurrentCreature.Clear();
+                                        //foreach (Coordinate c in InterimPath)
+                                        //{
+                                        //storedPathOfCurrentCreature.Add(c);
+                                        //}
 
-                        //EXPI note: this branch si nver called
-                        if (!foundOne)
+
+                                    }//if inner
+                                }//if outer
+                                 //}//if
+                            }//if
+                        }//foreach
+
+
+                        List<Coordinate> bestPath = new List<Coordinate>();
+                        for (int i = 0; i < InterimPath.Count - 2; i++)
                         {
-                            //try around the nearest PC  
-                            int closestDist = 999;
-                            for (int j = 1; j < 5; j++) //used for radius around PC  
-                            {
-                                for (int x = -j; x <= j; x++)
-                                {
-                                    for (int y = -j; y <= j; y++)
-                                    {
-                                        if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
-                                        {
-                                            pf.resetGrid(crt);
-                                            storedPathOfCurrentCreature.Clear();
-                                            //Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
-                                            storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY), false);
-
-                                            Coordinate testCoor = new Coordinate();
-                                            testCoor.X = -1;
-                                            testCoor.Y = -1;
-
-                                            if (storedPathOfCurrentCreature.Count > 1)
-                                            {
-                                                testCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
-                                            }
-
-                                            if ((testCoor.X == -1) && (testCoor.Y == -1))
-                                            {
-                                                //didn't find a path so keep searching  
-                                            }
-                                            else
-                                            {
-                                                //found a path so check if closer distance  
-                                                int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
-                                                if (dist < closestDist)
-                                                {
-                                                    closestDist = dist;
-                                                    crt.newCoor.X = testCoor.X;
-                                                    crt.newCoor.Y = testCoor.Y;
-                                                    foundOne = true;
-                                                    if (gv.mod.debugMode)
-                                                    {
-                                                        gv.cc.addLogText("<yl>dist: " + dist + " coor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                    }
-                                }//for2
-                            }//for1
-                        }//found check
-
-                        if (!foundOne)
-                        {
-                            //give up and end  
-                            blockAnimationBridge = false;
-                            endCreatureTurn(crt);
-                            return;
-                        }
-                    }
-                    if (gv.mod.debugMode)
-                    {
-                        gv.cc.addLogText("<yl>newCoor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
-                    }
-
-                    //it's a diagonal move
-                    if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
-                    {
-                        //enough  move points availbale to do the diagonal move
-                        if ((crt.getMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
-                        {
-                            if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
-                            {
-                                crt.combatFacingLeft = true;
-                            }
-                            else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
-                            {
-                                crt.combatFacingLeft = false;
-                            }
-                            //CHANGE FACING BASED ON MOVE
-                            doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
-                            moveCost = gv.mod.diagonalMoveCost;
-
-                            /*
-                            //set the currentPixel position of the props
-                            int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
-                            int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
-                            int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
-                            int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
-
-                            gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
-                            gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
-                            */
-
-                            //hurgh7777
-                            /*
-                            if (((crt.newCoor.X + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
-                            {
-                                destinationPixelLocX = crt.newCoor.X * gv.squareSize;
-                                destinationPixelLocY = crt.newCoor.Y * gv.squareSize;
-                            }
-                             * */
-                            //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
-                            if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
-
-                            {
-                                blockAnimationBridge = true;
-                            }
-                            else
-                            {
-                                blockAnimationBridge = false;
-                                crt.combatLocX = crt.newCoor.X;
-                                crt.combatLocY = crt.newCoor.Y;
-                            }
-
-                            if (storedPathOfCurrentCreature.Count > 1)
-                            {
-                                storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
-                            }
-                            canMove = false;
-                            animationState = AnimationState.CreatureMove;
-                            //hurgh20!
-                            if (gv.mod.useManualCombatCam)
-                            {
-                                if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
-                                {
-                                    gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
-                                }
-                                else
-                                {
-                                    gv.postDelayed("doAnimation", 1);
-                                }
-
-                            }
-                            else
-                            {
-                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-                            }
-
-                        }
-
-                        //try to move horizontally or vertically instead if most points are not enough for diagonal move
-                        //EXPI: best use the same pathfinding concpt as for diagonal above
-                        else if ((crt.getMoveDistance() - creatureMoves) >= 1)
-                        {
-
+                            //bestPath.Clear();
                             pf.resetGrid(crt);
-                            //block the originial diagonal target square and calculate again
-                            gv.mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
-                            gv.mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
-                            //EXPI:line below
-                            storedPathOfCurrentCreature.Clear();
-                            storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY), false);
+                            foreach (Coordinate c in pf.findNewPoint(crt, new Coordinate(InterimPath[i].X, InterimPath[i].Y), false))
+                            {
+                                bestPath.Add(c);
+                            }
+                            //pf.resetGrid(crt);
+                            //bestPath = pf.findNewPoint(crt, InterimPath[i], false);
+                            if (bestPath.Count > 1)
+                            {
+                                storedPathOfCurrentCreature.Clear();
+                                foreach (Coordinate c in bestPath)
+                                {
+                                    storedPathOfCurrentCreature.Add(c);
+                                }
+                                break;
+                            }
+                        }
+                        //}
 
-                            if (storedPathOfCurrentCreature.Count > 1)
+                        //*************************************************
+                        if (storedPathOfCurrentCreature.Count > 1)
+                        {
+                            if (!containsPCorCrt(storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].X, storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2].Y, crt))
                             {
                                 crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
                             }
                             else
                             {
-                                //didn't find a path, don't move
-                                //KArl
-                                //gv.Render();
                                 blockAnimationBridge = false;
                                 endCreatureTurn(crt);
                                 return;
+                            }
+                        }
+                        else
+                        {
+                            //didn't find a path, don't move
+                            //KArl
+                            blockAnimationBridge = false;
+                            endCreatureTurn(crt);
+                            return;
+                        }
+                    }
+
+
+                    if (pc != null)
+                    {
+                        //pf.resetGrid();
+                        //newCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY));
+                        if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                        {
+                            //didn't find a path, don't move
+                            //blockAnimationBridge = false;
+                            //endCreatureTurn(crt);
+                            //return;
+
+                            //didn't find a path, try other PCs
+                            //EXPI: set this to true (below=  
+                            bool foundOne = true;
+
+                            //EXPI: disable the redundnat search
+                            /*
+                            //try each PC  
+                            for (int d = 0; d < gv.mod.playerList.Count; d++)
+                            {
+                                if ((gv.mod.playerList[d].isAlive()) && (!gv.mod.playerList[d].steathModeOn) && (!gv.mod.playerList[d].isInvisible()))
+                                {
+                                    pf.resetGrid(crt);
+                                    storedPathOfCurrentCreature.Clear();
+
+                                    storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+
+                                    if (storedPathOfCurrentCreature.Count > 1)
+                                    {
+                                        crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                    }
+
+                                    //newCoor = pf.findNewPoint(crt, new Coordinate(gv.mod.playerList[d].combatLocX, gv.mod.playerList[d].combatLocY));
+                                    if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                                    {
+                                        //didn't find a path so keep searching  
+                                    }
+                                    else
+                                    {
+                                        //found a path so break 
+                                        if (gv.mod.debugMode)
+                                        {
+                                            gv.cc.addLogText("<yl>player " + d + ":" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                                        }
+
+                                        foundOne = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            */
+
+                            //EXPI note: this branch si nver called
+                            if (!foundOne)
+                            {
+                                //try around the nearest PC  
+                                int closestDist = 999;
+                                for (int j = 1; j < 5; j++) //used for radius around PC  
+                                {
+                                    for (int x = -j; x <= j; x++)
+                                    {
+                                        for (int y = -j; y <= j; y++)
+                                        {
+                                            if (isSquareOnCombatMap(pc.combatLocX + x, pc.combatLocY + y))
+                                            {
+                                                pf.resetGrid(crt);
+                                                storedPathOfCurrentCreature.Clear();
+                                                //Coordinate testCoor = pf.findNewPoint(crt, new Coordinate(pc.combatLocX + x, pc.combatLocY + y));
+                                                storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY), false);
+
+                                                Coordinate testCoor = new Coordinate();
+                                                testCoor.X = -1;
+                                                testCoor.Y = -1;
+
+                                                if (storedPathOfCurrentCreature.Count > 1)
+                                                {
+                                                    testCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                                }
+
+                                                if ((testCoor.X == -1) && (testCoor.Y == -1))
+                                                {
+                                                    //didn't find a path so keep searching  
+                                                }
+                                                else
+                                                {
+                                                    //found a path so check if closer distance  
+                                                    int dist = getDistance(new Coordinate(pc.combatLocX + x, pc.combatLocY + y), new Coordinate(crt.combatLocX, crt.combatLocY));
+                                                    if (dist < closestDist)
+                                                    {
+                                                        closestDist = dist;
+                                                        crt.newCoor.X = testCoor.X;
+                                                        crt.newCoor.Y = testCoor.Y;
+                                                        foundOne = true;
+                                                        if (gv.mod.debugMode)
+                                                        {
+                                                            gv.cc.addLogText("<yl>dist: " + dist + " coor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }//for2
+                                }//for1
+                            }//found check
+
+                            if (!foundOne)
+                            {
+                                //give up and end  
+                                blockAnimationBridge = false;
+                                endCreatureTurn(crt);
+                                return;
+                            }
+                        }
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<yl>newCoor:" + crt.newCoor.X + "," + crt.newCoor.Y + "</yl><BR>");
+                        }
+
+                        //it's a diagonal move
+                        if ((crt.combatLocX != crt.newCoor.X) && (crt.combatLocY != crt.newCoor.Y))
+                        {
+                            //enough  move points availbale to do the diagonal move
+                            if ((crt.getMoveDistance() - creatureMoves) >= gv.mod.diagonalMoveCost)
+                            {
+                                if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                                {
+                                    crt.combatFacingLeft = true;
+                                }
+                                else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                                {
+                                    crt.combatFacingLeft = false;
+                                }
+                                //CHANGE FACING BASED ON MOVE
+                                doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
+                                moveCost = gv.mod.diagonalMoveCost;
+
+                                /*
+                                //set the currentPixel position of the props
+                                int xOffSetInSquares = gv.mod.currentArea.Props[i].LocationX - gv.mod.PlayerLocationX;
+                                int yOffSetInSquares = gv.mod.currentArea.Props[i].LocationY - gv.mod.PlayerLocationY;
+                                int playerPositionXInPix = gv.oXshift + gv.screenMainMap.mapStartLocXinPixels + (gv.playerOffsetX * gv.squareSize);
+                                int playerPositionYInPix = gv.playerOffsetY * gv.squareSize;
+
+                                gv.mod.currentArea.Props[i].currentPixelPositionX = playerPositionXInPix + (xOffSetInSquares * gv.squareSize);
+                                gv.mod.currentArea.Props[i].currentPixelPositionY = playerPositionYInPix + (yOffSetInSquares * gv.squareSize);
+                                */
+
+                                //hurgh7777
+                                /*
+                                if (((crt.newCoor.X + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                {
+                                    destinationPixelLocX = crt.newCoor.X * gv.squareSize;
+                                    destinationPixelLocY = crt.newCoor.Y * gv.squareSize;
+                                }
+                                 * */
+                                //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
+                                if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
+
+                                {
+                                    blockAnimationBridge = true;
+                                }
+                                else
+                                {
+                                    blockAnimationBridge = false;
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                }
+
+                                if (storedPathOfCurrentCreature.Count > 1)
+                                {
+                                    storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
+                                }
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                //hurgh20!
+                                if (gv.mod.useManualCombatCam)
+                                {
+                                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                    {
+                                        gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
+                                    }
+                                    else
+                                    {
+                                        gv.postDelayed("doAnimation", 1);
+                                    }
+
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                                }
+
                             }
 
-                            if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                            //try to move horizontally or vertically instead if most points are not enough for diagonal move
+                            //EXPI: best use the same pathfinding concpt as for diagonal above
+                            else if ((crt.getMoveDistance() - creatureMoves) >= 1)
                             {
-                                //didn't find a path, don't move
-                                //KARL
-                                //gv.Render();
-                                blockAnimationBridge = false;
-                                endCreatureTurn(crt);
-                                return;
+
+                                pf.resetGrid(crt);
+                                //block the originial diagonal target square and calculate again
+                                gv.mod.nonAllowedDiagonalSquareX = crt.newCoor.X;
+                                gv.mod.nonAllowedDiagonalSquareY = crt.newCoor.Y;
+                                //EXPI:line below
+                                storedPathOfCurrentCreature.Clear();
+                                storedPathOfCurrentCreature = pf.findNewPoint(crt, new Coordinate(pc.combatLocX, pc.combatLocY), false);
+
+                                if (storedPathOfCurrentCreature.Count > 1)
+                                {
+                                    crt.newCoor = storedPathOfCurrentCreature[storedPathOfCurrentCreature.Count - 2];
+                                }
+                                else
+                                {
+                                    //didn't find a path, don't move
+                                    //KArl
+                                    //gv.Render();
+                                    blockAnimationBridge = false;
+                                    endCreatureTurn(crt);
+                                    return;
+                                }
+
+                                if ((crt.newCoor.X == -1) && (crt.newCoor.Y == -1))
+                                {
+                                    //didn't find a path, don't move
+                                    //KARL
+                                    //gv.Render();
+                                    blockAnimationBridge = false;
+                                    endCreatureTurn(crt);
+                                    return;
+                                }
+                                if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
+                                {
+                                    crt.combatFacingLeft = true;
+                                }
+                                else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
+                                {
+                                    crt.combatFacingLeft = false;
+                                }
+                                //CHANGE FACING BASED ON MOVE
+                                doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
+                                moveCost = 1;
+                                //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
+                                if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
+                                {
+                                    blockAnimationBridge = true;
+                                }
+                                else
+                                {
+                                    blockAnimationBridge = false;
+                                    crt.combatLocX = crt.newCoor.X;
+                                    crt.combatLocY = crt.newCoor.Y;
+                                }
+
+                                if (storedPathOfCurrentCreature.Count > 1)
+                                {
+                                    storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
+                                }
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+
+                                if (gv.mod.useManualCombatCam)
+                                {
+                                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                    {
+                                        gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
+                                    }
+                                    else
+                                    {
+                                        gv.postDelayed("doAnimation", 1);
+                                    }
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                                }
+
                             }
+                            //less than one move point, no move
+                            else
+                            {
+                                canMove = false;
+                                animationState = AnimationState.CreatureMove;
+                                if (gv.mod.useManualCombatCam)
+                                {
+                                    if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
+                                    {
+                                        gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
+                                    }
+                                    else
+                                    {
+                                        gv.postDelayed("doAnimation", 1);
+                                    }
+                                }
+                                else
+                                {
+                                    gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
+                                }
+
+                            }
+                        }
+                        //it's a horizontal or vertical move
+                        else
+                        {
                             if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
                             {
                                 crt.combatFacingLeft = true;
@@ -6555,7 +7197,7 @@ namespace IceBlink2
                             }
                             //CHANGE FACING BASED ON MOVE
                             doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
-                            moveCost = 1;
+
                             //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
                             if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
                             {
@@ -6574,7 +7216,6 @@ namespace IceBlink2
                             }
                             canMove = false;
                             animationState = AnimationState.CreatureMove;
-
                             if (gv.mod.useManualCombatCam)
                             {
                                 if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
@@ -6585,28 +7226,7 @@ namespace IceBlink2
                                 {
                                     gv.postDelayed("doAnimation", 1);
                                 }
-                            }
-                            else
-                            {
-                                gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-                            }
 
-                        }
-                        //less than one move point, no move
-                        else
-                        {
-                            canMove = false;
-                            animationState = AnimationState.CreatureMove;
-                            if (gv.mod.useManualCombatCam)
-                            {
-                                if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
-                                {
-                                    gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
-                                }
-                                else
-                                {
-                                    gv.postDelayed("doAnimation", 1);
-                                }
                             }
                             else
                             {
@@ -6615,64 +7235,14 @@ namespace IceBlink2
 
                         }
                     }
-                    //it's a horizontal or vertical move
-                    else
+                    else //no target found
                     {
-                        if ((crt.newCoor.X < crt.combatLocX) && (!crt.combatFacingLeft)) //move left
-                        {
-                            crt.combatFacingLeft = true;
-                        }
-                        else if ((crt.newCoor.X > crt.combatLocX) && (crt.combatFacingLeft)) //move right
-                        {
-                            crt.combatFacingLeft = false;
-                        }
-                        //CHANGE FACING BASED ON MOVE
-                        doCreatureCombatFacing(crt, crt.newCoor.X, crt.newCoor.Y);
-
-                        //if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (crt == gv.mod.currentEncounter.encounterCreatureList[creatureIndex]) && (gv.mod.useCombatSmoothMovement))
-                        if ((IsInVisibleCombatWindow(crt.combatLocX, crt.combatLocY)) && (gv.mod.useCombatSmoothMovement))
-                        {
-                            blockAnimationBridge = true;
-                        }
-                        else
-                        {
-                            blockAnimationBridge = false;
-                            crt.combatLocX = crt.newCoor.X;
-                            crt.combatLocY = crt.newCoor.Y;
-                        }
-
-                        if (storedPathOfCurrentCreature.Count > 1)
-                        {
-                            storedPathOfCurrentCreature.RemoveAt(storedPathOfCurrentCreature.Count - 2);
-                        }
-                        canMove = false;
-                        animationState = AnimationState.CreatureMove;
-                        if (gv.mod.useManualCombatCam)
-                        {
-                            if (((crt.combatLocX + 1) <= (UpperLeftSquare.X + (gv.playerOffsetX * 2))) && ((crt.combatLocX - 1) >= (UpperLeftSquare.X)) && ((crt.combatLocY + 1) <= (UpperLeftSquare.Y + (gv.playerOffsetY * 2))) && ((crt.combatLocY - 1) >= (UpperLeftSquare.Y)))
-                            {
-                                gv.postDelayed("doAnimation", (int)(0.025f * gv.mod.combatAnimationSpeed));
-                            }
-                            else
-                            {
-                                gv.postDelayed("doAnimation", 1);
-                            }
-
-                        }
-                        else
-                        {
-                            gv.postDelayed("doAnimation", (int)(1f * gv.mod.combatAnimationSpeed));
-                        }
-
+                        //KArl
+                        //gv.Render();
+                        blockAnimationBridge = false;
+                        endCreatureTurn(crt);
+                        return;
                     }
-                }
-                else //no target found
-                {
-                    //KArl
-                    //gv.Render();
-                    blockAnimationBridge = false;
-                    endCreatureTurn(crt);
-                    return;
                 }
             }
             //less than a move point left, no move
@@ -6684,7 +7254,85 @@ namespace IceBlink2
                 return;
             }
         }
+        public bool isSquareOccupied(int x, int y, Creature movingCrt)
+        {
+            List<Coordinate> mySquares = new List<Coordinate>();
+            int crtMovingSize = movingCrt.creatureSize; //1=normal, 2=wide, 3=tall, 4=large
+            //normal
+            if (crtMovingSize == 1)
+            {
+                mySquares.Add(new Coordinate(x, y));
+            }
+            //crt wide
+            if (crtMovingSize == 2)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (x < gv.mod.currentEncounter.MapSizeX - 1)
+                {
+                    mySquares.Add(new Coordinate(x + 1, y));
+                }
+            }
+            //crt tall
+            if (crtMovingSize == 3)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (y < gv.mod.currentEncounter.MapSizeY - 1)
+                {
+                    mySquares.Add(new Coordinate(x, y + 1));
+                }
+            }
+            //crt large
+            if (crtMovingSize == 4)
+            {
+                mySquares.Add(new Coordinate(x, y));
+                if (x < gv.mod.currentEncounter.MapSizeX - 1)
+                {
+                    mySquares.Add(new Coordinate(x + 1, y));
+                }
+                if (y < gv.mod.currentEncounter.MapSizeY - 1)
+                {
+                    mySquares.Add(new Coordinate(x, y + 1));
+                }
+                if ((x < gv.mod.currentEncounter.MapSizeX - 1) && (y < gv.mod.currentEncounter.MapSizeY - 1))
+                {
+                    mySquares.Add(new Coordinate(x + 1, y + 1));
+                }
+            }
 
+            foreach (Player pc in gv.mod.playerList)
+            {
+                foreach (Coordinate myCrd in mySquares)
+                {
+                    if ((pc.combatLocX == myCrd.X) && (pc.combatLocY == myCrd.Y))
+                    {
+                        if (pc.isAlive())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            refreshCreatureCoveredSquares();
+            foreach (Creature crtTarget in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (crtTarget == movingCrt)
+                {
+                    continue;
+                }                
+                foreach (Coordinate myCrd in mySquares)
+                {
+                    foreach (Coordinate crtCoor in crtTarget.tokenCoveredSquares)
+                    {
+                        if ((crtCoor.X == myCrd.X) && (crtCoor.Y == myCrd.Y))
+                        {
+                            return true;
+                        }
+                    }
+                }                
+            }
+            return false;
+        }
+        
         public bool isSquareOnCombatMap(int x, int y)
         {
             if (x >= gv.mod.currentEncounter.MapSizeX)
@@ -6882,7 +7530,6 @@ namespace IceBlink2
                 CreatureMoves();
             }
         }
-
 
         //leavethretaned overload
         public void CreatureDoesAttack(Creature crt, bool allowAnimationActivation, Player pc, int futurePosX, int futurePosY)
@@ -7442,12 +8089,23 @@ namespace IceBlink2
                 BasicAttacker(crt);
             }
             else if (crt.cr_ai.Equals("GeneralCaster"))
-            {
-                if (gv.mod.debugMode)
+            {                
+                if (gv.mod.useAdvancedCasterAI)
                 {
-                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is a GeneralCaster</font><BR>");
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is an Advanced GeneralCaster</font><BR>");
+                    }
+                    GeneralCasterAdvanced(crt);
                 }
-                GeneralCaster(crt);
+                else
+                {
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'>is a GeneralCaster</font><BR>");
+                    }
+                    GeneralCaster(crt);
+                }                
             }
             else
             {
@@ -7880,7 +8538,7 @@ namespace IceBlink2
                 */
             }
         }
-
+                
         public void ChanceBasedCaster(Creature crt)
         {
             gv.sf.SpellToCast = null;
@@ -8016,7 +8674,6 @@ namespace IceBlink2
             }
         }
 
-
         public void updateStatsAllCreatures()
         {
             //called at end of turn of pc or cretaure
@@ -8142,6 +8799,8 @@ namespace IceBlink2
             //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
             canMove = true;
+            gv.sf.useMoveBeforeCastingSpell = false;
+            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(-1, -1);
             gv.sf.ActionToTake = null;
             gv.sf.SpellToCast = null;
             //coordinatesOfPcTheCreatureMovesTowards.X = -1;
@@ -8164,6 +8823,2720 @@ namespace IceBlink2
             //gv.cc.addLogText("<font color='red'>" + "Right before calling truncontroller" + "</font><BR>");
             turnController();
         }
+
+        #region Creature Advanced Caster AI Support Methods   
+        List<Coordinate> targetSquareList = new List<Coordinate>();
+        List<Coordinate> moveToSquares = new List<Coordinate>();
+        public void GeneralCasterAdvanced(Creature crt)
+        {
+            //create lists for majordefense, minordefense, buff, debuff, damage, heal
+            List<Spell> MajorDefenseList = new List<Spell>();
+            List<Spell> MinorDefenseList = new List<Spell>();
+            List<Spell> MajorBuffList = new List<Spell>();
+            List<Spell> MinorBuffList = new List<Spell>();
+            List<Spell> MajorDeBuffList = new List<Spell>();
+            List<Spell> MinorDeBuffList = new List<Spell>();
+            List<Spell> MajorDamageList = new List<Spell>();
+            List<Spell> MinorDamageList = new List<Spell>();
+            List<Spell> MajorHealList = new List<Spell>();
+            List<Spell> MinorHealList = new List<Spell>();
+            foreach (string s in crt.knownSpellsTags)
+            {
+                Spell sp = gv.mod.getSpellByTag(s);
+                if (sp != null)
+                {
+                    if (sp.spellEffectTagList.Count > 0)
+                    {
+                        foreach (EffectTagForDropDownList et in sp.spellEffectTagList)
+                        {
+                            Effect ef = gv.mod.getEffectByTag(et.tag);
+                            if (ef != null)
+                            {
+                                if (ef.numberOfMirrorImagesLeft > 0)
+                                {
+                                    MajorDefenseList.Add(sp);
+                                }
+                                else if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                                {
+                                    MajorDefenseList.Add(sp);
+                                }
+                                else if (ef.acModifier > 0)
+                                {
+                                    MinorDefenseList.Add(sp);
+                                }
+                                else if (ef.modifyDex > 0)
+                                {
+                                    MinorDefenseList.Add(sp);
+                                }
+                                else if ((ef.doBuff) && (sp.costSP >= 20))
+                                {
+                                    MajorBuffList.Add(sp);
+                                }
+                                else if ((ef.doBuff) && (sp.costSP < 20))
+                                {
+                                    MinorBuffList.Add(sp);
+                                }
+                                else if ((ef.doDeBuff) && (sp.costSP >= 20))
+                                {
+                                    MajorDeBuffList.Add(sp);
+                                }
+                                else if ((ef.doDeBuff) && (sp.costSP < 20))
+                                {
+                                    MinorDeBuffList.Add(sp);
+                                }
+                                else if ((ef.doHeal) && (sp.costSP >= 20))
+                                {
+                                    MajorHealList.Add(sp);
+                                }
+                                else if ((ef.doHeal) && (sp.costSP < 20))
+                                {
+                                    MinorHealList.Add(sp);
+                                }
+                                else if ((ef.doDamage) && (sp.costSP >= 20))
+                                {
+                                    MajorDamageList.Add(sp);
+                                }
+                                else if ((ef.doDamage) && (sp.costSP < 20))
+                                {
+                                    MinorDamageList.Add(sp);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Effect ef = gv.mod.getEffectByTag(sp.spellEffectTag);
+                        if (ef != null)
+                        {
+                            if (ef.numberOfMirrorImagesLeft > 0)
+                            {
+                                MajorDefenseList.Add(sp);
+                            }
+                            else if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                            {
+                                MajorDefenseList.Add(sp);
+                            }
+                            else if (ef.acModifier > 0)
+                            {
+                                MinorDefenseList.Add(sp);
+                            }
+                            else if (ef.modifyDex > 0)
+                            {
+                                MinorDefenseList.Add(sp);
+                            }
+                            else if ((ef.doBuff) && (sp.costSP >= 20))
+                            {
+                                MajorBuffList.Add(sp);
+                            }
+                            else if ((ef.doBuff) && (sp.costSP < 20))
+                            {
+                                MinorBuffList.Add(sp);
+                            }
+                            else if ((ef.doDeBuff) && (sp.costSP >= 20))
+                            {
+                                MajorDeBuffList.Add(sp);
+                            }
+                            else if ((ef.doDeBuff) && (sp.costSP < 20))
+                            {
+                                MinorDeBuffList.Add(sp);
+                            }
+                            else if ((ef.doHeal) && (sp.costSP >= 20))
+                            {
+                                MajorHealList.Add(sp);
+                            }
+                            else if ((ef.doHeal) && (sp.costSP < 20))
+                            {
+                                MinorHealList.Add(sp);
+                            }
+                            else if ((ef.doDamage) && (sp.costSP >= 20))
+                            {
+                                MajorDamageList.Add(sp);
+                            }
+                            else if ((ef.doDamage) && (sp.costSP < 20))
+                            {
+                                MinorDamageList.Add(sp);
+                            }
+                        }
+                    }
+                }
+            }
+            //randomize the order of each list
+
+            //create a List<Coordinate> of all the locations that the caster can move to including the caster's current location
+            moveToSquares = new List<Coordinate>();
+            for (int x1 = 0; x1 < gv.mod.currentEncounter.MapSizeX; x1++)
+            {
+                for (int y1 = 0; y1 < gv.mod.currentEncounter.MapSizeY; y1++)
+                {
+                    //maybe have a helper function to check for squares that are reachable and unoccupied on all the map
+                    if (canMoveToSquare(crt, new Coordinate(x1, y1)))
+                    {
+                        moveToSquares.Add(new Coordinate(x1, y1));
+                    }
+                }
+            }
+
+            //OLDER
+            //if rand(100) > 30 and not silenced then cast spell
+            //   if rand(100) > 30 use defense spell
+            //      if does not have a defense spell active
+            //         if has a major defense spell available to use then use that
+            //         else if has a minor defense spell available to use then use that
+            //      else don't use a defense spell and move on to next
+            //   if rand(100) > 30 use a responsive spell
+            //      if some allies (maybe 1/3) have a debuff effect and caster has the counter spell, then 50% chance to remove the debuff
+            //      else if an ally have low HP (<50%) and caster has a heal spell, then 50% chance to heal them
+            //   pick random spell rand(4)
+            //      1-if has heal spell, but no one needs healing then try again, else use most effective heal spell available
+            //      2-if has buff spell, but allies (maybe 1/3) already have a similar buff then try again, else use most effective buff spell available
+            //      3-if has debuff spell, but PCs already have the debuff effect or are immune (after learned) then try again, else use most effective debuff spell available
+            //      4-if has damage spell, but not enough PC can be hit then try again, else use most effective damage spell available
+            //   or rank each spell available based on how effective it would be on this round (need a weighting system)
+            //else attack/move
+            //            
+
+            //NEWER
+            //if rand(100) > 30 and not silenced then cast spell
+            //    if rand(100) > 30 use defense spell
+            //        if does not have a defense spell active
+            //            if has a major defense spell available to use then use that
+            //            else if has a minor defense spell available to use then use that
+            //        else don't use a defense spell and move on to next
+            //    if rand(100) > 30 use a responsive spell
+            //        if an ally has a hold effect, and the caster has counter spell, then use that
+            //        else if some allies(maybe 1 / 3) have a debuff effect and caster has the counter spell, then remove the debuff
+            //        else if many allies have low HP and caster has a mass heal spell, then use that
+            //        else if an ally has low HP(< 50 %) and caster has a heal spell, then heal them
+            //    pick random spell rand(4)
+            //        1 -if has heal spell, but no one needs healing then try again, else use most effective heal spell available (try from major list first)
+            //        2 -if has buff spell, but allies(maybe 1 / 3) already have a similar buff then try again, else use most effective buff spell available (try from major list first)
+            //        3 -if has debuff spell, but PCs already have the debuff effect or are immune(after learned) then try again, else use most effective debuff spell available (try from major list first)
+            //        4 -if has damage spell, but not enough PC can be hit then try again, else use most effective damage spell available (try from major list first)
+            //else attack / move
+
+            gv.sf.SpellToCast = null;
+
+            //ATTACK or SPELL? first check to see if we should cast a spell or attack/move
+            int castpercent = gv.sf.RandInt(100);
+            if ((crt.percentChanceToCastSpell < castpercent) || (crt.isSilenced()))
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> uses attack (" + castpercent + "<" + crt.percentChanceToCastSpell + ")</font><BR>");
+                }
+                //don't cast this round, instead try and attack or move
+                Player pc = targetClosestPC(crt);
+                if (pc == null)
+                {
+                    gv.sf.ActionToTake = null;
+                    return;
+                }
+                gv.sf.CombatTarget = pc;
+                gv.sf.ActionToTake = "Attack";
+                return;
+            }
+
+            //DEFENSE SPELL
+            int rnd = gv.sf.RandInt(100);
+            if (rnd >= 30) //70% chance will use a defense spell if possible and no other is detected in use
+            {
+                if (gv.mod.debugMode)
+                {
+                    gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> uses defense spell (" + rnd + "/100).</font><BR>");
+                }
+                //if already has a defense effect in place then skip
+                if (!hasDefenseEffectCurrentlyActive(crt))
+                {
+                    if (MajorDefenseList.Count > 0)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            rnd = gv.sf.RandInt(MajorDefenseList.Count);
+                            Spell sp = MajorDefenseList[rnd - 1];
+                            if (sp != null)
+                            {
+                                if (sp.costSP <= crt.sp)
+                                {
+                                    gv.sf.SpellToCast = sp;
+                                    gv.sf.CombatTarget = crt;
+                                    gv.sf.ActionToTake = "Cast";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else if (MinorDefenseList.Count > 0)
+                    {
+                        for (int i = 0; i < 5; i++)
+                        {
+                            rnd = gv.sf.RandInt(MinorDefenseList.Count);
+                            Spell sp = MinorDefenseList[rnd - 1];
+                            if (sp != null)
+                            {
+                                if (sp.costSP <= crt.sp)
+                                {
+                                    gv.sf.SpellToCast = sp;
+                                    gv.sf.CombatTarget = crt;
+                                    gv.sf.ActionToTake = "Cast";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //RESPONSIVE SPELL
+            if (gv.sf.SpellToCast == null) //haven't found a spell yet so keep trying
+            {
+                rnd = gv.sf.RandInt(100);
+                if (rnd >= 30) //70% chance to make a responsive spell
+                {
+                    if (gv.mod.debugMode)
+                    {
+                        gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> uses responsive spell (" + rnd + "/100).</font><BR>");
+                    }
+                    //if an ally has a hold effect, and the caster has counter spell, then use that
+                    Creature crtheld = allyHasHoldEffect();
+                    Spell spCounter = casterHasHoldCounterSpell(crt);
+                    if ((crtheld != null) && (spCounter != null))
+                    {
+                        //check to see if target is in range
+                        if (getDistance(new Coordinate(crt.combatLocX, crt.combatLocY), new Coordinate(crtheld.combatLocX, crtheld.combatLocY)) <= spCounter.range)
+                        {
+                            //if target is in range then cast spell on target
+                            gv.sf.SpellToCast = spCounter;
+                            gv.sf.CombatTarget = crtheld;
+                            gv.sf.ActionToTake = "Cast";
+                            return;
+                        }
+                    }
+                    //else if some allies (maybe 1/3) have a debuff effect and caster has the counter spell, then remove the debuff
+                    if (gv.sf.SpellToCast == null)
+                    {
+                        //go through each spell in majorBuff list
+                        foreach (Spell sp in MajorBuffList)
+                        {
+                            resetAdvancedGeneralCasterSettings();
+                            if (crt.sp >= sp.costSP)
+                            {
+                                //see if it is a counter spell to a debuff
+                                if (sp.removeEffectTagList.Count > 0)
+                                {
+                                    //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                    Coordinate bestLoc = LocationToTargetAlliesWithDebuffCounterSpell(crt, sp);
+                                    if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                    {
+                                        //need to move to best casting location first
+                                        if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                        {
+                                            pf.resetGrid(crt);
+                                            pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                            foreach (Coordinate crd in pf.pathNodes)
+                                            {
+                                                currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                            }
+                                            if (currentCreaturePathNodes.Count == 0)
+                                            {
+                                                //didn't find a path so try something else
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                gv.sf.useMoveBeforeCastingSpell = true;
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestLoc;
+                                                gv.sf.ActionToTake = "Move";
+                                                return;
+                                            }
+                                        }
+                                        //already at a good casting location
+                                        else
+                                        {
+                                            gv.sf.SpellToCast = sp;
+                                            gv.sf.CombatTarget = bestLoc;
+                                            gv.sf.ActionToTake = "Cast";
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        foreach (Spell sp in MinorBuffList)
+                        {
+                            resetAdvancedGeneralCasterSettings();
+                            if (crt.sp >= sp.costSP)
+                            {
+                                //see if it is a counter spell to a debuff
+                                if (sp.removeEffectTagList.Count > 0)
+                                {
+                                    //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                    Coordinate bestLoc = LocationToTargetAlliesWithDebuffCounterSpell(crt, sp);
+                                    if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                    {
+                                        //need to move to best casting location first
+                                        if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                        {
+                                            pf.resetGrid(crt);
+                                            pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                            foreach (Coordinate crd in pf.pathNodes)
+                                            {
+                                                currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                            }
+                                            if (currentCreaturePathNodes.Count == 0)
+                                            {
+                                                //didn't find a path so try something else
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                gv.sf.useMoveBeforeCastingSpell = true;
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestLoc;
+                                                gv.sf.ActionToTake = "Move";
+                                                return;
+                                            }
+                                        }
+                                        //already at a good casting location
+                                        else
+                                        {
+                                            gv.sf.SpellToCast = sp;
+                                            gv.sf.CombatTarget = bestLoc;
+                                            gv.sf.ActionToTake = "Cast";
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //else if many allies have low HP and caster has a mass heal spell, then use that
+                    if (gv.sf.SpellToCast == null)
+                    {
+                        if (MajorHealList.Count > 0)
+                        {
+                            for (int j = 0; j < 10; j++)
+                            {
+                                resetAdvancedGeneralCasterSettings();
+                                rnd = gv.sf.RandInt(MajorHealList.Count);
+                                Spell sp = MajorHealList[rnd - 1];
+                                if (sp != null)
+                                {
+                                    if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                    {
+                                        //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                        Coordinate bestLoc = LocationToTargetAlliesWithMassHealingSpell(crt, sp);
+                                        if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                        {
+                                            //need to move to best casting location first
+                                            if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                            {
+                                                pf.resetGrid(crt);
+                                                pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                foreach (Coordinate crd in pf.pathNodes)
+                                                {
+                                                    currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                }
+                                                if (currentCreaturePathNodes.Count == 0)
+                                                {
+                                                    //didn't find a path so try something else
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    gv.sf.useMoveBeforeCastingSpell = true;
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Move";
+                                                    return;
+                                                }
+                                            }
+                                            //already at a good casting location
+                                            else
+                                            {
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestLoc;
+                                                gv.sf.ActionToTake = "Cast";
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (MinorHealList.Count > 0)
+                        {
+                            for (int j = 0; j < 10; j++)
+                            {
+                                resetAdvancedGeneralCasterSettings();
+                                rnd = gv.sf.RandInt(MinorHealList.Count);
+                                Spell sp = MinorHealList[rnd - 1];
+                                if (sp != null)
+                                {
+                                    if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                    {
+                                        //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                        Coordinate bestLoc = LocationToTargetAlliesWithMassHealingSpell(crt, sp);
+                                        if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                        {
+                                            //need to move to best casting location first
+                                            if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                            {
+                                                pf.resetGrid(crt);
+                                                pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                foreach (Coordinate crd in pf.pathNodes)
+                                                {
+                                                    currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                }
+                                                if (currentCreaturePathNodes.Count == 0)
+                                                {
+                                                    //didn't find a path so try something else
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    gv.sf.useMoveBeforeCastingSpell = true;
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Move";
+                                                    return;
+                                                }
+                                            }
+                                            //already at a good casting location
+                                            else
+                                            {
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestLoc;
+                                                gv.sf.ActionToTake = "Cast";
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //else if an ally has low HP (<50%) and caster has a heal spell, then heal them
+                    if (gv.sf.SpellToCast == null)
+                    {
+                        if (MajorHealList.Count > 0)
+                        {
+                            for (int j = 0; j < 10; j++)
+                            {
+                                resetAdvancedGeneralCasterSettings();
+                                rnd = gv.sf.RandInt(MajorHealList.Count);
+                                Spell sp = MajorHealList[rnd - 1];
+                                if (sp != null)
+                                {
+                                    if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                    {
+                                        //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                        Creature bestCrt = CreatureToTargetWithHealSpell(crt, sp);
+                                        if (bestCrt != null)
+                                        {
+                                            //need to move to best casting location first
+                                            if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                            {
+                                                pf.resetGrid(crt);
+                                                pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                foreach (Coordinate crd in pf.pathNodes)
+                                                {
+                                                    currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                }
+                                                if (currentCreaturePathNodes.Count == 0)
+                                                {
+                                                    //didn't find a path so try something else
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    gv.sf.useMoveBeforeCastingSpell = true;
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Move";
+                                                    return;
+                                                }
+                                            }
+                                            //already at a good casting location
+                                            else
+                                            {
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestCrt;
+                                                gv.sf.ActionToTake = "Cast";
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (MinorHealList.Count > 0)
+                        {
+                            for (int j = 0; j < 10; j++)
+                            {
+                                resetAdvancedGeneralCasterSettings();
+                                rnd = gv.sf.RandInt(MinorHealList.Count);
+                                Spell sp = MinorHealList[rnd - 1];
+                                if (sp != null)
+                                {
+                                    if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                    {
+                                        //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                        Creature bestCrt = CreatureToTargetWithHealSpell(crt, sp);
+                                        if (bestCrt != null)
+                                        {
+                                            //need to move to best casting location first
+                                            if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                            {
+                                                pf.resetGrid(crt);
+                                                pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                foreach (Coordinate crd in pf.pathNodes)
+                                                {
+                                                    currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                }
+                                                if (currentCreaturePathNodes.Count == 0)
+                                                {
+                                                    //didn't find a path so try something else
+                                                    continue;
+                                                }
+                                                else
+                                                {
+                                                    gv.sf.useMoveBeforeCastingSpell = true;
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Move";
+                                                    return;
+                                                }
+                                            }
+                                            //already at a good casting location
+                                            else
+                                            {
+                                                gv.sf.SpellToCast = sp;
+                                                gv.sf.CombatTarget = bestCrt;
+                                                gv.sf.ActionToTake = "Cast";
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //RANDOM SPELL
+            if (gv.sf.SpellToCast == null) //haven't found a spell yet so keep trying
+            {
+                for (int i = 0; i < 5; i++) //try 5 times and then give up
+                {
+                    resetAdvancedGeneralCasterSettings();
+                    //pick random spell rand(4)
+                    rnd = gv.sf.RandInt(4);
+                    // 1: if has heal spell, but no one needs healing then try again, else use most effective heal spell available (try from major list first)
+                    if (rnd == 1)
+                    {
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> tries random heal spell (" + rnd + "/4).</font><BR>");
+                        }
+                        //if many allies have low HP and caster has a mass heal spell, then use that
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorHealList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorHealList.Count);
+                                    Spell sp = MajorHealList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Coordinate bestLoc = LocationToTargetAlliesWithMassHealingSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorHealList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorHealList.Count);
+                                    Spell sp = MinorHealList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Coordinate bestLoc = LocationToTargetAlliesWithMassHealingSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //if an ally has low HP (<50%) and caster has a heal spell, then heal them
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorHealList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorHealList.Count);
+                                    Spell sp = MajorHealList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Creature bestCrt = CreatureToTargetWithHealSpell(crt, sp);
+                                            if (bestCrt != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestCrt;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorHealList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorHealList.Count);
+                                    Spell sp = MinorHealList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Creature bestCrt = CreatureToTargetWithHealSpell(crt, sp);
+                                            if (bestCrt != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestCrt;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // 2: if has buff spell, but allies (maybe 1/3) already have a similar buff then try again, else use most effective buff spell available (try from major list first)
+                    else if (rnd == 2)
+                    {
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> tries random buff spell (" + rnd + "/4).</font><BR>");
+                        }
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorBuffList.Count);
+                                    Spell sp = MajorBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                            Coordinate bestLoc = LocationToTargetAlliesWithAoEBuffSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorBuffList.Count);
+                                    Spell sp = MinorBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                            Coordinate bestLoc = LocationToTargetAlliesWithAoEBuffSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //if an ally has low HP (<50%) and caster has a heal spell, then heal them
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorBuffList.Count);
+                                    Spell sp = MajorBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Creature bestCrt = CreatureToTargetWithBuffSpell(crt, sp);
+                                            if (bestCrt != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestCrt;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorBuffList.Count);
+                                    Spell sp = MinorBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Creature bestCrt = CreatureToTargetWithBuffSpell(crt, sp);
+                                            if (bestCrt != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestCrt;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestCrt;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // 3: if has debuff spell, but PCs already have the debuff effect or are immune(after learned) then try again, else use most effective debuff spell available (try from major list first)
+                    else if (rnd == 3)
+                    {
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> tries random debuff spell (" + rnd + "/4).</font><BR>");
+                        }
+                        //try AoE debuff first
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorDeBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorDeBuffList.Count);
+                                    Spell sp = MajorDeBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                            Coordinate bestLoc = LocationToTargetPCsWithAoEDeBuffSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorDeBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorDeBuffList.Count);
+                                    Spell sp = MinorDeBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            //check to see if creatures have that debuff effect and if so, find best point locaton to cast that spell
+                                            Coordinate bestLoc = LocationToTargetPCsWithAoEDeBuffSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //try single PC debuff
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorDeBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorDeBuffList.Count);
+                                    Spell sp = MajorDeBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Player bestPC = PcToTargetWithDeBuffSpell(crt, sp);
+                                            if (bestPC != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestPC;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestPC;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorDeBuffList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorDeBuffList.Count);
+                                    Spell sp = MinorDeBuffList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            //check to see if creatures have low HP and if so, find best point locaton to cast the healing spell
+                                            Player bestPC = PcToTargetWithDeBuffSpell(crt, sp);
+                                            if (bestPC != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X != crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y != crt.combatLocY))
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestPC;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                                //already at a good casting location
+                                                else
+                                                {
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestPC;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // 4: if has damage spell, but not enough PC can be hit then try again, else use most effective damage spell available (try from major list first)
+                    else if (rnd == 4)
+                    {
+                        if (gv.mod.debugMode)
+                        {
+                            gv.cc.addLogText("<font color='red'>" + crt.cr_name + " <font color='white'> tries random damage spell (" + rnd + "/4).</font><BR>");
+                        }
+                        //if many PCs (1/2 or more) can be hit and caster has a mass damage spell, then use that
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorDamageList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorDamageList.Count);
+                                    Spell sp = MajorDamageList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            Coordinate bestLoc = LocationToTargetPcsWithMassDamageSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X == crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y == crt.combatLocY))
+                                                {
+                                                    //already at a good casting location
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    //move to best casting location and then cast
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodesCasterAI(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorDamageList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorDamageList.Count);
+                                    Spell sp = MinorDamageList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius > 1))
+                                        {
+                                            Coordinate bestLoc = LocationToTargetPcsWithMassDamageSpell(crt, sp);
+                                            if ((bestLoc.X != -1) && (bestLoc.Y != -1))
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X == crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y == crt.combatLocY))
+                                                {
+                                                    //already at a good casting location
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestLoc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    //move to best casting location and then cast
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodesCasterAI(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestLoc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //if a single PC, target the PC with lowest HP and caster has a damage spell, then use that
+                        if (gv.sf.SpellToCast == null)
+                        {
+                            if (MajorDamageList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MajorDamageList.Count);
+                                    Spell sp = MajorDamageList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            Player bestPc = PcToTargetWithDamageSpell(crt, sp);
+                                            if (bestPc != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X == crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y == crt.combatLocY))
+                                                {
+                                                    //already at a good casting location
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestPc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestPc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (MinorDamageList.Count > 0)
+                            {
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    resetAdvancedGeneralCasterSettings();
+                                    rnd = gv.sf.RandInt(MinorDamageList.Count);
+                                    Spell sp = MinorDamageList[rnd - 1];
+                                    if (sp != null)
+                                    {
+                                        if ((crt.sp >= sp.costSP) && (sp.aoeRadius < 2))
+                                        {
+                                            Player bestPc = PcToTargetWithDamageSpell(crt, sp);
+                                            if (bestPc != null)
+                                            {
+                                                //need to move to best casting location first
+                                                if ((gv.sf.CasterLocationAfterMoveCloser.X == crt.combatLocX) && (gv.sf.CasterLocationAfterMoveCloser.Y == crt.combatLocY))
+                                                {
+                                                    //already at a good casting location
+                                                    gv.sf.SpellToCast = sp;
+                                                    gv.sf.CombatTarget = bestPc;
+                                                    gv.sf.ActionToTake = "Cast";
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    pf.resetGrid(crt);
+                                                    pf.setupPathNodes(crt, new Coordinate(gv.sf.CasterLocationAfterMoveCloser.X, gv.sf.CasterLocationAfterMoveCloser.Y), false);
+                                                    foreach (Coordinate crd in pf.pathNodes)
+                                                    {
+                                                        currentCreaturePathNodes.Add(new Coordinate(crd.X, crd.Y));
+                                                    }
+                                                    if (currentCreaturePathNodes.Count == 0)
+                                                    {
+                                                        //didn't find a path so try something else
+                                                        continue;
+                                                    }
+                                                    else
+                                                    {
+                                                        gv.sf.useMoveBeforeCastingSpell = true;
+                                                        gv.sf.SpellToCast = sp;
+                                                        gv.sf.CombatTarget = bestPc;
+                                                        gv.sf.ActionToTake = "Move";
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //JUST ATTACK
+            if (gv.sf.SpellToCast == null) //didn't find a spell that matched the criteria so use attack instead
+            {
+                Player pc = targetClosestPC(crt);
+                if (pc == null)
+                {
+                    gv.sf.ActionToTake = null;
+                    return;
+                }
+                gv.sf.CombatTarget = pc;
+                gv.sf.ActionToTake = "Attack";
+            }
+        }
+        public void resetAdvancedGeneralCasterSettings()
+        {
+            gv.sf.useMoveBeforeCastingSpell = false;
+            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(-1, -1);
+            currentCreaturePathNodes.Clear();
+        }
+        public bool hasDefenseEffectCurrentlyActive(Creature crt)
+        {
+            foreach (Effect ef in crt.cr_effectsList)
+            {
+                if (ef.acModifier > 0)
+                {
+                    return true;
+                }
+                else if (ef.modifyDex > 0)
+                {
+                    return true;
+                }
+                else if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                {
+                    return true;
+                }
+                else if (ef.numberOfMirrorImagesLeft > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Coordinate LocationToTargetAlliesWithDebuffCounterSpell(Creature caster, Spell spl)
+        {
+            Coordinate targetLoc = new Coordinate(-1, -1);
+            int shortestDist = 9999; //ADD
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int numOfCreatures = gv.mod.currentEncounter.encounterCreatureList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        int utility = 0; //reset utility for each point tested
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        targetSquareList.Clear();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == crtr.combatLocX) && (c.Y == crtr.combatLocY))
+                                {
+                                    foreach (EffectTagForDropDownList eftag in spl.removeEffectTagList)
+                                    {
+                                        foreach (Effect ef in crtr.cr_effectsList)
+                                        {
+                                            if (ef.tag.Equals(eftag.tag))
+                                            {
+                                                utility += 1; //found a creature with a debuff that matches the counter spell that the caster has
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        /*foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            {                                
+                                foreach (EffectTagForDropDownList eftag in spl.removeEffectTagList)
+                                {
+                                    foreach (Effect ef in crtr.cr_effectsList)
+                                    {
+                                        if (ef.tag.Equals(eftag.tag))
+                                        {
+                                            utility += 1; //found a creature with a debuff that matches the counter spell that the caster has
+                                        }
+                                    }
+                                }
+                            }
+                        }*/
+                        //ADD
+                        int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                        if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                        {
+                            shortestDist = dist; //ADD
+                            //optimal found, choose this point
+                            optimalUtil = utility;
+                            targetLoc = selectedPoint;
+                            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                        }
+                    }
+                }
+            }
+            if ((optimalUtil * 3) >= numOfCreatures) //at least 1/3 of creatures have this debuff effect
+            {
+                return targetLoc;
+            }
+            else
+            {
+                return new Coordinate(-1, -1);
+            }
+        }
+        public Coordinate LocationToTargetAlliesWithAoEBuffSpell(Creature caster, Spell spl)
+        {
+            Coordinate targetLoc = new Coordinate(-1, -1);
+            int shortestDist = 9999; //ADD
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int optimalNumOfCreaturesInAoE = 0;
+            int numOfCreatures = gv.mod.currentEncounter.encounterCreatureList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        int utility = 0; //reset utility for each point tested
+                        int numOfCreaturesInAoE = 0;
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        targetSquareList.Clear();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == crtr.combatLocX) && (c.Y == crtr.combatLocY))
+                                {
+                                    bool alreadyHasEffect = false;
+                                    //check to see if creature already has this spell's effect
+                                    if (spl.spellEffectTagList.Count > 0)
+                                    {
+                                        foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                        {
+                                            foreach (Effect ef in crtr.cr_effectsList)
+                                            {
+                                                if (ef.tag.Equals(eftag.tag))
+                                                {
+                                                    alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (Effect ef in crtr.cr_effectsList)
+                                        {
+                                            if (ef.tag.Equals(spl.spellEffectTag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+
+                                    if (!alreadyHasEffect)
+                                    {
+                                        utility += 1; //found a creature that does not have a buff that matches the spell that the caster has
+                                        numOfCreaturesInAoE++;
+                                    }
+                                }
+                            }
+                        }
+
+                        /*foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            {
+                                bool alreadyHasEffect = false;
+                                //check to see if creature already has this spell's effect
+                                if (spl.spellEffectTagList.Count > 0)
+                                {
+                                    foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                    {
+                                        foreach (Effect ef in crtr.cr_effectsList)
+                                        {
+                                            if (ef.tag.Equals(eftag.tag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {                                    
+                                    foreach (Effect ef in crtr.cr_effectsList)
+                                    {
+                                        if (ef.tag.Equals(spl.spellEffectTag))
+                                        {
+                                            alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                        }
+                                    }                                    
+                                }
+                                
+                                if (!alreadyHasEffect)
+                                {
+                                    utility += 1; //found a creature that does not have a buff that matches the spell that the caster has
+                                    numOfCreaturesInAoE++;
+                                }                                
+                            }
+                        }*/
+                        //ADD
+                        int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                        if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                        {
+                            shortestDist = dist; //ADD
+                            //optimal found, choose this point
+                            optimalUtil = utility;
+                            optimalNumOfCreaturesInAoE = numOfCreaturesInAoE;
+                            targetLoc = selectedPoint;
+                            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                        }
+                    }
+                }
+            }
+            if ((optimalNumOfCreaturesInAoE * 2) >= numOfCreatures) //at least 1/2 of creatures are targeted in the AoE and don't already have the buff effect
+            {
+                return targetLoc;
+            }
+            else
+            {
+                return new Coordinate(-1, -1);
+            }
+        }
+        public Creature CreatureToTargetWithBuffSpell(Creature caster, Spell spl)
+        {
+            Creature targetCrt = null;
+            int shortestDist = 9999; //ADD
+            float optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int numOfCreatures = gv.mod.currentEncounter.encounterCreatureList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        float utility = 0; //reset utility for each point tested
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if ((crtr.combatLocX == selectedPoint.X) && (crtr.combatLocY == selectedPoint.Y))
+                            {
+                                bool alreadyHasEffect = false;
+                                //check to see if creature already has this spell's effect
+                                if (spl.spellEffectTagList.Count > 0)
+                                {
+                                    foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                    {
+                                        foreach (Effect ef in crtr.cr_effectsList)
+                                        {
+                                            if (ef.tag.Equals(eftag.tag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (Effect ef in crtr.cr_effectsList)
+                                    {
+                                        if (ef.tag.Equals(spl.spellEffectTag))
+                                        {
+                                            alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                        }
+                                    }
+                                }
+                                if (!alreadyHasEffect)
+                                {
+                                    utility = (float)crtr.hpMax / (float)crtr.hp; //found a creature with low HP, so buff
+                                }
+                                //ADD
+                                int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                                if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                                {
+                                    shortestDist = dist; //ADD
+                                    //optimal found, choose this crt
+                                    optimalUtil = utility;
+                                    targetCrt = crtr;
+                                    gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (optimalUtil >= 2) //creature has less than 51% of maxHP
+            {
+                return targetCrt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public Coordinate LocationToTargetPCsWithAoEDeBuffSpell(Creature caster, Spell spl)
+        {
+            Coordinate targetLoc = new Coordinate(-1, -1);
+            int shortestDist = 9999;
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int optimalNumOfPCsInAoE = 0;
+            int numOfPcsAlive = gv.mod.playerList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        int utility = 0; //reset utility for each point tested
+                        int numOfPCsInAoE = 0;
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+                        if (selectedPoint == new Coordinate(caster.combatLocX, caster.combatLocY))
+                        {
+                            utility -= 4; //the creature at least attempts to avoid hurting itself, but if surrounded might fireball itself!
+                            if (caster.hp <= caster.hpMax / 4) //caster is wounded, definately avoids itself.
+                            {
+                                utility -= 4;
+                            }
+                        }
+
+                        targetSquareList.Clear();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == crtr.combatLocX) && (c.Y == crtr.combatLocY))
+                                {
+                                    utility -= 1;
+                                }
+                            }
+                        }
+                        /*foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            {
+                                utility -= 1;
+                            }
+                        }*/
+                        
+                        numOfPcsAlive = 0; //ADD
+                        foreach (Player tgt_pc in gv.mod.playerList)
+                        {
+                            if (tgt_pc.hp > 0) { numOfPcsAlive++; } //ADD
+
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == tgt_pc.combatLocX) && (c.Y == tgt_pc.combatLocY))
+                                {
+                                    bool alreadyHasEffect = false;
+                                    //check to see if creature already has this spell's effect
+                                    if (spl.spellEffectTagList.Count > 0)
+                                    {
+                                        foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                        {
+                                            foreach (Effect ef in tgt_pc.effectsList)
+                                            {
+                                                if (ef.tag.Equals(eftag.tag))
+                                                {
+                                                    alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (Effect ef in tgt_pc.effectsList)
+                                        {
+                                            if (ef.tag.Equals(spl.spellEffectTag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+                                    if (!alreadyHasEffect)
+                                    {
+                                        utility += 2;
+                                        numOfPCsInAoE++;
+                                    }
+                                }
+                            }
+
+                            /*if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                            {
+                                bool alreadyHasEffect = false;
+                                //check to see if creature already has this spell's effect
+                                if (spl.spellEffectTagList.Count > 0)
+                                {
+                                    foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                    {
+                                        foreach (Effect ef in tgt_pc.effectsList)
+                                        {
+                                            if (ef.tag.Equals(eftag.tag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {                                    
+                                    foreach (Effect ef in tgt_pc.effectsList)
+                                    {
+                                        if (ef.tag.Equals(spl.spellEffectTag))
+                                        {
+                                            alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                        }
+                                    }                                    
+                                }
+                                if (!alreadyHasEffect)
+                                {
+                                    utility += 2;
+                                    numOfPCsInAoE++;
+                                }
+                            }*/
+                        }
+                        foreach (Effect ef in gv.mod.currentEncounter.effectsList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == ef.combatLocX) && (c.Y == ef.combatLocY))
+                                {
+                                    utility -= 1;
+                                }
+                            }
+                            /*if (this.CalcDistance(null, ef.combatLocX, ef.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            {
+                                utility -= 1;
+                            }*/
+                        }
+                        int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                        if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                        {
+                            shortestDist = dist; //ADD
+                            //optimal found, choose this point
+                            optimalUtil = utility;
+                            optimalNumOfPCsInAoE = numOfPCsInAoE;
+                            targetLoc = selectedPoint;
+                            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                        }
+                    }
+                }
+            }
+            if ((optimalNumOfPCsInAoE * 2) >= numOfPcsAlive) //at least 1/2 of PCs are targeted in the AoE and don't already have the debuff effect
+            {
+                return targetLoc;
+            }
+            else
+            {
+                return new Coordinate(-1, -1);
+            }
+        }
+        public Player PcToTargetWithDeBuffSpell(Creature caster, Spell spl)
+        {
+            Player targetPC = null;
+            int shortestDist = 9999; //ADD
+            int highestHP = 0;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+                        foreach (Player tgt_pc in gv.mod.playerList)
+                        {
+                            if (tgt_pc.steathModeOn) { continue; }
+                            if ((tgt_pc.combatLocX == selectedPoint.X) && (tgt_pc.combatLocY == selectedPoint.Y))
+                            {
+                                bool alreadyHasEffect = false;
+                                //check to see if creature already has this spell's effect
+                                if (spl.spellEffectTagList.Count > 0)
+                                {
+                                    foreach (EffectTagForDropDownList eftag in spl.spellEffectTagList)
+                                    {
+                                        foreach (Effect ef in tgt_pc.effectsList)
+                                        {
+                                            if (ef.tag.Equals(eftag.tag))
+                                            {
+                                                alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (Effect ef in tgt_pc.effectsList)
+                                    {
+                                        if (ef.tag.Equals(spl.spellEffectTag))
+                                        {
+                                            alreadyHasEffect = true; //found a creature with a buff that matches the caster spell
+                                        }
+                                    }
+                                }
+                                if (!alreadyHasEffect)
+                                {
+                                    //ADD
+                                    int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                                    if (((tgt_pc.hp == highestHP) && (dist < shortestDist)) || (tgt_pc.hp > highestHP)) //ADD
+                                    {
+                                        shortestDist = dist; //ADD
+                                        highestHP = tgt_pc.hp;
+                                        targetPC = tgt_pc;
+                                        gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return targetPC;
+        }
+        public Coordinate LocationToTargetAlliesWithMassHealingSpell(Creature caster, Spell spl)
+        {
+            Coordinate targetLoc = new Coordinate(-1, -1);
+            int shortestDist = 9999; //ADD
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int numOfCreatures = gv.mod.currentEncounter.encounterCreatureList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        int utility = 0; //reset utility for each point tested
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        targetSquareList.Clear();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == crtr.combatLocX) && (c.Y == crtr.combatLocY))
+                                {
+                                    if (crtr.hp < crtr.hpMax)
+                                    {
+                                        utility += 1; //found a creature with low HP
+                                    }
+                                }
+                            }
+                        }
+
+                        /*foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                            {
+                                if (crtr.hp < crtr.hpMax)
+                                {
+                                    utility += 1; //found a creature with low HP
+                                }
+                            }
+                        }*/
+                        //ADD
+                        int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                        if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                        {
+                            shortestDist = dist; //ADD
+                            //optimal found, choose this point
+                            optimalUtil = utility;
+                            targetLoc = selectedPoint;
+                            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                        }
+                    }
+                }
+            }
+            if ((optimalUtil * 3) >= numOfCreatures) //at least 1/3 of creatures have low HP
+            {
+                return targetLoc;
+            }
+            else
+            {
+                return new Coordinate(-1, -1);
+            }
+        }
+        public Creature CreatureToTargetWithHealSpell(Creature caster, Spell spl)
+        {
+            Creature targetCrt = null;
+            int shortestDist = 9999; //ADD
+            float optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int numOfCreatures = gv.mod.currentEncounter.encounterCreatureList.Count;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        float utility = 0; //reset utility for each point tested
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                        {
+                            if ((crtr.combatLocX == selectedPoint.X) && (crtr.combatLocY == selectedPoint.Y))
+                            {
+                                utility = (float)crtr.hpMax / (float)crtr.hp; //found a creature with low HP
+                                //ADD
+                                int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                                if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                                {
+                                    shortestDist = dist; //ADD
+                                    //optimal found, choose this point
+                                    optimalUtil = utility;
+                                    targetCrt = crtr;
+                                    gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (optimalUtil >= 2) //creature has less than 51% of maxHP
+            {
+                return targetCrt;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public Coordinate LocationToTargetPcsWithMassDamageSpell(Creature caster, Spell spl)
+        {
+            Coordinate targetLoc = new Coordinate(-1, -1);
+            int shortestDist = 9999; //ADD
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            int optimalNumOfPCsInAoE = 0;
+            int numOfPcsAlive = gv.mod.playerList.Count; //ADD
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        int utility = 0; //reset utility for each point tested
+                        int numOfPCsInAoE = 0;
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+
+                        if (selectedPoint == new Coordinate(caster.combatLocX, caster.combatLocY))
+                        {
+                            utility -= 4; //the creature at least attempts to avoid hurting itself, but if surrounded might fireball itself!
+                            if (caster.hp <= caster.hpMax / 4) //caster is wounded, definately avoids itself.
+                            {
+                                utility -= 4;
+                            }
+                        }
+
+                        targetSquareList.Clear();
+                        targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                        foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList)
+                        {
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == crtr.combatLocX) && (c.Y == crtr.combatLocY))
+                                {
+                                    utility -= 1;
+                                }
+                            }
+                        }
+
+                        //get the list of AFFECTED SQUARES AND SEE IF A CREATURE is on it
+                        /*if (spl.aoeShape == AreaOfEffectShape.Line || (spl.aoeShape == AreaOfEffectShape.Cone))
+                        {
+                            List<Coordinate> targetSquareList = new List<Coordinate>();
+                            targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+                            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                            {
+                                Coordinate crtCoord = new Coordinate();
+                                crtCoord.X = crtr.combatLocX;
+                                crtCoord.Y = crtr.combatLocY;
+                                foreach (Coordinate c in targetSquareList)
+                                {
+                                    if (c.X == crtCoord.X && c.Y == crtCoord.Y)
+                                    {
+                                        utility -= 1;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                            {
+                                if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                                {
+                                    utility -= 1;
+                                }
+                            }
+                        }*/
+
+                        numOfPcsAlive = 0; //ADD
+                        foreach (Player tgt_pc in gv.mod.playerList)
+                        {
+                            if (tgt_pc.hp > 0) { numOfPcsAlive++; } //ADD                            
+                            foreach (Coordinate c in targetSquareList)
+                            {
+                                if ((c.X == tgt_pc.combatLocX) && (c.Y == tgt_pc.combatLocY))
+                                {
+                                    numOfPCsInAoE++;
+                                    if (tgt_pc.hp > 0 && tgt_pc.hp < (tgt_pc.hpMax / 4))
+                                    {
+                                        utility += 3;
+                                    }
+                                    else if (tgt_pc.hp > 0)
+                                    {
+                                        utility += 2;
+                                    }
+                                }
+                            }
+                            
+                            /*if (spl.aoeShape == AreaOfEffectShape.Line || (spl.aoeShape == AreaOfEffectShape.Cone))
+                            {
+                                List<Coordinate> targetSquareList = new List<Coordinate>();
+                                targetSquareList = gv.sf.CreateAoeSquaresListWithReturnValue(castingLocation, selectedPoint, spl.aoeShape, spl.aoeRadius);
+
+                                foreach (Coordinate c in targetSquareList)
+                                {
+                                    if (c.X == tgt_pc.combatLocX && c.Y == tgt_pc.combatLocY)
+                                    {
+                                        numOfPCsInAoE++;
+                                        if (tgt_pc.hp > 0 && tgt_pc.hp < (tgt_pc.hpMax / 4))
+                                        {
+                                            utility += 3;
+                                        }
+                                        else if (tgt_pc.hp > 0)
+                                        {
+                                            utility += 2;
+                                        }
+                                    }
+                                }
+                            }
+                            else if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!  
+                            {
+                                numOfPCsInAoE++;
+                                if (tgt_pc.hp > 0 && tgt_pc.hp < (tgt_pc.hpMax / 4))
+                                {
+                                    utility += 3;
+                                }
+                                else if (tgt_pc.hp > 0)
+                                {
+                                    utility += 2;
+                                }
+                            }*/
+                        }
+
+                        /*foreach (Player tgt_pc in gv.mod.playerList)
+                        {
+                            if (tgt_pc.hp > 0) { numOfPcsAlive++; } //ADD
+                            if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                            {
+                                utility += 2;
+                                numOfPCsInAoE++;
+                            }
+                        }*/
+
+
+                        //ADD
+                        int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                        if (((utility == optimalUtil) && (dist < shortestDist)) || (utility > optimalUtil))
+                        {                            
+                            shortestDist = dist; //ADD
+                            //optimal found, choose this point
+                            optimalUtil = utility;
+                            optimalNumOfPCsInAoE = numOfPCsInAoE;
+                            targetLoc = selectedPoint;
+                            gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                        }
+                        if (gv.mod.debugMode)
+                        {
+                            //gv.cc.addLogText("<yl>(" + selectedPoint.X + "," + selectedPoint.Y + "):" + utility + "</yl><BR>");
+                        }
+                    }
+                }
+            }
+            if ((optimalNumOfPCsInAoE * 2) >= numOfPcsAlive) //ADD //at least 1/2 of PCs targeted
+            {
+                return targetLoc;
+            }
+            else
+            {
+                return new Coordinate(-1, -1);
+            }
+        }
+        public Player PcToTargetWithDamageSpell(Creature caster, Spell spl)
+        {
+            Player targetPc = null;
+            int shortestDist = 9999; //ADD
+            int lowestHP = 9999;
+            Coordinate selectedPoint = new Coordinate(0, 0);
+            Coordinate castingLocation = new Coordinate(0, 0);
+            //once the list is created, go through the list and find the optimal
+            //casting target location based on the casting location list
+            foreach (Coordinate sqr in moveToSquares)
+            {
+                castingLocation = new Coordinate(sqr.X, sqr.Y); //Initial Select Point is Creature itself, then loop through all squares within range!
+                for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+                {
+                    for (int x = spl.range; x > -spl.range; x--)
+                    {
+                        float utility = 0; //reset utility for each point tested
+                        selectedPoint = new Coordinate(castingLocation.X + x, castingLocation.Y + y);
+
+                        //check if selected point is a valid location on combat map
+                        if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                        {
+                            continue;
+                        }
+
+                        //check if selected point is in LoS, if not skip this point
+                        int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                        int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                        int startX = castingLocation.X * gv.squareSize + (gv.squareSize / 2);
+                        int startY = castingLocation.Y * gv.squareSize + (gv.squareSize / 2);
+                        if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                        {
+                            continue;
+                        }
+                        foreach (Player tgt_pc in gv.mod.playerList)
+                        {
+                            if (tgt_pc.steathModeOn) { continue; }
+                            if ((tgt_pc.combatLocX == selectedPoint.X) && (tgt_pc.combatLocY == selectedPoint.Y) && (tgt_pc.hp > 0))
+                            {
+                                //ADD
+                                int dist = getDistance(new Coordinate(castingLocation.X, castingLocation.Y), new Coordinate(caster.combatLocX, caster.combatLocY));
+                                if (((tgt_pc.hp == lowestHP) && (dist < shortestDist)) || (tgt_pc.hp < lowestHP)) //ADD
+                                {
+                                    shortestDist = dist; //ADD
+                                    lowestHP = tgt_pc.hp;
+                                    targetPc = tgt_pc;
+                                    gv.sf.CasterLocationAfterMoveCloser = new Coordinate(castingLocation.X, castingLocation.Y);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return targetPc;
+        }
+        public Creature allyHasHoldEffect()
+        {
+            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                foreach (Effect ef in c.cr_effectsList)
+                {
+                    if (ef.statusType.Equals("Held"))
+                    {
+                        return c;
+                    }
+                }
+            }
+            return null;
+        }
+        public bool hasMirrorImageOrDamageAbsorptionEffectCurrentlyActive(Creature crt)
+        {
+            foreach (Effect ef in crt.cr_effectsList)
+            {
+                if (ef.numberOfHitPointDamageAbsorptionLeft > 0)
+                {
+                    return true;
+                }
+                else if (ef.numberOfMirrorImagesLeft > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Spell casterHasHoldCounterSpell(Creature crt)
+        {
+            foreach (string s in crt.knownSpellsTags)
+            {
+                Spell sp = gv.mod.getSpellByTag(s);
+                if (sp != null)
+                {
+                    foreach (EffectTagForDropDownList et in sp.removeEffectTagList)
+                    {
+                        Effect ef = gv.mod.getEffectByTag(et.tag);
+                        if (ef != null)
+                        {
+                            if (ef.statusType.Equals("Held"))
+                            {
+                                if (crt.sp >= sp.costSP)
+                                {
+                                    return sp;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public bool hasMirrorImageAvailableForUse(Creature crt)
+        {
+            foreach (string s in crt.knownSpellsTags)
+            {
+                Spell sp = gv.mod.getSpellByTag(s);
+                if (sp != null)
+                {
+                    foreach (EffectTagForDropDownList et in sp.spellEffectTagList)
+                    {
+                        Effect ef = gv.mod.getEffectByTag(et.tag);
+                        if (ef != null)
+                        {
+                            if (ef.numberOfMirrorImagesLeft > 0)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        public int ScoreOfDamageSpell(Creature crt, Spell spl, int casterWeight, int crtWeight, int pcWeight)
+        {
+            //test numbers below, remove once this method is used somewhere
+            casterWeight = -4;
+            crtWeight = -1;
+            pcWeight = 2;
+
+            //JamesManhattan Utility maximization function for the VERY INTELLIGENT CREATURE CASTER
+            int utility = 0; //utility
+            int optimalUtil = 0; //optimal utility, a storage of the highest achieved
+            Coordinate selectedPoint = new Coordinate(crt.combatLocX, crt.combatLocY); //Initial Select Point is Creature itself, then loop through all squares within range!
+            for (int y = spl.range; y > -spl.range; y--)  //start at far range and work backwards does a pretty good job of avoiding hitting allies.
+            {
+                for (int x = spl.range; x > -spl.range; x--)
+                {
+                    utility = 0; //reset utility for each point tested
+                    selectedPoint = new Coordinate(crt.combatLocX + x, crt.combatLocY + y);
+
+                    //check if selected point is a valid location on combat map
+                    if (!isSquareOnCombatMap(selectedPoint.X, selectedPoint.Y))
+                    //if ((selectedPoint.X < 0) || (selectedPoint.X > gv.mod.currentEncounter.MapSizeX - 1) || (selectedPoint.Y < 0) || (selectedPoint.Y > gv.mod.currentEncounter.MapSizeY - 1))
+                    {
+                        continue;
+                    }
+
+                    //check if selected point is in LoS, if not skip this point
+                    int endX = selectedPoint.X * gv.squareSize + (gv.squareSize / 2);
+                    int endY = selectedPoint.Y * gv.squareSize + (gv.squareSize / 2);
+                    int startX = crt.combatLocX * gv.squareSize + (gv.squareSize / 2);
+                    int startY = crt.combatLocY * gv.squareSize + (gv.squareSize / 2);
+                    if (!isVisibleLineOfSight(new Coordinate(endX, endY), new Coordinate(startX, startY)))
+                    {
+                        continue;
+                    }
+
+                    if (selectedPoint == new Coordinate(crt.combatLocX, crt.combatLocY))
+                    {
+                        utility += casterWeight; //the creature at least attempts to avoid hurting itself, but if surrounded might fireball itself!
+                        if (crt.hp <= crt.hpMax / 4) //caster is wounded, definately avoids itself.
+                        {
+                            utility += casterWeight;
+                        }
+                    }
+                    foreach (Creature crtr in gv.mod.currentEncounter.encounterCreatureList) //if its allies are in the burst subtract a point, or half depending on how evil it is.
+                    {
+                        if (this.CalcDistance(crtr, crtr.combatLocX, crtr.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) //if friendly creatures are in the AOE burst, count how many, subtract 0.5 for each, evil is evil
+                        {
+                            utility += crtWeight;
+                        }
+                    }
+                    foreach (Player tgt_pc in gv.mod.playerList)
+                    {
+                        if ((this.CalcDistance(null, tgt_pc.combatLocX, tgt_pc.combatLocY, selectedPoint.X, selectedPoint.Y) <= spl.aoeRadius) && (tgt_pc.hp > 0)) //if players are in the AOE burst, count how many, total count is utility  //&& sf.GetLocalInt(tgt_pc.Tag, "StealthModeOn") != 1  <-throws an annoying message if not found!!
+                        {
+                            utility += pcWeight;
+                            if (utility > optimalUtil)
+                            {
+                                //optimal found, choose this point
+                                optimalUtil = utility;
+                            }
+                        }
+                    }
+                }
+            }
+            if (gv.mod.debugMode)
+            {
+                gv.cc.addLogText("<yl>" + spl.name + ":" + optimalUtil + "</yl><BR>");
+            }
+
+            return optimalUtil;
+        }
+        public bool canMoveToSquare(Creature crt, Coordinate moveToSquare)
+        {
+            if (!gv.mod.currentEncounter.encounterTiles[moveToSquare.Y * gv.mod.currentEncounter.MapSizeX + moveToSquare.X].Walkable)
+            {
+                return false;
+            }
+            if ((crt.combatLocX == moveToSquare.X) && (crt.combatLocY == moveToSquare.Y))
+            {
+                return true;
+            }
+            if (isSquareOccupied(moveToSquare.X, moveToSquare.Y, crt))
+            {
+                return false;
+            }
+            pf.resetGrid(crt);
+            pf.setupPathNodesCasterAI(crt, moveToSquare, false);
+            if (pf.pathNodes.Count > 0)
+            {
+                //found a path to the location
+                //now check to see if it is too far away to move to in this turn
+                float movesleft = crt.getMoveDistance();
+                Coordinate lastSqr = new Coordinate(0, 0);
+                foreach (Coordinate sqr in pf.pathNodes)
+                {
+                    if ((lastSqr.X == 0) && (lastSqr.Y == 0))
+                    {
+                        //first time through so set lastSqr to the last square in the list (goes from end point to the caster)
+                        lastSqr.X = sqr.X;
+                        lastSqr.Y = sqr.Y;
+                        continue;
+                    }
+                    //check if diagnol move
+                    if ((lastSqr.X != sqr.X) && (lastSqr.Y != sqr.Y))
+                    {
+                        lastSqr.X = sqr.X;
+                        lastSqr.Y = sqr.Y;
+                        movesleft -= gv.mod.diagonalMoveCost;
+                        if (movesleft < 1.0f)
+                        {
+                            return false;
+                        }
+                    }
+                    else //horizontal or vertical move
+                    {
+                        lastSqr.X = sqr.X;
+                        lastSqr.Y = sqr.Y;
+                        movesleft -= 1.0f;
+                        if (movesleft < 1.0f)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+        #endregion
 
         public void doStandardCreatureAttack(Creature crt, Player pc, int futureX, int futureY)
         {
@@ -8268,7 +11641,6 @@ namespace IceBlink2
                 //}
             }
         }
-
 
         public void doStandardCreatureAttack(Creature crt, Player pc)
         {
@@ -8597,8 +11969,7 @@ namespace IceBlink2
             if ((tarX > crt.combatLocX) && (tarY == crt.combatLocY)) { crt.combatFacing = 6; }
             if ((tarX < crt.combatLocX) && (tarY == crt.combatLocY)) { crt.combatFacing = 4; }
         }
-        #endregion
-
+        
         public void doOnHitScriptBasedOnFilename(string filename, Creature crt, Player pc)
         {
             if (!filename.Equals("none"))
@@ -8796,6 +12167,8 @@ namespace IceBlink2
             if (sp == null) { return; }
             gv.cc.doSpellBasedOnScriptOrEffectTag(sp, crt, pc, false, false, null);
         }
+        #endregion
+
         public bool checkEndEncounter()
         {
             //chaweng2
@@ -9553,8 +12926,6 @@ namespace IceBlink2
                 gv.mod.currentEncounter.Triggers.Remove(trg);
             }
         }
-
-
 
         public void doTriggers()
         {
@@ -10344,11 +13715,14 @@ namespace IceBlink2
                         }
                         else
                         {
-
-                            if (currentCombatMode != "move")
+                            if ((remainingNumberAttacks < 1) || (madeEndTurnAction))
                             {
                                 endPcTurn(true);
                             }
+                            //D20 if (currentCombatMode != "move")
+                            //D20 {
+                            //D20     endPcTurn(true);
+                            //D20 }
 
                         }
                     }
@@ -10590,10 +13964,14 @@ namespace IceBlink2
                             }
                             else
                             {
-                                if (currentCombatMode != "move")
+                                if ((remainingNumberAttacks < 1) || (madeEndTurnAction))
                                 {
                                     endPcTurn(true);
                                 }
+                                //D20 if (currentCombatMode != "move")
+                                //D20 {
+                                //D20     endPcTurn(true);
+                                //D20 }
                             }
                             Player tempP = new Player();
                             foreach (Player p in gv.mod.playerList)
@@ -10817,9 +14195,76 @@ namespace IceBlink2
                 }
             }
             #endregion
+
+            #region d20 ANIMATION SPRITES
+            if (d20AnimationOn)
+            {
+                d20AnimationTimeElapsed += elapsed;
+                foreach (AnimationSequence seq in animationSeqStack)
+                {
+                    if (seq.AnimationSeq.Count > 0)
+                    {
+                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        {
+                            //just update the group at the top of the stack, first in first
+                            spr.Update(elapsed, gv);
+                        }
+                    }
+                }
+                //remove sprites if hit end of life
+                for (int aniseq = animationSeqStack.Count - 1; aniseq >= 0; aniseq--)
+                {
+                    for (int stkgrp = animationSeqStack[aniseq].AnimationSeq.Count - 1; stkgrp >= 0; stkgrp--)
+                    {
+                        for (int sprt = animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.Count - 1; sprt >= 0; sprt--)
+                        {
+                            if (animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup[sprt].timeToLiveInMilliseconds <= 0)
+                            {
+                                try
+                                {
+                                    animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.RemoveAt(sprt);
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    gv.errorLog(ex.ToString());
+                                }
+                            }
+                        }
+                        if (animationSeqStack[aniseq].AnimationSeq[stkgrp].SpriteGroup.Count == 0)
+                        {
+                            try
+                            {
+                                animationSeqStack[aniseq].AnimationSeq.RemoveAt(stkgrp);
+                            }
+                            catch (Exception ex)
+                            {
+                                gv.errorLog(ex.ToString());
+                            }
+                        }
+                    }
+                    if (animationSeqStack[aniseq].AnimationSeq.Count == 0)
+                    {
+                        try
+                        {
+                            animationSeqStack.RemoveAt(aniseq);
+                        }
+                        catch (Exception ex)
+                        {
+                            gv.errorLog(ex.ToString());
+                        }
+                    }
+                }
+
+                //if all animation sequences are done, end the die roll animation
+                if (animationSeqStack.Count == 0)
+                {
+                    d20AnimationOn = false;
+                    doCombatAttackRoll();
+                }
+            }
+            #endregion
         }
-
-
 
         //we will need player covered squares, too
         public void refreshCreatureCoveredSquares()
@@ -11073,6 +14518,7 @@ namespace IceBlink2
                 }
             }
         }
+        
         #region Combat Draw
         public void redrawCombat(float elapsed)
         {
@@ -11134,9 +14580,336 @@ namespace IceBlink2
                     }
                 }
             }
+            drawMovesLeftText();
             drawUiLayout();
-        }
+            if (showD20Screen)
+            {
+                drawD20Screen();
+            }
 
+            //USED FOR DEBUG TOGGLES
+            if (gv.mod.debugMode)
+            {
+                drawText(0, -gv.oYshift, PosText, Color.White, 4f);
+            }
+            //drawText(0, 100, BtnHoverText, Color.White, 4f);
+            
+        }
+        public void drawD20Screen()
+        {
+            //createD20Panel();
+            Player pc = currentPlayerAttacking;
+            Creature crt = currentCreatureBeingAttacked;
+            //draw background
+            IbRect src = new IbRect(0, 0, d20ScreenImageWidth, d20ScreenImageHeight);
+            IbRect dst = new IbRect((int)(d20ScreenTopX), (int)(d20ScreenTopY), (int)(d20ScreenWidth), (int)(d20ScreenHeight));
+            gv.DrawBitmap(gv.cc.GetFromBitmapList("ui_bg_fullscreen"), src, dst);
+
+            //draw player frame
+            src = new IbRect(0, 0, gv.cc.GetFromBitmapList("ui_minimap_frame").PixelSize.Width, gv.cc.GetFromBitmapList("ui_minimap_frame").PixelSize.Width);
+            int xLoc = d20ScreenTopX + (int)(gv.squareSize / 4);
+            int yLoc = d20ScreenTopY + (gv.squareSize / 6);
+            int width = (int)(3.9f * gv.squareSize);
+            int height = (int)(4.2f * gv.squareSize);
+            dst = new IbRect(xLoc, yLoc, width, height);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList("ui_minimap_frame"), src, dst);
+
+            //draw creature frame
+            src = new IbRect(0, 0, gv.cc.GetFromBitmapList("ui_minimap_frame").PixelSize.Width, gv.cc.GetFromBitmapList("ui_minimap_frame").PixelSize.Width);
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 5.95f);
+            yLoc = d20ScreenTopY + (gv.squareSize / 6);
+            width = (int)(3.9f * gv.squareSize);
+            height = (int)(4.2f * gv.squareSize);
+            dst = new IbRect(xLoc, yLoc, width, height);
+            gv.DrawBitmap(gv.cc.GetFromBitmapList("ui_minimap_frame"), src, dst);
+
+            //draw stats
+            //PLAYER
+            xLoc = d20ScreenTopX + (int)(gv.squareSize / 2.2f);
+            yLoc = d20ScreenTopY + (gv.squareSize / 3);
+            width = (int)(4.5 * gv.squareSize);
+            height = 4 * gv.squareSize;
+            string txt = buildPcAttackText();
+            DrawTextLayout(pcAttackInfo, txt, xLoc, yLoc, width, height);
+            //CREATURE
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 6.15f);
+            yLoc = d20ScreenTopY + (gv.squareSize / 3);
+            width = (int)(4.5 * gv.squareSize);
+            height = 4 * gv.squareSize;
+            txt = buildCrtDefendText();
+            DrawTextLayout(crtDefendInfo, txt, xLoc, yLoc, width, height);
+
+            //draw note
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.45f);
+            yLoc = d20ScreenTopY + (int)(gv.squareSize * 0.0f);
+            drawText(xLoc, yLoc, "Tap die", "wh");
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.19f);
+            drawText(xLoc, yLoc + (int)gv.drawFontRegHeight, " to switch", "wh");
+
+            //draw summary
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.6f);
+            yLoc = d20ScreenTopY + (int)(gv.squareSize * 2.85f);
+            drawText(xLoc, yLoc, " Roll", "wh");
+            drawText(xLoc, yLoc + (int)gv.drawFontRegHeight, "Needed", "wh");
+            int totalAttackMod = CalcPcAttackModifier(pc, crt, currentAttackIsMainHand);
+            int totalDefend = CalcCreatureDefense(pc, crt);
+            int totalNeeded = totalDefend - totalAttackMod;
+            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.4f);
+            if (totalAttackMod > 9)
+            {
+                xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.25f);
+            }
+            drawText(xLoc, yLoc + (int)gv.drawFontRegHeight + (int)gv.drawFontRegHeight, totalDefend + "-" + totalAttackMod + "=" + totalNeeded, "wh");
+
+            //draw d20 current frame
+            if (d20AnimationOn)
+            {
+                foreach (AnimationSequence seq in animationSeqStack)
+                {
+                    if (seq.AnimationSeq.Count > 0)
+                    {
+                        foreach (Sprite spr in seq.AnimationSeq[0].SpriteGroup)
+                        {
+                            //just draw the group at the top of the stack, first in first
+                            spr.Draw(gv);
+                        }
+                    }
+                }
+            }
+            else //animation done so just show the first frame of the d20
+            {
+                string d20filename = gv.cc.d20Images[indexOfD20Image];
+                src = new IbRect(240, 0, gv.cc.GetFromBitmapList(d20filename).PixelSize.Height, gv.cc.GetFromBitmapList(d20filename).PixelSize.Height);
+                dst = new IbRect(d20X, d20Y, (int)(gv.squareSize * 2), (int)(gv.squareSize * 2));
+                gv.DrawBitmap(gv.cc.GetFromBitmapList(d20filename), src, dst);
+            }
+
+            int startY = (int)(d20Y + (gv.squareSize) - ((int)gv.drawFontRegHeight * 1.55f));
+            int startX = (int)(d20X + (gv.squareSize) - ((int)gv.drawFontRegHeight * 0.85f));
+            //draw ? on d20 before the roll (ROLL)
+            if (btnD20RollReturn.Text.Equals("ROLL (ENTER)"))
+            {
+                //draw nothing when animating
+                if (!d20AnimationOn)
+                {
+                    startX = (int)(d20X + (gv.squareSize) - ((int)gv.drawFontRegHeight * 0.30f));
+                    drawText(startX, startY, "?", "wh");
+                }
+            }
+            //draw roll result when button (RETURN)
+            else if (btnD20RollReturn.Text.Equals("RETURN (ENTER)"))
+            {
+                if (!d20AnimationOn)
+                {
+                    startX = (int)(d20X + (gv.squareSize) - ((int)gv.drawFontRegHeight * 0.30f));
+                    if (attackRollResult > 9)
+                    {
+                        startX = (int)(d20X + (gv.squareSize) - ((int)gv.drawFontRegHeight * 0.55f));
+                    }
+                    drawText(startX, startY, attackRollResult.ToString(), "wh");
+
+                    //draw result (HIT or MISS or CRITICAL HIT or CRITICAL MISS)
+                    int threatRange = gv.sf.CalcPcThreatRange(pc, true);
+                    yLoc = d20ScreenTopY + (gv.squareSize * 2);
+                    if (attackRollResult == 1)
+                    {
+                        xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.27f);
+                        drawText(xLoc, yLoc + (7 * (int)gv.drawFontRegHeight), "CRITICAL", "rd");
+                        xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.62f);
+                        drawText(xLoc, yLoc + (8 * (int)gv.drawFontRegHeight), "MISS", "rd");
+                    }
+                    else if (attackRollResult >= threatRange)
+                    {
+                        //determine if a critical hit is applied
+                        if (critAttackRollResult >= totalNeeded)
+                        {
+                            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.27f);
+                            drawText(xLoc, yLoc + (7 * (int)gv.drawFontRegHeight), "CRITICAL", "gn");
+                            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.7f);
+                            drawText(xLoc, yLoc + (8 * (int)gv.drawFontRegHeight), "HIT", "gn");
+                            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.2f);
+                            drawText(xLoc, yLoc + (9 * (int)gv.drawFontRegHeight), "CRIT ROLL ", "wh");
+                            drawText(xLoc, yLoc + (10 * (int)gv.drawFontRegHeight), critAttackRollResult + "+" + totalAttackMod + ">=" + totalDefend, "wh");
+                        }
+                        else
+                        {
+                            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.7f);
+                            drawText(xLoc, yLoc + (7 * (int)gv.drawFontRegHeight), "HIT", "gn");
+                            xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.2f);
+                            drawText(xLoc, yLoc + (9 * (int)gv.drawFontRegHeight), "CRIT ROLL", "wh");
+                            drawText(xLoc, yLoc + (10 * (int)gv.drawFontRegHeight), critAttackRollResult + "+" + totalAttackMod + "<" + totalDefend, "wh");
+                        }
+                    }
+                    else if (attackRollResult >= totalNeeded)
+                    {
+                        xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.7f);
+                        drawText(xLoc, yLoc + (7 * (int)gv.drawFontRegHeight), "HIT", "gn");
+                    }
+                    else
+                    {
+                        xLoc = d20ScreenTopX + (int)(gv.squareSize * 4.6f);
+                        drawText(xLoc, yLoc + (7 * (int)gv.drawFontRegHeight), "MISS", "rd");
+                    }
+                }
+            }
+            //draw the return/roll button
+            btnD20RollReturn.Draw();
+        }
+        public void DrawTextLayout(IbbHtmlTextBox tb, string text, int xLoc, int yLoc, int width, int height)
+        {
+            tb.tbXloc = xLoc;
+            tb.tbYloc = yLoc;
+            tb.tbWidth = width;
+            tb.tbHeight = height;
+            tb.logLinesList.Clear();
+            tb.AddHtmlTextToLog(text);
+            tb.onDrawLogBox();
+        }
+        public string buildPcAttackText()
+        {
+            Player pc = currentPlayerAttacking;
+            string retText = "";
+            retText += "<yl>ATTACK MODIFIERS</yl><br>";
+            retText += "<bu>" + pc.name + "</bu><br>";
+            if (currentAttackIsMainHand)
+            {
+                retText += "<gy>(Main Hand)</gy><br>";
+            }
+            else
+            {
+                retText += "<gy>(Off Hand)</gy><br>";
+            }
+
+            retText += "Base Attck Bonus: " + pc.baseAttBonus + "<br>";
+            int itemBonus = gv.sf.CalcAttackBonusesNoAmmo(pc, currentAttackIsMainHand);
+            if (itemBonus != 0)
+            {
+                retText += "Items/Weapon Bonus: " + itemBonus + "<br>";
+            }
+
+            if (currentCreatureBeingAttacked.isHeld())
+            {
+                retText += "Enemy Held Bonus: 4<br>";
+            }
+
+            if (gv.sf.isMeleeAttack(pc))
+            {
+                retText += "Attribute Mod: " + gv.sf.CalcPcMeleeAttackAttributeModifier(pc, currentAttackIsMainHand) + "<br>";
+                int totalEffect = gv.sf.CalcTotalEffectBABModifier(pc);
+                if (totalEffect != 0)
+                {
+                    retText += "Effects Mod: " + totalEffect + "<br>";
+                }
+                if (hasWeaponInOffHand(pc))
+                {
+                    int twoweaponattackmod = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, currentAttackIsMainHand);
+                    retText += "Two Weapon Mod: " + twoweaponattackmod + "<br>";
+                }
+                //all attacks of the PC from behind get a bonus to hit            
+                if (IsAttackFromBehind(pc, currentCreatureBeingAttacked))
+                {
+                    int behindModifier = gv.mod.attackFromBehindToHitModifier;
+                    if (behindModifier > 0)
+                    {
+                        retText += "Att Behind Mod: " + behindModifier + "<br>";
+                    }
+                }                
+                if (pc.steathModeOn)
+                {
+                    if (pc.knownTraitsTags.Contains("sneakattack"))
+                    {
+                        //+1 for every 2 levels after level 1
+                        int sneakMod = ((pc.classLevel - 1) / 2) + 1;                        
+                        retText += "Sneak Attack: " + sneakMod + "<BR>";
+                    }
+                }
+                if (gv.sf.hasTrait(pc, "hardtokill"))
+                {
+                    retText += "Hard To Kill Mod: -4<BR>";
+                }
+            }
+            else //ranged weapon used
+            {
+                retText += "Attribute Mod: " + ((pc.dexterity - 10) / 2) + "<br>";
+                int totalEffect = gv.sf.CalcPcRangedAttackModifier(pc);
+                if (totalEffect != 0)
+                {
+                    retText += "Effects Mod: " + totalEffect + "<br>";
+                }
+                //ammo used modifier                
+                Item itm = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                if (itm != null)
+                {
+                    int ammoMod = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+                    if (ammoMod != 0)
+                    {
+                        retText += "Ammo Mod: " + ammoMod + "<br>";
+                    }
+                }
+                //factor in penalty for adjacent enemies when using ranged weapon
+                if (isAdjacentEnemy(pc))
+                {
+                    if (gv.sf.canNegateAdjacentAttackPenalty(pc))
+                    {
+                        //can ignore attack penalty due to PC having a pointblankshot type of trait or effect
+                    }
+                    else
+                    {
+                        retText += "Adj w/ Ranged: -4<br>";
+                    }
+                }
+                //precise shot trait
+                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                {
+                    retText += "PreciseShotL2 Bonus: 2<br>";                    
+                }
+                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                {
+                    retText += "PreciseShotL1 Bonus: 1<br>";
+                }
+            }
+            //int attackBonus = gv.mod.getItemByResRefForInfo(pc.MainHandRefs.resref).attackBonus;
+            //if (!currentAttackIsMainHand)
+            //{
+            //    attackBonus = gv.mod.getItemByResRefForInfo(pc.OffHandRefs.resref).attackBonus;
+            //}
+            //if (attackBonus > 0)
+            //{
+            //    retText += "Weapon Att Bonus: " + attackBonus + "<br>";
+            //}            
+
+            int totalAttackMod = CalcPcAttackModifier(pc, currentCreatureBeingAttacked, currentAttackIsMainHand);
+            retText += "<br>TOTAL MODIFIERS: " + totalAttackMod;
+
+            return retText;
+        }
+        public string buildCrtDefendText()
+        {
+            Player pc = currentPlayerAttacking;
+            Creature crt = currentCreatureBeingAttacked;
+            string retText = "";
+            retText += "<yl>CREATURE DEFENSE</yl><br>";
+            retText += "<bu>" + crt.cr_name + "</bu><br>";
+            retText += "AC: " + crt.getAc() + "<br>";
+
+            //if (crt.isHeld())
+            //{
+            //    retText += "Held Penalty: -4<br>";
+            //}
+            if (gv.mod.useAdjacentAcBonusSystem)
+            {
+                int adjdefense = CalcCreatureAcBonusForAdjacents(crt);
+                if (adjdefense > 0)
+                {
+                    retText += "Near Ally Bonus: " + adjdefense + "<br>";
+                }
+            }
+
+            int totalDefend = CalcCreatureDefense(pc, crt);
+            retText += "<br>TOTAL DEFENSE: " + totalDefend;
+
+            return retText;
+        }
         public void drawHeightShadows()
         {
             for (int y = 0; y < gv.mod.currentEncounter.MapSizeY; y++)
@@ -11441,7 +15214,6 @@ namespace IceBlink2
             gv.DrawTextOutlinedRect("Camera left: (A or arrow left)", new IbRect(gv.oXshift + (gv.playerOffsetY) * gv.squareSize - 4 * gv.pS, (gv.playerOffsetX - 8) * gv.squareSize + (int)(txtH * 1.25f * lineCounter) + (int)(3 * gv.pS), 1000, 100), 1.0f, Color.Red);
             lineCounter++;
         }
-
         public void drawProps(float elapsed)
         {
 
@@ -11745,7 +15517,6 @@ namespace IceBlink2
                 }
             }
         }
-
         public void drawEffectSquares()
         {
 
@@ -11781,7 +15552,6 @@ namespace IceBlink2
                 gv.DrawBitmap(gv.cc.GetFromBitmapList(ef.squareIndicatorFilename), src, dst);
             }
         }
-
         public void recalculateCreaturesShownInInitiativeBar()
         {
             numberOfCurrentlyShownBar = 1;
@@ -12207,7 +15977,6 @@ namespace IceBlink2
                 }
             }
         }
-
         public void drawInitiativeBar()
         {
 
@@ -13120,6 +16889,28 @@ namespace IceBlink2
                     }
                     gv.DrawBitmap(mapBitmap, src, dst);
 
+                    #region Draw Pathfinding Numbers
+                    for (int x = UpperLeftSquare.X; x < gv.mod.currentEncounter.MapSizeX; x++)
+                    {
+                        for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
+                        {
+                            if (!isSquareOnCombatMap(x, y)) { continue; }
+                            if (!IsInVisibleCombatWindow(x, y))
+                            {
+                                continue;
+                            }
+                            int index = y * gv.mod.currentEncounter.MapSizeX + x;
+                            if ((index >= gv.mod.currentEncounter.encounterTiles.Count))
+                            {
+                                continue;
+                            }
+                            if ((pf.values != null) && (gv.mod.debugMode))
+                            {
+                                gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                            }
+                        }
+                    }
+                    #endregion
                     /*
                     //draw grid
                     if (gv.mod.com_showGrid)
@@ -13731,6 +17522,7 @@ namespace IceBlink2
                     {
                         for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                         {
+                            if (!isSquareOnCombatMap(x, y)) { continue; }
                             if (!IsInVisibleCombatWindow(x, y))
                             {
                                 continue;
@@ -13740,10 +17532,18 @@ namespace IceBlink2
                             {
                                 continue;
                             }
-                            //if ((pf.values != null) && (gv.mod.debugMode))
-                            //{
-                            //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
-                            //}
+                            if ((pf.values != null) && (gv.mod.debugMode))
+                            {
+                                gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                                gv.DrawText(pf.grid[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize + gv.drawFontRegHeight);
+                            }
+                        }
+                    }
+                    if (gv.mod.debugMode)
+                    {
+                        foreach (Coordinate crd in moveToSquares)
+                        {
+                            gv.DrawText("YES", (crd.X - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (crd.Y - UpperLeftSquare.Y) * gv.squareSize + (gv.drawFontRegHeight * 3), 1.0f, Color.Lime);
                         }
                     }
                     #endregion
@@ -14019,8 +17819,7 @@ namespace IceBlink2
                                 continue;
                             }
 
-                            if ((x >= gv.mod.currentEncounter.MapSizeX)
-               || (y >= gv.mod.currentEncounter.MapSizeY))
+                            if ((x >= gv.mod.currentEncounter.MapSizeX) || (y >= gv.mod.currentEncounter.MapSizeY))
                             {
                                 continue;
                             }
@@ -14055,6 +17854,7 @@ namespace IceBlink2
                 {
                     for (int y = UpperLeftSquare.Y; y < gv.mod.currentEncounter.MapSizeY; y++)
                     {
+                        if (!isSquareOnCombatMap(x, y)) { continue; }
                         if (!IsInVisibleCombatWindow(x, y))
                         {
                             continue;
@@ -14066,8 +17866,19 @@ namespace IceBlink2
                         }
                         if ((pf.values != null) && (gv.mod.debugMode))
                         {
-                            //gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                            if (pf.values[x, y] != 9999)
+                            {
+                                gv.DrawText(pf.values[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize);
+                                gv.DrawText(pf.grid[x, y].ToString(), (x - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (y - UpperLeftSquare.Y) * gv.squareSize + gv.drawFontRegHeight);
+                            }
                         }
+                    }
+                }
+                if (gv.mod.debugMode)
+                {
+                    foreach (Coordinate crd in moveToSquares)
+                    {
+                        gv.DrawText("OPEN", (crd.X - UpperLeftSquare.X) * gv.squareSize + gv.oXshift + mapStartLocXinPixels, (crd.Y - UpperLeftSquare.Y) * gv.squareSize + (gv.drawFontRegHeight * 2), 1.0f, Color.Lime);
                     }
                 }
                 #endregion
@@ -14079,7 +17890,6 @@ namespace IceBlink2
                 }
             }
         }
-
         //XXXX
         public void drawColumnOfBlack()
         {
@@ -14174,7 +17984,6 @@ namespace IceBlink2
             }
 
         }
-
         public void drawRowOfBlack()
         {
             if ((UpperLeftSquare.Y <= 1) || (UpperLeftSquare.Y + 1 >= (gv.mod.currentEncounter.MapSizeY - 1 - (gv.playerOffsetY * 2 + 1))))
@@ -14268,8 +18077,6 @@ namespace IceBlink2
                 }
             }
         }
-
-
         //XXXX
         public IbRect getSourceIbRect(int xSqr, int ySqr, int UpperLeftXsqr, int UpperLeftYsqr, int tileWinPixels, int tileHinPixels)
         {
@@ -17590,8 +21397,6 @@ namespace IceBlink2
                 }
             }
         }
-
-
         public void drawFloatyText()
         {
             int txtH = (int)gv.drawFontRegHeight;
@@ -17657,7 +21462,6 @@ namespace IceBlink2
                 }
             }
         }
-
         public void drawActorFloatyOnMouseOver()
         {
             //- (int)(gv.squareSize * (gv.mod.combatScrollingTimerY / 100f))
@@ -17752,10 +21556,6 @@ namespace IceBlink2
                 }
             }
         }
-
-
-
-
         public void drawHPText()
         {
 
@@ -17825,8 +21625,6 @@ namespace IceBlink2
                 }
             }
         }
-
-
         public void drawSPText()
         {
             int txtH = (int)gv.drawFontRegHeight;
@@ -18166,17 +21964,96 @@ namespace IceBlink2
                 }
             }
         }
+        public void drawMovesLeftText()
+        {
+            int txtH = (int)gv.drawFontRegHeight; //(int)gv.fontHeight;
+            IB2Panel pnl = combatUiLayout.GetPanelByTag("BottomPanel");
+            IB2Button btn = combatUiLayout.GetButtonByTag("btnSwitchWeapon");
+            int xLoc = (int)(pnl.currentLocX * gv.screenDensity) + (int)(btn.X * gv.screenDensity);            
+            int yLoc = (int)(pnl.currentLocY * gv.screenDensity) - ((int)gv.drawFontRegHeight * 2);
+            Player pc = gv.mod.playerList[currentPlayerIndex];
+            float movesLeft = pc.moveDistance - currentMoves;
+            if (movesLeft < 0) { movesLeft = 0; }
+            string txt = "Moves Left: " + movesLeft + "     Attacks Left: " + remainingNumberAttacks;
+            drawText(xLoc, yLoc, txt, "wh");
+        }
+        public void drawText(int xLoc, int yLoc, string text, string colr)
+        {
+            int txtH = (int)(int)gv.drawFontRegHeight;
+            Color clr = Color.White;
+            if (colr.Equals("wh"))
+            {
+                clr = Color.White;
+            }
+            else if (colr.Equals("bu"))
+            {
+                clr = Color.Blue;
+            }
+            else if (colr.Equals("gn"))
+            {
+                clr = Color.Green;
+            }
+            else if (colr.Equals("gy"))
+            {
+                clr = Color.Gray;
+            }
+            else if (colr.Equals("ma"))
+            {
+                clr = Color.Magenta;
+            }
+            else if (colr.Equals("rd"))
+            {
+                clr = Color.Red;
+            }
+            else if (colr.Equals("yl"))
+            {
+                clr = Color.Yellow;
+            }
+            gv.DrawTextOutlined(text, xLoc, yLoc + txtH, 1.0f, clr);
+        }
         #endregion
 
         #region Keyboard Input
         //this actually reacts ondown already
         public void onKeyUp(Keys keyData)
         {
+            if (showD20Screen)
+            {
+                //block all keyboard commands while on d20 screen
+                if ((keyData == Keys.Enter) || (keyData == Keys.Space))
+                {
+                    if (btnD20RollReturn.Text.Equals("ROLL (ENTER)"))
+                    {
+                        //disable button by checking if d20AnimationOn
+                        if (!d20AnimationOn) //if animation is running don't do anything here yet
+                        {
+                            //add d20 animation to stack
+                            AnimationSequence newSeq = new AnimationSequence();
+                            animationSeqStack.Add(newSeq);
+                            AnimationStackGroup newGroup = new AnimationStackGroup();
+                            animationSeqStack[0].AnimationSeq.Add(newGroup);
+                            int ttl = 6 * gv.mod.combatAnimationSpeed;
+                            Sprite spr = new Sprite(gv, gv.cc.d20Images[indexOfD20Image], d20X, d20Y, 0, 0, 0, 0, 2.0f, ttl, false, ttl / 12);
+                            //group.soundToPlay = "defaultdeath";
+                            newGroup.SpriteGroup.Add(spr);
+                            //start animation
+                            d20AnimationOn = true;
+                        }
+                    }
+                    else //button text is 'RETURN'
+                    {
+                        gv.PlaySound("btn_click");
+                        showD20Screen = false;
+                        doFinishD20Roll();
+                    }
+                }
+                return;
+            }
             if (isPlayerTurn)
             {            //rdr2 added
-            //recalculateCreaturesShownInInitiativeBar();
-            if (keyData == Keys.M)
-            {
+                //recalculateCreaturesShownInInitiativeBar();
+                if (keyData == Keys.M)
+                {
                 gv.mod.mainMapMovementRelevantKeyPressed = false;
                 if (canMove)
                 {
@@ -19077,9 +22954,9 @@ namespace IceBlink2
             #endregion
         }
     }
-#endregion
+        #endregion
 
-#region Mouse Input
+        #region Mouse Input
         /*public void onTouchCombatOld(MouseEventArgs e, MouseEventType.EventType eventType)
         {
             switch (eventType)
@@ -20103,9 +23980,12 @@ namespace IceBlink2
                     break;
             }
         }*/
-
         public void onTouchCombat(MouseEventArgs e, MouseEventType.EventType eventType)
         {
+            if (showD20Screen)
+            {
+                btnD20RollReturn.glowOn = false;
+            }
             switch (eventType)
             {
                 case MouseEventType.EventType.MouseDown:
@@ -20128,6 +24008,16 @@ namespace IceBlink2
                     int y = (int)e.Y;
                     gv.mod.mousePosX = x;
                     gv.mod.mousePosY = y;
+                                                      
+
+                    if (showD20Screen)
+                    {
+                        if (btnD20RollReturn.getImpact(x, y))
+                        {
+                            btnD20RollReturn.glowOn = true;
+                        }
+                        return;
+                    }
 
                     //NEW SYSTEM
                     combatUiLayout.setHover(x, y);
@@ -20143,6 +24033,8 @@ namespace IceBlink2
                     int gridx = (e.X - gv.oXshift - mapStartLocXinPixels + (int)(gv.squareSize * (gv.mod.combatScrollingTimer / 100f))) / gv.squareSize;
                     int gridy = (e.Y - (gv.squareSize / 2) + (int)(gv.squareSize * (gv.mod.combatScrollingTimerY / 100f))) / gv.squareSize;
 
+                    PosText = "x: " + x + " y:" + y + " gridX:" + (gridx + UpperLeftSquare.X) + " gridY:" + (gridy + UpperLeftSquare.Y);
+                    
                     //covid21
                     if (gv.mod.mousePosY < gv.squareSize - (gv.squareSize / 2) - (int)(gv.squareSize * (gv.mod.combatScrollingTimerY / 100f)))
                     {
@@ -20601,6 +24493,49 @@ namespace IceBlink2
                     x = (int)e.X;
                     y = (int)e.Y;
 
+                    if (showD20Screen)
+                    {
+                        //if tap on d20 die, switch colors
+                        //dst = new IbRect(d20X, d20Y, (int)(gv.squareSize * gv.scaler * 2), (int)(gv.squareSize * gv.scaler * 2));
+                        if ((x > d20X) && (y > d20Y) && (x < d20X + (int)(gv.squareSize * 2)) && (y < d20Y + (int)(gv.squareSize * 2)))
+                        {
+                            indexOfD20Image++;
+                            if (indexOfD20Image >= gv.cc.d20Images.Count)
+                            {
+                                indexOfD20Image = 0;
+                            }
+                        }
+                        btnD20RollReturn.glowOn = false;
+                        if (btnD20RollReturn.getImpact(x, y))
+                        {
+                            if (btnD20RollReturn.Text.Equals("ROLL (ENTER)"))
+                            {
+                                //disable button by checking if d20AnimationOn
+                                if (!d20AnimationOn) //if animation is running don't do anything here yet
+                                {
+                                    //add d20 animation to stack
+                                    AnimationSequence newSeq = new AnimationSequence();
+                                    animationSeqStack.Add(newSeq);
+                                    AnimationStackGroup newGroup = new AnimationStackGroup();
+                                    animationSeqStack[0].AnimationSeq.Add(newGroup);
+                                    int ttl = 6 * gv.mod.combatAnimationSpeed;
+                                    Sprite spr = new Sprite(gv, gv.cc.d20Images[indexOfD20Image], d20X, d20Y, 0, 0, 0, 0, 2.0f, ttl, false, ttl / 12);
+                                    //group.soundToPlay = "defaultdeath";
+                                    newGroup.SpriteGroup.Add(spr);
+                                    //start animation
+                                    d20AnimationOn = true;
+                                }
+                            }
+                            else //button text is 'RETURN'
+                            {
+                                gv.PlaySound("btn_click");
+                                showD20Screen = false;
+                                doFinishD20Roll();
+                            }
+                        }
+                        return;
+                    }
+
                     Player pc = gv.mod.playerList[currentPlayerIndex];
 
                     //NEW SYSTEM
@@ -20876,6 +24811,23 @@ namespace IceBlink2
                         gv.mod.currentEncounter.encounterCreatureList.Clear();
                         //gv.mod.currentEncounter.encounterCreatureRefsList.Clear();
                         checkEndEncounter();
+                    }
+                    if (rtn.Equals("tglD20"))
+                    {
+                        IB2ToggleButton tgl = combatUiLayout.GetToggleByTag(rtn);
+                        if (tgl == null) { return; }
+                        if (tgl.toggleOn)
+                        {
+                            tgl.toggleOn = false;
+                            useD20Screen = false;
+                            gv.cc.addLogText("lime", "d20 Screen Off");
+                        }
+                        else
+                        {
+                            tgl.toggleOn = true;
+                            useD20Screen = true;
+                            gv.cc.addLogText("lime", "d20 Screen On");
+                        }
                     }
                     #endregion
 
@@ -23718,8 +27670,7 @@ namespace IceBlink2
 #endregion
             }
         }
-
-#endregion
+        #endregion
 
         public void doUpdate(Player pc)
         {
@@ -24135,10 +28086,15 @@ namespace IceBlink2
         }
         public void TargetAttackPressed(Player pc)
         {
+            if (isValidAttackTarget(pc))
+            {
+                doCombatAttackGate(pc);
+            }
             //if (isPlayerTurn)
             //{
             //CenterScreenOnPC();
             //}
+            /* D20
             gv.mod.playerList[currentPlayerIndex].hasDelayedAlready = true;
             if (isValidAttackTarget(pc))
             {
@@ -24216,6 +28172,7 @@ namespace IceBlink2
                     animationsOn = true;
                 }
             }
+            */
         }
         public void TargetCastPressed(Player pc)
         {
@@ -24300,6 +28257,8 @@ namespace IceBlink2
                 {
                     gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, pc, target, false, false, null);
                 }
+                //This is an action that will end the turn
+                madeEndTurnAction = true;
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -24414,6 +28373,8 @@ namespace IceBlink2
                 }
 
                 //gv.cc.doSpellBasedOnScriptOrEffectTag(gv.cc.currentSelectedSpell, it, target, false, false);
+                //This is an action that will end the turn
+                madeEndTurnAction = true;
                 //add ending projectile animation
                 newGroup = new AnimationStackGroup();
                 animationSeqStack[0].AnimationSeq.Add(newGroup);
@@ -24936,6 +28897,10 @@ namespace IceBlink2
                 gv.cc.floatyTextActorInfoMoveOrder = "Ord. " + (pc.moveOrder+1);
                 gv.cc.floatyTextActorInfoInitiative = "Ini " + ((pc.dexterity - 10) / 2) * 5;
                 gv.cc.floatyTextActorInfoAC = "AC " + pc.AC;
+                if (gv.mod.useAdjacentAcBonusSystem)
+                {
+                    gv.cc.floatyTextActorInfoAC = "AC " + pc.AC + " +" + CalcPcAcBonusForAdjacents(pc) + " Ally";
+                }
                 gv.cc.floatyTextActorInfoMovementRange = "Moves " + pc.moveDistance;
                 gv.cc.floatyTextActorInfoHP = "HP " + pc.hp + "/" + pc.hpMax;
                 gv.cc.floatyTextActorInfoSP = "SP " + pc.sp + "/" + pc.spMax;
@@ -25268,6 +29233,10 @@ namespace IceBlink2
                 Creature crt = (Creature)(actor);
                 gv.cc.floatyTextActorInfoName = crt.cr_name;
                 gv.cc.floatyTextActorInfoAC = "AC " +crt.getAc();
+                if (gv.mod.useAdjacentAcBonusSystem)
+                {
+                    gv.cc.floatyTextActorInfoAC = "AC " + crt.getAc() + " +" + CalcCreatureAcBonusForAdjacents(crt) + " Ally";
+                }
                 gv.cc.floatyTextActorInfoInitiative = "Ini " + crt.initiativeBonus;
                 gv.cc.floatyTextActorInfoMoveOrder = "Ord. " + (crt.moveOrder+1);
                 gv.cc.floatyTextActorInfoNumberOfAttacks = "#A " + crt.getNumberOfAttacks();
@@ -25295,22 +29264,26 @@ namespace IceBlink2
 
                 }
                 gv.cc.floatyTextActorInfoSP = "SP " + crt.sp + "/" + spMax;
+                if (gv.mod.debugMode)
+                {
+                    gv.cc.floatyTextActorInfoSP += "     Pos:(" + crt.combatLocX + "," + crt.combatLocY + ")";
+                }
                 gv.cc.floatyTextActorInfoAttackType = crt.cr_category;
                 gv.cc.floatyTextActorInfoAttackRange = "Range " + crt.cr_attRange;
-                if (crt.cr_damageAdder >= 0)
+                if (crt.damageAdder >= 0)
                 {
-                    if (crt.cr_damageAdder == 0)
+                    if (crt.damageAdder == 0)
                     {
                         gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie;
                     }
                     else
                     {
-                        gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + "+" + crt.cr_damageAdder;
+                        gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + "+" + crt.damageAdder;
                     }
                 }
                 else
                 {
-                    gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + crt.cr_damageAdder;
+                    gv.cc.floatyTextActorInfoDamage = "Damage " + crt.cr_damageNumDice + "d" + crt.cr_damageDie + crt.damageAdder;
                 }
                 gv.cc.floatyTextActorInfoDamageType = crt.cr_typeOfDamage;
                 if (crt.onScoringHitCastSpellTag != "none" && crt.onScoringHitCastSpellTag != "")
@@ -27274,23 +31247,146 @@ namespace IceBlink2
 
         public int CalcPcAttackModifier(Player pc, Creature crt, bool isMainHand)
         {
-            int modifier = 0;
+            //int modifier = 0;
             int situationalModifier = 0;
+                        
+            int equippedItemsMod = 0;
+            int ammoMod = 0;
+            int bab = pc.baseAttBonus;
+            int babEffectMod = 0;
+            int attributeMod = 0;
+            int fromBehindMod = 0;
+            int targetHeldMod = 0;
+            int adjacentEnemyPenalty = 0;
+            int sneakAttackMod = 0;
+            int twoWeaponMod = 0;
+            int poorVisionMod = gv.mod.poorVisionModifier;
+            int preciseShotAdder = 0;
+            int hardToKillMod = 0;
 
-            if (gv.sf.isMeleeAttack(pc))
+
+            //All modifiers from equipped items
+            equippedItemsMod = gv.sf.CalcAttackBonusesNoAmmo(pc, isMainHand);
+
+            //target is held bonus
+            if (crt.isHeld())
             {
+                targetHeldMod = 4;
+                situationalModifier += 4;
+                //gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>attacks held creature: +4 att</font><BR>");
+            }
+ 
+            if (gv.sf.isMeleeAttack(pc)) //MELEE ONLY
+            {
+                //BAB and Effects total mod includes permanent Effects from Traits
+                babEffectMod = gv.sf.CalcTotalEffectBABModifier(pc);
+                
+                //Attribute mod
+                attributeMod = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, isMainHand);
+                
+                //attack from behind modifier
+                if (IsAttackFromBehind(pc, crt))
+                {
+                    fromBehindMod = gv.mod.attackFromBehindToHitModifier;
+                    situationalModifier += gv.mod.attackFromBehindToHitModifier;
+                    if (gv.mod.attackFromBehindToHitModifier > 0)
+                    {
+                        //gv.cc.addLogText("<font color='white'>Attack from behind: +" + gv.mod.attackFromBehindToHitModifier.ToString() + " to hit." + "</font><BR>");
+                    }
+                }
+
+                //sneak attack bonus                
+                if (pc.steathModeOn)
+                {
+                    if (pc.knownTraitsTags.Contains("sneakattack"))
+                    {
+                        //+1 for every 2 levels after level 1
+                        int adding = ((pc.classLevel - 1) / 2) + 1;
+                        sneakAttackMod = adding;
+                        situationalModifier += adding;
+                        //gv.cc.addLogText("<font color='lime'> sneak attack: +" + adding + " to hit</font><BR>");
+                    }
+                }
+
+                //twoweaponfighting mod                
+                if (hasWeaponInOffHand(pc))
+                {
+                    twoWeaponMod = gv.sf.CalcPcMeleeTwoWeaponModifier(pc, isMainHand);
+                }
+
+                //hard to kill mod            
+                if (gv.sf.hasTrait(pc, "hardtokill"))
+                {
+                    hardToKillMod -= 2;
+                    //gv.cc.addLogText("<font color='white'>" + "blinded by rage" + "</font><BR>");
+                    //gv.cc.addLogText("<font color='white'>" + "-2 attack penalty" + "</font><BR>");
+                }
+            }
+            else //RANGED ONLY
+            {
+                //Attribute mod
+                attributeMod = (pc.dexterity - 10) / 2;
+                
+                //ammo used modifier                
+                Item itm = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref);
+                if (itm != null)
+                {
+                    ammoMod = gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
+                }
+                
+                //BAB and Effects total mod includes permanent Effects from Traits
+                babEffectMod = gv.sf.CalcPcRangedAttackModifier(pc);
+                
+                //factor in penalty for adjacent enemies when using ranged weapon
+                if (isAdjacentEnemy(pc))
+                {
+                    //if (gv.sf.hasTrait(pc, "pointblankshot"))
+                    if (gv.sf.canNegateAdjacentAttackPenalty(pc))
+                    {
+                        //can ignore attack penalty due to PC having a pointblankshot type of trait or effect 
+                    }
+                    else
+                    {
+                        adjacentEnemyPenalty -= 4;
+                        situationalModifier -= 4;
+                        //gv.cc.addLogText("<font color='white'>" + "-4 ranged attack penalty" + "</font><BR>");
+                        //gv.cc.addLogText("<font color='white'>" + "with enemies in melee range" + "</font><BR>");
+                    }
+                }
+                
+                //precise shot trait
+                if (gv.sf.hasTrait(pc, "preciseshot2"))
+                {
+                    preciseShotAdder = 2;
+                    //gv.cc.addLogText("<font color='lime'> PreciseShotL2: +2 to hit</font><BR>");
+                }
+                else if (gv.sf.hasTrait(pc, "preciseshot"))
+                {
+                    preciseShotAdder = 1;
+                    //gv.cc.addLogText("<font color='lime'> PreciseShotL1: +1 to hit</font><BR>");
+                }
+            }
+
+            if (situationalModifier != 0)
+            {
+                //gv.cc.addFloatyText(new Coordinate(pc.combatLocX, pc.combatLocY), "+" + situationalModifier + " att", "white");
+            }
+
+            int attackMod = equippedItemsMod + ammoMod + bab + babEffectMod + attributeMod + fromBehindMod + targetHeldMod 
+                + adjacentEnemyPenalty + sneakAttackMod + twoWeaponMod + poorVisionMod + preciseShotAdder + hardToKillMod;
+            
+            return attackMod;
+
+
+
+
+
+
+            /* OLD SYSTEM
+            if (gv.sf.isMeleeAttack(pc))
+            {                
                 modifier = gv.sf.CalcPcMeleeAttackAttributeModifier(pc, isMainHand);
-                //if has critical strike trait use dexterity for attack modifier in melee if greater than strength modifier
-                /*
-                if (pc.knownTraitsTags.Contains("criticalstrike"))
-			    {
-            	    int modifierDex = (pc.dexterity - 10) / 2;
-            	    if (modifierDex > modifier)
-            	    {
-            		    modifier = (pc.dexterity - 10) / 2;
-            	    }
-			    }
-                */
+                                
                 //if doing sneak attack, bonus to hit roll
                 if (pc.steathModeOn)
                 {
@@ -27319,7 +31415,7 @@ namespace IceBlink2
                     modifier += 4;
                     situationalModifier += 4;
                     gv.cc.addLogText("<font color='lime'>" + pc.name + " <font color='white'>attacks held creature: +4 att</font><BR>");
-                }
+                }                
             }
             else //ranged weapon used
             {
@@ -27402,7 +31498,9 @@ namespace IceBlink2
                 attackMod += gv.mod.getItemByResRefForInfo(pc.AmmoRefs.resref).attackBonus;
             }
             return attackMod + gv.mod.poorVisionModifier;
+            */
         }
+        
         public int CalcCreatureDefense(Player pc, Creature crt)
         {
             int defense = crt.getAc();
@@ -27414,8 +31512,38 @@ namespace IceBlink2
         	    gv.cc.addFloatyText(new Coordinate(crt.combatLocX, crt.combatLocY), "+4 att", "green");
             } 
             */
-
+            if (gv.mod.useAdjacentAcBonusSystem)
+            {
+                defense += CalcCreatureAcBonusForAdjacents(crt);
+            }
             return defense;
+        }
+        public int CalcCreatureAcBonusForAdjacents(Creature crt)
+        {
+            int mod = 0;
+            //cycle through all PCs and see how many are adjacent to this PC, add one AC bonus for each adjacent
+            foreach (Creature c in gv.mod.currentEncounter.encounterCreatureList)
+            {
+                if (c.Equals(crt)) { continue; }
+                bool foundOne = false;
+                foreach (Coordinate crtCoor in crt.tokenCoveredSquares)
+                {
+                    foreach (Coordinate coor in c.tokenCoveredSquares)
+                    {
+                        if (getDistance(new Coordinate(coor.X, coor.Y), new Coordinate(crtCoor.X, crtCoor.Y)) == 1)
+                        {
+                            mod += 1;
+                            foundOne = true;
+                            break;
+                        }
+                    }
+                    if (foundOne)
+                    {
+                        break;
+                    }
+                }
+            }
+            return mod;
         }
         public int CalcPcDamageToCreature(Player pc, Creature crt, bool isMainHand)
         {
@@ -27776,12 +31904,46 @@ namespace IceBlink2
         public int CalcPcDefense(Player pc, Creature crt)
         {
             int defense = pc.AC;
+            if (gv.mod.useAdjacentAcBonusSystem)
+            {
+                defense += CalcPcAcBonusForAdjacents(pc);
+            }
             return defense;
+        }
+        public int CalcPcAcBonusForAdjacents(Player pc)
+        {
+            int mod = 0;
+            //cycle through all PCs and see how many are adjacent to this PC, add one AC bonus for each adjacent
+            foreach (Player p in gv.mod.playerList)
+            {
+                if (p.hp > 0)
+                {
+                    if (getDistance(new Coordinate(p.combatLocX, p.combatLocY), new Coordinate(pc.combatLocX, pc.combatLocY)) == 1)
+                    {
+                        mod += 1;
+                    }
+                }
+            }
+            return mod;
         }
         public int CalcCreatureDamageToPc(Player pc, Creature crt)
         {
-            int dDam = crt.cr_damageDie;
-            float damage = (crt.cr_damageNumDice * gv.sf.RandInt(dDam)) + crt.cr_damageAdder;
+            float damage = 0;
+            for (int x = 0; x < crt.cr_damageNumDice; x++)
+            {
+                damage += gv.sf.RandInt(crt.cr_damageDie);
+                if (gv.mod.debugMode)
+                {
+                    gv.cc.addLogText("<font color='white'>DMG roll: 1d" + crt.cr_damageDie + "=" + damage + "</font><BR>");
+                }
+            }
+            
+            damage += crt.damageAdder;
+            if (gv.mod.debugMode)
+            {
+                gv.cc.addLogText("<font color='white'>DMG adder: +" + crt.damageAdder + "</font><BR>");
+            }
+
             if (damage < 0)
             {
                 damage = 0;
@@ -27823,7 +31985,10 @@ namespace IceBlink2
             {
                 totalDam = 0;
             }
-
+            if (gv.mod.debugMode)
+            {
+                gv.cc.addLogText("<font color='white'>Total DMG = " + totalDam + "</font><BR>");
+            }
             return totalDam;
         }
 
@@ -27870,7 +32035,6 @@ namespace IceBlink2
             }
             return pc;
         }
-
         public Player targetPCWithLeastHPInAttackRange(Creature crt)
         {
             Player pc = null;
@@ -27927,7 +32091,6 @@ namespace IceBlink2
             }
                 return pc;
         }
-
         public Player targetPCWithLeastHPInCombinedRange(Creature crt)
         {
             Player pc = null;
@@ -28106,7 +32269,6 @@ namespace IceBlink2
             return pc;
             */
         }
-
         public Player targetPCWithHighestSPInCombinedRange(Creature crt)
         {
             Player pc = null;
@@ -28285,7 +32447,6 @@ namespace IceBlink2
             return pc;
             */
         }
-
         public Player targetPCWithWorstACInCombinedRange(Creature crt)
         {
             Player pc = null;
@@ -28464,7 +32625,6 @@ namespace IceBlink2
             return pc;
             */
         }
-
         public Player targetPCWithHighestSPInCombinedRangeOLD(Creature crt)
         {
             Player pc = null;
@@ -28628,7 +32788,6 @@ namespace IceBlink2
             return pc;
             */
         }
-
         public Player targetPCWithWorstACInCombinedRangeOLD(Creature crt)
         {
             Player pc = null;
@@ -28792,7 +32951,6 @@ namespace IceBlink2
             return pc;
             */
         }
-
         public Player targetPCWithLeastSPInRange(Creature crt)
         {
             Player pc = null;
@@ -28850,7 +33008,6 @@ namespace IceBlink2
 
             return pc;
         }
-
         public Player targetPCWithWorstACInRange(Creature crt)
         {
             Player pc = null;
@@ -28907,7 +33064,6 @@ namespace IceBlink2
             }
             return pc;
         }
-
         public Player targetPCWithLeastHPAnywhere(Creature crt)
         {
             Player pc = null;
@@ -28951,7 +33107,6 @@ namespace IceBlink2
             }
             return pc;
         }
-
         public Creature targetClosestCreature(Creature crt)
         {
             Creature crtReturn = null;
@@ -29011,7 +33166,6 @@ namespace IceBlink2
             }
             return crtReturn;
         }
-
         public Creature targetClosestCreatureInRangeAndVisible(Creature crt)
         {
             Creature crtReturn = null;
@@ -29065,7 +33219,6 @@ namespace IceBlink2
             }
             return crtReturn;
         }
-
         public Coordinate targetBestPointLocation(Creature crt)
         {
             Coordinate targetLoc = new Coordinate(-1, -1);
@@ -29343,7 +33496,6 @@ namespace IceBlink2
             }
             return returnCrt;
         }
-
         public Creature GetCreatureWithMostDamaged(Creature creatureCaster)
         {
             int damaged = 0;
@@ -29378,7 +33530,6 @@ namespace IceBlink2
             }
             return returnCrt;
         }
-
         public Creature GetCreatureWithMostSPMissing(Creature creatureCaster)
         {
             int damaged = 0;
@@ -29413,8 +33564,6 @@ namespace IceBlink2
             }
             return returnCrt;
         }
-
-
         public Creature GetNextAdjacentCreature(Player pc)
         {
             foreach (Creature nextCrt in gv.mod.currentEncounter.encounterCreatureList)

@@ -50,7 +50,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(273, 249);
             this.Controls.Add(this.label1);
-            this.MaximumSize = new System.Drawing.Size(600, 600);
+            this.MaximumSize = new System.Drawing.Size(1900, 1000);
             this.Name = "ItemListSelector";
             this.Text = "PcSelector";
             this.Controls.SetChildIndex(this.label1, 0);

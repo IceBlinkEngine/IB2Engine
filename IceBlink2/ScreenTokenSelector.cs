@@ -265,6 +265,7 @@ namespace IceBlink2
 	    {
             try
             {
+                if (btnTokensLeft == null) { return; }                
                 btnTokensLeft.glowOn = false;
                 btnTokensRight.glowOn = false;
                 btnAction.glowOn = false;

@@ -31,7 +31,7 @@ namespace IceBlink2
 {
     public partial class GameView : IBForm
     {
-        public string version = "1.0.203";
+        public string version = "1.0.204";
         public SolidColorBrush scb;
         public bool textFormatSet = false;
         //this class is handled differently than Android version
@@ -1564,7 +1564,8 @@ namespace IceBlink2
 		    mod.PlayerLocationY = mod.startingPlayerPositionY;
 		    cc.title = cc.LoadBitmap("title");
             LoadStandardImages();
-		    cc.LoadRaces();
+            cc.GetAllD20ImagesList();
+            cc.LoadRaces();
 		    cc.LoadPlayerClasses();
 		    cc.LoadItems();
 		    cc.LoadContainers();
@@ -4840,6 +4841,57 @@ namespace IceBlink2
         private void GameView_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public List<string> GetAllFilesWithExtensionFromBothFolders(string assetFolderpath, string userFolderpath, string extension)
+        {
+            List<string> returnList = new List<string>();
+            //MODULE SPECIFIC
+            try
+            {
+                string[] files;
+                if (Directory.Exists(mainDirectory + userFolderpath))
+                {
+                    files = Directory.GetFiles(mainDirectory + userFolderpath, "*" + extension);
+                    foreach (string file in files)
+                    {
+                        string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                        if (!returnList.Contains(fileNameWithOutExt))
+                        {
+                            returnList.Add(fileNameWithOutExt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                errorLog(ex.ToString());
+            }
+            //DEFAULTS
+            try
+            {
+                string[] files;
+                if (Directory.Exists(mainDirectory + assetFolderpath))
+                {
+                    files = Directory.GetFiles(mainDirectory + assetFolderpath, "*" + extension);
+                    foreach (string file in files)
+                    {
+                        string fileNameWithOutExt = Path.GetFileNameWithoutExtension(file);
+                        if (!returnList.Contains(fileNameWithOutExt))
+                        {
+                            returnList.Add(fileNameWithOutExt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                errorLog(ex.ToString());
+            }
+
+            return returnList;
         }
     }
 }

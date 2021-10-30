@@ -65,6 +65,7 @@ namespace IceBlink2
         public string slot3 = "";
         public string slot4 = "";
         public string slot5 = "";
+        public List<string> saveSlotDescriptionList = new List<string>();
 
         public Bitmap encounter_indicator;
         public Bitmap mandatory_conversation_indicator;
@@ -166,6 +167,7 @@ namespace IceBlink2
         public Dictionary<string, Bitmap> tileBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, Bitmap> commonBitmapList = new Dictionary<string, Bitmap>();
         public Dictionary<string, System.Drawing.Bitmap> tileGDIBitmapList = new Dictionary<string, System.Drawing.Bitmap>();
+        public List<string> d20Images = new List<string>();
 
         public Spell currentSelectedSpell = new Spell();
         //for now I am not completely revamping the existing implementation and trying to work in the existing framework
@@ -393,8 +395,29 @@ namespace IceBlink2
                 }
             }
         }
+        public void GetAllD20ImagesList()
+        {
+            //MODULE SPECIFIC
+            List<string> files = gv.GetAllFilesWithExtensionFromBothFolders("\\default\\NewModule\\ui", "\\modules\\" + gv.mod.moduleName + "\\ui", ".png");
+            foreach (string f in files)
+            {
+                string filenameNoExt = Path.GetFileNameWithoutExtension(f);
+                if (filenameNoExt.StartsWith("d20"))
+                {
+                    d20Images.Add(filenameNoExt);
+                }
+            }
+        }
+
         public void AutoSave()
         {
+            Player pc = gv.mod.playerList[0];
+            gv.mod.saveName = "Autosave - " + pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+            slotA = gv.mod.saveName;
+
+            SaveGame("autosave.json");
+            SaveGame("autosaveinfo.json");
+            /*
             string filename = gv.mainDirectory + "\\saves\\" + gv.mod.moduleName + "\\autosave.json";
             MakeDirectoryIfDoesntExist(filename);
             string json = JsonConvert.SerializeObject(gv.mod, Newtonsoft.Json.Formatting.Indented);
@@ -404,6 +427,7 @@ namespace IceBlink2
             }
             gv.screenMainMap.saveUILayout();
             gv.screenCombat.saveUILayout();
+            */
         }
 
         /*
@@ -438,6 +462,13 @@ namespace IceBlink2
 
         public void QuickSave()
         {
+            Player pc = gv.mod.playerList[0];
+            gv.mod.saveName = "Quicksave - " + pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+            slot0 = gv.mod.saveName;
+
+            SaveGame("quicksave.json");
+            SaveGame("quicksaveinfo.json");
+            /*
             gv.screenMainMap.saveUILayout();
             gv.screenCombat.saveUILayout();
 
@@ -504,6 +535,7 @@ namespace IceBlink2
 
             //gv.screenMainMap.saveUILayout();
             //gv.screenCombat.saveUILayout();
+            */
         }
 
         public void SaveGame(string filename)
@@ -659,7 +691,15 @@ namespace IceBlink2
 
         public void doSavesDialog()
         {
-            List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5, "Return to Main Menu" };
+            //List<string> saveList = new List<string> { slot0, slot1, slot2, slot3, slot4, slot5, "Return to Main Menu" };
+            List<string> saveList = new List<string>();
+            saveList.Add(slotA);
+            saveList.Add(slot0);
+            foreach (string s in this.saveSlotDescriptionList)
+            {
+                saveList.Add(s);
+            }
+            saveList.Add("Return to Main Menu");
 
             using (ItemListSelector itSel = new ItemListSelector(gv, saveList, "Choose a slot to save game."))
             {
@@ -670,6 +710,11 @@ namespace IceBlink2
 
                 if (itSel.selectedIndex == 0)
                 {
+                    gv.sf.MessageBoxHtml("This save slot is used by the game engine only. Before each encounter, an autosave is made if the module author allows it (module setting allowAutosave = true/false). This module has allowAutosave set to: " + gv.mod.allowAutosave);
+
+                }
+                else if (itSel.selectedIndex == 1)
+                {
                     try
                     {
                         QuickSave();
@@ -679,7 +724,27 @@ namespace IceBlink2
                         gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
                         gv.errorLog(ex.ToString());
                     }
+                    }
+                else if ((itSel.selectedIndex > 1) && (itSel.selectedIndex < 12))
+                {
+                    Player pc = gv.mod.playerList[0];
+                    gv.mod.saveName = pc.name + ", Level:" + pc.classLevel + ", XP:" + pc.XP + ", WorldTime:" + gv.mod.WorldTime;
+                    //gv.mod.saveName = pcname + ",XP:" + pc.XP + ",T:" + gv.mod.WorldTime;
+                    saveSlotDescriptionList[itSel.selectedIndex - 2] = gv.mod.saveName;
+                    //slot1 = gv.mod.saveName;
+                    try
+                    {
+                        SaveGame("slot" + (itSel.selectedIndex - 1) + ".json");
+                        SaveGameInfo("slot" + (itSel.selectedIndex - 1) + "info.json");
+                    }
+                    catch (Exception ex)
+                    {
+                        gv.sf.MessageBox("Failed to Save: Not enough free memory(RAM) on device, try and free up some memory and try again.");
+                        gv.errorLog(ex.ToString());
+                    }
                 }
+
+                /*
                 else if (itSel.selectedIndex == 1)
                 {
                     Player pc = gv.mod.playerList[0];
@@ -760,7 +825,8 @@ namespace IceBlink2
                         gv.errorLog(ex.ToString());
                     }
                 }
-                else if (itSel.selectedIndex == 6)
+                */
+                else if (itSel.selectedIndex == 12) //was 6
                 {
                     //ask if they really want to exit, remind to save first  
                     doVerifyReturnToMain();
@@ -770,7 +836,15 @@ namespace IceBlink2
         }
         public void doLoadSaveGameDialog()
         {
-            List<string> saveList = new List<string> { slotA, slot0, slot1, slot2, slot3, slot4, slot5 };
+            //List<string> saveList = new List<string> { slotA, slot0, slot1, slot2, slot3, slot4, slot5 };
+            List<string> saveList = new List<string>();
+            saveList.Add(slotA);
+            saveList.Add(slot0);
+            foreach (string s in this.saveSlotDescriptionList)
+            {
+                saveList.Add(s);
+            }
+            saveList.Add("Return to Main Menu");
 
             using (ItemListSelector itSel = new ItemListSelector(gv, saveList, "Choose a Saved Game to Load."))
             {
@@ -810,6 +884,29 @@ namespace IceBlink2
                         //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
                     }
                 }
+                else if ((itSel.selectedIndex > 1) && (itSel.selectedIndex < 12))
+                {
+                    bool result = LoadSave("slot" + (itSel.selectedIndex - 1) + ".json");
+                    if (result)
+                    {
+                        gv.screenType = "main";
+                        //einfachereine
+                        doUpdate();
+                        setTargetOpacity();
+                        doUpdate();
+                    }
+                    else
+                    {
+                        //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else if (itSel.selectedIndex == 12) //was 6
+                {
+                    //ask if they really want to exit, remind to save first  
+                    doVerifyReturnToMain();
+                }
+
+                /*
                 else if (itSel.selectedIndex == 2)
                 {
                     bool result = LoadSave("slot1.json");
@@ -890,6 +987,7 @@ namespace IceBlink2
                         //Toast.makeText(gv.gameContext, "Save file not found", Toast.LENGTH_SHORT).show();
                     }
                 }
+                */
             }
         }
         public ModuleInfo LoadModuleInfo(string filename)
@@ -911,11 +1009,21 @@ namespace IceBlink2
         }
         public void LoadSaveListItems()
         {
-            slot1 = LoadModuleInfo("slot1info.json").saveName;
+            /*slot1 = LoadModuleInfo("slot1info.json").saveName;
             slot2 = LoadModuleInfo("slot2info.json").saveName;
             slot3 = LoadModuleInfo("slot3info.json").saveName;
             slot4 = LoadModuleInfo("slot4info.json").saveName;
-            slot5 = LoadModuleInfo("slot5info.json").saveName;
+            slot5 = LoadModuleInfo("slot5info.json").saveName;*/
+
+            //slot0 = "QuickSave-" + LoadModuleInfo("slot0info.json").saveName;
+            //slotA = "AutoSave-" + LoadModuleInfo("slotAinfo.json").saveName;
+
+            saveSlotDescriptionList.Clear();
+            for (int x = 1; x <= 10; x++)
+            {
+                string s = LoadModuleInfo("slot" + x + "info.json").saveName;
+                saveSlotDescriptionList.Add(s);
+            }
         }
 
         public bool LoadSave(string filename)
@@ -21354,6 +21462,10 @@ namespace IceBlink2
 
         public void doEncounterBasedOnTag(string name)
         {
+            if (gv.mod.allowAutosave)
+            {
+                AutoSave();
+            }
             //aegon2
             //gv.mod.scrollingTimer = 0;
             //gv.mod.isScrollingNow = false;
@@ -23213,7 +23325,7 @@ namespace IceBlink2
         }
         */
 
-    public System.Drawing.Bitmap LoadBitmapGDI(string filename) //change this to LoadBitmapGDI
+        public System.Drawing.Bitmap LoadBitmapGDI(string filename) //change this to LoadBitmapGDI
         {
             System.Drawing.Bitmap bm = null;
             bm = LoadBitmapGDI(filename, gv.mod); //change this to LoadBitmapGDI
@@ -23818,11 +23930,11 @@ namespace IceBlink2
             SharpDX.Color clr = SharpDX.Color.White;
             foreach (string s in tagStack)
             {
-                if ((s == "font color='red'") || (s == "font color = 'red'"))
+                if ((s == "font color='red'") || (s == "font color = 'red'") || (s == "rd"))
                 {
                     clr = SharpDX.Color.Red;
                 }
-                else if ((s == "font color='lime'") || (s == "font color = 'lime'"))
+                else if ((s == "font color='lime'") || (s == "font color = 'lime'") || (s == "gn"))
                 {
                     clr = SharpDX.Color.Lime;
                 }
@@ -23830,11 +23942,11 @@ namespace IceBlink2
                 {
                     clr = SharpDX.Color.Black;
                 }
-                else if ((s == "font color='white'") || (s == "font color = 'white'"))
+                else if ((s == "font color='white'") || (s == "font color = 'white'") || (s == "wh"))
                 {
                     clr = SharpDX.Color.White;
                 }
-                else if ((s == "font color='silver'") || (s == "font color = 'silver'"))
+                else if ((s == "font color='silver'") || (s == "font color = 'silver'") || (s == "gy"))
                 {
                     clr = SharpDX.Color.Gray;
                 }
@@ -23842,7 +23954,7 @@ namespace IceBlink2
                 {
                     clr = SharpDX.Color.DimGray;
                 }
-                else if ((s == "font color='aqua'") || (s == "font color = 'aqua'"))
+                else if ((s == "font color='aqua'") || (s == "font color = 'aqua'") || (s == "bu"))
                 {
                     clr = SharpDX.Color.Aqua;
                 }
@@ -23850,15 +23962,15 @@ namespace IceBlink2
                 {
                     clr = SharpDX.Color.Fuchsia;
                 }
-                else if ((s == "font color='yellow'") || (s == "font color = 'yellow'"))
+                else if ((s == "font color='yellow'") || (s == "font color = 'yellow'") || (s == "yl"))
                 {
                     clr = SharpDX.Color.Yellow;
                 }
-                else if ((s == "font color='magenta'") || (s == "font color = 'magenta'"))
+                else if ((s == "font color='magenta'") || (s == "font color = 'magenta'") || (s == "ma"))
                 {
                     clr = SharpDX.Color.Magenta;
                 }
-                else if ((s == "font color='green'") || (s == "font color = 'mgreen'"))
+                else if ((s == "font color='green'") || (s == "font color = 'mgreen'") || (s == "gn"))
                 {
                     clr = SharpDX.Color.Green;
                 }

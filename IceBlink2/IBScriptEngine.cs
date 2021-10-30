@@ -3711,29 +3711,29 @@ namespace IceBlink2
                 int val = (int)CalcualteNumberEquation(element[2]);
                 if (element[1] == "=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder = val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder = val;
                 }
                 else if (element[1] == "+=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder += val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder += val;
                 }
                 else if (element[1] == "-=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder -= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder -= val;
                 }
                 else if (element[1] == "*=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder *= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder *= val;
                 }
                 else if (element[1] == "/=")
                 {
-                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder;
+                    helpResult = gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder;
                     helpResult /= val;
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder = (int)helpResult;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder = (int)helpResult;
                 }
                 else if (element[1] == "./.=")
                 {
-                    gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder %= val;
+                    gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder %= val;
                 }
             }
             else if (element[0].EndsWith("cr_numberOfAttacks"))
@@ -22558,7 +22558,7 @@ namespace IceBlink2
                     }
                     else if (parm.EndsWith("cr_damageAdder"))
                     {
-                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].cr_damageAdder.ToString();
+                        return gv.mod.currentEncounter.encounterCreatureList[indexNum].damageAdder.ToString();
                     }
                     else if (parm.EndsWith("cr_category"))
                     {

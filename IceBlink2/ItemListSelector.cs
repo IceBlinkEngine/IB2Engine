@@ -37,7 +37,8 @@ namespace IceBlink2
 
         public void ResizeWindow()
         {
-            this.Height = 70 + itemList.Count * 55;
+            this.Height = 120 + itemList.Count * 55;
+            this.label1.Height = (int)(gv.drawFontReg.Height * 2f);
             int width = 0;
             width = (int)((float)HeaderText.Length * (float)gv.drawFontReg.Height / 1.3f);
             foreach (string s in itemList)
@@ -50,7 +51,7 @@ namespace IceBlink2
 
         public void CreateButtons()
         {
-            int yLoc = 70;
+            int yLoc = 120;
             int cnt = 0;
             foreach (string s in itemList)
             {

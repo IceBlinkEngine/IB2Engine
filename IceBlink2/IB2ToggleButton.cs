@@ -43,9 +43,10 @@ namespace IceBlink2
             //int Height = gv.cc.GetFromBitmapList(ImgOnFilename).PixelSize.Height;
             if (show)
             {
-                if ((x >= (int)((parentPanel.currentLocX + X) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + X + Width) * gv.screenDensity)))
+                gv.screenCombat.BtnHoverText = "parentX:" + parentPanel.currentLocX + "  parentY:" + parentPanel.currentLocY + "  oYshift:" + gv.oYshift + "  btnTag:" + this.tag + "  btnX:" + X + "  btnY:" + Y + "  btnWidth:" + Width + "  btnHeight:" + Height + "  screenDensity:" + gv.screenDensity;
+                if ((x >= (int)((parentPanel.currentLocX + this.X - 2 * gv.pS) * gv.screenDensity)) && (x <= (int)((parentPanel.currentLocX + this.X - 2 * gv.pS + Width) * gv.screenDensity)))
                 {
-                    if ((y >= (int)((parentPanel.currentLocY + Y + gv.oYshift) * gv.screenDensity)) && (y <= (int)((parentPanel.currentLocY + Y + gv.oYshift + Height) * gv.screenDensity)))
+                    if ((y >= (int)((parentPanel.currentLocY + Y) * gv.screenDensity + gv.oYshift)) && (y <= (int)((parentPanel.currentLocY + Y + Height) * gv.screenDensity + gv.oYshift)))
                     {
                         return true;
                     }

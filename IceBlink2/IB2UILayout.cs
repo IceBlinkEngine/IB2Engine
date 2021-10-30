@@ -119,6 +119,18 @@ namespace IceBlink2
             return null;
         }
 
+        public IB2Panel GetPanelByTag(string tag)
+        {
+            foreach (IB2Panel pnl in panelList)
+            {                
+                if (pnl.tag.Equals(tag))
+                {
+                    return pnl;
+                }                
+            }
+            return null;
+        }
+
         public IB2ToggleButton GetToggleByTag(string tag)
         {
             foreach (IB2Panel pnl in panelList)

@@ -109,8 +109,11 @@ namespace IceBlink2
             gv.DrawBitmap(gv.cc.title, src, dst);
 
             //Draw This gv.module's Version Number
-            int xLoc = (gv.screenWidth / 2) - 4;
-            int pH = (int)((float)gv.screenHeight / 100.0f);
+            int totalLength = gv.mod.moduleVersion.ToString().Length + 1;
+            float stringSize = gv.cc.MeasureString("v" + gv.mod.moduleVersion, SharpDX.DirectWrite.FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, gv.drawFontRegHeight);
+
+            int xLoc = (int)((gv.screenWidth / 2) - (stringSize / 2));
+            int pH = (int)((float)gv.screenHeight / 100.0f);            
             gv.DrawText("v" + gv.mod.moduleVersion, xLoc, (8 * gv.squareSize) + (pH * 4));
             
             drawTitleControls();
@@ -170,10 +173,12 @@ namespace IceBlink2
                         else if (btnLoadSavedGame.getImpact(x, y))
                         {
                             gv.PlaySound("btn_click");
-                            if (gv.cc.slot5.Equals(""))
-                            {
-                                //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
-                            }
+                            if (gv.cc.saveSlotDescriptionList.Count < 10) { return; } //has not finished loading all the save games
+
+                            //if (gv.cc.slot5.Equals(""))
+                            //{
+                            //    //Toast.makeText(gv.gameContext, "Still Loading Data... try again in a second", Toast.LENGTH_SHORT).show();
+                            //}
                             else
                             {
                                 gv.cc.doLoadSaveGameDialog();

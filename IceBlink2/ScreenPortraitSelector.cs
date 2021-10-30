@@ -16,7 +16,7 @@ namespace IceBlink2
 	    private int ptrPageIndex = 0;
 	    private int ptrSlotIndex = 0;
 	    private int slotsPerPage = 15;
-        private int maxPages = 20;
+        private int maxPages = 100;
 	    private List<IbbPortrait> btnPortraitSlot = new List<IbbPortrait>();
 	    private IbbButton btnPortraitsLeft = null;
 	    private IbbButton btnPortraitsRight = null;
